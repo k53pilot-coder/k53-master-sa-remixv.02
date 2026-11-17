@@ -1,10 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { ALL_QUESTIONS, QUESTIONS } from "@/lib/quiz";
+import { ALL_QUESTIONS, QUESTIONS, AFRIKAANS_QUESTIONS } from "@/lib/quiz";
 import { questionVisuals, signCodesIn } from "@/lib/question-visuals";
 import { artworkFor } from "@/components/sign-graphic";
 import artwork from "@/data/sign-artwork.json";
 import references from "@/data/reference-images.json";
 import questionData from "@/data/questions.json";
+import questionSignMap from "@/data/question-sign-map.json";
 import { filterLegacyAssetProxyUrls, isLegacyAssetProxyUrl, signArtworkUrl } from "@/lib/sign-artwork-url";
 
 describe("question pictures", () => {
@@ -55,9 +56,8 @@ describe("question pictures", () => {
     const uniqueUrls = [...new Set(precacheUrls)];
     const filteredUrls = filterLegacyAssetProxyUrls(uniqueUrls);
 
-    expect(uniqueUrls.filter(isLegacyAssetProxyUrl)).toHaveLength(41);
     expect(filteredUrls.filter(isLegacyAssetProxyUrl)).toHaveLength(0);
-    expect(filteredUrls).toHaveLength(uniqueUrls.length - 41);
+    expect(filteredUrls).toEqual(uniqueUrls.filter((url) => !isLegacyAssetProxyUrl(url)));
   });
   it("every non-sign picture has a caption and a hosted address", () => {
     for (const q of QUESTIONS)
