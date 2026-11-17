@@ -35,8 +35,7 @@ export function labelFor(code: string) {
   return VALUE_VARIES[code] ? `${base} (${VALUE_VARIES[code]})` : base;
 }
 
-/** Pictures to show for a question: curated question-to-chart mappings first, then verified text codes.
- *  Retired asset-proxy images and answer-revealing vehicle-control tables are never displayed. */
+/** Render original 2012 manual pages for vehicle questions and verified local chart artwork for sign questions. */
 export function questionVisuals(q: Question): Visual[] {
   const vehicle = q.vehicle ?? questionVehicleMap[q.id as keyof typeof questionVehicleMap];
   if (vehicle === "motorcycle" || vehicle === "light" || vehicle === "heavy") return [{ kind: "vehicle", vehicle }];
