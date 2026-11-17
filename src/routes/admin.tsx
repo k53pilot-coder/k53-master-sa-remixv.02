@@ -401,8 +401,8 @@ function GrantAdminForm() {
       const result = await grantAccess({ data: { email: email.trim().toLowerCase() } });
       setMessage(
         result.alreadyAdmin
-          ? `${result.email} already has administrator access.`
-          : `Administrator access granted to ${result.email}. They can now request an email code.`,
+          ? `${result.email} ${tr("already has administrator access.")}`
+          : `${tr("Administrator access granted to")} ${result.email}. ${tr("They can now request an email code.")}`,
       );
       setEmail("");
     } catch (error) {
@@ -445,6 +445,7 @@ function GrantAdminForm() {
 }
 
 function ContentSection() {
+  const { tr } = useLanguage();
   return (
     <>
       <div className="rounded-lg border bg-card px-5">
@@ -464,8 +465,7 @@ function ContentSection() {
         />
       </div>
       <p className="text-sm text-muted-foreground">
-        Editing bundled content still requires a reviewed code change and deployment; this panel
-        will not pretend a local toggle changed what learners see.
+        {tr("Editing bundled content still requires a reviewed code change and deployment; this panel will not pretend a local toggle changed what learners see.")}
       </p>
     </>
   );
@@ -492,6 +492,7 @@ function SettingsSection() {
 }
 
 function LegalSection() {
+  const { tr } = useLanguage();
   return (
     <div className="rounded-lg border bg-card px-5">
       <SetupRow
@@ -509,7 +510,7 @@ function LegalSection() {
       />
       <Button asChild variant="outline" className="mb-5">
         <Link to="/about">
-          View current legal page
+          {tr("View current legal page")}
           <ArrowUpRight size={16} aria-hidden="true" />
         </Link>
       </Button>
