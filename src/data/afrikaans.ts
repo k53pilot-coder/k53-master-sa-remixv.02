@@ -385,7 +385,6 @@ const SIGN_WORDS: Record<string, string> = {
   "lane": "baan", "lanes": "bane", "junction": "aansluiting", "crossroad": "kruispad",
   "intersection": "kruising", "traffic": "verkeer", "vehicle": "voertuig", "vehicles": "voertuie",
   "motor": "motor", "motorcycle": "motorfiets", "motorcycles": "motorfietse",
-  "motor": "motor", "car": "motor", "cars": "motors", "goods": "goedere", "heavy": "swaar",
   "bus": "bus", "buses": "busse", "minibus": "minibus", "minibuses": "minibusse",
   "midibus": "midibus", "midibuses": "midibusse", "taxi": "taxi", "taxis": "taxi's",
   "pedestrian": "voetganger", "pedestrians": "voetgangers", "pedal": "trap", "cycle": "fiets",
@@ -473,7 +472,6 @@ const SIGN_WORDS: Record<string, string> = {
   "upcoming": "naderende", "take": "neem", "exit": "afrit", "toll": "tol",
   "border": "grens", "post": "pos", "electronic": "elektroniese", "changing": "veranderende",
   "park": "park", "provincial": "provinsiale", "scenic": "natuurskoon", "attraction": "besienswaardigheid",
-  "motor": "motor", "track": "baan", "historical": "historiese", "coastal": "kus",
   "arts": "kuns", "crafts": "handwerk", "hiking": "stap", "trail": "roete",
   "farming": "boerdery", "filling": "vul", "station": "stasie", "workshop": "werkswinkel",
   "free": "gratis", "rest": "rus", "area": "area", "including": "insluitend",
@@ -481,7 +479,6 @@ const SIGN_WORDS: Record<string, string> = {
   "broken": "gebroke", "triangles": "driehoeke", "parallel": "parallelle", "block-style": "blokvormige",
   "centre": "middel", "cross": "oorsteek", "drive": "ry", "across": "oor",
   "separates": "skei", "guides": "lei", "around": "om", "channelized": "gekanaliseerde",
-  "yellow": "geel", "except": "behalwe", "emergencies": "noodgevalle", "parking": "parkering",
   "reserved": "voorbehou", "user": "gebruiker", "shown": "aangedui", "direction": "rigting",
   "follow": "volg", "symbol": "simbool", "marking": "padmerk", "word": "woord",
   "instruction": "opdrag", "defines": "definieer", "channel": "kanaal", "traffic": "verkeer",
@@ -489,11 +486,7 @@ const SIGN_WORDS: Record<string, string> = {
   "travel": "beweeg", "change": "verander", "yield": "gee pad", "ahead": "vorentoe",
   "number": "aantal", "reduces": "verminder", "no-overtaking": "verbysteekverbod",
   "bed": "baan", "end": "einde", "arrows": "pyle", "roadway": "ryvlak",
-  "junction": "kruising", "transition": "oorgang", "split": "verdeel", "fork": "vertak",
   "cyclists": "fietsryers", "symbol": "simbool", "word": "woord", "kerbing": "randsteen",
-  "shows": "wys", "red": "rooi", "yellow": "geel", "green": "groen", "indications": "aanduidings",
-  "stop": "stop", "prepare": "berei voor", "proceed": "ry voort", "safe": "veilig",
-  "controls": "beheer", "movements": "bewegings", "permitted": "toegelaat", "obey": "gehoorsaam",
   "applicable": "toepaslike", "light": "lig", "arrow": "pyl", "arrows": "pyle",
   "displayed": "vertoon", "signal": "sein", "signals": "seine", "movement": "beweging",
   "pedestrians": "voetgangers", "wait": "wag", "cross": "oorsteek", "man": "mannetjie",
@@ -504,6 +497,16 @@ const SIGN_WORDS: Record<string, string> = {
   "works": "werke", "caution": "versigtigheid", "temporary": "tydelike", "speed": "spoed",
   "zone": "sone", "how far": "hoe ver", "destinations": "bestemmings",
 };
+
+function replaceSignPhrase(source: string, phrase: string, translated: string): string {
+  let output = source;
+  let position = output.toLowerCase().indexOf(phrase.toLowerCase());
+  while (position >= 0) {
+    output = output.slice(0, position) + translated + output.slice(position + phrase.length);
+    position = output.toLowerCase().indexOf(phrase.toLowerCase(), position + translated.length);
+  }
+  return output;
+}
 
 function translateSignFallback(value: string): string {
   const phrases: Array<[string, string]> = [
@@ -531,18 +534,15 @@ function translateSignFallback(value: string): string {
   ];
   let result = value;
   for (const [from, to] of phrases.sort((a, b) => b[0].length - a[0].length)) {
-    result = result.replace(new RegExp(from.replace(/[.*+?^${}()|[\]\\]/g, "\\export function localizeSignName(value: string, language: "en" | "af") {"), "gi"), to);
+    result = replaceSignPhrase(result, from, to);
   }
-  result = result.replace(/[A-Za-z][A-Za-z'-]*/g, (word) => {
-    if (SIGN_WORDS[word]) return SIGN_WORDS[word];
-    const lower = word.toLowerCase();
-    const translated = SIGN_WORDS[lower];
+  return result.replace(/[A-Za-z][A-Za-z'-]*/g, (word) => {
+    const translated = SIGN_WORDS[word] ?? SIGN_WORDS[word.toLowerCase()];
     if (!translated) return word;
     return word[0] === word[0]?.toUpperCase()
       ? translated.charAt(0).toUpperCase() + translated.slice(1)
       : translated;
   });
-  return result;
 }
 
 export function localizeSignName(value: string, language: "en" | "af") {
