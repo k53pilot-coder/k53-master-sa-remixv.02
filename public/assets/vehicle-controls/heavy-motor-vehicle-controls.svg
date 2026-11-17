@@ -34,13 +34,13 @@
 <g><circle cx="550" cy="255" r="23" class="accent"/><text x="550" y="255" class="n">1</text></g>
 <g><circle cx="690" cy="355" r="23" class="accent"/><text x="690" y="355" class="n">2</text></g>
 <g><circle cx="1050" cy="305" r="23" class="accent"/><text x="1050" y="305" class="n">3</text></g>
-<g><circle cx="810" cy="430" r="23" class="accent"/><text x="810" y="430" class="n">4</text></g>
+<g><circle cx="900" cy="430" r="23" class="accent"/><text x="900" y="430" class="n">4</text></g>
 <g><circle cx="925" cy="362" r="23" class="accent"/><text x="925" y="362" class="n">5</text></g>
 <g><circle cx="555" cy="520" r="23" class="accent"/><text x="555" y="520" class="n">6</text></g>
 <g><circle cx="700" cy="530" r="23" class="accent"/><text x="700" y="530" class="n">7</text></g>
 <g><circle cx="650" cy="585" r="23" class="accent"/><text x="650" y="585" class="n">8</text></g>
 <g><circle cx="775" cy="585" r="23" class="accent"/><text x="775" y="585" class="n">9</text></g>
 <g><circle cx="900" cy="585" r="23" class="accent"/><text x="900" y="585" class="n">10</text></g>
-<g><circle cx="810" cy="468" r="22" class="accent"/><text x="810" y="468" class="n">11</text></g>
+<g><circle cx="810" cy="430" r="22" class="accent"/><text x="810" y="430" class="n">11</text></g>
 <text x="58" y="615" class="s">NUMBER MARKERS ONLY · REFER TO THE MANUAL FOR CONTROL DESCRIPTIONS</text>
 </svg>
