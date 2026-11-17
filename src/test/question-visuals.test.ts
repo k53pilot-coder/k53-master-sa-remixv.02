@@ -45,6 +45,7 @@ describe("question pictures", () => {
       const questions = ALL_QUESTIONS.filter((q) => q.vehicle === vehicle);
       expect(questions, vehicle).toHaveLength(count);
       const config = vehicleControlArtwork[vehicle as keyof typeof vehicleControlArtwork];
+      expect(config.controlLabels).toHaveLength(config.controls.length);
       expect(config.controls).toEqual(vehicle === "motorcycle"
         ? [1, 2, 3, 4, 5, 6, 7, 8, 9]
         : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]);
@@ -64,7 +65,8 @@ describe("question pictures", () => {
     const automaticSvg = readFileSync(join(process.cwd(), "public", vehicleControlArtwork.lightAutomatic.url), "utf8");
     expect(automaticSvg).toContain("AUTOMATIC GEARBOX");
     expect(automaticSvg).not.toContain(">8</text>");
-    }
+    for (const number of vehicleControlArtwork.lightAutomatic.controls)
+      expect(automaticSvg, `automatic light vehicle marker ${number}`).toContain(`>${number}</text>`);
   });
   it("excludes all retired asset-proxy URLs from the PWA precache", () => {
     const precacheUrls = [
