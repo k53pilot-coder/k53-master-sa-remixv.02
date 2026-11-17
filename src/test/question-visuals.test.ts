@@ -22,7 +22,7 @@ describe("question pictures", () => {
     }
   });
   it("R1 question shows the stop sign artwork, not a placeholder", () => {
-    const q = QUESTIONS.find((x) => /\bR1\b/.test(x.q) && !/R1\./.test(x.q))!;
+    const q = QUESTIONS.find((x) => /\\bR1\\b/.test(x.q) && !/R1\\./.test(x.q))!;
     expect(questionVisuals(q).some((v) => v.kind === "sign" && v.code === "R1")).toBe(true);
     expect(artworkFor("R1")).toBeTruthy();
   });
@@ -40,9 +40,7 @@ describe("question pictures", () => {
   it("never shows the vehicle-control component table that lists the answer", () => {
     for (const q of QUESTIONS.filter((x) => x.vehicle))
       expect(
-        questionVisuals(q).some(
-          (v) => v.kind === "image" && /numbered vehicle controls/i.test(v.cap),
-        ),
+        questionVisuals(q).some((v) => v.kind === "image" && /numbered vehicle controls/i.test(v.cap)),
         q.id,
       ).toBe(false);
   });
@@ -55,16 +53,42 @@ describe("question pictures", () => {
     ];
     const uniqueUrls = [...new Set(precacheUrls)];
     const filteredUrls = filterLegacyAssetProxyUrls(uniqueUrls);
-
     expect(filteredUrls.filter(isLegacyAssetProxyUrl)).toHaveLength(0);
     expect(filteredUrls).toEqual(uniqueUrls.filter((url) => !isLegacyAssetProxyUrl(url)));
   });
-  it("every non-sign picture has a caption and a hosted address", () => {
+  it("maps all 33 sign-pack questions to verified official chart artwork in both languages", () => {
+    expect(Object.keys(questionSignMap)).toHaveLength(33);
+    for (const [id, expectedCodes] of Object.entries(questionSignMap)) {
+      const q = ALL_QUESTIONS.find((item) => item.id === id);
+      expect(q, id).toBeDefined();
+      for (const code of expectedCodes) {
+        expect(artworkFor(code), `${id} ${code}`).toBeTruthy();
+        expect(
+          questionVisuals(q!).some((visual) => visual.kind === "sign" && visual.code === code),
+          `${id} ${code}`,
+        ).toBe(true);
+      }
+      const af = AFRIKAANS_QUESTIONS[id];
+      if (af) {
+        const translated = questionVisuals({ ...q!, q: af.q });
+        for (const code of expectedCodes)
+          expect(
+            translated.some((visual) => visual.kind === "sign" && visual.code === code),
+            `${id} Afrikaans ${code}`,
+          ).toBe(true);
+      }
+    }
+  });
+  it("removes dead legacy image references from all question records", () => {
+    for (const q of questionData) expect(q.images ?? [], q.id).toHaveLength(0);
+  });
+  it("never renders a retired image-proxy URL", () => {
     for (const q of QUESTIONS)
-      for (const v of questionVisuals(q))
-        if (v.kind === "image") {
-          expect(v.url, q.id).toMatch(/^\/__l5e\/assets-v1\//);
-          expect(v.cap.length, q.id).toBeGreaterThan(0);
+      for (const visual of questionVisuals(q))
+        if (visual.kind === "image") {
+          expect(isLegacyAssetProxyUrl(visual.url), q.id).toBe(false);
+          expect(visual.url, q.id).toMatch(/^\\/assets\\//);
+          expect(visual.cap.length, q.id).toBeGreaterThan(0);
         }
   });
 });
