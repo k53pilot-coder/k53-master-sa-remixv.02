@@ -37,14 +37,14 @@ export default defineConfig({
       workbox: {
         globPatterns: ["**/*.{js,css,png,jpg,webp,woff2}"],
         maximumFileSizeToCacheInBytes: 5000000,
-        additionalManifestEntries: [
+        additionalManifestEntries: filterLegacyAssetProxyUrls([
           ...new Set([
             ...artwork.map((a) => signArtworkUrl(a.url)),
             ...references.manual,
             ...Object.values(references.vehicle).flat(),
             ...questions.flatMap((q) => q.images?.map((i) => i.url) ?? []),
           ]),
-        ].map((url) => ({ url, revision: null })),
+        ]).map((url) => ({ url, revision: null })),
         navigateFallback: null,
         runtimeCaching: [
           {
