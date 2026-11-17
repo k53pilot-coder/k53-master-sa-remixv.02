@@ -60,7 +60,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       </aside>
       <div className="app-body">
         <header className="topbar">
-          <div className="breadcrumb">{t("breadcrumb")} <ChevronRight size={14} /><strong>{currentLabel ? t(currentLabel.key) : extraLabel ? t(extraLabel.key) : path === "/admin" ? t("nav.admin") : "Your account"}</strong></div>
+          <div className="breadcrumb">{t("breadcrumb")} <ChevronRight size={14} /><strong>{currentLabel ? t(currentLabel.key) : extraLabel ? t(extraLabel.key) : path === "/admin" ? t("nav.admin") : language === "af" ? "Jou rekening" : "Your account"}</strong></div>
           <div className="header-right">
             <label className="language-switch" style={{display:"inline-flex",alignItems:"center",gap:6}}>
               <Languages size={16} /><span className="sr-only">{t("language.label")}</span>
@@ -70,7 +70,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             </label>
             <span className="connection">
               {online ? <CloudCheck size={16} /> : <WifiOff size={16} />}
-              <span>{!ready ? loadError ? "Progress unavailable" : "Loading progress…" : storageError ? "Progress not saved" : cloudError ? "Cloud sync unavailable" : online ? syncState : "Offline · saved on device"}</span>
+              <span>{!ready ? loadError ? (language === "af" ? "Vordering nie beskikbaar nie" : "Progress unavailable") : (language === "af" ? "Laai vordering…" : "Loading progress…") : storageError ? (language === "af" ? "Vordering nie gestoor nie" : "Progress not saved") : cloudError ? (language === "af" ? "Wolksinkronisering nie beskikbaar nie" : "Cloud sync unavailable") : online ? syncState : (language === "af" ? "Vanlyn · op toestel gestoor" : "Offline · saved on device")}</span>
             </span>
             <Button asChild variant="ghost" className="account-button"><Link to="/auth">
               <span className="avatar">{user ? name.slice(0, 1).toUpperCase() : "L"}</span>
