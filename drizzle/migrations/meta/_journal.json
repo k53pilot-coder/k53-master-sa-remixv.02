@@ -8,6 +8,13 @@
       "when": 1794646634829,
       "tag": "0000_restore_learner_access",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1794912000000,
+      "tag": "0001_learner_schema_and_rls",
+      "breakpoints": true
     }
   ]
 }
