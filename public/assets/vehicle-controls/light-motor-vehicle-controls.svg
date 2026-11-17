@@ -33,7 +33,7 @@
 <!-- numbered controls -->
 <g><circle cx="550" cy="255" r="23" class="accent"/><text x="550" y="255" class="n">1</text></g>
 <g><circle cx="665" cy="347" r="23" class="accent"/><text x="665" y="347" class="n">2</text></g>
-<g><circle cx="1035" cy="300" r="23" class="accent"/><text x="1035" y="300" class="n">3</text></g>
+<g><circle cx="1035" cy="300" r="23" class="accent"/><text x="1035" y="300" class="n">3</text></g><g><circle cx="65" cy="300" r="23" class="accent"/><text x="65" y="300" class="n">3</text></g>
 <g><circle cx="860" cy="420" r="23" class="accent"/><text x="860" y="420" class="n">4</text></g>
 <g><circle cx="890" cy="355" r="23" class="accent"/><text x="890" y="355" class="n">5</text></g>
 <g><circle cx="540" cy="500" r="23" class="accent"/><text x="540" y="500" class="n">6</text></g>

@@ -37,7 +37,7 @@
 <path d="M905 298 L910 326 M1008 298 L1003 326" class="thin"/>
 <rect x="905" y="320" width="38" height="28" rx="8" class="metal"/><rect x="985" y="320" width="48" height="28" rx="8" class="metal"/>
 <path d="M944 292 L970 292" class="ink"/>
-<g><circle cx="956" cy="205" r="22" class="accent"/><text x="956" y="205" class="n">3</text></g>
+<g><circle cx="956" cy="205" r="22" class="accent"/><text x="956" y="205" class="n">3</text></g><g><circle cx="1005" cy="205" r="22" class="accent"/><text x="1005" y="205" class="n">3</text></g>
 <g><circle cx="900" cy="390" r="22" class="accent"/><text x="900" y="390" class="n">2</text></g>
 <g><circle cx="1025" cy="390" r="22" class="accent"/><text x="1025" y="390" class="n">4</text></g>
 <g><circle cx="1030" cy="465" r="22" class="accent"/><text x="1030" y="465" class="n">5</text></g>
