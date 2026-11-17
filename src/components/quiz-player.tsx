@@ -6,7 +6,7 @@ import { useStudy } from "./study-provider";
 import { scoreMock, shuffle, AFRIKAANS_QUESTIONS, type Question } from "@/lib/quiz";
 import { CATEGORIES } from "@/data/categories";
 import { SignGraphic } from "./sign-graphic";
-import { VehicleControlsGraphic } from "./vehicle-controls-graphic";
+import { VehicleControlsManual } from "./vehicle-controls-manual";
 import { questionVisuals } from "@/lib/question-visuals";
 import { signByCode } from "@/data/signs";
 import { useLanguage } from "./language-provider";
@@ -173,7 +173,9 @@ export function QuizPlayer({
       <span className="eyebrow">{categoryLabel}</span>
       <h1>{q.q}</h1>
       {questionVisuals(q).map((v) =>
-        v.kind === "sign" ? (
+        v.kind === "vehicle" ? (
+          <VehicleControlsManual key={v.vehicle} vehicle={v.vehicle} language={language} />
+        ) : v.kind === "sign" ? (
           <figure className="question-image question-sign" key={v.code}>
             <SignGraphic
               sign={signByCode(v.code) ?? { code: v.code, name: v.code, meaning: "", group: "control", variants: [] }}
