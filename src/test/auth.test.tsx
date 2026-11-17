@@ -1,5 +1,5 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { createElement } from "react";
+import { createElement, type ReactNode } from "react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { Auth } from "@/routes/auth";
 import { AdminCodeLogin } from "@/routes/admin";
@@ -16,7 +16,7 @@ vi.mock("@tanstack/react-router", () => ({
   createFileRoute: () => (options: unknown) => options,
   useNavigate: () => mocks.navigate,
   useRouter: () => ({ invalidate: mocks.invalidate }),
-  Link: ({ children, to }: { children: unknown; to: string }) =>
+  Link: ({ children, to }: { children: ReactNode; to: string }) =>
     createElement("a", { href: to }, children),
 }));
 vi.mock("@tanstack/react-query", () => ({
