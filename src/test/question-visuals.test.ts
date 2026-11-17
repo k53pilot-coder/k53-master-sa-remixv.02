@@ -52,7 +52,7 @@ describe("question pictures", () => {
       expect(svg).toContain("<svg");
       for (const number of config.controls)
         expect(svg, `${vehicle} marker ${number}`).toContain(`>${number}</text>`);
-      expect(svg.match(/>3<\\/text>/g), `${vehicle} left and right mirror markers`).toHaveLength(2);
+      expect(svg.match(/>3<\/text>/g), `${vehicle} left and right mirror markers`).toHaveLength(2);
       for (const q of questions) {
         const shown = questionVisuals(q);
         expect(shown, q.id).toHaveLength(1);
