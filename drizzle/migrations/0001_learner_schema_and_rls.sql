@@ -1,19 +1,20 @@
 -- Reproducible learner-data schema and row-level security.
 -- Safe to re-run: tables are created only when absent; policies are replaced by name.
--- The existing Supabase project should be backed up before applying migrations.
+-- Back up the existing Supabase project before applying migrations.
 
 create table if not exists public.profiles (
   id uuid primary key references auth.users(id) on delete cascade,
   display_name text not null default '',
-  vehicle text not null default 'light',
+  vehicle text not null default 'light'
+    check (vehicle in ('light', 'heavy', 'motorcycle')),
   created_at timestamptz not null default now()
 );
 
 create table if not exists public.question_attempts (
   id uuid primary key,
   user_id uuid not null references auth.users(id) on delete cascade,
-  question_id text not null,
-  category integer not null check (category between 0 and 7),
+  question_id text not null check (char_length(question_id) <= 100),
+  category smallint not null check (category between 0 and 7),
   correct boolean not null,
   created_at timestamptz not null default now()
 );
@@ -72,7 +73,7 @@ create or replace function public.create_learner_profile()
 returns trigger
 language plpgsql
 security definer
-set search_path = public
+set search_path = ''
 as $$
 begin
   insert into public.profiles (id, display_name)
@@ -81,6 +82,9 @@ begin
   return new;
 end;
 $$;
+
+revoke all on function public.create_learner_profile() from public, anon, authenticated;
+grant execute on function public.create_learner_profile() to service_role;
 
 drop trigger if exists create_learner_profile on auth.users;
 create trigger create_learner_profile
