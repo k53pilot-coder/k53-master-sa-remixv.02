@@ -13,7 +13,7 @@ import { mayRequestAdminAccess } from "@/lib/admin-role";
 export function AppShell({ children }: { children: ReactNode }) {
   const path = useLocation().pathname;
   const { user, ready, loadError, cloudError, storageError, online, syncState, retry, name } = useStudy();
-  const { language, setLanguage, t } = useLanguage();
+  const { language, setLanguage, t, tr } = useLanguage();
   const nav = [
     { to: "/", key: "nav.learning" as const, icon: LayoutDashboard },
     { to: "/learn", key: "nav.categories" as const, icon: BookOpen },
@@ -70,7 +70,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             </label>
             <span className="connection">
               {online ? <CloudCheck size={16} /> : <WifiOff size={16} />}
-              <span>{!ready ? loadError ? (language === "af" ? "Vordering nie beskikbaar nie" : "Progress unavailable") : (language === "af" ? "Laai vordering…" : "Loading progress…") : storageError ? (language === "af" ? "Vordering nie gestoor nie" : "Progress not saved") : cloudError ? (language === "af" ? "Wolksinkronisering nie beskikbaar nie" : "Cloud sync unavailable") : online ? syncState : (language === "af" ? "Vanlyn · op toestel gestoor" : "Offline · saved on device")}</span>
+              <span>{!ready ? loadError ? (language === "af" ? "Vordering nie beskikbaar nie" : "Progress unavailable") : (language === "af" ? "Laai vordering…" : "Loading progress…") : storageError ? (language === "af" ? "Vordering nie gestoor nie" : "Progress not saved") : cloudError ? (language === "af" ? "Wolksinkronisering nie beskikbaar nie" : "Cloud sync unavailable") : online ? tr(syncState) : (language === "af" ? "Vanlyn · op toestel gestoor" : "Offline · saved on device")}</span>
             </span>
             <Button asChild variant="ghost" className="account-button"><Link to="/auth">
               <span className="avatar">{user ? name.slice(0, 1).toUpperCase() : "L"}</span>
@@ -80,12 +80,12 @@ export function AppShell({ children }: { children: ReactNode }) {
           </div>
         </header>
         <main className="content" aria-busy={!ready && !loadError}>
-          {ready ? <>{storageError ? <p className="cloud-warning" role="alert">{storageError}</p> : null}{cloudError ? <p className="cloud-warning" role="status">{cloudError}</p> : null}{children}</> :
+          {ready ? <>{storageError ? <p className="cloud-warning" role="alert">{tr(storageError)}</p> : null}{cloudError ? <p className="cloud-warning" role="status">{tr(cloudError)}</p> : null}{children}</> :
             <section className="study-loading" role={loadError ? "alert" : "status"}>
               <div className="daily-icon">{loadError ? <RotateCcw /> : <BookOpen />}</div>
-              <h1>{loadError ? "Your progress is unavailable" : "Opening your study space"}</h1>
-              <p>{loadError ?? "Restoring progress saved on this device…"}</p>
-              {loadError ? <Button variant="outline" onClick={() => window.location.reload()}>Reload app</Button> : null}
+              <h1>{tr(loadError ? "Your progress is unavailable" : "Opening your study space")}</h1>
+              <p>{loadError ? tr(loadError) : tr("Restoring progress saved on this device…")}</p>
+              {loadError ? <Button variant="outline" onClick={() => window.location.reload()}>{tr("Reload app")}</Button> : null}
             </section>}
         </main>
         <footer className="page-footer"><span>K53 Master SA · AI Amplify SA (Pty) Ltd</span><span>Not affiliated with the Department of Transport · <Link to="/about">{t("nav.about")}</Link></span></footer>
