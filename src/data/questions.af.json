@@ -6,7 +6,8 @@
       "Waarskuwingstekens",
       "Rigtingtekens",
       "Toerismeteken"
-    ]
+    ],
+    "note": "Voorbeeld van ’n regulerende beheerteken uit die handleiding."
   },
   "K53-002": {
     "q": "Tot watter groep behoort tekens met ’n rooi driehoekige rand en geel agtergrond?",
@@ -15,7 +16,8 @@
       "Waarskuwingstekens",
       "Rigtingtekens",
       "Verbodstekens"
-    ]
+    ],
+    "note": "Voorbeeld van ’n waarskuwingsteken uit die handleiding."
   },
   "K53-003": {
     "q": "Tot watter groep behoort blou reghoekige tekens met wit teks of roetenommers?",
@@ -24,7 +26,8 @@
       "Waarskuwingstekens",
       "Rigting- en inligtingstekens",
       "Tydelike tekens"
-    ]
+    ],
+    "note": "Voorbeeld van ’n rigtingteken uit die handleiding."
   },
   "K53-004": {
     "q": "Wat vereis teken R1 (’n agthoekige rooi teken met die wit woord 'STOP' ) van jou?",
@@ -42,7 +45,8 @@
       "Die voertuig wat regs draai",
       "Die voertuig wat eerste gestop het",
       "Die voertuig wat die vinnigste ry"
-    ]
+    ],
+    "note": "Verwante handleidingillustrasie: die vraag verwys na R1.4, maar die voorsiene handleiding merk hierdie illustrasie van ’n drie-/vierrigting-stop as R1.1."
   },
   "K53-006": {
     "q": "Wat dui teken R2 (’n omgekeerde geel driehoek met ’n rooi rand) aan?",
@@ -231,7 +235,8 @@
       "Stop heeltemal agter die stopstreep totdat groen verskyn",
       "Draai links indien die pad oop is",
       "Verminder spoed en gee pad"
-    ]
+    ],
+    "note": "Slegs ’n algemene verwysing na verkeersligte; dit beeld nie die spesifieke ligtoestand in die vraag uit nie."
   },
   "K53-027": {
     "q": "Wat beteken ’n FLITSENDE ROOI verkeerslig?",
@@ -240,7 +245,8 @@
       "Behandel die kruising as ’n vierrigting-stop",
       "Ry versigtig voort sonder om te stop",
       "Pad gesluit vorentoe"
-    ]
+    ],
+    "note": "Slegs ’n algemene verwysing na verkeersligte; dit beeld nie die spesifieke ligtoestand in die vraag uit nie."
   },
   "K53-028": {
     "q": "Wat beteken ’n aanhoudende AMBER verkeerslig (S3)?",
@@ -249,7 +255,8 @@
       "Stop agter die streep tensy jy te naby is om veilig te stop",
       "Gee pad aan verkeer van regs",
       "Draai versigtig regs"
-    ]
+    ],
+    "note": "Slegs ’n algemene verwysing na verkeersligte; dit beeld nie die spesifieke ligtoestand in die vraag uit nie."
   },
   "K53-029": {
     "q": "Wat beteken ’n FLITSENDE AMBER verkeerslig (S4)?",
@@ -258,7 +265,8 @@
       "Ry versigtig voort en gee pad aan voetgangers en kruisende verkeer",
       "Sein buite werking; stop",
       "Versnel"
-    ]
+    ],
+    "note": "Slegs ’n algemene verwysing na verkeersligte; dit beeld nie die spesifieke ligtoestand in die vraag uit nie."
   },
   "K53-030": {
     "q": "Wat beteken ’n GROEN PYL wat links wys langs ’n rooi lig (S5)?",
@@ -267,7 +275,8 @@
       "Jy mag links draai; die draai word beskerm en jy het voorrang",
       "Gee pad aan aankomende verkeer voordat jy draai",
       "Voetgangers het voorrang"
-    ]
+    ],
+    "note": "Slegs ’n algemene verwysing na verkeersligte; dit beeld nie die groen pyl na links in die vraag uit nie."
   },
   "K53-031": {
     "q": "Wat dui oorhoofse baanbeheerseine met ’n GROEN PYL (S16) aan?",
@@ -276,7 +285,8 @@
       "Die baan is vir busse gereserveer",
       "Versnel in hierdie baan",
       "Die baan sluit vorentoe"
-    ]
+    ],
+    "note": "Slegs ’n algemene verwysing na verkeersligte; geen oorhoofse baanbeheergrafika verskyn in die voorsiene handleiding nie."
   },
   "K53-032": {
     "q": "Wat dui oorhoofse baanbeheerseine met ’n ROOI KRUIS (S17) aan?",
@@ -285,7 +295,8 @@
       "Die baan is vir verkeer gesluit; moenie daarin ry nie",
       "Tolbaan vorentoe",
       "Noodstopbaan"
-    ]
+    ],
+    "note": "Slegs ’n algemene verwysing na verkeersligte; geen oorhoofse baanbeheergrafika verskyn in die voorsiene handleiding nie."
   },
   "K53-033": {
     "q": "Wat is die regsbetekenis van ’n verkeersbeampte se handsein (SS1)?",
@@ -2291,7 +2302,8 @@
       "Indien jy in A ry, moet jy voor hierdie lyn stop en ry wanneer dit veilig is",
       "Indien jy in A ry, moet jy spoed verminder en voortgaan indien dit veilig is",
       "Indien jy in B ry, mag jy A verbysteek indien daar geen ander voertuie in die kruising is nie"
-    ]
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
   },
   "B-012": {
     "q": "Waarskuwingsteken S3 wys jou dat …",
@@ -2308,7 +2320,8 @@
       "Die padoppervlak ongelyk is",
       "Verkeer dit nie aan enige kant mag verbysteek of oorsteek nie",
       "Dit ’n baan is wat vir busse gereserveer is"
-    ]
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
   },
   "B-015": {
     "q": "Wanneer jy van baan L1 na L2 wil beweeg (skets 8 in die sketsboek), moet jy … (i) Dit slegs doen wanneer dit veilig is (ii) Jou rigtingwysers betyds aanskakel om aan te dui wat jy gaan doen (iii) Jou voertuig se spieël gebruik om bewus te wees van ander verkeer. KIES DIE KORREKTE KOMBINASIE",
@@ -2316,7 +2329,8 @@
       "Slegs (i) en (ii) is korrek",
       "Al die bogenoemde is korrek",
       "Slegs (ii) en (iii) is korrek"
-    ]
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
   },
   "B-017": {
     "q": "Indien jy sien iemand wil jou verbysteek, moet jy … (i) So ver links hou as wat veilig is (ii) Nie vinniger ry nie (iii) Handseine gee om die persoon toe te laat om veilig verby te gaan. KIES DIE KORREKTE KOMBINASIE",
@@ -2332,7 +2346,8 @@
       "Weet dat daardie deel van die pad slegs vir voetgangers is",
       "Voorrang verleen aan voetgangers wat die straat wil oorsteek",
       "Stop omdat skoolkinders moontlik die pad kan oorsteek"
-    ]
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
   },
   "B-019": {
     "q": "Wanneer jy bestuur …",
@@ -2425,7 +2440,8 @@
       "Uitkyk vir padwerke waar trekkers werk",
       "Weet dat slegs landbouvoertuie daar mag ry",
       "Let op landbouvoertuie wat moontlik op die pad kan wees"
-    ]
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
   },
   "B-032": {
     "q": "Waarskuwingsteken Q4 wys jou dat …",
@@ -2442,7 +2458,8 @@
       "Stop en wag totdat die lig groen word voordat jy ry",
       "Stop en ry slegs voort indien dit veilig is",
       "Let op vir ’n padblokkade omdat die lig ’n polisiebeheer aandui"
-    ]
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
   },
   "B-034": {
     "q": "Wat wys teken J8 jou?",
@@ -2552,7 +2569,8 @@
       "Stop",
       "Uitkyk vir skoolkinders",
       "Voorrang aan alle padgebruikers en moontlik ook treine verleen"
-    ]
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
   },
   "B-047": {
     "q": "Die lisensie vir jou voertuig (klaringsertifikaat) is geldig vir …",
