@@ -218,7 +218,7 @@ const uiMessages: Record<string, string> = {
   "They can now request an email code.": "Hulle kan nou ’n e-poskode aanvra.",
   "Could not grant access. Confirm the email belongs to an existing account and try again.": "Kon nie toegang verleen nie. Bevestig dat die e-posadres aan ’n bestaande rekening behoort en probeer weer.",
   "Road-sign library": "Padtekenbiblioteek",
-  "389 master entries are currently compiled from static app data.": "401 meesterinskrywings is tans uit statiese toepassingsdata saamgestel.",
+  "401 master entries are currently compiled from static app data.": "401 meesterinskrywings is tans uit statiese toepassingsdata saamgestel.",
   "Bundled with app": "Deel van toepassing",
   "Guides and study references": "Gidse en studieverwysings",
   "Published guides and question content are shipped with the application.": "Gepubliseerde gidse en vraaginhoud word saam met die toepassing versprei.",
