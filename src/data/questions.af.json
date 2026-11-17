@@ -898,5 +898,215 @@
       "Om veilig teen hoë snelhede te ry",
       "Om brandstof te bespaar"
     ]
-  ]
+  ],
+  "motorcycle-001": {
+    "q": "Om die brandstoftoevoer na die enjin te reël, gebruik jy die volgende beheer:",
+    "options": [
+      "4 + 5 + 7",
+      "8",
+      "5",
+      "3"
+    ],
+    "explain": "5 = Gashendel"
+  },
+  "motorcycle-002": {
+    "q": "By ’n motorfiets is die hefboom wat die voorrem aanslaan en die remlig aktiveer …",
+    "options": [
+      "1, 2, 3, 4, 5, 7 en 8",
+      "1",
+      "Voor- en agterremme, nommers 4 en 7",
+      "4"
+    ],
+    "explain": "4 = Voorrem"
+  },
+  "motorcycle-003": {
+    "q": "Op ’n motorfiets is die hefboom wat die agterrem aanslaan …",
+    "options": [
+      "4 en 7",
+      "7",
+      "2, 4 en 7",
+      "1, 2, 3, 4, 5, 7 en 8"
+    ],
+    "explain": "7 = Agterrem (voet)"
+  },
+  "motorcycle-004": {
+    "q": "Die volgende kontroles word saam gebruik om die motorfiets heeltemal tot stilstand te bring:",
+    "options": [
+      "4 en 7",
+      "Voor- en agterremme, nommers 4 en 7",
+      "2, 4 en 7",
+      "4 + 5 + 7"
+    ],
+    "explain": "4 = Voorrem; 7 = Agterrem (voet)"
+  },
+  "motorcycle-005": {
+    "q": "Die volgende beheer word gebruik om die spoed van ’n motorfiets te verhoog of te verlaag:",
+    "options": [
+      "2",
+      "Voor- en agterremme, nommers 4 en 7",
+      "5",
+      "8"
+    ],
+    "explain": "5 = Gashendel"
+  },
+  "motorcycle-006": {
+    "q": "Die volgende kontroles word gebruik om die spoed van ’n motorfiets te beheer:",
+    "options": [
+      "4",
+      "Voor- en agterremme, nommers 4 en 7",
+      "4 + 5 + 7",
+      "1"
+    ],
+    "explain": "4 = Voorrem; 5 = Gashendel; 7 = Agterrem (voet)"
+  },
+  "motorcycle-007": {
+    "q": "Die skakelaar waarmee rigtingwysers aangeskakel word om jou voornemens aan te dui, is …",
+    "options": [
+      "6",
+      "1",
+      "2, 4 en 7",
+      "5"
+    ],
+    "explain": "6 = Rigtingwyserskakelaar"
+  },
+  "motorcycle-008": {
+    "q": "Die draaigreep wat die enjinspoed beheer, is …",
+    "options": [
+      "Voor- en agterremme, nommers 4 en 7",
+      "4",
+      "5",
+      "4 en 7"
+    ],
+    "explain": "5 = Gashendel"
+  },
+  "motorcycle-009": {
+    "q": "Die volgende kontroles word gebruik om ratte te wissel …",
+    "options": [
+      "5",
+      "1",
+      "6",
+      "1 en 2"
+    ],
+    "explain": "1 = Rathefboom; 2 = Koppelaar"
+  },
+  "motorcycle-010": {
+    "q": "Die volgende beheer word gebruik om aan te dui dat jy gaan draai …",
+    "options": [
+      "6",
+      "4 + 5 + 7",
+      "2",
+      "4 en 7"
+    ],
+    "explain": "6 = Rigtingwyserskakelaar"
+  },
+  "motorcycle-011": {
+    "q": "Om vinniger te ry, moet jy beheer … gebruik",
+    "options": [
+      "1, 2, 3, 4, 5, 7 en 8",
+      "8",
+      "5",
+      "4"
+    ],
+    "explain": "5 = Gashendel"
+  },
+  "motorcycle-012": {
+    "q": "Om te stop, moet jy die volgende kontroles gebruik …",
+    "options": [
+      "4 en 7",
+      "2",
+      "Voor- en agterremme, nommers 4 en 7",
+      "4 + 5 + 7"
+    ],
+    "explain": "4 = Voorrem; 7 = Agterrem (voet)"
+  },
+  "motorcycle-013": {
+    "q": "Om die motorfiets te draai, moet jy beheer … gebruik",
+    "options": [
+      "8",
+      "5",
+      "4",
+      "3"
+    ],
+    "explain": "8 = Handvatsels"
+  },
+  "motorcycle-014": {
+    "q": "Wanneer kontroles 4 en 7 gebruik word, is die afstand wat dit neem om jou motorfiets te stop … (i) langer op ’n nat pad as op ’n droë pad. (ii) langer wanneer jy vinniger ry. (iii) langer wanneer jy ’n passasier vervoer. KIES DIE KORREKTE KOMBINASIE",
+    "options": [
+      "4",
+      "8",
+      "Al die stellings is korrek",
+      "3"
+    ],
+    "explain": "4 = Voorrem; 7 = Agterrem"
+  },
+  "motorcycle-015": {
+    "q": "Watter beheer gebruik ’n motorfietsryer om die verkeer agter die motorfiets dop te hou?",
+    "options": [
+      "8",
+      "Voor- en agterremme, nommers 4 en 7",
+      "2",
+      "3"
+    ],
+    "explain": "3 = Truspieëls"
+  },
+  "motorcycle-016": {
+    "q": "Watter beheer gebruik jy om die enjin van die ratkas te ontkoppel?",
+    "options": [
+      "2",
+      "3",
+      "8",
+      "4 en 7"
+    ],
+    "explain": "2 = Koppelaar"
+  },
+  "motorcycle-017": {
+    "q": "Watter beheer gebruik jy om verkeer agter jou dop te hou?",
+    "options": [
+      "4 + 5 + 7",
+      "2",
+      "8",
+      "3"
+    ],
+    "explain": "3 = Truspieëls"
+  },
+  "motorcycle-018": {
+    "q": "Watter beheer gebruik ’n motorfietsryer wanneer hy/sy wil aandui dat hy/sy links gaan stuur?",
+    "options": [
+      "4 + 5 + 7",
+      "Voor- en agterremme, nommers 4 en 7",
+      "1",
+      "6"
+    ],
+    "explain": "6 = Rigtingwyserskakelaar"
+  },
+  "motorcycle-019": {
+    "q": "Watter kontroles moet onmiddellik voordat jy tot stilstand kom saam gebruik word?",
+    "options": [
+      "1",
+      "2, 4 en 7",
+      "3",
+      "2"
+    ],
+    "explain": "2 = Koppelaar; 4 = Voorrem; 7 = Agterrem (voet)"
+  },
+  "motorcycle-020": {
+    "q": "Om ’n skerp draai in die pad te neem, moet die volgende kontroles gebruik word …",
+    "options": [
+      "5",
+      "4 en 7",
+      "2, 4 en 7",
+      "1, 2, 3, 4, 5, 7 en 8"
+    ],
+    "explain": "1 = Rathefboom; 2 = Koppelaar; 3 = Truspieëls; 4 = Voorrem; 5 = Gashendel; 7 = Agterrem (voet); 8 = Handvatsels"
+  },
+  "motorcycle-021": {
+    "q": "Watter hefboom word gebruik om ratte te wissel?",
+    "options": [
+      "1",
+      "Voor- en agterremme, nommers 4 en 7",
+      "2",
+      "5"
+    ],
+    "explain": "1 = Rathefboom"
+  }
 }
