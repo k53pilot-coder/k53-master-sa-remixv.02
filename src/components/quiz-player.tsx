@@ -27,7 +27,8 @@ export function QuizPlayer({
           ? { ...question, q: translated.q, options: translated.options, explain: translated.explain ?? question.explain, note: translated.note ?? question.note }
           : question;
       })
-    : questions;\n  const [index, setIndex] = useState(0),
+    : questions;
+  const [index, setIndex] = useState(0),
     [answers, setAnswers] = useState<Record<string, number>>({}),
     [finished, setFinished] = useState(false),
     [seconds, setSeconds] = useState(3600);
