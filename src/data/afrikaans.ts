@@ -652,7 +652,6 @@ const SIGN_PHRASES: Record<string, string> = {
   "Mandatory direction arrow ahead": "Verpligte rigtingpyl vorentoe",
   "No overtaking or no crossing line ahead": "Geen-verbysteek- of geen-oorsteeklyn vorentoe",
   "Arrestor bed ahead": "Noodrembaan vorentoe",
-  "Speed hump": "Spoedhobbel",
   "End of exclusive use lane arrows": "Einde van uitsluitlike baanpyle",
   "Lane line": "Baanlyn",
   "Guide line": "Geleidingslyn",
