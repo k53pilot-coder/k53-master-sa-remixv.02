@@ -1,52 +1,52 @@
 [
   {
     "name": "Rules of the Road manual",
-    "description": "South African Department of Transport learner-driver manual (2012).",
-    "url": "https://www.natis.gov.za/images/learners/1_Rules_of_the_Road_v100_Jun_2012.pdf"
+    "description": "South African Department of Transport learner-driver manual (2012), hosted by K53RSA.",
+    "url": "https://www.k53rsa.co.za/downloads/1_Rules_of_the_Road_v100_Jun_2012.pdf"
   },
   {
     "name": "Vehicle controls manual",
-    "description": "Official NaTIS download page for vehicle and motorcycle controls.",
-    "url": "https://www.natis.gov.za/index.php/downloads/learner-driver-manual/vehicle-controls"
+    "description": "Department of Transport vehicle and motorcycle controls manual (2012), hosted by K53RSA.",
+    "url": "https://www.k53rsa.co.za/downloads/3_Vehicle_Controls_Manual_v100_Jun_2012.pdf"
   },
   {
     "name": "Road signs charts",
-    "description": "Department of Transport road-sign charts (PDF mirror hosted by K53RSA).",
+    "description": "Department of Transport road-sign charts (PDF hosted by K53RSA).",
     "url": "https://www.k53rsa.co.za/downloads/RTSigns_charts.pdf"
   },
   {
     "name": "Road signs catalogue",
-    "description": "Official NaTIS download page for the road-traffic-sign manual.",
-    "url": "https://www.natis.gov.za/index.php/downloads/learner-driver-manual/road-traffic-signs"
+    "description": "Department of Transport road-traffic-sign manual (2012), hosted by K53RSA.",
+    "url": "https://www.k53rsa.co.za/downloads/2_Manual_on_Road_Traffic_Signs_v100_Jun_2012.pdf"
   },
   {
     "name": "DLTC guide",
-    "description": "DLTC information sheet (PDF mirror hosted by K53RSA); confirm current requirements with your centre.",
+    "description": "DLTC information sheet (PDF hosted by K53RSA); confirm current requirements with your centre.",
     "url": "https://www.k53rsa.co.za/downloads/dltc-eng.pdf"
   },
   {
     "name": "Light vehicle yard test",
-    "description": "Light motor vehicle yard assessment sheet (PDF mirror hosted by K53RSA).",
+    "description": "Light motor vehicle yard assessment sheet (PDF hosted by K53RSA).",
     "url": "https://www.k53rsa.co.za/downloads/lmv-eng1.pdf"
   },
   {
     "name": "Light vehicle road test",
-    "description": "Light motor vehicle road assessment sheet (PDF mirror hosted by K53RSA).",
+    "description": "Light motor vehicle road assessment sheet (PDF hosted by K53RSA).",
     "url": "https://www.k53rsa.co.za/downloads/lmv-eng2.pdf"
   },
   {
     "name": "Heavy vehicle practical guide",
-    "description": "Heavy motor vehicle assessment sheet (PDF mirror hosted by K53RSA).",
+    "description": "Heavy motor vehicle assessment sheet (PDF hosted by K53RSA).",
     "url": "https://www.k53rsa.co.za/downloads/hmv-eng1.pdf"
   },
   {
     "name": "Motorcycle yard test",
-    "description": "Motorcycle yard assessment sheet (PDF mirror hosted by K53RSA).",
+    "description": "Motorcycle yard assessment sheet (PDF hosted by K53RSA).",
     "url": "https://www.k53rsa.co.za/downloads/motorcycle-eng1.pdf"
   },
   {
     "name": "Motorcycle road test",
-    "description": "Motorcycle road assessment sheet (PDF mirror hosted by K53RSA).",
+    "description": "Motorcycle road assessment sheet (PDF hosted by K53RSA).",
     "url": "https://www.k53rsa.co.za/downloads/motorcycle-eng2.pdf"
   }
 ]
