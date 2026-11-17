@@ -70,7 +70,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             </label>
             <span className="connection">
               {online ? <CloudCheck size={16} /> : <WifiOff size={16} />}
-              <span>{!ready ? loadError ? (language === "af" ? "Vordering nie beskikbaar nie" : "Progress unavailable") : (language === "af" ? "Laai vordering…" : "Loading progress…") : storageError ? (language === "af" ? "Vordering nie gestoor nie" : "Progress not saved") : cloudError ? (language === "af" ? "Wolksinkronisering nie beskikbaar nie" : "Cloud sync unavailable") : online ? tr(syncState) : (language === "af" ? "Vanlyn · op toestel gestoor" : "Offline · saved on device")}</span>
+              <span>{!ready ? loadError ? (language === "af" ? "Vordering nie beskikbaar nie" : "Progress unavailable") : (language === "af" ? "Laai vordering…" : "Loading progress…") : storageError ? (language === "af" ? "Vordering nie gestoor nie" : "Progress not saved") : !online ? (language === "af" ? "Vanlyn · op toestel gestoor" : "Offline · saved on device") : cloudError ? (language === "af" ? "Wolksinkronisering nie beskikbaar nie" : "Cloud sync unavailable") : tr(syncState)}</span>
             </span>
             <Button asChild variant="ghost" className="account-button"><Link to="/auth">
               <span className="avatar">{user ? name.slice(0, 1).toUpperCase() : "L"}</span>
