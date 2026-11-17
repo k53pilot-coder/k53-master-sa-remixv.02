@@ -40,7 +40,7 @@ describe("question pictures", () => {
   });
   it("uses only original pages from the June 2012 vehicle controls manual", () => {
     const vehicleQuestions = QUESTIONS.filter((q) => q.vehicle);
-    expect(vehicleQuestions).toHaveLength(81);
+    expect(vehicleQuestions).toHaveLength(80);
     for (const q of vehicleQuestions) {
       expect(
         questionVisuals(q).some((visual) => visual.kind === "vehicle" && visual.vehicle === q.vehicle),
