@@ -40,6 +40,8 @@ grant select, insert on public.question_attempts to authenticated;
 grant select, insert on public.test_attempts to authenticated;
 grant all on public.profiles, public.question_attempts, public.test_attempts to service_role;
 
+-- Supabase combines permissive policies with OR. Inspect pg_policies after applying and
+-- remove any legacy permissive policy that grants broader access than these owner rules.
 drop policy if exists "profiles_select_own" on public.profiles;
 create policy "profiles_select_own" on public.profiles
   for select to authenticated using (id = (select auth.uid()));
