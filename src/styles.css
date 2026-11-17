@@ -1625,3 +1625,80 @@ select {
 .legal-page ul { padding-left: 20px; list-style: disc; }
 .legal-page a { color: var(--primary); text-decoration: underline; }
 .legal-page hr { border-color: var(--border); margin: 24px 0; }
+
+
+/* Prevent narrow screens from inheriting intrinsic widths from nested grid/flex content. */
+@media (max-width: 600px) {
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
+  .app-layout,
+  .app-body,
+  .content,
+  .topbar,
+  .header-right,
+  .breadcrumb,
+  .page-heading,
+  .page-heading > div,
+  .category-grid,
+  .wide-grid,
+  .category-card,
+  .lesson-body,
+  .lesson-body section,
+  .lesson-body section > div {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .app-body,
+  .content {
+    width: 100%;
+  }
+
+  .content {
+    box-sizing: border-box;
+  }
+
+  .category-grid,
+  .wide-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .category-card,
+  .category-card h3,
+  .category-card p,
+  .page-heading h1,
+  .page-heading p {
+    overflow-wrap: anywhere;
+  }
+
+  .page-heading > div {
+    flex: 1 1 auto;
+  }
+
+  .breadcrumb {
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 360px) {
+  .category-grid,
+  .wide-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .content {
+    padding-inline: 14px;
+  }
+
+  .topbar {
+    padding-inline: 12px;
+  }
+
+  .account-button > span:nth-child(2) {
+    display: none;
+  }
+}
