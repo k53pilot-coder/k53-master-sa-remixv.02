@@ -43,6 +43,22 @@ export function QuizPlayer({
   );
   const q = displayQuestions[index];
   const selected = q ? answers[q.id] : undefined;
+  const categoryLabel =
+    language === "af"
+      ? [
+          t("quiz.category0"),
+          t("quiz.category1"),
+          t("quiz.category2"),
+          t("quiz.category3"),
+          t("quiz.category4"),
+          t("quiz.category5"),
+          t("quiz.category6"),
+          t("quiz.category7"),
+        ][q?.cat ?? 0]
+      : q
+        ? CATEGORIES[q.cat]?.name
+        : undefined;
+
   const finish = () => {
     if (finished) return;
     setFinished(true);
@@ -153,7 +169,7 @@ export function QuizPlayer({
         ) : null}
       </div>
       <progress max={displayQuestions.length} value={index + 1} />
-      <span className="eyebrow">{language === "af" ? t((`quiz.category${q.cat}`) as any) : CATEGORIES[q.cat]?.name}</span>
+      <span className="eyebrow">{categoryLabel}</span>
       <h1>{q.q}</h1>
       {questionVisuals(q).map((v) =>
         v.kind === "sign" ? (
