@@ -270,7 +270,14 @@ type LanguageContextValue = {
   tr: (value: string) => string;
 };
 
-const LanguageContext = createContext<LanguageContextValue | null>(null);
+const fallbackLanguageContext: LanguageContextValue = {
+  language: "en",
+  setLanguage: () => {},
+  t: (key) => messages.en[key],
+  tr: (value) => value,
+};
+
+const LanguageContext = createContext<LanguageContextValue>(fallbackLanguageContext);
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguageState] = useState<AppLanguage>("en");
@@ -299,7 +306,5 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 }
 
 export function useLanguage() {
-  const context = useContext(LanguageContext);
-  if (!context) throw new Error("useLanguage must be used inside LanguageProvider");
-  return context;
+  return useContext(LanguageContext);
 }
