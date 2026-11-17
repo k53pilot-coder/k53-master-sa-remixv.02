@@ -19,6 +19,7 @@ import { ADMIN_OWNER_EMAIL, getAdminRole } from "@/lib/admin-role";
 import { supabase } from "@/integrations/supabase/client";
 import { pageHead } from "@/lib/metadata";
 import { useStudy } from "@/components/study-provider";
+import { useLanguage } from "@/components/language-provider";
 
 type AdminAccess =
   { status: "checking" } | { status: "ready"; role: "owner" | "admin" } | { status: "unavailable" };
@@ -46,6 +47,7 @@ export const Route = createFileRoute("/admin")({
 
 function AdminPage() {
   const { ready, user } = useStudy();
+  const { tr } = useLanguage();
   const userId = user?.id;
   const checkAdminAccess = useServerFn(getAdminAccess);
   const [access, setAccess] = useState<AdminAccess>({ status: "checking" });
@@ -90,8 +92,8 @@ function AdminPage() {
   if (access.status === "checking") {
     return (
       <section className="mx-auto max-w-2xl py-10" role="status">
-        <h1 className="text-2xl font-semibold">Checking admin access</h1>
-        <p className="mt-2 text-muted-foreground">Verifying your signed-in account permissions…</p>
+        <h1 className="text-2xl font-semibold">{tr("Checking admin access")}</h1>
+        <p className="mt-2 text-muted-foreground">{tr("Verifying your signed-in account permissions…")}</p>
       </section>
     );
   }
@@ -123,15 +125,14 @@ function AdminPage() {
     <div className="space-y-6">
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-semibold">App administration</h1>
+          <h1 className="text-3xl font-semibold">{tr("App administration")}</h1>
           <p className="mt-2 text-muted-foreground">
-            Manage the app safely. Content, settings and tracking changes remain unavailable until
-            their backends are configured.
+            {tr("Manage the app safely. Content, settings and tracking changes remain unavailable until their backends are configured.")}
           </p>
         </div>
         <span className="inline-flex items-center gap-2 rounded-full bg-secondary px-3 py-1.5 text-sm text-secondary-foreground">
           <LockKeyhole size={15} aria-hidden="true" />
-          {access.role === "owner" ? "Owner" : "Admin"} access
+          {tr(access.role === "owner" ? "Owner" : "Admin")} {tr("access")}
         </span>
       </header>
 
@@ -147,7 +148,7 @@ function AdminPage() {
               onClick={() => setSection(id)}
             >
               <Icon size={17} aria-hidden="true" />
-              {label}
+              {tr(label)}
             </Button>
           ))}
         </nav>
@@ -155,7 +156,7 @@ function AdminPage() {
         <section className="min-w-0 space-y-5" aria-labelledby="admin-section-title">
           <div>
             <h2 id="admin-section-title" className="text-xl font-semibold">
-              {current.label}
+              {tr(current.label)}
             </h2>
           </div>
           {section === "overview" ? <Overview /> : null}
@@ -171,10 +172,11 @@ function AdminPage() {
 }
 
 function Status({ children }: { children: string }) {
+  const { tr } = useLanguage();
   return (
     <span className="inline-flex items-center gap-1.5 text-sm text-muted-foreground">
       <span className="size-2 rounded-full bg-amber-500" aria-hidden="true" />
-      {children}
+      {tr(children)}
     </span>
   );
 }
@@ -188,11 +190,12 @@ function SetupRow({
   description: string;
   status?: string;
 }) {
+  const { tr } = useLanguage();
   return (
     <div className="flex flex-wrap items-start justify-between gap-3 border-b py-4 last:border-b-0">
       <div className="max-w-2xl">
-        <h3 className="font-medium">{title}</h3>
-        <p className="mt-1 text-sm text-muted-foreground">{description}</p>
+        <h3 className="font-medium">{tr(title)}</h3>
+        <p className="mt-1 text-sm text-muted-foreground">{tr(description)}</p>
       </div>
       <Status>{status}</Status>
     </div>
@@ -200,6 +203,7 @@ function SetupRow({
 }
 
 function Overview() {
+  const { tr } = useLanguage();
   return (
     <>
       <div className="rounded-lg border bg-card px-5">
@@ -222,8 +226,7 @@ function Overview() {
         />
       </div>
       <div className="rounded-lg border border-amber-300 bg-amber-50 p-4 text-sm text-amber-950">
-        Admin grants are active. Content publishing, feature settings, legal versions and analytics
-        remain unavailable until their server-backed storage and policies are configured.
+        {tr("Admin grants are active. Content publishing, feature settings, legal versions and analytics remain unavailable until their server-backed storage and policies are configured.")}
       </div>
     </>
   );
@@ -256,6 +259,7 @@ function AccessSection() {
 
 export function AdminCodeLogin({ onVerified }: { onVerified: (id: string) => void }) {
   const { user } = useStudy();
+  const { tr } = useLanguage();
   const [email, setEmail] = useState(user?.email ?? ADMIN_OWNER_EMAIL);
   const [code, setCode] = useState("");
   const [sent, setSent] = useState(false);
@@ -275,7 +279,7 @@ export function AdminCodeLogin({ onVerified }: { onVerified: (id: string) => voi
       if (error) throw error;
       setEmail(normalizedEmail);
       setSent(true);
-      setMessage("If this email has admin access, a one-time code has been sent.");
+      setMessage(tr("If this email has admin access, a one-time code has been sent."));
     } catch (error) {
       console.error("Could not request an admin sign-in code", error);
       const missingConfiguration =
@@ -302,11 +306,11 @@ export function AdminCodeLogin({ onVerified }: { onVerified: (id: string) => voi
       });
       if (error) throw error;
       if (!data.user) throw new Error("The verified session did not include a user.");
-      setMessage("Code verified. Checking administrator access…");
+      setMessage(tr("Code verified. Checking administrator access…"));
       onVerified(data.user.id);
     } catch (error) {
       console.error("Could not verify the admin sign-in code", error);
-      setMessage("That code could not be verified. Check it or request a new code.");
+      setMessage(tr("That code could not be verified. Check it or request a new code."));
     } finally {
       setBusy(false);
     }
@@ -383,6 +387,7 @@ export function AdminCodeLogin({ onVerified }: { onVerified: (id: string) => voi
 }
 
 function GrantAdminForm() {
+  const { tr } = useLanguage();
   const grantAccess = useServerFn(grantAdminAccess);
   const [email, setEmail] = useState("");
   const [busy, setBusy] = useState(false);
@@ -402,9 +407,7 @@ function GrantAdminForm() {
       setEmail("");
     } catch (error) {
       console.error("Could not grant administrator access", error);
-      setMessage(
-        "Could not grant access. Confirm the email belongs to an existing account and try again.",
-      );
+      setMessage(tr("Could not grant access. Confirm the email belongs to an existing account and try again."));
     } finally {
       setBusy(false);
     }
