@@ -184,7 +184,7 @@ export function QuizPlayer({
         </Button>
         {index > 0 && mock ? (
           <Button variant="outline" onClick={() => setIndex((i) => i - 1)}>
-            Previous
+            {t("quiz.previous")}
           </Button>
         ) : null}
         <Button
