@@ -15,6 +15,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { useStudy } from "@/components/study-provider";
 import { CATEGORIES } from "@/data/categories";
+import { AFRIKAANS_CATEGORIES } from "@/data/afrikaans";
+import { useLanguage } from "@/components/language-provider";
 import { QUESTIONS } from "@/lib/quiz";
 import { SIGNS } from "@/data/signs";
 import { pageHead } from "@/lib/metadata";
@@ -29,37 +31,41 @@ export const Route = createFileRoute("/")({
 });
 function Dashboard() {
   const { progress, name } = useStudy();
+  const { language } = useLanguage();
+  const af = language === "af";
+  const categories = af ? AFRIKAANS_CATEGORIES : CATEGORIES;
+  const words = af ? { moving:"HOU AAN BEWEEG", all:"Jy het elke kategorie verken.", welcome:`Welkom terug, ${name}.`, start:"Jou pad na gereedheid begin hier.", intro:"’n Bietjie leer vandag. Baie meer selfvertroue môre.", journey:"Jou leerderreis", learn:"LEER. OEFEN. SLAAG.", know:"Ken die tekens. Verstaan die reëls.", next:"Neem die volgende draai met selfvertroue.", practiseAll:"Oefen alle kategorieë", continue:"Gaan voort met leer", begin:"Begin jou leerreis", explored:"Kategorieë verken", foundation:"Bou ’n sterk grondslag", questions:"Vrae geoefen", toExplore:"vrae om te verken", accuracy:"Oefenakkuraatheid", step:"Elke antwoord is ’n stap vorentoe", progress:"Leervordering", pace:"Jou eie pas. Jou eie pad.", path:"Jou leerpad", pathSub:"Agt kernbeginsels. Een selfversekerde bestuurder.", view:"Bekyk alles", steps:["Leer","Oefen","Hersien","Proeftoets","Gereed"], status:"Verken", startHere:"Begin hier", count:"vrae", inProgress:"Aan die gang", explore:"Verken", daily:"’n Bietjie elke dag", small:"Klein treë.", lasting:"Volgehoue selfvertroue.", dailyText:"Maak tyd vir ’n paar vrae. Kom môre terug en behou jou momentum.", checkin:"’n Kontrole met 10 vrae", lets:"Kom ons oefen", read:"LEES DIE PAD", story:"Elke teken vertel ’n storie.", entries:"padtekeninskrywings en hul betekenisse.", open:"Maak die tekenbiblioteek oop", mindset:"DIE K53-INSTELLING", quote:"Kyk vorentoe. Dink vooruit.\nLaat jouself ’n uitweg.", defensive:"Verdedigende bestuur begin by waarneming.", caption:"SUID-AFRIKAANSE PAAIE. JOU VOLGENDE HOOFSTUK." } : { moving:"{words.moving}", all:"You’ve explored every category.", welcome:words.welcome, start:words.start, intro:"A little learning today. A lot more confidence tomorrow.", journey:"{words.journey}", learn:"{words.learn}", know:"{words.know}", next:"{words.next}", practiseAll:"{words.practiseAll}", continue:words.continue, begin:words.begin, explored:"Categories explored", foundation:"Build a strong foundation", questions:"Questions practised", toExplore:"questions to explore", accuracy:"Practice accuracy", step:"Every answer is a step forward", progress:"Learning progress", pace:"Your own pace. Your own path.", path:"Your learning path", pathSub:"Eight essentials. One confident driver.", view:"{words.view}", steps:["Learn","Practise","Review","Mock test","Ready"], status:"{words.status}", startHere:"{words.startHere}", count:"questions", inProgress:words.inProgress, explore:words.explore, daily:"A little every day", small:"{words.small}", lasting:"{words.lasting}", dailyText:"{words.dailyText}", checkin:"{words.checkin}", lets:"{words.lets}", read:"{words.read}", story:"Every sign has a story.", entries:"{words.entries}", open:"{words.open}", mindset:"{words.mindset}", quote:"Look ahead. Think ahead.\nLeave yourself a way out.", defensive:"{words.defensive}", caption:"{words.caption}" };
   const answered = new Set(progress.attempts.map((a) => a.question_id)).size;
   const accuracy = progress.attempts.length
     ? Math.round(
         (progress.attempts.filter((a) => a.correct).length / progress.attempts.length) * 100,
       )
     : 0;
-  const next = CATEGORIES.findIndex((_, i) => !progress.learned.includes(i));
-  const allCategoriesExplored = next === -1;
+  const next = categories.findIndex((_, i) => !progress.learned.includes(i));
+  const allCategories{words.status} = next === -1;
   return (
     <>
       <div className="page-heading">
         <div>
-          <span className="eyebrow">LET’S KEEP MOVING</span>
+          <span className="eyebrow">{words.moving}</span>
           <h1>
-            {allCategoriesExplored
+            {allCategories{words.status}
               ? "You’ve explored every category."
               : progress.attempts.length
-                ? `Welcome back, ${name}.`
-                : "Your road to ready starts here."}
+                ? words.welcome
+                : words.start}
           </h1>
-          <p>A little learning today. A lot more confidence tomorrow.</p>
+          <p>{words.intro}</p>
         </div>
         <span className="journey-label">
           <RouteIcon size={16} />
-          Your learner’s journey
+          {words.journey}
         </span>
       </div>
       <section className="road-feature">
         <img
           src={road}
-          alt="An open South African road winding through green mountains"
+          alt={af ? "’n Oop Suid-Afrikaanse pad wat deur groen berge kronkel" : "An open South African road winding through green mountains"}
           width={1408}
           height={704}
         />
@@ -67,74 +73,74 @@ function Dashboard() {
         <div className="road-copy">
           <span className="feature-label">
             <span />
-            LEARN. PRACTISE. PASS.
+            {words.learn}
           </span>
           <h2>K53 Master SA</h2>
           <p>
-            Know the signs. Understand the rules.
+            {words.know}
             <br />
-            Take the next turn with confidence.
+            {words.next}
           </p>
           <Button asChild size="lg">
-            {allCategoriesExplored ? (
+            {allCategories{words.status} ? (
               <Link to="/practice">
-                Practise all categories
+                {words.practiseAll}
                 <ArrowRight />
               </Link>
             ) : (
               <Link to="/learn" search={{ category: next }}>
-                {progress.learned.length ? "Continue learning" : "Start your learning journey"}
+                {progress.learned.length ? words.continue : words.begin}
                 <ArrowRight />
               </Link>
             )}
           </Button>
         </div>
         <div className="road-caption">
-          <MapPinIcon /> SOUTH AFRICAN ROADS. YOUR NEXT CHAPTER.
+          <MapPinIcon /> {words.caption}
         </div>
       </section>
       <section className="stats-row">
         <Stat
           icon={BookOpen}
-          label="Categories explored"
+          label={words.explored}
           value={`${progress.learned.length} / 8`}
-          sub="Build a strong foundation"
+          sub={words.foundation}
         />
         <Stat
           icon={ClipboardCheck}
-          label="Questions practised"
+          label={words.questions}
           value={String(answered)}
-          sub={`${QUESTIONS.length} questions to explore`}
+          sub={`${QUESTIONS.length} ${words.toExplore}`}
         />
         <Stat
           icon={Target}
-          label="Practice accuracy"
+          label={words.accuracy}
           value={progress.attempts.length ? `${accuracy}%` : "—"}
-          sub="Every answer is a step forward"
+          sub={words.step}
         />
         <Stat
           icon={ShieldCheck}
-          label="Learning progress"
+          label={words.progress}
           value={`${Math.round((progress.learned.length / 8) * 100)}%`}
-          sub="Your own pace. Your own path."
+          sub={words.pace}
         />
       </section>
       <div className="learning-layout">
         <section className="learning-section">
           <div className="section-heading">
             <div>
-              <h2>Your learning path</h2>
-              <p>Eight essentials. One confident driver.</p>
+              <h2>{words.path}</h2>
+              <p>{words.pathSub}</p>
             </div>
             <Button asChild variant="ghost">
               <Link to="/learn">
-                View all
+                {words.view}
                 <ArrowRight />
               </Link>
             </Button>
           </div>
           <div className="path-steps">
-            {["Learn", "Practise", "Review", "Mock test", "Ready"].map((s, i) => (
+            {words.steps.map((s, i) => (
               <span key={s} className={i === 0 ? "step-active" : ""}>
                 <b>{i + 1}</b>
                 {s}
@@ -143,7 +149,7 @@ function Dashboard() {
             ))}
           </div>
           <div className="category-grid">
-            {CATEGORIES.map((cat, i) => {
+            {categories.map((cat, i) => {
               const learned = progress.learned.includes(i);
               const attempts = progress.attempts.filter((a) => a.category === i);
               return (
@@ -158,18 +164,18 @@ function Dashboard() {
                     {learned ? (
                       <span className="category-status">
                         <Check size={12} />
-                        Explored
+                        {words.status}
                       </span>
                     ) : i === next ? (
-                      <span className="category-status next-status">Start here</span>
+                      <span className="category-status next-status">{words.startHere}</span>
                     ) : null}
                   </div>
                   <h3>{cat.name}</h3>
                   <p>{cat.description}</p>
                   <div className="category-bottom">
-                    <span>{QUESTIONS.filter((q) => q.cat === i).length} questions</span>
+                    <span>{QUESTIONS.filter((q) => q.cat === i).length} {words.count}</span>
                     <span>
-                      {attempts.length ? "In progress" : "Explore"}
+                      {attempts.length ? words.inProgress : words.explore}
                       <ArrowRight size={15} />
                     </span>
                   </div>
@@ -180,31 +186,31 @@ function Dashboard() {
         </section>
         <aside className="study-aside">
           <div className="section-heading">
-            <h2>A little every day</h2>
+            <h2>{words.daily}</h2>
           </div>
           <div className="daily-note">
             <div className="daily-icon">
               <TrendingUp />
             </div>
             <h3>
-              Small steps.
+              {words.small}
               <br />
-              Lasting confidence.
+              {words.lasting}
             </h3>
-            <p>Make time for a few questions. Come back tomorrow and keep your momentum.</p>
+            <p>{words.dailyText}</p>
             <span>
-              <Clock size={14} /> A 10-question check-in
+              <Clock size={14} /> {words.checkin}
             </span>
             <Button asChild>
               <Link to="/practice">
-                Let’s practise
+                {words.lets}
                 <ArrowRight />
               </Link>
             </Button>
           </div>
           <Link to="/signs" className="signs-preview">
             <div className="preview-signs">
-              <svg viewBox="0 0 100 100" aria-label="Stop sign">
+              <svg viewBox="0 0 100 100" aria-label={af ? "Stopteken" : "Stop sign"}>
                 <polygon
                   points="30,4 70,4 96,30 96,70 70,96 30,96 4,70 4,30"
                   fill="var(--sign-red)"
@@ -222,7 +228,7 @@ function Dashboard() {
                   STOP
                 </text>
               </svg>
-              <svg viewBox="0 0 100 100" aria-label="Maximum speed 60">
+              <svg viewBox="0 0 100 100" aria-label={af ? "Maksimumspoed 60" : "Maximum speed 60"}>
                 <circle
                   cx="50"
                   cy="50"
@@ -243,22 +249,22 @@ function Dashboard() {
                 </text>
               </svg>
             </div>
-            <span className="eyebrow">READ THE ROAD</span>
-            <h3>Every sign has a story.</h3>
-            <p>Explore {SIGNS.length} road-sign entries and what they mean.</p>
+            <span className="eyebrow">{words.read}</span>
+            <h3>{words.story}</h3>
+            <p>Explore {SIGNS.length} {words.entries}</p>
             <span className="text-link">
-              Open the sign library
+              {words.open}
               <ArrowRight size={16} />
             </span>
           </Link>
           <div className="study-tip">
-            <span>THE K53 MINDSET</span>
+            <span>{words.mindset}</span>
             <p>
               “Look ahead. Think ahead.
               <br />
               Leave yourself a way out.”
             </p>
-            <small>Defensive driving starts with observation.</small>
+            <small>{words.defensive}</small>
           </div>
         </aside>
       </div>
