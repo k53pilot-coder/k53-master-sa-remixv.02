@@ -2,6 +2,11 @@ const HOSTED_ARTWORK_URL = /^\/__l5e\/assets-v1\/[^/]+\/(road-sign-sheet-\d+\.we
 
 export const isLegacyAssetProxyUrl = (url: string) => url.startsWith("/__l5e/assets-v1/");
 
+/** Remove retired asset-proxy URLs that no longer resolve on the production app host. */
+export function filterLegacyAssetProxyUrls(urls: readonly string[]): string[] {
+  return urls.filter((url) => !isLegacyAssetProxyUrl(url));
+}
+
 export function signArtworkUrl(url: string) {
   const match = url.match(HOSTED_ARTWORK_URL);
   if (!match?.[1]) {
