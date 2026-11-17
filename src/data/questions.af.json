@@ -538,5 +538,185 @@
       "500 mm",
       "1 000 mm"
     ]
+  ],
+  "K53-061": [
+    "Wat is die maksimum toegelate agteroorhang van ’n voertuigvrag?",
+    [
+      "1,0 m",
+      "1,8 m",
+      "2,5 m",
+      "3,0 m"
+    ]
+  ],
+  "K53-062": [
+    "Watter vlag moet bedags vertoon word wanneer ’n uitsteeksel meer as 300 mm agter die voertuig uitsteek?",
+    [
+      "Wit vlag",
+      "Rooi vlag (300 mm × 300 mm)",
+      "Geel vlag",
+      "Groen vlag"
+    ]
+  ],
+  "K53-063": [
+    "Wat is STAP 1 in die amptelike volgorde van die K53-verdedigende bestuurstelsel?",
+    [
+      "Gee rigting aan",
+      "Neem waar (spieëls en omgewing)",
+      "Kontroleer blindekol",
+      "Rem"
+    ]
+  ],
+  "K53-064": [
+    "Wat is STAP 2 in die amptelike volgorde van die K53-verdedigende bestuurstelsel?",
+    [
+      "Gee rigting aan",
+      "Kontroleer blindekol oor die skouer",
+      "Kies rat",
+      "Stuur"
+    ]
+  ],
+  "K53-065": [
+    "Wat is STAP 3 in die amptelike volgorde van die K53-verdedigende bestuurstelsel?",
+    [
+      "Dui jou voorneme met die rigtingwyser aan",
+      "Rem",
+      "Versnel",
+      "Spieëls"
+    ]
+  ],
+  "K53-066": [
+    "Wat is STAP 4 in die amptelike volgorde van die K53-verdedigende bestuurstelsel?",
+    [
+      "Kontroleer spieëls weer",
+      "Stuur",
+      "Wissel rat",
+      "Blindekol"
+    ]
+  ],
+  "K53-067": [
+    "Wat is STAP 5 in die amptelike volgorde van die K53-verdedigende bestuurstelsel?",
+    [
+      "Gebruik die voetrem om spoed aan te pas",
+      "Versnel",
+      "Gee rigting aan",
+      "Koppelaar"
+    ]
+  ],
+  "K53-068": [
+    "Wat is STAP 6 in die amptelike volgorde van die K53-verdedigende bestuurstelsel?",
+    [
+      "Kies die toepaslike rat",
+      "Stuur",
+      "Gee rigting aan",
+      "Blindekol"
+    ]
+  ],
+  "K53-069": [
+    "Wat is STAP 7 in die amptelike volgorde van die K53-verdedigende bestuurstelsel?",
+    [
+      "Finale blindekolkontrole voordat jy stuur",
+      "Gee rigting aan",
+      "Spieëls",
+      "Rem"
+    ]
+  ],
+  "K53-070": [
+    "Wat is STAP 8 in die amptelike volgorde van die K53-verdedigende bestuurstelsel?",
+    [
+      "Stuur die voertuig in die beoogde rigting",
+      "Versnel",
+      "Ratwisseling",
+      "Rem"
+    ]
+  ],
+  "K53-071": [
+    "Wat is STAP 9 in die amptelike volgorde van die K53-verdedigende bestuurstelsel?",
+    [
+      "Versnel glad en geleidelik",
+      "Blindekol",
+      "Gee rigting aan",
+      "Rem"
+    ]
+  ],
+  "K53-072": [
+    "Watter stappe vorm 'Groep 1' van die K53-verdedigende bestuurstelsel?",
+    [
+      "Waarneming, blindekol, rigtingwyser",
+      "Spieëls, rem, rat",
+      "Blindekol, stuur, versnel",
+      "Waarneming, rat, stuur"
+    ]
+  ],
+  "K53-073": [
+    "Watter stappe vorm 'Groep 2' van die K53-verdedigende bestuurstelsel?",
+    [
+      "Waarneming, blindekol, rigtingwyser",
+      "Spieëls, rem, ratwisseling",
+      "Blindekol, stuur, versnel",
+      "Rigtingwyser, rat, stuur"
+    ]
+  ],
+  "K53-074": [
+    "Watter stappe vorm 'Groep 3' van die K53-verdedigende bestuurstelsel?",
+    [
+      "Waarneming, blindekol, rigtingwyser",
+      "Spieëls, rem, rat",
+      "Blindekol, stuur, versnel",
+      "Waarneming, spieël, rigtingwyser"
+    ]
+  ],
+  "K53-075": [
+    "Watter handtegniek is volgens K53 verpligtend wanneer jy ’n motorvoertuig stuur?",
+    [
+      "Hand-oor-hand-stuurtegniek",
+      "Druk-trek-stuurtegniek (push-pull)",
+      "Stuur met een hand",
+      "Gekruisde-arm-stuurtegniek"
+    ]
+  ],
+  "K53-076": [
+    "Wat is die korrekte handposisie op die stuurwiel wanneer jy reguit ry?",
+    [
+      "12-uur- en 6-uur-posisie",
+      "10-voor-2- of 9-uur- en 3-uur-posisie, met duime buite die rand",
+      "Albei hande by 6-uur",
+      "Een hand op die rathefboom"
+    ]
+  ],
+  "K53-077": [
+    "Wanneer MOET jy jou voertuig se blindekolle kontroleer?",
+    [
+      "Voordat jy wegtrek, van baan verwissel of draai",
+      "Slegs wanneer jy agteruit ry",
+      "Elke 5 minute",
+      "Slegs op snelweë"
+    ]
+  ],
+  "K53-078": [
+    "Watter pedaal beheer die oordrag van enjinkrag na die ratkas in ’n handratmotor?",
+    [
+      "Versneller",
+      "Voetrem",
+      "Koppelaarsleutel/pedaal",
+      "Handrem"
+    ]
+  ],
+  "K53-079": [
+    "Wat is die koppelaar se wrywingspunt (grijppunt)?",
+    [
+      "Punt waar remme sluit",
+      "Punt waar koppelaarplate aangryp en die voertuig begin beweeg",
+      "Punt waar die rathefboom sluit",
+      "Punt waar die enjin gaan staan"
+    ]
+  ],
+  "K53-080": [
+    "Watter voet moet uitsluitlik gebruik word om die koppelaarpedaal te bedien?",
+    [
+      "Regtervoet",
+      "Linkervoet",
+      "Albei voete",
+      "Enige voet"
+    ]
   ]
 }
