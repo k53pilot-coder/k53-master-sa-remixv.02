@@ -1,0 +1,182 @@
+{
+  "K53-001": [
+    "Watter groep tekens reël verkeersvloei en gee verpligte opdragte?",
+    [
+      "Regulerende beheertekens",
+      "Waarskuwingstekens",
+      "Rigtingtekens",
+      "Toerismeteken"
+    ]
+  ],
+  "K53-002": [
+    "Tot watter groep behoort tekens met ’n rooi driehoekige rand en geel agtergrond?",
+    [
+      "Beheertekens",
+      "Waarskuwingstekens",
+      "Rigtingtekens",
+      "Verbodstekens"
+    ]
+  ],
+  "K53-003": [
+    "Tot watter groep behoort blou reghoekige tekens met wit teks of roetenommers?",
+    [
+      "Beheertekens",
+      "Waarskuwingstekens",
+      "Rigting- en inligtingstekens",
+      "Tydelike tekens"
+    ]
+  ],
+  "K53-004": [
+    "Wat vereis teken R1 (’n agthoekige rooi teken met die wit woord 'STOP' ) van jou?",
+    [
+      "Verminder spoed en ry voort indien veilig",
+      "Gee pad aan verkeer van regs",
+      "Bring jou voertuig heeltemal tot stilstand agter die stopstreep",
+      "Stop slegs indien voetgangers teenwoordig is"
+    ]
+  ],
+  "K53-005": [
+    "By ’n vierrigting-stopkruising (R1.4), watter voertuig het voorrang?",
+    [
+      "Die swaarste voertuig",
+      "Die voertuig wat regs draai",
+      "Die voertuig wat eerste gestop het",
+      "Die voertuig wat die vinnigste ry"
+    ]
+  ],
+  "K53-006": [
+    "Wat dui teken R2 (’n omgekeerde geel driehoek met ’n rooi rand) aan?",
+    [
+      "’n Volledige stop is nodig",
+      "Gee voorrang aan alle kruisende verkeer en voetgangers",
+      "Die pad eindig vorentoe",
+      "’n Minimumspoedgrens vorentoe"
+    ]
+  ],
+  "K53-007": [
+    "Wat beteken teken R3 (’n rooi sirkel met ’n horisontale wit balk)?",
+    [
+      "Geen parkering toegelaat nie",
+      "Geen stilhou toegelaat nie",
+      "Geen toegang vir alle voertuie nie",
+      "Eenrigtingstraat vorentoe"
+    ]
+  ],
+  "K53-008": [
+    "Wat vereis gebodsteken R101 (’n blou sirkel met die wit getal '50')?",
+    [
+      "Maksimumspoedgrens van 50 km/h",
+      "Ry teen ’n minimumspoed van 50 km/h tensy dit onveilig is",
+      "Aanbevole spoed vir swaar voertuie",
+      "Afstand na die volgende dorp is 50 km"
+    ]
+  ],
+  "K53-009": [
+    "Wat beteken teken R103 (’n blou sirkel met ’n wit diagonale pyl wat links ondertoe wys)?",
+    [
+      "Draai links by die volgende kruising",
+      "Hou links van die verkeerseiland of hindernis",
+      "Eenrigtingstraat na links",
+      "Linkerbaan eindig vorentoe"
+    ]
+  ],
+  "K53-010": [
+    "Wat beteken verbodsteken R201 (wit sirkel, rooi rand, swart getal '60')?",
+    [
+      "Minimumspoedgrens van 60 km/h",
+      "Aanbevole spoed van 60 km/h",
+      "Jy mag nie 60 km/h oorskry nie",
+      "Afstand na spoedhobbel is 60 m"
+    ]
+  ],
+  "K53-011": [
+    "Wat beteken teken R208 (wit sirkel, rooi rand, rooi streep deur twee motors)?",
+    [
+      "Tweerigtingverkeer vorentoe",
+      "Verbysteek deur alle motorvoertuie verbode",
+      "Parkering vir motors verbode",
+      "Dubbelbaanpad begin"
+    ]
+  ],
+  "K53-012": [
+    "Wat beteken teken R216 (wit sirkel, rooi rand, rooi streep deur die letter 'P')?",
+    [
+      "Parkering toegelaat vir 60 minute",
+      "Parkering verbode",
+      "Slegs permitparkering",
+      "Parallelparkeringgebied"
+    ]
+  ],
+  "K53-013": [
+    "Wat beteken teken R217 (wit sirkel, rooi rand, rooi streep deur die letter 'S')?",
+    [
+      "Spoedgrensgebied",
+      "Stilhou verbode",
+      "Verminder spoed vorentoe",
+      "Gladde padoppervlak"
+    ]
+  ],
+  "K53-014": [
+    "Waarvoor waarsku teken W101 (geel driehoek, rooi rand, swart kruissimbool)?",
+    [
+      "Noodhulpstasie vorentoe",
+      "Kruispad vorentoe",
+      "Hospitaalgebied",
+      "Spoorwegkruising vorentoe"
+    ]
+  ],
+  "K53-015": [
+    "Wat beteken teken W103 (geel driehoek, rooi rand, swart 'T'-simbool)?",
+    [
+      "T-aansluiting vorentoe waar die pad eindig",
+      "Tolpad begin",
+      "Taxistaanplek vorentoe",
+      "Draai slegs regs"
+    ]
+  ],
+  "K53-016": [
+    "Waarvoor waarsku teken W201 (geel driehoek met sirkelvormige pyle)?",
+    [
+      "Skerp draai vorentoe",
+      "Verkeersirkel vorentoe",
+      "Kronkelpad vorentoe",
+      "U-draaisone vorentoe"
+    ]
+  ],
+  "K53-017": [
+    "Wat beteken teken W301 (geel driehoek met rooi, amber en groen sirkels)?",
+    [
+      "Verkeersligte vorentoe",
+      "Flikkerende gevaarligte",
+      "Polisiepadblokkade vorentoe",
+      "Tolhek vorentoe"
+    ]
+  ],
+  "K53-018": [
+    "Wat beteken teken W306 (geel driehoek met ’n wandelende persoon op sebrastrepe)?",
+    [
+      "Voetganger-voorrangsgebied",
+      "Voetoorgang vorentoe",
+      "Skoolterrein vorentoe",
+      "Voetgangers verbode"
+    ]
+  ],
+  "K53-019": [
+    "Waarvoor waarsku teken W308 (geel driehoek met hardlopende skoolkinders)?",
+    [
+      "Voetoorgang vorentoe",
+      "Kinders of ’n skoolsone vorentoe; verminder spoed",
+      "Sportveld se ingang",
+      "Jeugherberg vorentoe"
+    ]
+  ],
+  "K53-020": [
+    "Waarvoor waarsku teken W318 (geel driehoek met ’n lokomotief)?",
+    [
+      "Treinstasie se ingang",
+      "Spoorwegvlak kruising vorentoe",
+      "Tremroete vorentoe",
+      "Oorhoofse kragdrade"
+    ]
+  ]
+}
