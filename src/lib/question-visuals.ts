@@ -1,6 +1,7 @@
 import { artworkFor } from "@/components/sign-graphic";
 import { isLegacyAssetProxyUrl } from "@/lib/sign-artwork-url";
 import questionSignMap from "@/data/question-sign-map.json";
+import vehicleControlArtwork from "@/data/vehicle-control-artwork.json";
 import { GROUP_INFO, signByCode } from "@/data/signs";
 import type { Question } from "@/lib/quiz";
 
@@ -32,8 +33,10 @@ export function labelFor(code: string) {
 }
 
 /** Pictures to show for a question: curated question-to-chart mappings first, then verified text codes.
- *  Retired asset-proxy images and answer-revealing vehicle-control tables are never displayed. */
+ *  Retired asset-proxy images are never displayed. Vehicle diagrams contain numbered markers only. */
 export function questionVisuals(q: Question): Visual[] {
+  const vehicleArtwork = q.vehicle ? vehicleControlArtwork[q.vehicle as keyof typeof vehicleControlArtwork] : undefined;
+  if (vehicleArtwork) return [{ kind: "image", url: vehicleArtwork.url, cap: vehicleArtwork.cap }];
   const codes = [...new Set([...(questionSignMap[q.id as keyof typeof questionSignMap] ?? []), ...signCodesIn(q.q)])];
   const visuals: Visual[] = [];
   for (const img of q.images ?? []) {

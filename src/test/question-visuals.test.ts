@@ -6,6 +6,9 @@ import artwork from "@/data/sign-artwork.json";
 import references from "@/data/reference-images.json";
 import questionData from "@/data/questions.json";
 import questionSignMap from "@/data/question-sign-map.json";
+import vehicleControlArtwork from "@/data/vehicle-control-artwork.json";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { filterLegacyAssetProxyUrls, isLegacyAssetProxyUrl, signArtworkUrl } from "@/lib/sign-artwork-url";
 
 describe("question pictures", () => {
@@ -37,24 +40,38 @@ describe("question pictures", () => {
       ]),
     );
   });
-  it("never shows the vehicle-control component table that lists the answer", () => {
-    for (const q of QUESTIONS.filter((x) => x.vehicle))
-      expect(
-        questionVisuals(q).some((v) => v.kind === "image" && /numbered vehicle controls/i.test(v.cap)),
-        q.id,
-      ).toBe(false);
+  it("maps all motorcycle, light and heavy questions to the June 2012 control diagrams", () => {
+    for (const [vehicle, count] of Object.entries({"motorcycle":21,"light":31,"heavy":29})) {
+      const questions = QUESTIONS.filter((q) => q.vehicle === vehicle);
+      expect(questions, vehicle).toHaveLength(count);
+      const config = vehicleControlArtwork[vehicle as keyof typeof vehicleControlArtwork];
+      expect(config.controls).toEqual(vehicle === "motorcycle"
+        ? [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]);
+      const svg = readFileSync(join(process.cwd(), "public", config.url), "utf8");
+      expect(svg).toContain("<svg");
+      for (const number of config.controls)
+        expect(svg, `${vehicle} marker ${number}`).toContain(`>${number}</text>`);
+      for (const q of questions) {
+        const shown = questionVisuals(q);
+        expect(shown, q.id).toHaveLength(1);
+        expect(shown[0], q.id).toMatchObject({ kind: "image", url: config.url, cap: config.cap });
+      }
+    }
   });
   it("excludes all retired asset-proxy URLs from the PWA precache", () => {
     const precacheUrls = [
       ...artwork.map((entry) => signArtworkUrl(entry.url)),
       ...references.manual,
       ...Object.values(references.vehicle).flat(),
+      ...Object.values(vehicleControlArtwork).map((entry) => entry.url),
     ];
     const uniqueUrls = [...new Set(precacheUrls)];
     const filteredUrls = filterLegacyAssetProxyUrls(uniqueUrls);
     expect(JSON.stringify(questionData)).not.toContain("/__l5e/assets-v1/");
     expect(filteredUrls.filter(isLegacyAssetProxyUrl)).toHaveLength(0);
     expect(filteredUrls).toEqual(uniqueUrls.filter((url) => !isLegacyAssetProxyUrl(url)));
+    for (const entry of Object.values(vehicleControlArtwork)) expect(filteredUrls).toContain(entry.url);
   });
   it("maps all 33 sign-pack questions to verified official chart artwork in both languages", () => {
     expect(Object.keys(questionSignMap)).toHaveLength(33);

@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 680" role="img" aria-labelledby="title desc">
+<title id="title">Light motor vehicle controls — June 2012 reference numbering</title>
+<desc id="desc">Original right-hand-drive manual gearbox cockpit schematic. Number markers identify the eleven light motor vehicle controls listed in the South African Department of Transport Learner Driver Manual, Section 3, June 2012.</desc>
+<defs><style>
+.bg{fill:#f4f7f9}.card{fill:#fff;stroke:#d5e0e6;stroke-width:3}.ink{fill:none;stroke:#233746;stroke-width:12;stroke-linecap:round;stroke-linejoin:round}.thin{fill:none;stroke:#627888;stroke-width:7;stroke-linecap:round;stroke-linejoin:round}.metal{fill:#dce6eb;stroke:#233746;stroke-width:8;stroke-linejoin:round}.accent{fill:#087f78}.n{fill:#fff;font:700 24px system-ui,sans-serif;text-anchor:middle;dominant-baseline:central}.h{fill:#163348;font:700 27px system-ui,sans-serif;letter-spacing:1px}.s{fill:#536978;font:600 15px system-ui,sans-serif;letter-spacing:1px}
+</style></defs>
+<rect width="1100" height="680" rx="26" class="bg"/>
+<text x="46" y="54" class="h">LIGHT MOTOR VEHICLE CONTROLS</text><text x="46" y="82" class="s">MANUAL GEARBOX · NUMBERED REFERENCE · JUNE 2012</text>
+<rect x="30" y="110" width="1040" height="530" rx="20" class="card"/>
+<text x="58" y="150" class="s">RIGHT-HAND-DRIVE COCKPIT SCHEMATIC</text>
+<!-- windscreen -->
+<path d="M155 205 Q550 150 945 205 L1015 350 L85 350Z" fill="#edf3f6" stroke="#233746" stroke-width="10"/>
+<path d="M155 205 L85 350 M945 205 L1015 350" class="ink"/>
+<!-- external mirrors and centre mirror -->
+<path d="M110 255 L55 240 L42 260 L88 286 M990 255 L1045 240 L1058 260 L1012 286" class="ink"/>
+<rect x="42" y="236" width="52" height="38" rx="10" class="metal"/><rect x="1006" y="236" width="52" height="38" rx="10" class="metal"/>
+<path d="M550 204 L550 230" class="thin"/><rect x="510" y="220" width="80" height="20" rx="10" class="metal"/>
+<!-- dash -->
+<path d="M85 350 Q550 305 1015 350 L990 470 Q550 500 110 470Z" fill="#c9d7de" stroke="#233746" stroke-width="10"/>
+<rect x="210" y="365" width="220" height="74" rx="12" fill="#eaf0f3" stroke="#627888" stroke-width="6"/>
+<circle cx="280" cy="402" r="25" class="metal"/><circle cx="360" cy="402" r="25" class="metal"/>
+<!-- steering wheel -->
+<circle cx="780" cy="420" r="100" fill="none" stroke="#233746" stroke-width="22"/><circle cx="780" cy="420" r="34" class="metal"/>
+<path d="M780 386 L780 326 M746 433 L685 466 M814 433 L875 466" class="ink"/>
+<!-- column stalks -->
+<path d="M720 380 L675 352 L658 355 M840 380 L885 350 L900 352" class="ink"/>
+<!-- gear lever, handbrake -->
+<path d="M540 455 L540 520" class="ink"/><circle cx="540" cy="450" r="17" class="metal"/>
+<path d="M630 470 L655 520 L682 520" class="ink"/><rect x="674" y="510" width="82" height="16" rx="8" class="metal"/>
+<!-- pedals -->
+<path d="M565 552 L565 615 M655 552 L655 615 M745 552 L745 615" class="ink"/>
+<rect x="539" y="600" width="52" height="20" rx="7" class="metal"/><rect x="629" y="600" width="52" height="20" rx="7" class="metal"/><rect x="719" y="600" width="52" height="20" rx="7" class="metal"/>
+<!-- numbered controls -->
+<g><circle cx="550" cy="255" r="23" class="accent"/><text x="550" y="255" class="n">1</text></g>
+<g><circle cx="665" cy="347" r="23" class="accent"/><text x="665" y="347" class="n">2</text></g>
+<g><circle cx="1035" cy="300" r="23" class="accent"/><text x="1035" y="300" class="n">3</text></g>
+<g><circle cx="780" cy="420" r="23" class="accent"/><text x="780" y="420" class="n">4</text></g>
+<g><circle cx="890" cy="355" r="23" class="accent"/><text x="890" y="355" class="n">5</text></g>
+<g><circle cx="540" cy="500" r="23" class="accent"/><text x="540" y="500" class="n">6</text></g>
+<g><circle cx="655" cy="500" r="23" class="accent"/><text x="655" y="500" class="n">7</text></g>
+<g><circle cx="565" cy="575" r="23" class="accent"/><text x="565" y="575" class="n">8</text></g>
+<g><circle cx="655" cy="575" r="23" class="accent"/><text x="655" y="575" class="n">9</text></g>
+<g><circle cx="745" cy="575" r="23" class="accent"/><text x="745" y="575" class="n">10</text></g>
+<g><circle cx="780" cy="420" r="23" class="accent" opacity="0"/><text x="780" y="420" class="n" opacity="0">11</text></g>
+<!-- horn badge offset from wheel centre to keep 4 visible -->
+<g><circle cx="780" cy="458" r="22" class="accent"/><text x="780" y="458" class="n">11</text></g>
+<text x="58" y="615" class="s">NUMBER MARKERS ONLY · REFER TO THE MANUAL FOR CONTROL DESCRIPTIONS</text>
+</svg>
