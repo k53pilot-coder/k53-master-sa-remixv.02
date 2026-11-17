@@ -1,0 +1,2854 @@
+{
+  "K53-001": {
+    "q": "Watter groep tekens reël verkeersvloei en gee verpligte opdragte?",
+    "options": [
+      "Regulerende beheertekens",
+      "Waarskuwingstekens",
+      "Rigtingtekens",
+      "Toerismeteken"
+    ],
+    "note": "Voorbeeld van ’n regulerende beheerteken uit die handleiding."
+  },
+  "K53-002": {
+    "q": "Tot watter groep behoort tekens met ’n rooi driehoekige rand en geel agtergrond?",
+    "options": [
+      "Beheertekens",
+      "Waarskuwingstekens",
+      "Rigtingtekens",
+      "Verbodstekens"
+    ],
+    "note": "Voorbeeld van ’n waarskuwingsteken uit die handleiding."
+  },
+  "K53-003": {
+    "q": "Tot watter groep behoort blou reghoekige tekens met wit teks of roetenommers?",
+    "options": [
+      "Beheertekens",
+      "Waarskuwingstekens",
+      "Rigting- en inligtingstekens",
+      "Tydelike tekens"
+    ],
+    "note": "Voorbeeld van ’n rigtingteken uit die handleiding."
+  },
+  "K53-004": {
+    "q": "Wat vereis teken R1 (’n agthoekige rooi teken met die wit woord 'STOP' ) van jou?",
+    "options": [
+      "Verminder spoed en ry voort indien veilig",
+      "Gee pad aan verkeer van regs",
+      "Bring jou voertuig heeltemal tot stilstand agter die stopstreep",
+      "Stop slegs indien voetgangers teenwoordig is"
+    ]
+  },
+  "K53-005": {
+    "q": "By ’n vierrigting-stopkruising (R1.4), watter voertuig het voorrang?",
+    "options": [
+      "Die swaarste voertuig",
+      "Die voertuig wat regs draai",
+      "Die voertuig wat eerste gestop het",
+      "Die voertuig wat die vinnigste ry"
+    ],
+    "note": "Verwante handleidingillustrasie: die vraag verwys na R1.4, maar die voorsiene handleiding merk hierdie illustrasie van ’n drie-/vierrigting-stop as R1.1."
+  },
+  "K53-006": {
+    "q": "Wat dui teken R2 (’n omgekeerde geel driehoek met ’n rooi rand) aan?",
+    "options": [
+      "’n Volledige stop is nodig",
+      "Gee voorrang aan alle kruisende verkeer en voetgangers",
+      "Die pad eindig vorentoe",
+      "’n Minimumspoedgrens vorentoe"
+    ]
+  },
+  "K53-007": {
+    "q": "Wat beteken teken R3 (’n rooi sirkel met ’n horisontale wit balk)?",
+    "options": [
+      "Geen parkering toegelaat nie",
+      "Geen stilhou toegelaat nie",
+      "Geen toegang vir alle voertuie nie",
+      "Eenrigtingstraat vorentoe"
+    ]
+  },
+  "K53-008": {
+    "q": "Wat vereis gebodsteken R101 (’n blou sirkel met die wit getal '50')?",
+    "options": [
+      "Maksimumspoedgrens van 50 km/h",
+      "Ry teen ’n minimumspoed van 50 km/h tensy dit onveilig is",
+      "Aanbevole spoed vir swaar voertuie",
+      "Afstand na die volgende dorp is 50 km"
+    ]
+  },
+  "K53-009": {
+    "q": "Wat beteken teken R103 (’n blou sirkel met ’n wit diagonale pyl wat links ondertoe wys)?",
+    "options": [
+      "Draai links by die volgende kruising",
+      "Hou links van die verkeerseiland of hindernis",
+      "Eenrigtingstraat na links",
+      "Linkerbaan eindig vorentoe"
+    ]
+  },
+  "K53-010": {
+    "q": "Wat beteken verbodsteken R201 (wit sirkel, rooi rand, swart getal '60')?",
+    "options": [
+      "Minimumspoedgrens van 60 km/h",
+      "Aanbevole spoed van 60 km/h",
+      "Jy mag nie 60 km/h oorskry nie",
+      "Afstand na spoedhobbel is 60 m"
+    ]
+  },
+  "K53-011": {
+    "q": "Wat beteken teken R208 (wit sirkel, rooi rand, rooi streep deur twee motors)?",
+    "options": [
+      "Tweerigtingverkeer vorentoe",
+      "Verbysteek deur alle motorvoertuie verbode",
+      "Parkering vir motors verbode",
+      "Dubbelbaanpad begin"
+    ]
+  },
+  "K53-012": {
+    "q": "Wat beteken teken R216 (wit sirkel, rooi rand, rooi streep deur die letter 'P')?",
+    "options": [
+      "Parkering toegelaat vir 60 minute",
+      "Parkering verbode",
+      "Slegs permitparkering",
+      "Parallelparkeringgebied"
+    ]
+  },
+  "K53-013": {
+    "q": "Wat beteken teken R217 (wit sirkel, rooi rand, rooi streep deur die letter 'S')?",
+    "options": [
+      "Spoedgrensgebied",
+      "Stilhou verbode",
+      "Verminder spoed vorentoe",
+      "Gladde padoppervlak"
+    ]
+  },
+  "K53-014": {
+    "q": "Waarvoor waarsku teken W101 (geel driehoek, rooi rand, swart kruissimbool)?",
+    "options": [
+      "Noodhulpstasie vorentoe",
+      "Kruispad vorentoe",
+      "Hospitaalgebied",
+      "Spoorwegkruising vorentoe"
+    ]
+  },
+  "K53-015": {
+    "q": "Wat beteken teken W103 (geel driehoek, rooi rand, swart 'T'-simbool)?",
+    "options": [
+      "T-aansluiting vorentoe waar die pad eindig",
+      "Tolpad begin",
+      "Taxistaanplek vorentoe",
+      "Draai slegs regs"
+    ]
+  },
+  "K53-016": {
+    "q": "Waarvoor waarsku teken W201 (geel driehoek met sirkelvormige pyle)?",
+    "options": [
+      "Skerp draai vorentoe",
+      "Verkeersirkel vorentoe",
+      "Kronkelpad vorentoe",
+      "U-draaisone vorentoe"
+    ]
+  },
+  "K53-017": {
+    "q": "Wat beteken teken W301 (geel driehoek met rooi, amber en groen sirkels)?",
+    "options": [
+      "Verkeersligte vorentoe",
+      "Flikkerende gevaarligte",
+      "Polisiepadblokkade vorentoe",
+      "Tolhek vorentoe"
+    ]
+  },
+  "K53-018": {
+    "q": "Wat beteken teken W306 (geel driehoek met ’n wandelende persoon op sebrastrepe)?",
+    "options": [
+      "Voetganger-voorrangsgebied",
+      "Voetoorgang vorentoe",
+      "Skoolterrein vorentoe",
+      "Voetgangers verbode"
+    ]
+  },
+  "K53-019": {
+    "q": "Waarvoor waarsku teken W308 (geel driehoek met hardlopende skoolkinders)?",
+    "options": [
+      "Voetoorgang vorentoe",
+      "Kinders of ’n skoolsone vorentoe; verminder spoed",
+      "Sportveld se ingang",
+      "Jeugherberg vorentoe"
+    ]
+  },
+  "K53-020": {
+    "q": "Waarvoor waarsku teken W318 (geel driehoek met ’n lokomotief)?",
+    "options": [
+      "Treinstasie se ingang",
+      "Spoorwegvlak kruising vorentoe",
+      "Tremroete vorentoe",
+      "Oorhoofse kragdrade"
+    ]
+  },
+  "K53-021": {
+    "q": "Wat vereis teken W319 (geel driehoek met ’n tonnelingang) van jou?",
+    "options": [
+      "Skakel hoofligte aan en moenie verbysteek nie",
+      "Stop en blaas die toeter voordat jy ingaan",
+      "Ry teen ’n maksimum van 30 km/h",
+      "Steek stadige vragmotors vinnig verby"
+    ]
+  },
+  "K53-022": {
+    "q": "Waarvoor waarsku teken W322 (geel driehoek met ’n steil helling)?",
+    "options": [
+      "Steil opdraande vorentoe",
+      "Steil afdraande vorentoe; skakel na ’n laer rat",
+      "Ongelyke padoppervlak",
+      "Hoë bergpas"
+    ]
+  },
+  "K53-023": {
+    "q": "Wat beteken teken W332 (geel driehoek met ’n padbult)?",
+    "options": [
+      "Spoedhobbel vorentoe",
+      "Gruispad begin",
+      "Gladde padoppervlak",
+      "Brug vorentoe"
+    ]
+  },
+  "K53-024": {
+    "q": "Waarvoor waarsku teken W333 (geel driehoek met ’n glyende motor)?",
+    "options": [
+      "Los klippe op die pad",
+      "Gladde pad wanneer dit nat is; ry versigtig",
+      "Skerp haarnaalddraai",
+      "Sterk dwarswinde"
+    ]
+  },
+  "K53-025": {
+    "q": "Wat beteken tydelike teken TW336 (geel driehoek met ’n werker wat grawe)?",
+    "options": [
+      "Padwerke vorentoe",
+      "Landbougebied",
+      "Voetgangers besig met werk",
+      "Steengroef se ingang"
+    ]
+  },
+  "K53-026": {
+    "q": "Wat vereis ’n aanhoudende ROOI verkeerslig (S1) van jou?",
+    "options": [
+      "Stop agter die stopstreep; ry voort wanneer dit veilig is",
+      "Stop heeltemal agter die stopstreep totdat groen verskyn",
+      "Draai links indien die pad oop is",
+      "Verminder spoed en gee pad"
+    ],
+    "note": "Slegs ’n algemene verwysing na verkeersligte; dit beeld nie die spesifieke ligtoestand in die vraag uit nie."
+  },
+  "K53-027": {
+    "q": "Wat beteken ’n FLITSENDE ROOI verkeerslig?",
+    "options": [
+      "Verkeerslig buite werking",
+      "Behandel die kruising as ’n vierrigting-stop",
+      "Ry versigtig voort sonder om te stop",
+      "Pad gesluit vorentoe"
+    ],
+    "note": "Slegs ’n algemene verwysing na verkeersligte; dit beeld nie die spesifieke ligtoestand in die vraag uit nie."
+  },
+  "K53-028": {
+    "q": "Wat beteken ’n aanhoudende AMBER verkeerslig (S3)?",
+    "options": [
+      "Versnel vinnig deur die kruising",
+      "Stop agter die streep tensy jy te naby is om veilig te stop",
+      "Gee pad aan verkeer van regs",
+      "Draai versigtig regs"
+    ],
+    "note": "Slegs ’n algemene verwysing na verkeersligte; dit beeld nie die spesifieke ligtoestand in die vraag uit nie."
+  },
+  "K53-029": {
+    "q": "Wat beteken ’n FLITSENDE AMBER verkeerslig (S4)?",
+    "options": [
+      "Stop heeltemal",
+      "Ry versigtig voort en gee pad aan voetgangers en kruisende verkeer",
+      "Sein buite werking; stop",
+      "Versnel"
+    ],
+    "note": "Slegs ’n algemene verwysing na verkeersligte; dit beeld nie die spesifieke ligtoestand in die vraag uit nie."
+  },
+  "K53-030": {
+    "q": "Wat beteken ’n GROEN PYL wat links wys langs ’n rooi lig (S5)?",
+    "options": [
+      "Stop vir alle bewegings",
+      "Jy mag links draai; die draai word beskerm en jy het voorrang",
+      "Gee pad aan aankomende verkeer voordat jy draai",
+      "Voetgangers het voorrang"
+    ],
+    "note": "Slegs ’n algemene verwysing na verkeersligte; dit beeld nie die groen pyl na links in die vraag uit nie."
+  },
+  "K53-031": {
+    "q": "Wat dui oorhoofse baanbeheerseine met ’n GROEN PYL (S16) aan?",
+    "options": [
+      "Die baan is oop vir verkeer",
+      "Die baan is vir busse gereserveer",
+      "Versnel in hierdie baan",
+      "Die baan sluit vorentoe"
+    ],
+    "note": "Slegs ’n algemene verwysing na verkeersligte; geen oorhoofse baanbeheergrafika verskyn in die voorsiene handleiding nie."
+  },
+  "K53-032": {
+    "q": "Wat dui oorhoofse baanbeheerseine met ’n ROOI KRUIS (S17) aan?",
+    "options": [
+      "Hospitaalroete",
+      "Die baan is vir verkeer gesluit; moenie daarin ry nie",
+      "Tolbaan vorentoe",
+      "Noodstopbaan"
+    ],
+    "note": "Slegs ’n algemene verwysing na verkeersligte; geen oorhoofse baanbeheergrafika verskyn in die voorsiene handleiding nie."
+  },
+  "K53-033": {
+    "q": "Wat is die regsbetekenis van ’n verkeersbeampte se handsein (SS1)?",
+    "options": [
+      "Slegs raadgewende leiding",
+      "Dit geniet voorrang bo alle verkeerstekens, seine en padmerke",
+      "Dit geld slegs vir kommersiële vragmotors",
+      "Dit is dieselfde as ’n toegeeteken"
+    ]
+  },
+  "K53-034": {
+    "q": "Wat verbied ’n soliede wit lyn in die middel van die pad (RM1)?",
+    "options": [
+      "Om die lyn oor te steek of daarop te ry om verby te steek",
+      "Om vinniger as 60 km/h te ry",
+      "Om op die skouer te stop",
+      "Om links te draai"
+    ]
+  },
+  "K53-035": {
+    "q": "Wat verbied ’n geverfde geel blok by ’n kruising (RM10)?",
+    "options": [
+      "Parkering langer as 10 minute",
+      "Om die blok binne te ry tensy jou uitgang oop is",
+      "Om regs te draai",
+      "Om vinniger as 30 km/h te ry"
+    ]
+  },
+  "K53-036": {
+    "q": "Aan watter kant van die pad moet jy normaalweg in Suid-Afrika ry?",
+    "options": [
+      "Regterkant",
+      "Linkerkant",
+      "Middelste baan",
+      "Enige kant indien dit oop is"
+    ]
+  },
+  "K53-037": {
+    "q": "Wat is die standaard minimum volgafstand agter ’n motor onder goeie toestande?",
+    "options": [
+      "1 sekonde",
+      "2 sekondes",
+      "5 sekondes",
+      "10 meter"
+    ]
+  },
+  "K53-038": {
+    "q": "Wat is die minimum volgafstand vir swaar voertuie of vragmotors?",
+    "options": [
+      "2 sekondes",
+      "3 sekondes",
+      "1 sekonde",
+      "10 sekondes"
+    ]
+  },
+  "K53-039": {
+    "q": "Wanneer mag jy ’n voertuig aan sy LINKERKANT verbysteek?",
+    "options": [
+      "Wanneer jy vinniger as die verkeer ry",
+      "Wanneer die voertuig voor jou regs draai en dit aangedui het",
+      "Op enige enkelbaanpad",
+      "Wanneer jy ’n soliede lyn oorsteek"
+    ]
+  },
+  "K53-040": {
+    "q": "Onder watter omstandighede MAG jy NIE ’n voertuig verbysteek NIE?",
+    "options": [
+      "Op ’n reguit, gelyk pad",
+      "By ’n blinde bult, skerp draai of soliede lyn",
+      "In ’n 100 km/h-sone",
+      "Bedags"
+    ]
+  },
+  "K53-041": {
+    "q": "Wat is die algemene spoedgrens binne stedelike/beboude gebiede, tensy ’n teken anders aandui?",
+    "options": [
+      "40 km/h",
+      "60 km/h",
+      "80 km/h",
+      "100 km/h"
+    ]
+  },
+  "K53-042": {
+    "q": "Wat is die algemene spoedgrens op openbare paaie buite stedelike gebiede?",
+    "options": [
+      "80 km/h",
+      "100 km/h",
+      "120 km/h",
+      "140 km/h"
+    ]
+  },
+  "K53-043": {
+    "q": "Wat is die algemene spoedgrens op snelweë in Suid-Afrika?",
+    "options": [
+      "100 km/h",
+      "120 km/h",
+      "140 km/h",
+      "Onbeperk"
+    ]
+  },
+  "K53-044": {
+    "q": "Op watter afstand van ’n brandkraan is parkering streng verbode?",
+    "options": [
+      "1,0 m",
+      "1,5 m",
+      "3,0 m",
+      "5,0 m"
+    ]
+  },
+  "K53-045": {
+    "q": "Op watter afstand van ’n kruising is parkering verbode?",
+    "options": [
+      "2 m",
+      "5 m",
+      "9 m",
+      "15 m"
+    ]
+  },
+  "K53-046": {
+    "q": "Op watter afstand van ’n gemerkte voetoorgang is stilhou verbode?",
+    "options": [
+      "3 m",
+      "6 m",
+      "9 m",
+      "12 m"
+    ]
+  },
+  "K53-047": {
+    "q": "Op watter afstand van ’n tonnel of brug is stilhou verbode?",
+    "options": [
+      "2 m",
+      "6 m",
+      "10 m",
+      "15 m"
+    ]
+  },
+  "K53-048": {
+    "q": "Wat is die maksimum afstand wat jou voertuig se wiele van die randsteen mag wees wanneer jy parkeer?",
+    "options": [
+      "150 mm",
+      "300 mm",
+      "450 mm",
+      "600 mm"
+    ]
+  },
+  "K53-049": {
+    "q": "Wanneer moet voertuig-hoofligte aangeskakel word?",
+    "options": [
+      "Van sonsondergang tot sonsopkoms of wanneer sigbaarheid minder as 150 m is",
+      "Slegs ná 20:00",
+      "Slegs wanneer dit swaar reën",
+      "Te alle tye"
+    ]
+  },
+  "K53-050": {
+    "q": "Hoe ver vorentoe moet hoofligte die pad verlig?",
+    "options": [
+      "45 m",
+      "100 m",
+      "150 m",
+      "200 m"
+    ]
+  },
+  "K53-051": {
+    "q": "Hoe ver vorentoe moet dimligte die pad verlig?",
+    "options": [
+      "20 m",
+      "45 m",
+      "100 m",
+      "150 m"
+    ]
+  },
+  "K53-052": {
+    "q": "Wanneer jy snags aankomende verkeer nader, op watter afstand moet jy jou ligte dim?",
+    "options": [
+      "50 m",
+      "100 m",
+      "150 m",
+      "300 m"
+    ]
+  },
+  "K53-053": {
+    "q": "Wat is die maksimum wettige bloedalkoholgrens vir gewone bestuurders van ligte voertuie?",
+    "options": [
+      "0,02 g / 100 ml",
+      "0,05 g / 100 ml",
+      "0,08 g / 100 ml",
+      "Geen alkohol toegelaat"
+    ]
+  },
+  "K53-054": {
+    "q": "Wat is die wettige bloedalkoholgrens vir professionele bestuurders (vragmotors/busse/taxi’s)?",
+    "options": [
+      "0,02 g / 100 ml",
+      "0,05 g / 100 ml",
+      "0,08 g / 100 ml",
+      "0,10 g / 100 ml"
+    ]
+  },
+  "K53-055": {
+    "q": "Binne watter tydperk moet ’n padverkeersongeluk by die polisie aangemeld word?",
+    "options": [
+      "12 uur",
+      "24 uur",
+      "48 uur",
+      "7 dae"
+    ]
+  },
+  "K53-056": {
+    "q": "Wat mag jy NIE ná ’n ongeluk inneem voordat jy dit by die polisie aanmeld nie?",
+    "options": [
+      "Water",
+      "Alkohol of verdowingsmiddels",
+      "Kos",
+      "Pynstillers"
+    ]
+  },
+  "K53-057": {
+    "q": "Op watter afstand agter ’n stilstaande voertuig moet ’n nooddriehoek geplaas word?",
+    "options": [
+      "15 m",
+      "30 m",
+      "45 m",
+      "60 m"
+    ]
+  },
+  "K53-058": {
+    "q": "Wat is die maksimum wettige hoogte van ’n gelaaide voertuig vanaf grondvlak?",
+    "options": [
+      "3,8 m",
+      "4,3 m",
+      "4,6 m",
+      "5,0 m"
+    ]
+  },
+  "K53-059": {
+    "q": "Wat is die maksimum totale breedte van ’n motorvoertuig, insluitend die vrag?",
+    "options": [
+      "2,2 m",
+      "2,5 m",
+      "2,6 m",
+      "3,0 m"
+    ]
+  },
+  "K53-060": {
+    "q": "Wat is die maksimum toegelate vooroorhang van ’n voertuigvrag?",
+    "options": [
+      "100 mm",
+      "300 mm",
+      "500 mm",
+      "1 000 mm"
+    ]
+  },
+  "K53-061": {
+    "q": "Wat is die maksimum toegelate agteroorhang van ’n voertuigvrag?",
+    "options": [
+      "1,0 m",
+      "1,8 m",
+      "2,5 m",
+      "3,0 m"
+    ]
+  },
+  "K53-062": {
+    "q": "Watter vlag moet bedags vertoon word wanneer ’n uitsteeksel meer as 300 mm agter die voertuig uitsteek?",
+    "options": [
+      "Wit vlag",
+      "Rooi vlag (300 mm × 300 mm)",
+      "Geel vlag",
+      "Groen vlag"
+    ]
+  },
+  "K53-063": {
+    "q": "Wat is STAP 1 in die amptelike volgorde van die K53-verdedigende bestuurstelsel?",
+    "options": [
+      "Gee rigting aan",
+      "Neem waar (spieëls en omgewing)",
+      "Kontroleer blindekol",
+      "Rem"
+    ]
+  },
+  "K53-064": {
+    "q": "Wat is STAP 2 in die amptelike volgorde van die K53-verdedigende bestuurstelsel?",
+    "options": [
+      "Gee rigting aan",
+      "Kontroleer blindekol oor die skouer",
+      "Kies rat",
+      "Stuur"
+    ]
+  },
+  "K53-065": {
+    "q": "Wat is STAP 3 in die amptelike volgorde van die K53-verdedigende bestuurstelsel?",
+    "options": [
+      "Dui jou voorneme met die rigtingwyser aan",
+      "Rem",
+      "Versnel",
+      "Spieëls"
+    ]
+  },
+  "K53-066": {
+    "q": "Wat is STAP 4 in die amptelike volgorde van die K53-verdedigende bestuurstelsel?",
+    "options": [
+      "Kontroleer spieëls weer",
+      "Stuur",
+      "Wissel rat",
+      "Blindekol"
+    ]
+  },
+  "K53-067": {
+    "q": "Wat is STAP 5 in die amptelike volgorde van die K53-verdedigende bestuurstelsel?",
+    "options": [
+      "Gebruik die voetrem om spoed aan te pas",
+      "Versnel",
+      "Gee rigting aan",
+      "Koppelaar"
+    ]
+  },
+  "K53-068": {
+    "q": "Wat is STAP 6 in die amptelike volgorde van die K53-verdedigende bestuurstelsel?",
+    "options": [
+      "Kies die toepaslike rat",
+      "Stuur",
+      "Gee rigting aan",
+      "Blindekol"
+    ]
+  },
+  "K53-069": {
+    "q": "Wat is STAP 7 in die amptelike volgorde van die K53-verdedigende bestuurstelsel?",
+    "options": [
+      "Finale blindekolkontrole voordat jy stuur",
+      "Gee rigting aan",
+      "Spieëls",
+      "Rem"
+    ]
+  },
+  "K53-070": {
+    "q": "Wat is STAP 8 in die amptelike volgorde van die K53-verdedigende bestuurstelsel?",
+    "options": [
+      "Stuur die voertuig in die beoogde rigting",
+      "Versnel",
+      "Ratwisseling",
+      "Rem"
+    ]
+  },
+  "K53-071": {
+    "q": "Wat is STAP 9 in die amptelike volgorde van die K53-verdedigende bestuurstelsel?",
+    "options": [
+      "Versnel glad en geleidelik",
+      "Blindekol",
+      "Gee rigting aan",
+      "Rem"
+    ]
+  },
+  "K53-072": {
+    "q": "Watter stappe vorm 'Groep 1' van die K53-verdedigende bestuurstelsel?",
+    "options": [
+      "Waarneming, blindekol, rigtingwyser",
+      "Spieëls, rem, rat",
+      "Blindekol, stuur, versnel",
+      "Waarneming, rat, stuur"
+    ]
+  },
+  "K53-073": {
+    "q": "Watter stappe vorm 'Groep 2' van die K53-verdedigende bestuurstelsel?",
+    "options": [
+      "Waarneming, blindekol, rigtingwyser",
+      "Spieëls, rem, ratwisseling",
+      "Blindekol, stuur, versnel",
+      "Rigtingwyser, rat, stuur"
+    ]
+  },
+  "K53-074": {
+    "q": "Watter stappe vorm 'Groep 3' van die K53-verdedigende bestuurstelsel?",
+    "options": [
+      "Waarneming, blindekol, rigtingwyser",
+      "Spieëls, rem, rat",
+      "Blindekol, stuur, versnel",
+      "Waarneming, spieël, rigtingwyser"
+    ]
+  },
+  "K53-075": {
+    "q": "Watter handtegniek is volgens K53 verpligtend wanneer jy ’n motorvoertuig stuur?",
+    "options": [
+      "Hand-oor-hand-stuurtegniek",
+      "Druk-trek-stuurtegniek (push-pull)",
+      "Stuur met een hand",
+      "Gekruisde-arm-stuurtegniek"
+    ]
+  },
+  "K53-076": {
+    "q": "Wat is die korrekte handposisie op die stuurwiel wanneer jy reguit ry?",
+    "options": [
+      "12-uur- en 6-uur-posisie",
+      "10-voor-2- of 9-uur- en 3-uur-posisie, met duime buite die rand",
+      "Albei hande by 6-uur",
+      "Een hand op die rathefboom"
+    ]
+  },
+  "K53-077": {
+    "q": "Wanneer MOET jy jou voertuig se blindekolle kontroleer?",
+    "options": [
+      "Voordat jy wegtrek, van baan verwissel of draai",
+      "Slegs wanneer jy agteruit ry",
+      "Elke 5 minute",
+      "Slegs op snelweë"
+    ]
+  },
+  "K53-078": {
+    "q": "Watter pedaal beheer die oordrag van enjinkrag na die ratkas in ’n handratmotor?",
+    "options": [
+      "Versneller",
+      "Voetrem",
+      "Koppelaarpedaal",
+      "Handrem"
+    ]
+  },
+  "K53-079": {
+    "q": "Wat is die koppelaar se wrywingspunt (grijppunt)?",
+    "options": [
+      "Punt waar remme sluit",
+      "Punt waar koppelaarplate aangryp en die voertuig begin beweeg",
+      "Punt waar die rathefboom sluit",
+      "Punt waar die enjin gaan staan"
+    ]
+  },
+  "K53-080": {
+    "q": "Watter voet moet uitsluitlik gebruik word om die koppelaarpedaal te bedien?",
+    "options": [
+      "Regtervoet",
+      "Linkervoet",
+      "Albei voete",
+      "Enige voet"
+    ]
+  },
+  "K53-081": {
+    "q": "Watter voet bedien beide die versneller- en voetrempedale?",
+    "options": [
+      "Linkervoet",
+      "Regtervoet",
+      "Albei voete saam",
+      "Geen van die twee nie"
+    ]
+  },
+  "K53-082": {
+    "q": "Watter kleur lisensieskyf moet op ’n motorvoertuig se voorruit vertoon word?",
+    "options": [
+      "Blou skyf",
+      "Geldige groen/wit lisensieskyf vir 12 maande",
+      "Rooi skyf",
+      "Geel skyf"
+    ]
+  },
+  "K53-083": {
+    "q": "Waar op die voorruit moet die lisensieskyf aangebring word?",
+    "options": [
+      "Regter boonste hoek",
+      "Linker onderste hoek / onderste linkerkant",
+      "Middel bo",
+      "Agterruit"
+    ]
+  },
+  "K53-084": {
+    "q": "Hoe lank is ’n leerlinglisensie in Suid-Afrika geldig?",
+    "options": [
+      "6 maande",
+      "12 maande",
+      "24 maande",
+      "5 jaar"
+    ]
+  },
+  "K53-085": {
+    "q": "Wie moet ’n leerlinglisensiehouer vergesel wanneer hy of sy ’n ligte motorvoertuig bestuur?",
+    "options": [
+      "Enige volwasse passasier",
+      "’n Gelisensieerde bestuurder met ’n geldige lisensie vir dieselfde voertuigklas",
+      "Slegs ’n professionele bestuursinstrukteur",
+      "Geen begeleier nodig nie"
+    ]
+  },
+  "K53-086": {
+    "q": "Mag leerlingbestuurders in Suid-Afrika op snelweë bestuur?",
+    "options": [
+      "Nee, dit is streng verbode",
+      "Ja, mits hulle deur ’n gelisensieerde bestuurder vergesel word",
+      "Slegs tussen 09:00 en 15:00",
+      "Slegs indien hulle onder 80 km/h ry"
+    ]
+  },
+  "K53-087": {
+    "q": "Wat is die minimum ouderdom om ’n leerlinglisensie vir ’n ligte motorvoertuig (Kode 2 / EB) te kry?",
+    "options": [
+      "15 jaar",
+      "16 jaar",
+      "17 jaar",
+      "18 jaar"
+    ]
+  },
+  "K53-088": {
+    "q": "Wat is die minimum ouderdom om ’n leerlinglisensie vir ’n swaar motorvoertuig (Kode 3 / C1/C) te kry?",
+    "options": [
+      "16 jaar",
+      "17 jaar",
+      "18 jaar",
+      "21 jaar"
+    ]
+  },
+  "K53-089": {
+    "q": "Watter loopvlakdiepte word wetlik oor die volle breedte van ’n motorband vereis?",
+    "options": [
+      "Sigbare patroon / minimum diepte van 1,0 mm",
+      "2,0 mm",
+      "3,0 mm",
+      "5,0 mm"
+    ]
+  },
+  "K53-090": {
+    "q": "Word hersnitte bande op die vooras van ’n passasiersmotor of motorfiets toegelaat?",
+    "options": [
+      "Ja, altyd toegelaat",
+      "Verbode op motorfietse; toegelaat op motors indien dit wettig is",
+      "Verbode op alle voertuie",
+      "Verpligtend"
+    ]
+  },
+  "K53-091": {
+    "q": "Wat is die wetlike vereiste rakende veiligheidsgordels in ’n motorvoertuig?",
+    "options": [
+      "Slegs die bestuurder moet een dra",
+      "Die bestuurder en alle passasiers moet veiligheidsgordels dra waar dit aangebring is",
+      "Opsioneel op stedelike paaie",
+      "Slegs op snelweë verpligtend"
+    ]
+  },
+  "K53-092": {
+    "q": "Kinders onder watter ouderdom moet in ’n goedgekeurde kinderstoeltjie vasgemaak word?",
+    "options": [
+      "1 jaar",
+      "3 jaar",
+      "7 jaar",
+      "12 jaar"
+    ]
+  },
+  "K53-093": {
+    "q": "Wat is verbode met betrekking tot selfone terwyl jy bestuur?",
+    "options": [
+      "Om op luidsprekerfoon te praat",
+      "Om ’n selfoon direk in jou hand vas te hou of te gebruik terwyl jy bestuur",
+      "Om Bluetooth-handvry te gebruik",
+      "Om ’n foon in die motor te hê"
+    ]
+  },
+  "K53-094": {
+    "q": "Wanneer jy ’n ander voertuig met ’n tou of sleepstang sleep, wat is die maksimum sleepafstand?",
+    "options": [
+      "2,0 m",
+      "3,5 m",
+      "5,0 m",
+      "10,0 m"
+    ]
+  },
+  "K53-095": {
+    "q": "Wat is die maksimum toegelate spoed wanneer ’n voertuig met ’n nie-starre sleeptou gesleep word?",
+    "options": [
+      "15 km/h",
+      "30 km/h",
+      "60 km/h",
+      "80 km/h"
+    ]
+  },
+  "K53-096": {
+    "q": "Van watter afstand moet jou voertuig se toeter onder helder toestande hoorbaar wees?",
+    "options": [
+      "30 m",
+      "90 m",
+      "150 m",
+      "300 m"
+    ]
+  },
+  "K53-097": {
+    "q": "Watter kleur lig moet voertuig-agterligte en remligte uitstraal?",
+    "options": [
+      "Wit lig",
+      "Amber lig",
+      "Rooi lig",
+      "Geel lig"
+    ]
+  },
+  "K53-098": {
+    "q": "Watter kleur lig moet voertuig-agteruitryligte uitstraal?",
+    "options": [
+      "Rooi lig",
+      "Amber lig",
+      "Wit lig",
+      "Groen lig"
+    ]
+  },
+  "K53-099": {
+    "q": "Wat dui ’n soliede geel lyn aan wat aan die linkerkant van die randsteen/padkant geverf is?",
+    "options": [
+      "Verbysteekgebied",
+      "Parkering toegelaat",
+      "Geen stilhou te eniger tyd nie",
+      "Bushaltegebied"
+    ]
+  },
+  "K53-100": {
+    "q": "Wat is die hoofdoel van die K53-verdedigende bestuurstelsel?",
+    "options": [
+      "Om die bestuurstoets vinnig te slaag",
+      "Om verdedigend te bestuur deur gevare vroeg te identifiseer en botsings te vermy",
+      "Om veilig teen hoë snelhede te ry",
+      "Om brandstof te bespaar"
+    ]
+  },
+  "motorcycle-001": {
+    "q": "Om die brandstoftoevoer na die enjin te reël, gebruik jy die volgende beheer:",
+    "options": [
+      "4 + 5 + 7",
+      "8",
+      "5",
+      "3"
+    ],
+    "explain": "5 = Gashendel"
+  },
+  "motorcycle-002": {
+    "q": "By ’n motorfiets is die hefboom wat die voorrem aanslaan en die remlig aktiveer …",
+    "options": [
+      "1, 2, 3, 4, 5, 7 en 8",
+      "1",
+      "Voor- en agterremme, nommers 4 en 7",
+      "4"
+    ],
+    "explain": "4 = Voorrem"
+  },
+  "motorcycle-003": {
+    "q": "Op ’n motorfiets is die hefboom wat die agterrem aanslaan …",
+    "options": [
+      "4 en 7",
+      "7",
+      "2, 4 en 7",
+      "1, 2, 3, 4, 5, 7 en 8"
+    ],
+    "explain": "7 = Agterrem (voet)"
+  },
+  "motorcycle-004": {
+    "q": "Die volgende kontroles word saam gebruik om die motorfiets heeltemal tot stilstand te bring:",
+    "options": [
+      "4 en 7",
+      "Voor- en agterremme, nommers 4 en 7",
+      "2, 4 en 7",
+      "4 + 5 + 7"
+    ],
+    "explain": "4 = Voorrem; 7 = Agterrem (voet)"
+  },
+  "motorcycle-005": {
+    "q": "Die volgende beheer word gebruik om die spoed van ’n motorfiets te verhoog of te verlaag:",
+    "options": [
+      "2",
+      "Voor- en agterremme, nommers 4 en 7",
+      "5",
+      "8"
+    ],
+    "explain": "5 = Gashendel"
+  },
+  "motorcycle-006": {
+    "q": "Die volgende kontroles word gebruik om die spoed van ’n motorfiets te beheer:",
+    "options": [
+      "4",
+      "Voor- en agterremme, nommers 4 en 7",
+      "4 + 5 + 7",
+      "1"
+    ],
+    "explain": "4 = Voorrem; 5 = Gashendel; 7 = Agterrem (voet)"
+  },
+  "motorcycle-007": {
+    "q": "Die skakelaar waarmee rigtingwysers aangeskakel word om jou voornemens aan te dui, is …",
+    "options": [
+      "6",
+      "1",
+      "2, 4 en 7",
+      "5"
+    ],
+    "explain": "6 = Rigtingwyserskakelaar"
+  },
+  "motorcycle-008": {
+    "q": "Die draaigreep wat die enjinspoed beheer, is …",
+    "options": [
+      "Voor- en agterremme, nommers 4 en 7",
+      "4",
+      "5",
+      "4 en 7"
+    ],
+    "explain": "5 = Gashendel"
+  },
+  "motorcycle-009": {
+    "q": "Die volgende kontroles word gebruik om ratte te wissel …",
+    "options": [
+      "5",
+      "1",
+      "6",
+      "1 en 2"
+    ],
+    "explain": "1 = Rathefboom; 2 = Koppelaar"
+  },
+  "motorcycle-010": {
+    "q": "Die volgende beheer word gebruik om aan te dui dat jy gaan draai …",
+    "options": [
+      "6",
+      "4 + 5 + 7",
+      "2",
+      "4 en 7"
+    ],
+    "explain": "6 = Rigtingwyserskakelaar"
+  },
+  "motorcycle-011": {
+    "q": "Om vinniger te ry, moet jy beheer … gebruik",
+    "options": [
+      "1, 2, 3, 4, 5, 7 en 8",
+      "8",
+      "5",
+      "4"
+    ],
+    "explain": "5 = Gashendel"
+  },
+  "motorcycle-012": {
+    "q": "Om te stop, moet jy die volgende kontroles gebruik …",
+    "options": [
+      "4 en 7",
+      "2",
+      "Voor- en agterremme, nommers 4 en 7",
+      "4 + 5 + 7"
+    ],
+    "explain": "4 = Voorrem; 7 = Agterrem (voet)"
+  },
+  "motorcycle-013": {
+    "q": "Om die motorfiets te draai, moet jy beheer … gebruik",
+    "options": [
+      "8",
+      "5",
+      "4",
+      "3"
+    ],
+    "explain": "8 = Handvatsels"
+  },
+  "motorcycle-014": {
+    "q": "Wanneer kontroles 4 en 7 gebruik word, is die afstand wat dit neem om jou motorfiets te stop … (i) langer op ’n nat pad as op ’n droë pad. (ii) langer wanneer jy vinniger ry. (iii) langer wanneer jy ’n passasier vervoer. KIES DIE KORREKTE KOMBINASIE",
+    "options": [
+      "4",
+      "8",
+      "Al die stellings is korrek",
+      "3"
+    ],
+    "explain": "4 = Voorrem; 7 = Agterrem"
+  },
+  "motorcycle-015": {
+    "q": "Watter beheer gebruik ’n motorfietsryer om die verkeer agter die motorfiets dop te hou?",
+    "options": [
+      "8",
+      "Voor- en agterremme, nommers 4 en 7",
+      "2",
+      "3"
+    ],
+    "explain": "3 = Truspieëls"
+  },
+  "motorcycle-016": {
+    "q": "Watter beheer gebruik jy om die enjin van die ratkas te ontkoppel?",
+    "options": [
+      "2",
+      "3",
+      "8",
+      "4 en 7"
+    ],
+    "explain": "2 = Koppelaar"
+  },
+  "motorcycle-017": {
+    "q": "Watter beheer gebruik jy om verkeer agter jou dop te hou?",
+    "options": [
+      "4 + 5 + 7",
+      "2",
+      "8",
+      "3"
+    ],
+    "explain": "3 = Truspieëls"
+  },
+  "motorcycle-018": {
+    "q": "Watter beheer gebruik ’n motorfietsryer wanneer hy/sy wil aandui dat hy/sy links gaan stuur?",
+    "options": [
+      "4 + 5 + 7",
+      "Voor- en agterremme, nommers 4 en 7",
+      "1",
+      "6"
+    ],
+    "explain": "6 = Rigtingwyserskakelaar"
+  },
+  "motorcycle-019": {
+    "q": "Watter kontroles moet onmiddellik voordat jy tot stilstand kom saam gebruik word?",
+    "options": [
+      "1",
+      "2, 4 en 7",
+      "3",
+      "2"
+    ],
+    "explain": "2 = Koppelaar; 4 = Voorrem; 7 = Agterrem (voet)"
+  },
+  "motorcycle-020": {
+    "q": "Om ’n skerp draai in die pad te neem, moet die volgende kontroles gebruik word …",
+    "options": [
+      "5",
+      "4 en 7",
+      "2, 4 en 7",
+      "1, 2, 3, 4, 5, 7 en 8"
+    ],
+    "explain": "1 = Rathefboom; 2 = Koppelaar; 3 = Truspieëls; 4 = Voorrem; 5 = Gashendel; 7 = Agterrem (voet); 8 = Handvatsels"
+  },
+  "motorcycle-021": {
+    "q": "Watter hefboom word gebruik om ratte te wissel?",
+    "options": [
+      "1",
+      "Voor- en agterremme, nommers 4 en 7",
+      "2",
+      "5"
+    ],
+    "explain": "1 = Rathefboom"
+  },
+  "light-vehicle-001": {
+    "q": "Watter beheer kom nie in ’n outomatiese voertuig voor?",
+    "options": [
+      "2",
+      "6 en 8",
+      "8",
+      "7"
+    ],
+    "explain": "8 = Koppelaar"
+  },
+  "light-vehicle-002": {
+    "q": "Watter beheer gebruik jy om te sien wat aan die regter agterkant van jou voertuig is?",
+    "options": [
+      "6 en 8",
+      "3",
+      "11",
+      "8 en 6"
+    ],
+    "explain": "3 = Kanttruspieëls"
+  },
+  "light-vehicle-003": {
+    "q": "Die volgende beheer word gebruik om jou voertuig te versnel …",
+    "options": [
+      "9",
+      "10",
+      "1 en 3",
+      "Slegs 1, 4, 6, 8, 9 en 10"
+    ],
+    "explain": "10 = Versneller"
+  },
+  "light-vehicle-004": {
+    "q": "Watter beheer verseker dat jou geparkeerde voertuig nie beweeg nie?",
+    "options": [
+      "8",
+      "7",
+      "3",
+      "1"
+    ],
+    "explain": "7 = Handrem"
+  },
+  "light-vehicle-005": {
+    "q": "Om ’n rat te wissel, moet jy beheer(s) … gebruik",
+    "options": [
+      "6 en 8",
+      "9",
+      "7",
+      "4"
+    ],
+    "explain": "6 = Rathefboom; 8 = Koppelaar"
+  },
+  "light-vehicle-006": {
+    "q": "Om jou voertuig te stop, moet jy nommer … gebruik",
+    "options": [
+      "9",
+      "6",
+      "8",
+      "8 en 6"
+    ],
+    "explain": "9 = Rem"
+  },
+  "light-vehicle-007": {
+    "q": "Wanneer jy rem, is die afstand wat dit ’n bestuurder neem om ’n motorvoertuig te stop … (i) langer op ’n nat pad as op ’n droë pad. (ii) langer wanneer die voertuig vinniger ry. (iii) langer wanneer die voertuig gelaai is. KIES DIE KORREKTE KOMBINASIE",
+    "options": [
+      "8 en 6",
+      "Al die stellings is korrek",
+      "4",
+      "5"
+    ],
+    "explain": "Die stopafstand neem toe op nat paaie, teen hoër snelhede en met ’n swaarder vrag."
+  },
+  "light-vehicle-008": {
+    "q": "Watter beheer help die bestuurder om ’n rat in of uit te skakel?",
+    "options": [
+      "2",
+      "8",
+      "1",
+      "10"
+    ],
+    "explain": "8 = Koppelaar"
+  },
+  "light-vehicle-009": {
+    "q": "Met watter beheer kan die voertuig se spoed verhoog word?",
+    "options": [
+      "Slegs 1, 4, 6, 8, 9 en 10",
+      "1 en 3",
+      "10",
+      "11"
+    ],
+    "explain": "10 = Versneller"
+  },
+  "light-vehicle-010": {
+    "q": "Watter beheer gebruik jy voordat jy rem om stadiger te ry of te stop?",
+    "options": [
+      "Slegs 1, 4, 6, 8, 9 en 10",
+      "11",
+      "6",
+      "1"
+    ],
+    "explain": "1 = Middelste truspieël"
+  },
+  "light-vehicle-011": {
+    "q": "Watter beheer gebruik jy voordat jy die voertuig se rigting verander?",
+    "options": [
+      "Slegs 1, 4, 6, 8, 9 en 10",
+      "8 en 6",
+      "5",
+      "8"
+    ],
+    "explain": "5 = Rigtingwyserskakelaar"
+  },
+  "light-vehicle-012": {
+    "q": "Watter beheer gebruik jy voordat jy die voertuig se spoed verander?",
+    "options": [
+      "1",
+      "7",
+      "5",
+      "8 en 6"
+    ],
+    "explain": "1 = Middelste truspieël"
+  },
+  "light-vehicle-013": {
+    "q": "Watter beheer waarsku ander padgebruikers dat jy links of regs wil stuur of draai?",
+    "options": [
+      "1 en 3",
+      "8 en 6",
+      "3",
+      "5"
+    ],
+    "explain": "5 = Rigtingwyserskakelaar"
+  },
+  "light-vehicle-014": {
+    "q": "Watter beheer word gebruik om ander padgebruikers te waarsku en ’n botsing te help voorkom?",
+    "options": [
+      "8",
+      "1 en 3",
+      "11",
+      "4"
+    ],
+    "explain": "11 = Toeter"
+  },
+  "light-vehicle-015": {
+    "q": "Watter beheer gebruik jy om te voorkom dat die voertuig gaan staan net voordat dit heeltemal tot stilstand kom?",
+    "options": [
+      "2",
+      "10",
+      "8",
+      "3"
+    ],
+    "explain": "8 = Koppelaar"
+  },
+  "light-vehicle-016": {
+    "q": "Watter beheer word gebruik om die voertuig heeltemal tot stilstand te bring?",
+    "options": [
+      "9",
+      "8 en 6",
+      "Slegs 1, 4, 6, 8, 9 en 10",
+      "7"
+    ],
+    "explain": "9 = Rem"
+  },
+  "light-vehicle-017": {
+    "q": "Watter beheer word gebruik om die voertuig se rigting te verander?",
+    "options": [
+      "1",
+      "4",
+      "8",
+      "10"
+    ],
+    "explain": "4 = Stuurwiel"
+  },
+  "light-vehicle-018": {
+    "q": "Watter beheer word gebruik om die voorruit skoon te maak?",
+    "options": [
+      "6",
+      "11",
+      "3",
+      "2"
+    ],
+    "explain": "2 = Ruitveër"
+  },
+  "light-vehicle-019": {
+    "q": "Watter beheer word gebruik om spoed te verminder of te stop?",
+    "options": [
+      "2",
+      "3",
+      "9",
+      "6 en 8"
+    ],
+    "explain": "9 = Rem"
+  },
+  "light-vehicle-020": {
+    "q": "Watter beheer hou die voertuig stil nadat jy geparkeer het?",
+    "options": [
+      "11",
+      "2",
+      "7",
+      "9"
+    ],
+    "explain": "7 = Handrem"
+  },
+  "light-vehicle-021": {
+    "q": "Watter beheer gebruik jy om te sien wat agter die voertuig is?",
+    "options": [
+      "Slegs 1, 4, 6, 8, 9 en 10",
+      "2",
+      "1",
+      "3"
+    ],
+    "explain": "1 = Middelste truspieël"
+  },
+  "light-vehicle-022": {
+    "q": "Watter beheer gebruik jy om ’n rat te kies?",
+    "options": [
+      "8",
+      "5",
+      "6",
+      "Slegs 1, 4, 6, 8, 9 en 10"
+    ],
+    "explain": "6 = Rathefboom"
+  },
+  "light-vehicle-023": {
+    "q": "Watter beheer gebruik jy om die voertuig links of regs te stuur?",
+    "options": [
+      "6",
+      "1",
+      "4",
+      "8"
+    ],
+    "explain": "4 = Stuurwiel"
+  },
+  "light-vehicle-024": {
+    "q": "Die volgende beheer word gebruik om te draai …",
+    "options": [
+      "4",
+      "11",
+      "6",
+      "8 en 6"
+    ],
+    "explain": "4 = Stuurwiel"
+  },
+  "light-vehicle-025": {
+    "q": "Watter beheer gebruik jy wanneer jy in die reën bestuur?",
+    "options": [
+      "10",
+      "Slegs 1, 4, 6, 8, 9 en 10",
+      "2",
+      "3"
+    ],
+    "explain": "2 = Ruitveër"
+  },
+  "light-vehicle-026": {
+    "q": "Watter beheer gebruik jy wanneer jy parkeer en die voertuig onbewaak laat?",
+    "options": [
+      "10",
+      "7",
+      "6 en 8",
+      "9"
+    ],
+    "explain": "7 = Handrem"
+  },
+  "light-vehicle-027": {
+    "q": "Watter beheer moet gebruik word om te verseker dat die voertuig stil bly?",
+    "options": [
+      "7",
+      "2",
+      "6",
+      "4"
+    ],
+    "explain": "7 = Handrem"
+  },
+  "light-vehicle-028": {
+    "q": "Watter beheer(s) gebruik jy om die voertuig in ’n noodgeval te stop?",
+    "options": [
+      "5",
+      "6 en 8",
+      "8",
+      "9"
+    ],
+    "explain": "9 = Rem"
+  },
+  "light-vehicle-029": {
+    "q": "Watter beheer(s) gebruik jy om agter en langs die voertuig te sien?",
+    "options": [
+      "2",
+      "3",
+      "6 en 8",
+      "1 en 3"
+    ],
+    "explain": "1 = Middelste truspieël; 3 = Kanttruspieëls"
+  },
+  "light-vehicle-030": {
+    "q": "Watter beheer(s) gebruik jy wanneer jy van een rat na ’n ander wissel?",
+    "options": [
+      "8 en 6",
+      "7",
+      "4",
+      "6 en 8"
+    ],
+    "explain": "8 = Koppelaar; 6 = Rathefboom"
+  },
+  "light-vehicle-031": {
+    "q": "Watter kontroles moet jy gebruik wanneer daar ’n skerp draai in die pad is?",
+    "options": [
+      "1 en 3",
+      "4",
+      "Slegs 1, 4, 6, 8, 9 en 10",
+      "2"
+    ],
+    "explain": "1 = Middelste truspieël; 4 = Stuurwiel; 6 = Rathefboom; 8 = Koppelaar; 9 = Rem; 10 = Versneller"
+  },
+  "heavy-vehicle-001": {
+    "q": "Beheer nommer 8 word gebruik om …",
+    "options": [
+      "ratte te wissel.",
+      "rathefboom.",
+      "rigtingwyser.",
+      "stuurwiel."
+    ],
+    "explain": "8 = Koppelaar"
+  },
+  "heavy-vehicle-002": {
+    "q": "Beheer nommer 1 is die …",
+    "options": [
+      "ratte te wissel.",
+      "stuurwiel.",
+      "rathefboom.",
+      "binne-truspieël."
+    ],
+    "explain": "1 = Binne-truspieël"
+  },
+  "heavy-vehicle-003": {
+    "q": "Beheer nommer 2 is die …",
+    "options": [
+      "rathefboom.",
+      "binne-truspieël.",
+      "stuurwiel.",
+      "ruitveërs."
+    ],
+    "explain": "2 = Ruitveër"
+  },
+  "heavy-vehicle-004": {
+    "q": "Beheer nommer 4 is die …",
+    "options": [
+      "rathefboom.",
+      "ratte te wissel.",
+      "stuurwiel.",
+      "ruitveërs."
+    ],
+    "explain": "4 = Stuurwiel"
+  },
+  "heavy-vehicle-005": {
+    "q": "Beheer nommer 5 is die …",
+    "options": [
+      "binne-truspieël.",
+      "Al die bogenoemde is korrek",
+      "rigtingwyser.",
+      "ruitveërs."
+    ],
+    "explain": "5 = Rigtingwyserskakelaar"
+  },
+  "heavy-vehicle-006": {
+    "q": "Beheer nommer 6 is die …",
+    "options": [
+      "ruitveërs.",
+      "rathefboom.",
+      "rigtingwyser.",
+      "stuurwiel."
+    ],
+    "explain": "6 = Rathefboom"
+  },
+  "heavy-vehicle-007": {
+    "q": "Die volgende beheer help die bestuurder wanneer ratte gewissel word:",
+    "options": [
+      "7",
+      "8",
+      "2",
+      "4"
+    ],
+    "explain": "8 = Koppelaar"
+  },
+  "heavy-vehicle-008": {
+    "q": "Die volgende beheer word gebruik om die voertuig se rigting te verander:",
+    "options": [
+      "9",
+      "4",
+      "6",
+      "1 + 3 + 5"
+    ],
+    "explain": "4 = Stuurwiel"
+  },
+  "heavy-vehicle-009": {
+    "q": "Die volgende beheer word gebruik om ’n geparkeerde voertuig stil te hou:",
+    "options": [
+      "6",
+      "10",
+      "7",
+      "6 en 8"
+    ],
+    "explain": "7 = Handrem"
+  },
+  "heavy-vehicle-010": {
+    "q": "Die volgende beheer word gebruik om die toepaslike rat vir die voertuig te kies:",
+    "options": [
+      "7",
+      "2",
+      "6",
+      "3"
+    ],
+    "explain": "6 = Rathefboom"
+  },
+  "heavy-vehicle-011": {
+    "q": "Die volgende is ’n voetbeheer:",
+    "options": [
+      "9",
+      "7",
+      "4",
+      "1 + 3 + 5"
+    ],
+    "explain": "9 = Rem"
+  },
+  "heavy-vehicle-012": {
+    "q": "Die volgende is nie ’n handbeheer nie:",
+    "options": [
+      "10",
+      "9",
+      "7",
+      "3"
+    ],
+    "explain": "10 = Versneller"
+  },
+  "heavy-vehicle-013": {
+    "q": "Die volgende word gebruik om aan te dui dat jy van rigting wil verander:",
+    "options": [
+      "2",
+      "6 en 8",
+      "Slegs 1, 3, 4, 6, 8, 9 en 10",
+      "5"
+    ],
+    "explain": "5 = Rigtingwyserskakelaar"
+  },
+  "heavy-vehicle-014": {
+    "q": "Die volgende word gebruik om verkeer dop te hou:",
+    "options": [
+      "3",
+      "7",
+      "6",
+      "8"
+    ],
+    "explain": "3 = Kanttruspieëls"
+  },
+  "heavy-vehicle-015": {
+    "q": "Om jou voertuig te versnel, moet jy nommer … gebruik",
+    "options": [
+      "10",
+      "2",
+      "Slegs 1, 3, 4, 6, 8, 9 en 10",
+      "9"
+    ],
+    "explain": "10 = Versneller"
+  },
+  "heavy-vehicle-016": {
+    "q": "Om ’n voertuig heeltemal tot stilstand te bring, word beheer nommer … gebruik",
+    "options": [
+      "4",
+      "5",
+      "9",
+      "Slegs 1, 3, 4, 6, 8, 9 en 10"
+    ],
+    "explain": "9 = Rem"
+  },
+  "heavy-vehicle-017": {
+    "q": "Om die voertuig se spoed te verminder of dit heeltemal te stop, word die volgende beheer gebruik:",
+    "options": [
+      "6 en 8",
+      "9",
+      "8",
+      "5"
+    ],
+    "explain": "9 = Rem"
+  },
+  "heavy-vehicle-018": {
+    "q": "Om te verseker dat jou geparkeerde voertuig nie beweeg nie, gebruik nommer …",
+    "options": [
+      "7",
+      "9",
+      "1 + 3 + 5",
+      "3"
+    ],
+    "explain": "7 = Handrem"
+  },
+  "heavy-vehicle-019": {
+    "q": "Om die voertuig se spoed te verhoog of te verlaag, word die volgende beheer gebruik:",
+    "options": [
+      "3",
+      "Slegs 1, 3, 4, 6, 8, 9 en 10",
+      "10",
+      "6 en 8"
+    ],
+    "explain": "10 = Versneller"
+  },
+  "heavy-vehicle-020": {
+    "q": "Om aan te dui dat jy gaan draai, moet jy nommer … gebruik",
+    "options": [
+      "6",
+      "5",
+      "Slegs 1, 3, 4, 6, 8, 9 en 10",
+      "10"
+    ],
+    "explain": "5 = Rigtingwyserskakelaar"
+  },
+  "heavy-vehicle-021": {
+    "q": "Om die voorruit skoon te hou wanneer dit reën, word die volgende gebruik …",
+    "options": [
+      "10",
+      "7",
+      "6",
+      "2"
+    ],
+    "explain": "2 = Ruitveër"
+  },
+  "heavy-vehicle-022": {
+    "q": "Om verkeer agter die voertuig dop te hou, word die volgende gebruik …",
+    "options": [
+      "3",
+      "4",
+      "6 en 8",
+      "2"
+    ],
+    "explain": "3 = Kanttruspieëls"
+  },
+  "heavy-vehicle-023": {
+    "q": "Om ’n rat te kies, moet jy nommers … gebruik",
+    "options": [
+      "6",
+      "Slegs 1, 3, 4, 6, 8, 9 en 10",
+      "6 en 8",
+      "5"
+    ],
+    "explain": "6 = Rathefboom; 8 = Koppelaar"
+  },
+  "heavy-vehicle-024": {
+    "q": "Om jou voertuig te stop, moet jy nommer … gebruik",
+    "options": [
+      "6",
+      "9",
+      "1 + 3 + 5",
+      "4"
+    ],
+    "explain": "9 = Rem"
+  },
+  "heavy-vehicle-025": {
+    "q": "Om jou voertuig te draai, word nommer … gebruik.",
+    "options": [
+      "4",
+      "6 en 8",
+      "7",
+      "5"
+    ],
+    "explain": "4 = Stuurwiel"
+  },
+  "heavy-vehicle-026": {
+    "q": "Wanneer beheer nommer 9 gebruik word, is die afstand wat dit die bestuurder neem om ’n motorvoertuig te stop … (i) langer op ’n nat pad as op ’n droë pad. (ii) langer wanneer die voertuig vinniger ry. (iii) langer wanneer die voertuig gelaai is. KIES DIE KORREKTE KOMBINASIE",
+    "options": [
+      "Al die bogenoemde is korrek",
+      "rigtingwyser.",
+      "binne-truspieël.",
+      "stuurwiel."
+    ],
+    "explain": "9 = Rem"
+  },
+  "heavy-vehicle-027": {
+    "q": "Wanneer jy van rigting wil verander, word die volgende kontroles gebruik:",
+    "options": [
+      "8",
+      "6 en 8",
+      "9",
+      "1 + 3 + 5"
+    ],
+    "explain": "1 = Middelste truspieël; 3 = Kanttruspieëls; 5 = Rigtingwyserskakelaar"
+  },
+  "heavy-vehicle-028": {
+    "q": "Wanneer jy op ’n steil opdraande stop en wil voorkom dat die voertuig agteruit rol, gebruik jy beheer(s) nommer …",
+    "options": [
+      "4",
+      "2",
+      "9",
+      "7"
+    ],
+    "explain": "7 = Handrem"
+  },
+  "heavy-vehicle-029": {
+    "q": "Watter kontroles moet jy gebruik wanneer daar ’n skerp draai in die pad is?",
+    "options": [
+      "5",
+      "Slegs 1, 3, 4, 6, 8, 9 en 10",
+      "1 + 3 + 5",
+      "3"
+    ],
+    "explain": "1 = Middelste truspieël; 3 = Kanttruspieëls; 4 = Stuurwiel; 6 = Rathefboom; 8 = Koppelaar; 9 = Rem; 10 = Versneller"
+  },
+  "A-005": {
+    "q": "Jy mag nie ’n leerlinglisensie kry indien … (i) Jy reeds ’n lisensie het wat jou toelaat om dieselfde voertuigklas te bestuur (ii) Jy vir ’n bepaalde tydperk onbevoeg verklaar is om ’n bestuurslisensie te kry en daardie tydperk nog geld (iii) Jou lisensie tydelik opgeskort is en die opskortingstydperk nog nie verstryk het nie. KIES DIE KORREKTE KOMBINASIE",
+    "options": [
+      "Slegs (i) is korrek",
+      "Slegs (ii) en (iii) is korrek",
+      "(i), (ii) en (iii) is korrek"
+    ]
+  },
+  "A-006": {
+    "q": "Wat wys waarskuwingsteken L10 jou?",
+    "options": [
+      "Paaie kruis vorentoe en ander voertuie van die kant af moet by die kruising stop of padgee",
+      "’n Spoorlyn kruis die pad waarop jy ry",
+      "’n Vierrigting-stop is vorentoe waar die paaie kruis"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "A-007": {
+    "q": "’n Voertuig waarvan die remme nie behoorlik werk nie, moet gesleep word …",
+    "options": [
+      "Met ’n tou",
+      "Met ’n sleepstang",
+      "Op ’n sleepwa"
+    ]
+  },
+  "A-008": {
+    "q": "Teken B6 of 5 wys jou dat …",
+    "options": [
+      "Jy slegs reguit mag ry",
+      "Daar ’n snelweg vorentoe is",
+      "Daar ’n eenrigtingpad vorentoe is"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "A-009": {
+    "q": "’n Veilige volgafstand beteken dat jy, indien die voertuig voor jou skielik stop, kan …",
+    "options": [
+      "Stop sonder om uit te swaai",
+      "Uitswaai en langsaan stop",
+      "Uitswaai en verbygaan"
+    ]
+  },
+  "A-010": {
+    "q": "Teken E1 …",
+    "options": [
+      "Wys dat daar ’n hospitaal vorentoe is waar jy nie geraas mag maak nie",
+      "Wys dat jy nie mense mag oplaai nie",
+      "Verbied jou om die toeter te gebruik"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "A-011": {
+    "q": "Tensy ’n teken anders aandui, is die algemene spoedgrens in ’n dorp of stad … km/h",
+    "options": [
+      "60",
+      "80",
+      "100"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "A-012": {
+    "q": "Teken P2 wys jou dat …",
+    "options": [
+      "Dit ’n spesiale baan vir fietsryers is",
+      "Geen fietsryers daar toegelaat word nie",
+      "Jy op fietsryers moet let"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "A-013": {
+    "q": "Die verste afstand wat jou dimligte voor jou mag skyn, is … m",
+    "options": [
+      "45",
+      "100",
+      "150"
+    ]
+  },
+  "A-014": {
+    "q": "Wat wys teken E4 jou? (i) Jy mag nie vorentoe links draai nie (ii) Jy mag nie daar links draai nie (iii) Daar is ’n eenrigtingpad na regs vorentoe. KIES DIE KORREKTE KOMBINASIE",
+    "options": [
+      "Slegs (i) is korrek",
+      "Slegs (ii) en (iii) is korrek",
+      "Slegs (i) en (iii) is korrek"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "A-015": {
+    "q": "Jy mag nie …",
+    "options": [
+      "Passasiers in die voertuig vervoer indien jy slegs ’n leerlinglisensie het",
+      "Jou voertuig onbewaak laat terwyl die enjin loop",
+      "Langer as 100 m agteruit ry"
+    ]
+  },
+  "A-016": {
+    "q": "Padmerk Z5 waarsku jou dat …",
+    "options": [
+      "Daar vorentoe ’n spoorwegvlak kruising met een spoorlyn is",
+      "Paaie vorentoe kruis",
+      "Die snelweg vorentoe eindig"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "A-017": {
+    "q": "Die laaste handeling wat jy moet uitvoer voordat jy na ’n ander baan beweeg, is om …",
+    "options": [
+      "Jou rigtingwyser aan te skakel",
+      "Die blindekol te kontroleer",
+      "In die truspieël te kyk"
+    ]
+  },
+  "A-018": {
+    "q": "Teken R1 wys jou dat die pad …",
+    "options": [
+      "Kronkel",
+      "Ongeteer is",
+      "Glipperig is"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "A-019": {
+    "q": "Indien jy van baan wil verwissel, moet jy …",
+    "options": [
+      "Jou rigtingwyser aanskakel en van baan verwissel",
+      "Die nodige sein gee en, nadat jy vir ander verkeer gekyk het, van baan verwissel",
+      "Liggies rem en dan van baan verwissel"
+    ]
+  },
+  "A-020": {
+    "q": "Wat wys teken A3 jou?",
+    "options": [
+      "Dit is dieselfde as ’n toegeeteken en jy kan sonder om te stop voortgaan",
+      "Maak seker dit is veilig, wag totdat alle verkeer weg is en ry dan voort",
+      "Stop en ry voort wanneer dit veilig is, in die volgorde waarin voertuie by die kruising gestop het"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "A-021": {
+    "q": "Jy mag ’n ander voertuig aan sy linkerkant verbysteek indien dit … (i) Aandui dat dit regs gaan draai (ii) Aan die regterkant van ’n pad met ’n skouer ry waar jy kan verbygaan (iii) In ’n dorp in die regterbaan ry waar twee bane in dieselfde rigting beweeg. KIES DIE KORREKTE KOMBINASIE",
+    "options": [
+      "Slegs (i) en (iii) is korrek",
+      "Al die bogenoemde is korrek",
+      "Slegs (i) is korrek"
+    ]
+  },
+  "A-022": {
+    "q": "Teken U4 wys jou dat die pad …",
+    "options": [
+      "Vir 12 km kronkel",
+      "Van daar af 12 km lank kronkel",
+      "Vir 12 km glipperig is"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "A-023": {
+    "q": "Jy mag nie stop nie …",
+    "options": [
+      "Oorkant ’n voertuig waar die ryvlak 10 m breed is",
+      "Waar jy ook nie mag parkeer nie",
+      "5 m van ’n brug af"
+    ]
+  },
+  "A-024": {
+    "q": "Teken E3 wys jou dat …",
+    "options": [
+      "Jy slegs daar mag ry indien jy spesiale toestemming het",
+      "Geen voertuig daar mag ry nie omdat slegs voetgangers daar mag loop",
+      "Dit tweerigtingverkeer vorentoe aandui"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "A-025": {
+    "q": "Jy mag op ’n openbare pad …",
+    "options": [
+      "’n Ander voertuig wat regs draai aan die linkerkant verbysteek sonder om op die padskouer te ry",
+      "Enige voertuig aan die linkerkant verbysteek indien dit regs draai",
+      "Geen voertuig aan die linkerkant verbysteek nie"
+    ]
+  },
+  "A-026": {
+    "q": "Wat wys teken S1 wanneer dit flikker?",
+    "options": [
+      "Die polisie het ’n padblokkade vorentoe",
+      "Daar is gevaar op die pad vorentoe",
+      "Daar is ’n verkeerslig vorentoe"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "A-027": {
+    "q": "By ’n kruising …",
+    "options": [
+      "Het voetgangers wat reeds oorsteek wanneer die rooi mannetjie-sein begin wys, voorrang",
+      "Kan jy ’n voertuig wat wag om regs te draai aan sy linkerkant verbysteek deur van die pad af te ry",
+      "Mag jy stop om passasiers af te laai"
+    ]
+  },
+  "A-028": {
+    "q": "Wat wys teken B1 jou?",
+    "options": [
+      "Die teken geld vir 50 m",
+      "Jy mag nie vinniger as 50 km/h ry nie",
+      "Jy mag nie stadiger as 50 km/h ry nie"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "A-029": {
+    "q": "Wat is die hoogste spoed waarteen jy ’n voertuig met ’n tou mag sleep … km/h",
+    "options": [
+      "60",
+      "45",
+      "30"
+    ]
+  },
+  "A-030": {
+    "q": "Wat wys teken J8 vir jou?",
+    "options": [
+      "Maksimumspoed wat snags toegelaat word",
+      "Aanbevole spoed wanneer jou ligte aan is",
+      "Afstand na die volgende dorp"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "A-031": {
+    "q": "Jy mag ’n openbare pad kruis of binnegaan …",
+    "options": [
+      "Indien die pad vir ’n kort afstand verkeersvry is",
+      "Indien die pad vir ’n lang afstand verkeersvry is en dit gedoen kan word sonder om verkeer te belemmer",
+      "Op enige manier mits jy betyds jou rigtingwyser gebruik"
+    ]
+  },
+  "A-032": {
+    "q": "Wat wys teken E9 jou?",
+    "options": [
+      "Slegs motorfietse mag mekaar nie verbysteek nie",
+      "Geen motorvoertuie mag mekaar verbysteek nie",
+      "Daar is ’n brug vorentoe waar slegs een voertuig op ’n slag kan oorsteek"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "A-033": {
+    "q": "Jou voertuig se dimligte moet aangeskakel word … (i) Enige tyd van die dag wanneer jy nie mense en voertuie 150 m voor jou kan sien nie (ii) Van sonop tot sononder (iii) Wanneer dit reën en jy nie voertuie 100 m voor jou kan sien nie. KIES DIE KORREKTE KOMBINASIE",
+    "options": [
+      "Slegs (ii) is korrek",
+      "Slegs (i) en (ii) is korrek",
+      "Al die bogenoemde is korrek"
+    ]
+  },
+  "A-034": {
+    "q": "Padmerk GM1 in skets 9 van die sketsboek …",
+    "options": [
+      "Wys die bane vir padgebruikers",
+      "Verdeel die pad in twee afdelings",
+      "Kom slegs in ’n parkeerarea voor"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "A-035": {
+    "q": "Padmerk RTM1 in skets 4 van die sketsboek wys jou dat …",
+    "options": [
+      "Indien jy motor A bestuur, moet jy voor hierdie lyn stop",
+      "Indien jy motor A bestuur, moet jy spoed verminder en voortgaan indien dit veilig is",
+      "Indien jy motor B bestuur, mag jy motor A verbysteek indien daar geen ander voertuie in die kruising is nie"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "A-036": {
+    "q": "Wat is die verskil tussen padmerk AA6 en padmerk Y3?",
+    "options": [
+      "Daar is geen verskil nie; albei dui aan dat jy nie ander voertuie mag verbysteek nie",
+      "Albei verbied verbysteek, maar AA6 kom op alle paaie voor en Y3 slegs op snelweë",
+      "AA6 verbied verbysteek, terwyl Y3 verbied dat jy daaroor ry om byvoorbeeld ’n erf in te draai"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "A-037": {
+    "q": "Wanneer mag jy in die gedeelte links van die geel lyn, RM4.1 in skets 10 van die sketsboek, ry? (i) Enige tyd wanneer jy ’n ander voertuig wil toelaat om verby te gaan (ii) Bedags wanneer jy ’n ander voertuig wil toelaat om verby te gaan (iii) Op ’n snelweg met twee bane in elke rigting wanneer jy stadiger as 120 km/h wil ry (iv) Wanneer jy ’n pap band het en daar wil stop om dit te vervang. KIES DIE KORREKTE KOMBINASIE",
+    "options": [
+      "Slegs (i), (iii) en (iv) is korrek",
+      "Slegs (ii) en (iv) is korrek",
+      "Al die bogenoemde is korrek"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "A-038": {
+    "q": "Alle padtekens met ’n geel agtergrond, byvoorbeeld R10, is … tekens",
+    "options": [
+      "Waarskuwings-",
+      "Tydelike",
+      "Toerisme-"
+    ]
+  },
+  "A-039": {
+    "q": "Wanneer mag jy NIE ’n ander voertuig verbysteek NIE? Wanneer jy … (i) Naby die bopunt van ’n heuwel is (ii) ’n Draai nader (iii) Slegs 100 m voor jou kan sien weens rook oor die pad. KIES DIE KORREKTE KOMBINASIE",
+    "options": [
+      "Slegs (i) is korrek",
+      "Al die bogenoemde is korrek",
+      "Slegs (i) en (ii) is korrek"
+    ]
+  },
+  "A-040": {
+    "q": "Padmerk BB3 wys jou dat slegs … daar mag parkeer",
+    "options": [
+      "Busse",
+      "Besigheidsvoertuie",
+      "Minibusse"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "A-041": {
+    "q": "Jy mag NIE ’n kruising binnegaan wanneer …",
+    "options": [
+      "Die verkeerslig geel is en jy reeds in die kruising is",
+      "Die voertuig voor jou regs wil draai en die pad wyd genoeg is om links verby te gaan",
+      "Daar nie genoeg ruimte in die kruising is om regs te draai sonder om ander verkeer te blokkeer nie"
+    ]
+  },
+  "A-042": {
+    "q": "Wanneer die verkeerslig rooi is en die groen pyl regs flikker (X5), wys dit jou dat …",
+    "options": [
+      "Slegs voetgangers mag loop",
+      "Jy mag ry indien jy regs wil draai",
+      "Alle verkeer daar regs moet draai"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "A-043": {
+    "q": "Wanneer jy by ’n ongeluk betrokke is … (i) Moet jy onmiddellik jou voertuig stop (ii) Moet jy vasstel of iemand beseer is (iii) Mag jy ’n bietjie alkohol vir die skok gebruik. KIES DIE KORREKTE KOMBINASIE",
+    "options": [
+      "Slegs (i) en (ii) is korrek",
+      "Slegs (ii) is korrek",
+      "Al die bogenoemde is korrek"
+    ]
+  },
+  "A-044": {
+    "q": "Indien jy by ’n verkeerslig kom en die rooi lig flikker, moet jy …",
+    "options": [
+      "Stop en wag totdat die lig groen word voordat jy ry",
+      "Stop en ry slegs voort indien dit veilig is",
+      "Let op vir ’n padblokkade omdat die lig ’n polisiebeheer aandui"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "A-045": {
+    "q": "Die wettige spoed waarteen jy mag ry …",
+    "options": [
+      "Is altyd 120 km/h buite dorpe/stede",
+      "Kan jy self bepaal deur na die aantal bane te kyk",
+      "Word deur tekens langs die pad aangedui"
+    ]
+  },
+  "A-046": {
+    "q": "Teken A8 wys jou dat …",
+    "options": [
+      "Die pad eindig",
+      "Jy nie daar mag ingaan nie",
+      "Die ingang slegs vir ambulanse is"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "A-047": {
+    "q": "Wanneer het jy voorrang? (i) Wanneer jy binne ’n verkeersirkel is (ii) Wanneer jy eerste by ’n vierrigting-stop gestop het (iii) Wanneer jy regs wil draai by ’n kruising op ’n tweerigtingpad. KIES DIE KORREKTE KOMBINASIE",
+    "options": [
+      "Slegs (i) en (ii) is korrek",
+      "Al die bogenoemde is korrek",
+      "Slegs (i) is korrek"
+    ]
+  },
+  "A-048": {
+    "q": "Wanneer teken X8 verlig is, wys dit jou dat …",
+    "options": [
+      "Daar geen deurgang is nie",
+      "Daar ’n onbewaakte spoorwegkruising vorentoe is",
+      "Dit ’n baan is slegs vir verkeer wat van voor af kom"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "A-049": {
+    "q": "Indien jy ’n noodvoertuig op die pad teëkom wat ’n sirene gebruik, moet jy …",
+    "options": [
+      "Jou hoofligte flits om ander verkeer te waarsku",
+      "Voorrang aan die noodvoertuig verleen",
+      "Jou voertuig se noodligte aanskakel en die toeter blaas"
+    ]
+  },
+  "A-050": {
+    "q": "Padmerke AA4 wys jou dat …",
+    "options": [
+      "Jy nie daar ’n ander voertuig mag verbysteek nie",
+      "’n Lyn gaan begin wat verbysteek verbied",
+      "Die baan in meer bane verdeel in die rigting van die pyl"
+    ]
+  },
+  "A-051": {
+    "q": "Indien jy links met jou voertuig wil draai, moet jy …",
+    "options": [
+      "Heeltemal stadiger ry, stop en dan draai",
+      "Eers na regs beweeg sodat jy makliker links kan draai",
+      "Die nodige sein betyds gee"
+    ]
+  },
+  "A-052": {
+    "q": "Teken L4 verbied jou om …",
+    "options": [
+      "Daardie deel van die pad gedurende sekere ure te gebruik",
+      "Daar tussen 09:00 en 16:00 te parkeer",
+      "Daar gedurende sekere ure te stop"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "A-085": {
+    "q": "Jy mag goedere op jou voertuig vervoer wat …",
+    "options": [
+      "Agter 2,0 m uitsteek",
+      "Voor 450 mm uitsteek",
+      "Saam met die voertuig 2,4 m breed is"
+    ]
+  },
+  "A-086": {
+    "q": "Teken B2 wys jou dat indien jou voertuig ’n bruto voertuigmassa (GVM) van … het",
+    "options": [
+      "8 t, jy te alle tye daar moet ry",
+      "12 t, jy te alle tye daar moet ry",
+      "10 t, jy daar kan ry wanneer jy wil"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "A-087": {
+    "q": "Jy mag passasiers vervoer in ’n voertuig wat gesleep word … (i) Indien jy slegs teen 35 km/h ry (ii) Indien die voertuig wat gesleep word ’n semi-sleepwa is (iii) Slegs indien die voertuig wat iets sleep ’n trekker is. KIES DIE KORREKTE KOMBINASIE",
+    "options": [
+      "Slegs (i) en (ii) is korrek",
+      "Al die bogenoemde is korrek",
+      "Slegs (ii) is korrek"
+    ]
+  },
+  "A-088": {
+    "q": "Teken K2 wys jou dat …",
+    "options": [
+      "Alle swaar voertuie gedurende die tye op die teken daar mag ry",
+      "Tenkwaens hierdie pad gedurende die tye op die teken moet gebruik",
+      "Voertuie wat gevaarlike goedere vervoer die pad slegs gedurende die aangeduide tye mag gebruik"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "A-089": {
+    "q": "Jy mag nie jou voertuig verder as … agteruit laat ry nie",
+    "options": [
+      "500 m",
+      "100 m",
+      "Sover as wat dit veilig is"
+    ]
+  },
+  "A-090": {
+    "q": "Teken D10 wys jou dat …",
+    "options": [
+      "Voertuie langer as 15 m nie verby hierdie teken mag ry nie",
+      "Die pad ná hierdie teken slegs 15 m breed is",
+      "Geen voertuie met sleepwaens verby hierdie teken mag ry nie"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "A-091": {
+    "q": "Indien jy ’n leerlinglisensie vir ’n swaar motorvoertuig het … (i) Moet iemand met dieselfde bestuurslisensie saam met jou in die voertuig wees (ii) Mag jy nie op ’n snelweg ry nie (iii) Mag geen passasiers saam met jou in die voertuig wees nie. KIES DIE KORREKTE KOMBINASIE",
+    "options": [
+      "Al die bogenoemde is korrek",
+      "Slegs (i) is korrek",
+      "Slegs (i) en (iii) is korrek"
+    ]
+  },
+  "A-092": {
+    "q": "Teken W6 wys jou dat …",
+    "options": [
+      "Die pad vorentoe op ’n steil afdraande verdeel en jy moet stadiger ry",
+      "Jou remme by ’n stop vorentoe nagegaan sal word en jy moet stop",
+      "Daar ’n noodrembaan vorentoe is wat gebruik moet word wanneer jou remme faal"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "A-093": {
+    "q": "Die afstand wat dit ’n bestuurder neem om ’n motorvoertuig te stop, is … (i) Langer op ’n nat pad as op ’n droë pad (ii) Langer wanneer die voertuig vinniger ry (iii) Langer wanneer die voertuig gelaai is. KIES DIE KORREKTE KOMBINASIE",
+    "options": [
+      "Geen van die bogenoemde is korrek",
+      "Al die bogenoemde is korrek",
+      "Slegs (i) is korrek"
+    ]
+  },
+  "A-094": {
+    "q": "Om ’n rat te kies, moet jy nommers … gebruik",
+    "options": [
+      "7 en 9",
+      "5 en 8",
+      "6 en 8"
+    ]
+  },
+  "A-095": {
+    "q": "Om jou voertuig te stop, moet jy nommer … gebruik",
+    "options": [
+      "9",
+      "8",
+      "7"
+    ]
+  },
+  "A-096": {
+    "q": "Om jou voertuig te draai, word nommer … gebruik",
+    "options": [
+      "5",
+      "4",
+      "6"
+    ]
+  },
+  "A-097": {
+    "q": "Om te verseker dat jou voertuig nie beweeg nie, gebruik nommer …",
+    "options": [
+      "7",
+      "8",
+      "9"
+    ]
+  },
+  "A-098": {
+    "q": "Om jou voertuig te versnel, moet jy nommer … gebruik",
+    "options": [
+      "6",
+      "8",
+      "10"
+    ]
+  },
+  "A-099": {
+    "q": "Watter kontroles moet jy gebruik wanneer jy ’n skerp draai gaan neem?",
+    "options": [
+      "Slegs 1, 3, 5, 6 en 8",
+      "Slegs 3, 4, 5, 9 en 10",
+      "Slegs 1, 3, 4, 5, 6, 8 en 9"
+    ]
+  },
+  "A-100": {
+    "q": "Om aan te dui dat jy gaan draai, moet jy nommer … gebruik",
+    "options": [
+      "3",
+      "5",
+      "11"
+    ]
+  },
+  "B-006": {
+    "q": "Teken O9 waarsku jou dat daar … is",
+    "options": [
+      "Moontlik voetgangers vorentoe",
+      "’n Gemerkte voetoorgang vorentoe",
+      "Moontlik skoolkinders naby of op die pad"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "B-007": {
+    "q": "Wanneer mag jy aan die regterkant van ’n pad met verkeer in albei rigtings ry?",
+    "options": [
+      "Wanneer jy jou voertuig se noodligte aanskakel",
+      "Wanneer ’n verkeersbeampte jou opdrag gee om dit te doen",
+      "Onder geen omstandighede nie"
+    ]
+  },
+  "B-008": {
+    "q": "Teken B8 wys jou dat jy …",
+    "options": [
+      "’n Skerp draai na regs kan verwag",
+      "’n Eenrigtingpad na regs sal kry",
+      "By die volgende pad regs moet draai"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "B-010": {
+    "q": "Teken Q7 wys jou dat …",
+    "options": [
+      "Die pad aan albei kante vernou",
+      "Die snelweg eindig",
+      "Daar ’n smal brug vorentoe is"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "B-011": {
+    "q": "Padmerk RTTM1 in skets 4 van die sketsboek wys jou dat …",
+    "options": [
+      "Indien jy in A ry, moet jy voor hierdie lyn stop en ry wanneer dit veilig is",
+      "Indien jy in A ry, moet jy spoed verminder en voortgaan indien dit veilig is",
+      "Indien jy in B ry, mag jy A verbysteek indien daar geen ander voertuie in die kruising is nie"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "B-012": {
+    "q": "Waarskuwingsteken S3 wys jou dat …",
+    "options": [
+      "Daar moontlik ’n vloed vorentoe is",
+      "Die pad weens water vorentoe eindig",
+      "Daar ’n laagwaterbrug vorentoe is"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "B-014": {
+    "q": "Padmerk Y3 wys jou dat …",
+    "options": [
+      "Die padoppervlak ongelyk is",
+      "Verkeer dit nie aan enige kant mag verbysteek of oorsteek nie",
+      "Dit ’n baan is wat vir busse gereserveer is"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "B-015": {
+    "q": "Wanneer jy van baan L1 na L2 wil beweeg (skets 8 in die sketsboek), moet jy … (i) Dit slegs doen wanneer dit veilig is (ii) Jou rigtingwysers betyds aanskakel om aan te dui wat jy gaan doen (iii) Jou voertuig se spieël gebruik om bewus te wees van ander verkeer. KIES DIE KORREKTE KOMBINASIE",
+    "options": [
+      "Slegs (i) en (ii) is korrek",
+      "Al die bogenoemde is korrek",
+      "Slegs (ii) en (iii) is korrek"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "B-017": {
+    "q": "Indien jy sien iemand wil jou verbysteek, moet jy … (i) So ver links hou as wat veilig is (ii) Nie vinniger ry nie (iii) Handseine gee om die persoon toe te laat om veilig verby te gaan. KIES DIE KORREKTE KOMBINASIE",
+    "options": [
+      "Slegs (i) en (ii) is korrek",
+      "Al die bogenoemde is korrek",
+      "Slegs (ii) is korrek"
+    ]
+  },
+  "B-018": {
+    "q": "Wanneer jy teken A6 sien, moet jy …",
+    "options": [
+      "Weet dat daardie deel van die pad slegs vir voetgangers is",
+      "Voorrang verleen aan voetgangers wat die straat wil oorsteek",
+      "Stop omdat skoolkinders moontlik die pad kan oorsteek"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "B-019": {
+    "q": "Wanneer jy bestuur …",
+    "options": [
+      "Moet jy albei hande op die stuurwiel hê",
+      "Moet jou uitsig op die pad en verkeer onbelemmer wees",
+      "Moet jy skoene met rubbersole dra"
+    ]
+  },
+  "B-020": {
+    "q": "Teken R1 waarsku jou dat die pad …",
+    "options": [
+      "Baie draaie het",
+      "Nat glipperig is",
+      "Se oppervlak beskadig is"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "B-022": {
+    "q": "Teken O4 wys jou dat …",
+    "options": [
+      "Daar ’n verpligte polisie-stop vorentoe is",
+      "Daar ’n verkeerslig vorentoe is",
+      "Jy nou ’n stedelike gebied binnegaan"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "B-023": {
+    "q": "Waar mag jy wettiglik met jou voertuig stop?",
+    "options": [
+      "4 mm van ’n tonnel af",
+      "5 m van ’n voetoorgang af",
+      "6 m van ’n spoorwegkruising af"
+    ]
+  },
+  "B-024": {
+    "q": "Wat wys waarskuwingsteken O3 jou?",
+    "options": [
+      "Die pad kronkel vorentoe",
+      "’n Aantal skerp draaie is vorentoe",
+      "’n Verborge ingang links word deur een regs gevolg"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "B-025": {
+    "q": "Indien jy na die verkeersirkel in Z4 ry en daar is ook voertuie van die ander drie kante, moet jy …",
+    "options": [
+      "Altyd vir die voertuig van regs wag voordat jy ry",
+      "Ry indien jy die eerste voertuig oor die lyn was",
+      "Saam met al die voertuie stop en slegs ry wanneer dit veilig is"
+    ]
+  },
+  "B-026": {
+    "q": "Teken BB4 wys jou dat slegs … daar mag parkeer",
+    "options": [
+      "Goederevoertuie wat laai of aflaai",
+      "Motors wat laai of aflaai",
+      "Konstruksievoertuie"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "B-027": {
+    "q": "Jy mag nie … (i) Die enjin van jou voertuig onbewaak laat loop nie (ii) Jou voertuig sonder ’n brandstoftenkdop gebruik nie (iii) Die wiele laat tol wanneer jy wegtrek nie. KIES DIE KORREKTE KOMBINASIE",
+    "options": [
+      "Slegs (i) en (ii) is korrek",
+      "Slegs (ii) is korrek",
+      "Al die bogenoemde is korrek"
+    ]
+  },
+  "B-028": {
+    "q": "Wanneer die verkeerslig rooi is en die groen pyl regs flikker (X5), wys dit jou dat …",
+    "options": [
+      "Slegs voetgangers mag loop",
+      "Jy mag ry indien jy regs wil draai",
+      "Alle verkeer daar regs moet draai"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "B-029": {
+    "q": "Wat is die maksimum tydperk wat ’n voertuig op een plek langs ’n pad buite stedelike gebiede geparkeer mag wees?",
+    "options": [
+      "7 dae",
+      "48 uur",
+      "24 uur"
+    ]
+  },
+  "B-030": {
+    "q": "Wanneer jy teken S7 sien, moet jy …",
+    "options": [
+      "Uitkyk vir padwerke waar trekkers werk",
+      "Weet dat slegs landbouvoertuie daar mag ry",
+      "Let op landbouvoertuie wat moontlik op die pad kan wees"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "B-032": {
+    "q": "Waarskuwingsteken Q4 wys jou dat …",
+    "options": [
+      "Die pad waarop jy ry vorentoe in ’n grondpad verander",
+      "Slaggate op die pad vorentoe voorkom",
+      "Die pad vorentoe eindig"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "B-033": {
+    "q": "Indien jy by ’n verkeerslig kom en die rooi lig flikker, moet jy …",
+    "options": [
+      "Stop en wag totdat die lig groen word voordat jy ry",
+      "Stop en ry slegs voort indien dit veilig is",
+      "Let op vir ’n padblokkade omdat die lig ’n polisiebeheer aandui"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "B-034": {
+    "q": "Wat wys teken J8 jou?",
+    "options": [
+      "Jy mag snags nie vinniger as 100 km/h ry nie",
+      "Indien jy nie meer as 100 m voor jou kan sien nie, moet jy jou ligte aanskakel",
+      "Gevaarlike toestande vir die volgende 100 km"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "B-035": {
+    "q": "Die verste afstand wat jou dimligte voor jou mag skyn, is … m",
+    "options": [
+      "45",
+      "100",
+      "150"
+    ]
+  },
+  "B-036": {
+    "q": "Padmerke RTM3 in skets 8 van die sketsboek …",
+    "options": [
+      "Wys jou waar jy nie verder as die voorste een van die twee mag stop nie",
+      "Is die lyne waar voetgangers loop",
+      "Is lyne wat ’n ander verkeersbaan aandui"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "B-037": {
+    "q": "Wat is belangrik met betrekking tot jou voertuig se toeter?",
+    "options": [
+      "Die toonhoogte van die klank mag nie verander nie",
+      "Iemand moet dit van minstens 45 m ver kan hoor",
+      "Jy mag dit gebruik om iemand se aandag te trek aan wie jy ’n saamrygeleentheid wil aanbied"
+    ]
+  },
+  "B-038": {
+    "q": "Kyk na skets 6 in die sketsboek. Wanneer jy padmerk (a) sien, …",
+    "options": [
+      "Mag jy nie daar parkeer nie omdat dit slegs vir ambulanse is",
+      "Mag jy glad nie daar parkeer nie",
+      "Weet jy dit is ’n baan wat vir noodvoertuie gereserveer is"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "B-039": {
+    "q": "Jy mag …",
+    "options": [
+      "Jou voertuig op die sypaadjie bestuur",
+      "Toelaat dat jou voertuig slegs agteruit beweeg indien dit veilig is",
+      "Die enjin van jou voertuig laat loop terwyl jy brandstof ingooi"
+    ]
+  },
+  "B-040": {
+    "q": "Indien jy teken B2 sien, weet jy dat …",
+    "options": [
+      "Voertuie met ’n massa van 10 ton of minder nie daar mag ry nie",
+      "Voertuie met ’n massa van meer as 10 ton nie daar mag ry nie",
+      "Daardie deel van die pad slegs voertuie kan dra wat tot 10 ton weeg"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "B-041": {
+    "q": "Wanneer het jy voorrang? (i) Wanneer jy binne die verkeersirkel is (ii) Wanneer jy eerste by ’n vierrigting-stop gestop het (iii) Wanneer jy regs wil draai by ’n kruising op ’n tweerigtingpad. KIES DIE KORREKTE KOMBINASIE",
+    "options": [
+      "Slegs (i) en (ii) is korrek",
+      "Al die bogenoemde is korrek",
+      "Slegs (i) is korrek"
+    ]
+  },
+  "B-042": {
+    "q": "Pyl E in skets 5 van die sketsboek wys jou dat jy …",
+    "options": [
+      "Van daardie baan af regs moet draai",
+      "Regs mag draai of reguit mag ry indien dit veilig is",
+      "Steeds van baan mag verwissel indien jy reguit wil ry"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "B-043": {
+    "q": "Die laaste handeling wat jy moet uitvoer voordat jy na ’n ander baan beweeg, is om …",
+    "options": [
+      "Jou rigtingwyser aan te skakel",
+      "Die blindekol te kontroleer",
+      "In die truspieël te kyk"
+    ]
+  },
+  "B-044": {
+    "q": "Teken N3 wys jou dat daar … is",
+    "options": [
+      "’n Skerp draai na links vorentoe",
+      "’n Hindernis links van die pad",
+      "’n Ompad na links"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "B-045": {
+    "q": "Jy mag ’n ander voertuig aan die linkerkant verbysteek … (i) Wanneer daardie voertuig regs gaan draai en die pad wyd genoeg is sodat jy nie op die skouer hoef te ry nie (ii) Waar die pad twee bane vir verkeer in dieselfde rigting het (iii) Indien ’n polisiebeampte jou opdrag gee om dit te doen. KIES DIE KORREKTE KOMBINASIE",
+    "options": [
+      "Slegs (iii) is korrek",
+      "Slegs (ii) en (iii) is korrek",
+      "Al die bogenoemde is korrek"
+    ]
+  },
+  "B-046": {
+    "q": "Padmerk Y1 wys jou dat jy moet …",
+    "options": [
+      "Stop",
+      "Uitkyk vir skoolkinders",
+      "Voorrang aan alle padgebruikers en moontlik ook treine verleen"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "B-047": {
+    "q": "Die lisensie vir jou voertuig (klaringsertifikaat) is geldig vir …",
+    "options": [
+      "12 maande",
+      "90 dae",
+      "21 dae"
+    ]
+  },
+  "B-048": {
+    "q": "Teken DD7 wys jou dat …",
+    "options": [
+      "Die pad wat na regs draai vorentoe eindig",
+      "Jy nie daar regs mag draai nie",
+      "Daar ’n T-aansluiting vorentoe is"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "B-049": {
+    "q": "Jou voertuig se hoofligte moet aangeskakel word … (i) Enige tyd van die dag wanneer jy nie mense en voertuie 150 m voor jou kan sien nie (ii) Van sonsondergang tot sonsopkoms (iii) Wanneer dit reën en jy nie voertuie 100 m voor jou kan sien nie. KIES DIE KORREKTE KOMBINASIE",
+    "options": [
+      "Slegs (ii) is korrek",
+      "Slegs (i) en (ii) is korrek",
+      "Al die bogenoemde is korrek"
+    ]
+  },
+  "B-050": {
+    "q": "Teken T2 wys jou dat daar … is",
+    "options": [
+      "’n Draai na links vorentoe",
+      "’n Tydelike hindernis links van die pad",
+      "’n Tydelike ompad na links"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "B-052": {
+    "q": "Teken A2 wys jou dat jy moet …",
+    "options": [
+      "Links draai by die stopteken",
+      "Stop en dan links draai of reguit ry",
+      "Stop, maar indien jy links wil draai, kan jy dit as ’n toegeeteken gebruik"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "B-085": {
+    "q": "Indien jy slegs ’n leerlinglisensie vir ’n swaar motorvoertuig het … (i) Moet iemand met dieselfde bestuurslisensie saam met jou in die voertuig wees (ii) Mag jy nie op ’n snelweg ry nie (iii) Mag geen passasiers saam met jou in die voertuig wees nie. KIES DIE KORREKTE KOMBINASIE",
+    "options": [
+      "Al die bogenoemde is korrek",
+      "Slegs (i) is korrek",
+      "Slegs (i) en (iii) is korrek"
+    ]
+  },
+  "B-088": {
+    "q": "Teken P9 waarsku jou dat jy nie daar mag ry indien jou voertuig … is nie",
+    "options": [
+      "Langer as 4,42 m",
+      "Hoër as 4,42 m",
+      "Wyer as 4,42 m"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "B-092": {
+    "q": "Teken G2 verbied alle … om daar te ry (i) Voertuie wat gevaarlike goedere vervoer (ii) Goederevoertuie (iii) Abnormale voertuie (iv) Swaar voertuie. KIES DIE KORREKTE KOMBINASIE",
+    "options": [
+      "Al die bogenoemde is korrek",
+      "Slegs (i) is korrek",
+      "Slegs (iii) en (iv) is korrek"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "B-094": {
+    "q": "Die afstand wat dit ’n bestuurder neem om ’n motorvoertuig te stop, is … (i) Langer op ’n nat pad as op ’n droë pad (ii) Langer wanneer die voertuig vinniger ry (iii) Langer wanneer die voertuig gelaai is. KIES DIE KORREKTE KOMBINASIE",
+    "options": [
+      "Geen van die bogenoemde is korrek",
+      "Al die bogenoemde is korrek",
+      "Slegs (i) is korrek"
+    ]
+  },
+  "B-095": {
+    "q": "Om ’n rat te kies, moet jy nommers … gebruik",
+    "options": [
+      "7 en 9",
+      "5 en 9",
+      "6 en 8"
+    ]
+  },
+  "B-096": {
+    "q": "Om te verseker dat jou geparkeerde voertuig nie beweeg nie, gebruik nommer …",
+    "options": [
+      "7",
+      "8",
+      "9"
+    ]
+  },
+  "B-099": {
+    "q": "Om aan te dui dat jy gaan draai, moet jy nommer … gebruik",
+    "options": [
+      "3",
+      "5",
+      "11"
+    ]
+  },
+  "C-006": {
+    "q": "Wat wys waarskuwingsteken M1 jou?",
+    "options": [
+      "Paaie kruis vorentoe en jy sal moontlik by die kruising moet stop of padgee",
+      "’n Spoorlyn kruis die pad waarop jy ry",
+      "’n Vierrigting-stop sal vorentoe wees waar die paaie kruis"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "C-008": {
+    "q": "Teken N8 wys jou dat daar … is",
+    "options": [
+      "Tweerigtingverkeer op die volgende pad wat die pad waarop jy ry kruis",
+      "Twee bane vorentoe in verskillende rigtings",
+      "Tweerigtingverkeer vorentoe op die eenrigtingpad waarop jy ry"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "C-009": {
+    "q": "Die enigste geval waarin jy op ’n snelweg mag stop, is …",
+    "options": [
+      "Om aan ’n padverkeersteken gehoor te gee",
+      "Om tydens ’n vermoeiende reis te rus",
+      "Om ’n ryloper op te laai"
+    ]
+  },
+  "C-010": {
+    "q": "Teken B7 wys jou dat jy …",
+    "options": [
+      "’n Skerp draai na links kan verwag",
+      "By die volgende pad links moet draai",
+      "’n Eenrigtingpad na links sal kry"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "C-012": {
+    "q": "Waarvoor waarsku teken Q10 jou?",
+    "options": [
+      "Die pad is ongelyk",
+      "Daar is spoedhobbels in die pad",
+      "Daar is slaggate in die pad"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "C-016": {
+    "q": "Wanneer jy teken P6 sien, moet jy stadiger ry omdat …",
+    "options": [
+      "Die padoppervlak aan die linkerkant ongelyk is",
+      "’n Dubbelspoor-spoorlyn voor jou is",
+      "Daar ’n motorhek aan die linkerkant van die pad is"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "C-017": {
+    "q": "Wanneer jy by ’n ongeluk betrokke is … (i) Moet jy onmiddellik jou voertuig stop (ii) Moet jy die skade aan die voertuig bepaal (iii) Mag jy weier om jou naam en adres aan enigiemand behalwe die polisie te gee. KIES DIE KORREKTE KOMBINASIE",
+    "options": [
+      "Slegs (i) en (ii) is korrek",
+      "Slegs (ii) is korrek",
+      "Al die bogenoemde is korrek"
+    ]
+  },
+  "C-018": {
+    "q": "Wat wys teken Q6 jou?",
+    "options": [
+      "Die pad vernou tydelik van albei kante",
+      "Die snelweg eindig tydelik vorentoe",
+      "Slegs een voertuig kan op ’n slag deur die hindernis vorentoe beweeg"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "C-020": {
+    "q": "Wat wys waarskuwingsteken U3 jou?",
+    "options": [
+      "Die pad waarop jy ry gaan in ’n grondpad verander",
+      "Daar is slaggate op die pad vorentoe",
+      "Die pad eindig vorentoe"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "C-021": {
+    "q": "Padmerk RTTM1 in skets 4 van die sketsboek wys jou dat jy …",
+    "options": [
+      "Indien jy in A ry, voor hierdie lyn moet stop",
+      "Indien jy in A ry, spoed moet verminder en voortgaan indien dit veilig is",
+      "Indien jy in B ry, A mag verbysteek indien daar geen ander voertuie in die kruising is nie"
+    ],
+    "note": "Verwys na ’n skets uit die sketsboek wat nie voorsien is nie."
+  },
+  "C-022": {
+    "q": "Padmerk BB8 wys jou dat slegs … daar mag parkeer",
+    "options": [
+      "Minibusse",
+      "Munisipale busse",
+      "Motorfietse"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "C-026": {
+    "q": "Indien jy teken E3 sien …",
+    "options": [
+      "Mag jy slegs daar ry indien jy spesiale toestemming het",
+      "Mag geen voertuig daar ry nie omdat slegs voetgangers daar mag loop",
+      "Dui dit tweerigtingverkeer vorentoe aan"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "C-028": {
+    "q": "Wanneer die verkeerslig rooi is en die groen pyl links flikker soos by X6 aangedui, wys dit jou dat …",
+    "options": [
+      "Slegs voetgangers mag loop",
+      "Jy mag ry indien jy links wil draai",
+      "Alle verkeer daar regs moet draai"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "C-032": {
+    "q": "Wat wys waarskuwingsteken S5 jou?",
+    "options": [
+      "Daar moontlik ’n vloed vorentoe is",
+      "Die pad weens water vorentoe eindig",
+      "Daar ’n laagwaterbrug vorentoe is"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "C-034": {
+    "q": "Wanneer jy by teken TB kom, moet jy …",
+    "options": [
+      "Kies om links of regs te draai, of reguit te ry nadat jy gestop het",
+      "Gereed wees om te stop en links of regs te draai",
+      "Dit ignoreer wanneer jy reguit wil ry omdat verkeer van die kant af moet stop"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "C-036": {
+    "q": "Padmerk Y4 is ’n …",
+    "options": [
+      "Voetoorgang waar jy vir voetgangers moet stop",
+      "Geverfde verkeerseiland waarop jy nie mag ry of stop nie",
+      "Chevronsimbool wat ’n draai na regs aandui"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "C-037": {
+    "q": "Kyk na skets 4 in die sketsboek. Voertuig B …",
+    "options": [
+      "Mag voertuig A verbysteek indien daar geen ander voertuie is nie",
+      "Mag oor die stopstreep ry nadat voertuig A beweeg het indien daar geen aankomende voertuie is nie",
+      "Moet agter voertuig A stop, nader beweeg wanneer daardie voertuig weg is, onmiddellik agter die stopstreep stop en ry wanneer dit veilig is"
+    ],
+    "note": "Verwys na ’n skets uit die sketsboek wat nie voorsien is nie."
+  },
+  "C-044": {
+    "q": "Teken B1 wys jou die …",
+    "options": [
+      "Vinnigste spoed waarteen jy mag ry",
+      "Afstand na die volgende afrit",
+      "Stadigste spoed waarteen jy mag ry"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "C-046": {
+    "q": "Teken T1 wys jou dat daar … is",
+    "options": [
+      "’n Draai na regs vorentoe",
+      "’n Hindernis regs van die pad",
+      "’n Ompad na regs"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  },
+  "C-050": {
+    "q": "Teken DD5 wys jou dat …",
+    "options": [
+      "Die pad wat links draai vorentoe eindig",
+      "Jy nie daar links mag draai nie",
+      "Daar ’n T-aansluiting links is"
+    ],
+    "note": "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  }
+}

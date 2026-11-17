@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowRight, CheckCircle2, XCircle, Clock, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useStudy } from "./study-provider";
-import { scoreMock, shuffle, type Question } from "@/lib/quiz";
+import { scoreMock, shuffle, AFRIKAANS_QUESTIONS, type Question } from "@/lib/quiz";
 import { CATEGORIES } from "@/data/categories";
 import { SignGraphic } from "./sign-graphic";
 import { questionVisuals } from "@/lib/question-visuals";
@@ -20,6 +20,20 @@ export function QuizPlayer({
 }) {
   const { record } = useStudy();
   const { language, t } = useLanguage();
+  const displayQuestions = language === "af"
+    ? questions.map((question) => {
+        const translated = AFRIKAANS_QUESTIONS[question.id];
+        return translated
+          ? {
+              ...question,
+              q: translated.q,
+              options: translated.options,
+              ...(translated.explain !== undefined ? { explain: translated.explain } : {}),
+              ...(translated.note !== undefined ? { note: translated.note } : {}),
+            }
+          : question;
+      })
+    : questions;
   const [index, setIndex] = useState(0),
     [answers, setAnswers] = useState<Record<string, number>>({}),
     [finished, setFinished] = useState(false),
@@ -27,8 +41,24 @@ export function QuizPlayer({
   const [orders] = useState(() =>
     Object.fromEntries(questions.map((q) => [q.id, shuffle(q.options.map((_, i) => i))])),
   );
-  const q = questions[index];
+  const q = displayQuestions[index];
   const selected = q ? answers[q.id] : undefined;
+  const categoryLabel =
+    language === "af"
+      ? [
+          t("quiz.category0"),
+          t("quiz.category1"),
+          t("quiz.category2"),
+          t("quiz.category3"),
+          t("quiz.category4"),
+          t("quiz.category5"),
+          t("quiz.category6"),
+          t("quiz.category7"),
+        ][q?.cat ?? 0]
+      : q
+        ? CATEGORIES[q.cat]?.name
+        : undefined;
+
   const finish = () => {
     if (finished) return;
     setFinished(true);
@@ -83,7 +113,7 @@ export function QuizPlayer({
           <div className="result-sections">
             {result.sections.map((s) => (
               <div key={s.key}>
-                <h3>{s.name}</h3>
+                <h3>{language === "af" ? ({ rules: "Padreëls", signs: "Tekens, padmerke en seine", controls: "Voertuigkontroles" }[s.key] ?? s.name) : s.name}</h3>
                 <strong>
                   {s.correct}/{s.total}
                 </strong>
@@ -107,7 +137,7 @@ export function QuizPlayer({
           </Button>
         </div>
         <h2>{t("quiz.answers")}</h2>
-        {questions.map((q) => (
+        {displayQuestions.map((q) => (
           <div className="answer-review" key={q.id}>
             {answers[q.id] === q.answer ? (
               <CheckCircle2 className="text-primary" />
@@ -129,7 +159,7 @@ export function QuizPlayer({
     <div className="quiz-space">
       <div className="quiz-top">
         <span>
-          {mock ? t("quiz.mock") : t("quiz.practice")} · {t("quiz.question")} {index + 1} {t("quiz.of")} {questions.length}
+          {mock ? t("quiz.mock") : t("quiz.practice")} · {t("quiz.question")} {index + 1} {t("quiz.of")} {displayQuestions.length}
         </span>
         {mock ? (
           <span>
@@ -138,8 +168,8 @@ export function QuizPlayer({
           </span>
         ) : null}
       </div>
-      <progress max={questions.length} value={index + 1} />
-      <span className="eyebrow">{language === "af" ? t((`quiz.category${q.cat}`) as any) : CATEGORIES[q.cat]?.name}</span>
+      <progress max={displayQuestions.length} value={index + 1} />
+      <span className="eyebrow">{categoryLabel}</span>
       <h1>{q.q}</h1>
       {questionVisuals(q).map((v) =>
         v.kind === "sign" ? (
@@ -174,7 +204,7 @@ export function QuizPlayer({
       {!mock && selected !== undefined ? (
         <div className={`feedback ${selected === q.answer ? "feedback-correct" : ""}`}>
           <strong>{selected === q.answer ? t("quiz.correctFeedback") : t("quiz.incorrectFeedback")}</strong>
-          <p>{q.explain || `The correct answer is: ${q.options[q.answer]}.`}</p>
+          <p>{q.explain || (language === "af" ? `Die korrekte antwoord is: ${q.options[q.answer]}.` : `The correct answer is: ${q.options[q.answer]}.`)}</p>
           {q.note ? <small>{q.note}</small> : null}
         </div>
       ) : null}
@@ -189,9 +219,9 @@ export function QuizPlayer({
         ) : null}
         <Button
           disabled={selected === undefined}
-          onClick={() => (index === questions.length - 1 ? finish() : setIndex((i) => i + 1))}
+          onClick={() => (index === displayQuestions.length - 1 ? finish() : setIndex((i) => i + 1))}
         >
-          {index === questions.length - 1 ? t("quiz.finish") : t("quiz.next")}
+          {index === displayQuestions.length - 1 ? t("quiz.finish") : t("quiz.next")}
           <ArrowRight />
         </Button>
       </div>

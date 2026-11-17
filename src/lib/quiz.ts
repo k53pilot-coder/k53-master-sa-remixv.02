@@ -1,4 +1,5 @@
 import raw from "@/data/questions.json";
+import rawAfrikaans from "@/data/questions.af.json";
 export type Vehicle = "light" | "heavy" | "motorcycle";
 export interface Question {
   id: string;
@@ -14,6 +15,8 @@ export interface Question {
   src: string;
 }
 export const ALL_QUESTIONS: Question[] = raw;
+export type AfrikaansQuestion = { q: string; options: string[]; explain?: string | null; note?: string };
+export const AFRIKAANS_QUESTIONS = rawAfrikaans as Record<string, AfrikaansQuestion>;
 export const QUESTIONS = ALL_QUESTIONS.filter((q) => !q.review);
 export const SECTION_RULES = [
   { key: "rules", name: "Rules of the road", count: 28, pass: 22 },

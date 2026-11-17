@@ -8,6 +8,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable";
 import { useStudy } from "@/components/study-provider";
 import { pageHead } from "@/lib/metadata";
+import { useLanguage } from "@/components/language-provider";
 
 function authErrorMessage(error: unknown): string {
   const detail = error instanceof Error ? error.message.toLowerCase() : "";
@@ -34,6 +35,7 @@ export const Route = createFileRoute("/auth")({
 });
 export function Auth() {
   const { user, name, refresh, progress } = useStudy();
+  const { tr } = useLanguage();
   const navigate = useNavigate(),
     router = useRouter(),
     queryClient = useQueryClient();
@@ -54,7 +56,7 @@ export function Auth() {
           redirectTo: `${window.location.origin}/reset-password`,
         });
         if (error) throw error;
-        setMessage("Check your email for a password reset link.");
+        setMessage(tr("Check your email for a password reset link."));
       } else if (mode === "signup") {
         const { error } = await supabase.auth.signUp({
           email: normalizedEmail,
@@ -62,7 +64,7 @@ export function Auth() {
           options: { emailRedirectTo: window.location.origin, data: { display_name: display } },
         });
         if (error) throw error;
-        setMessage("Check your email to confirm your account before signing in.");
+        setMessage(tr("Check your email to confirm your account before signing in."));
       } else {
         const { error } = await supabase.auth.signInWithPassword({
           email: normalizedEmail,
@@ -73,7 +75,7 @@ export function Auth() {
         await navigate({ to: "/" });
       }
     } catch (error) {
-      setMessage(authErrorMessage(error));
+      setMessage(tr(authErrorMessage(error)));
     } finally {
       setBusy(false);
     }
@@ -85,9 +87,9 @@ export function Auth() {
       const result = await lovable.auth.signInWithOAuth(provider, {
         redirect_uri: window.location.origin,
       });
-      if (result.error) setMessage(result.error.message);
+      if (result.error) setMessage(tr(result.error.message));
     } catch (error) {
-      setMessage(authErrorMessage(error));
+      setMessage(tr(authErrorMessage(error)));
     } finally {
       setBusy(false);
     }
@@ -97,15 +99,15 @@ export function Auth() {
       <>
         <div className="page-heading">
           <div>
-            <span className="eyebrow">YOUR LEARNER PROFILE</span>
-            <h1>Hi, {name}.</h1>
-            <p>Your learning journey, wherever you go.</p>
+            <span className="eyebrow">{tr("YOUR LEARNER PROFILE")}</span>
+            <h1>{tr("Hi,")} {name}.</h1>
+            <p>{tr("Your learning journey, wherever you go.")}</p>
           </div>
         </div>
         <div className="auth-panel">
           <UserRound size={32} />
           <label>
-            Display name
+            {tr("Display name")}
             <Input defaultValue={name} onChange={(e) => setDisplay(e.target.value)} />
           </label>
           <Button
@@ -119,21 +121,21 @@ export function Auth() {
                   vehicle: progress.vehicle,
                 });
                 if (error) throw error;
-                setMessage("Profile saved.");
+                setMessage(tr("Profile saved."));
                 await refresh();
               } catch (error) {
                 console.error("Could not save learner profile", error);
-                setMessage("Could not save your profile. Please try again.");
+                setMessage(tr("Could not save your profile. Please try again."));
               } finally {
                 setBusy(false);
               }
             }}
           >
-            Save profile
+            {tr("Save profile")}
           </Button>
           <Button variant="outline" onClick={() => void refresh()}>
             <CloudCheck />
-            Sync progress
+            {tr("Sync progress")}
           </Button>
           <p role="status">{message}</p>
           <Button
@@ -150,14 +152,14 @@ export function Auth() {
                 await navigate({ to: "/auth", replace: true });
               } catch (error) {
                 console.error("Could not sign out", error);
-                setMessage("Could not sign out. Please try again.");
+                setMessage(tr("Could not sign out. Please try again."));
               } finally {
                 setBusy(false);
               }
             }}
           >
             <LogOut />
-            Sign out
+            {tr("Sign out")}
           </Button>
         </div>
       </>
@@ -166,17 +168,16 @@ export function Auth() {
     <>
       <div className="page-heading">
         <div>
-          <span className="eyebrow">TAKE YOUR PROGRESS WITH YOU</span>
+          <span className="eyebrow">{tr("TAKE YOUR PROGRESS WITH YOU")}</span>
           <h1>
             {mode === "signup"
               ? "Your journey. Your account."
               : mode === "forgot"
                 ? "Let’s get you back on the road."
-                : "Welcome to your learning space."}
+                : tr("Welcome to your learning space.")}
           </h1>
           <p>
-            Study without an account, or sign in to sync quiz attempts and test results. Lesson
-            completion stays on this device; save your profile to sync your name and vehicle.
+            {tr("Study without an account, or sign in to sync quiz attempts and test results. Lesson completion stays on this device; save your profile to sync your name and vehicle.")}
           </p>
         </div>
       </div>
@@ -184,18 +185,18 @@ export function Auth() {
         {mode !== "forgot" ? (
           <>
             <Button variant="outline" disabled={busy} onClick={() => void social("google")}>
-              Continue with Google
+              {tr("Continue with Google")}
             </Button>
             <Button variant="outline" disabled={busy} onClick={() => void social("lovable")}>
-              Continue with Lovable
+              {tr("Continue with Lovable")}
             </Button>
-            <div className="auth-divider">or with email</div>
+            <div className="auth-divider">{tr("or with email")}</div>
           </>
         ) : null}
         <form onSubmit={submit}>
           {mode === "signup" ? (
             <label>
-              Display name
+              {tr("Display name")}
               <Input
                 required
                 value={display}
@@ -205,7 +206,7 @@ export function Auth() {
             </label>
           ) : null}
           <label>
-            Email address
+            {tr("Email address")}
             <Input
               required
               type="email"
@@ -216,7 +217,7 @@ export function Auth() {
           </label>
           {mode !== "forgot" ? (
             <label>
-              Password
+              {tr("Password")}
               <Input
                 type="password"
                 required
@@ -229,12 +230,12 @@ export function Auth() {
           ) : null}
           <Button type="submit" disabled={busy}>
             {busy
-              ? "Please wait…"
+              ? tr("Please wait…")
               : mode === "signup"
-                ? "Create account"
+                ? tr("Create account")
                 : mode === "forgot"
-                  ? "Send reset link"
-                  : "Sign in"}
+                  ? tr("Send reset link")
+                  : tr("Sign in")}
             <ArrowRight />
           </Button>
         </form>
@@ -247,14 +248,14 @@ export function Auth() {
           }}
         >
           {mode === "signin"
-            ? "New here? Create an account"
+            ? tr("New here? Create an account")
             : mode === "forgot"
-              ? "Back to sign in"
-              : "Already have an account? Sign in"}
+              ? tr("Back to sign in")
+              : tr("Already have an account? Sign in")}
         </Button>
         {mode === "signin" ? (
           <Button variant="link" onClick={() => setMode("forgot")}>
-            Forgot your password?
+            {tr("Forgot your password?")}
           </Button>
         ) : null}
       </div>
