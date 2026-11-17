@@ -24,3 +24,29 @@
 - [x] Sign chart audit spreadsheet in Files.
 - [ ] Verify and add missing master signs — source PDFs are Lovable-managed assets, but the prior 58-candidate audit list/report is not in this repository; do not infer codes or artwork.
 - [ ] Fill About & Legal publisher contact placeholders (verified support email and CIPC number) — needs publisher-provided details.
+
+ 
+## Engineering remediation status (2026-11-17)
+
+### Implemented in source
+- [x] Added a Drizzle schema representation for profiles, question attempts and test attempts.
+- [x] Added a versioned SQL migration that creates missing learner tables, indexes, owner-scoped RLS policies, grants, and the learner-profile trigger.
+- [x] Added a question-bank audit script. Run `npm run audit:questions`; it reports invalid IDs/answers/categories and missing explanations without inventing educational content.
+- [x] Added a `typecheck` script and a GitHub Actions workflow for typecheck, tests, lint, build and question-bank audit.
+- [x] Registered the new migration in the Drizzle migration journal.
+
+### Still requires live project access or publisher decisions
+- [ ] Apply migrations to the standalone Supabase project after taking a database backup. Inspect `pg_policies` and remove any older permissive policies; PostgreSQL permissive policies combine with OR.
+- [ ] Confirm actual live schema matches the checked-in schema, including constraints, grants, indexes and triggers.
+- [ ] Configure Cloudflare build variables and Worker secrets; never put the service-role key in Git or `VITE_*` variables.
+- [ ] Configure Supabase OTP email template, owner account, production redirect allow-list, and test sign-up, sign-in, recovery and admin OTP end-to-end.
+- [ ] Verify sync using two real accounts and two devices, including offline/reconnect, account switching, duplicate retries and cross-account isolation.
+- [ ] Add a protected admin audit log and an owner-only role revocation workflow; validate operational recovery before enabling either.
+- [ ] Implement and test account/data deletion, including Supabase rows, auth identity, and locally cached data. Confirm retention/legal requirements first.
+- [ ] Replace publisher contact placeholders with verified support email and CIPC details.
+- [ ] Reconcile all questions and sign artwork against authoritative South African source material. Do not auto-write explanations or add sign codes without the source documents.
+- [ ] Verify PWA install/offline restart on the published origin.
+- [ ] Run a controlled 500-concurrent-user load test against the deployed environment and record latency/error thresholds.
+- [ ] Verify GitHub Actions results after the first workflow run; the workflow has been added but has not yet been executed in this session.
+
+**Migration safety note:** the migration is additive and idempotent for absent tables and named policies. It does not drop unknown existing policies or reconcile unknown live column definitions. Back up the database and inspect its current catalog before applying it.
