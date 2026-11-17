@@ -8,6 +8,7 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 import { VitePWA } from "vite-plugin-pwa";
 import artwork from "./src/data/sign-artwork.json";
 import references from "./src/data/reference-images.json";
+import vehicleControlArtwork from "./src/data/vehicle-control-artwork.json";
 import { isCacheableNavigation, offlineNavigationFallback } from "./src/lib/offline-navigation";
 import { filterLegacyAssetProxyUrls, signArtworkUrl } from "./src/lib/sign-artwork-url";
 
@@ -34,13 +35,14 @@ export default defineConfig({
         ],
       },
       workbox: {
-        globPatterns: ["**/*.{js,css,png,jpg,webp,woff2}"],
+        globPatterns: ["**/*.{js,css,png,jpg,webp,woff2,svg}"],
         maximumFileSizeToCacheInBytes: 5000000,
         additionalManifestEntries: filterLegacyAssetProxyUrls([
           ...new Set([
             ...artwork.map((a) => signArtworkUrl(a.url)),
             ...references.manual,
             ...Object.values(references.vehicle).flat(),
+            ...[vehicleControlArtwork.motorcycle.url, vehicleControlArtwork.light.url, vehicleControlArtwork.heavy.url, vehicleControlArtwork.lightAutomatic.url],
           ]),
         ]).map((url) => ({ url, revision: null })),
         navigateFallback: null,
