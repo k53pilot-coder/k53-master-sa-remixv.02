@@ -105,12 +105,11 @@ function AdminPage() {
           <ShieldAlert className="mt-1 shrink-0 text-destructive" aria-hidden="true" />
           <div className="space-y-3">
             <h1 id="admin-access-title" className="text-2xl font-semibold">
-              Admin portal sign-in
+              {tr("Admin portal sign-in")}
             </h1>
             <p className="max-w-prose text-muted-foreground">
-              The owner account is {ADMIN_OWNER_EMAIL}. Other email addresses need an existing
-              account and admin access granted by an administrator. Enter your email to receive a
-              one-time sign-in code.
+              {tr("The owner account is")} {ADMIN_OWNER_EMAIL}.{" "}
+              {tr("Other email addresses need an existing account and admin access granted by an administrator. Enter your email to receive a one-time sign-in code.")}
             </p>
             <AdminCodeLogin onVerified={onCodeVerified} />
           </div>
@@ -137,7 +136,7 @@ function AdminPage() {
       </header>
 
       <div className="grid gap-6 lg:grid-cols-[220px_minmax(0,1fr)]">
-        <nav aria-label="Admin sections" className="flex gap-2 overflow-x-auto lg:flex-col">
+        <nav aria-label={tr("Admin sections")} className="flex gap-2 overflow-x-auto lg:flex-col">
           {sections.map(({ id, label, icon: Icon }) => (
             <Button
               key={id}
@@ -285,9 +284,11 @@ export function AdminCodeLogin({ onVerified }: { onVerified: (id: string) => voi
       const missingConfiguration =
         error instanceof Error && error.message.includes("Missing Supabase environment variable");
       setMessage(
-        missingConfiguration
-          ? "Supabase Auth is not configured for this deployment. Set the Supabase URL and publishable key in your hosting environment before requesting a code."
-          : "Supabase Auth could not send a code. Check the account, OTP email template and mail delivery settings.",
+        tr(
+          missingConfiguration
+            ? "Supabase Auth is not configured for this deployment. Set the Supabase URL and publishable key in your hosting environment before requesting a code."
+            : "Supabase Auth could not send a code. Check the account, OTP email template and mail delivery settings.",
+        ),
       );
     } finally {
       setBusy(false);
@@ -320,7 +321,7 @@ export function AdminCodeLogin({ onVerified }: { onVerified: (id: string) => voi
     <div className="w-full max-w-md space-y-3">
       <form className="space-y-3" onSubmit={sent ? verifyCode : requestCode}>
         <label className="block space-y-1.5 text-sm font-medium" htmlFor="admin-email">
-          Email address
+          {tr("Email address")}
           <Input
             id="admin-email"
             type="email"
@@ -334,7 +335,7 @@ export function AdminCodeLogin({ onVerified }: { onVerified: (id: string) => voi
         </label>
         {sent ? (
           <label className="block space-y-1.5 text-sm font-medium" htmlFor="admin-code">
-            Six-digit email code
+            {tr("Six-digit email code")}
             <Input
               id="admin-code"
               type="text"
@@ -350,7 +351,7 @@ export function AdminCodeLogin({ onVerified }: { onVerified: (id: string) => voi
           </label>
         ) : null}
         <Button type="submit" disabled={busy} className="w-full">
-          {busy ? "Please wait…" : sent ? "Verify code and open admin" : "Email me a sign-in code"}
+          {busy ? tr("Please wait…") : sent ? tr("Verify code and open admin") : tr("Email me a sign-in code")}
         </Button>
       </form>
       {sent ? (
@@ -365,20 +366,19 @@ export function AdminCodeLogin({ onVerified }: { onVerified: (id: string) => voi
             setMessage("");
           }}
         >
-          Use a different email
+          {tr("Use a different email")}
         </Button>
       ) : null}
       <p className="text-sm text-muted-foreground" role="status" aria-live="polite">
         {message}
       </p>
       <p className="text-xs text-muted-foreground">
-        Codes use the Supabase Auth email template. If no code arrives, the Magic Link template must
-        include the <code>{"{{ .Token }}"}</code> value.
+        {tr("Codes use the Supabase Auth email template. If no code arrives, the Magic Link template must include the {{ .Token }} value.")}
       </p>
       <p className="text-xs text-muted-foreground">
-        The email must already have a confirmed learner account.{" "}
+        {tr("The email must already have a confirmed learner account.")}{" "}
         <Link className="underline underline-offset-4" to="/auth">
-          Create or confirm an account
+          {tr("Create or confirm an account")}
         </Link>
         .
       </p>
@@ -416,14 +416,13 @@ function GrantAdminForm() {
   return (
     <form className="max-w-xl space-y-3 rounded-lg border bg-card p-5" onSubmit={submit}>
       <div>
-        <h3 className="font-semibold">Grant admin access</h3>
+        <h3 className="font-semibold">{tr("Grant admin access")}</h3>
         <p className="mt-1 text-sm text-muted-foreground">
-          Add an existing learner account. The grant is enforced on the server and cannot be changed
-          by the account owner.
+          {tr("Add an existing learner account. The grant is enforced on the server and cannot be changed by the account owner.")}
         </p>
       </div>
       <label className="block space-y-1.5 text-sm font-medium" htmlFor="grant-admin-email">
-        Account email
+        {tr("Account email")}
         <Input
           id="grant-admin-email"
           type="email"
@@ -436,7 +435,7 @@ function GrantAdminForm() {
         />
       </label>
       <Button type="submit" disabled={busy}>
-        {busy ? "Granting access…" : "Grant administrator access"}
+        {busy ? tr("Granting access…") : tr("Grant administrator access")}
       </Button>
       <p className="text-sm text-muted-foreground" role="status" aria-live="polite">
         {message}
