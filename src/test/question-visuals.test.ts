@@ -3,7 +3,7 @@ import { ALL_QUESTIONS, QUESTIONS } from "@/lib/quiz";
 import { questionVisuals, signCodesIn } from "@/lib/question-visuals";
 import { artworkFor } from "@/components/sign-graphic";
 import artwork from "@/data/sign-artwork.json";
-import { signArtworkUrl } from "@/lib/sign-artwork-url";
+import { isLegacyAssetProxyUrl, signArtworkUrl } from "@/lib/sign-artwork-url";
 
 describe("question pictures", () => {
   it("every question has at least two options and a valid answer", () => {
