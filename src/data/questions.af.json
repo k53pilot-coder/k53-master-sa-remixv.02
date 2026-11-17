@@ -1618,5 +1618,95 @@
       "10"
     ],
     "explain": "5 = Rigtingwyserskakelaar"
+  },
+  "heavy-vehicle-021": {
+    "q": "Om die voorruit skoon te hou wanneer dit reën, word die volgende gebruik …",
+    "options": [
+      "10",
+      "7",
+      "6",
+      "2"
+    ],
+    "explain": "2 = Ruitveër"
+  },
+  "heavy-vehicle-022": {
+    "q": "Om verkeer agter die voertuig dop te hou, word die volgende gebruik …",
+    "options": [
+      "3",
+      "4",
+      "6 en 8",
+      "2"
+    ],
+    "explain": "3 = Kanttruspieëls"
+  },
+  "heavy-vehicle-023": {
+    "q": "Om ’n rat te kies, moet jy nommers … gebruik",
+    "options": [
+      "6",
+      "Slegs 1, 3, 4, 6, 8, 9 en 10",
+      "6 en 8",
+      "5"
+    ],
+    "explain": "6 = Rathefboom; 8 = Koppelaar"
+  },
+  "heavy-vehicle-024": {
+    "q": "Om jou voertuig te stop, moet jy nommer … gebruik",
+    "options": [
+      "6",
+      "9",
+      "1 + 3 + 5",
+      "4"
+    ],
+    "explain": "9 = Rem"
+  },
+  "heavy-vehicle-025": {
+    "q": "Om jou voertuig te draai, word nommer … gebruik.",
+    "options": [
+      "4",
+      "6 en 8",
+      "7",
+      "5"
+    ],
+    "explain": "4 = Stuurwiel"
+  },
+  "heavy-vehicle-026": {
+    "q": "Wanneer beheer nommer 9 gebruik word, is die afstand wat dit die bestuurder neem om ’n motorvoertuig te stop … (i) langer op ’n nat pad as op ’n droë pad. (ii) langer wanneer die voertuig vinniger ry. (iii) langer wanneer die voertuig gelaai is. KIES DIE KORREKTE KOMBINASIE",
+    "options": [
+      "Al die bogenoemde is korrek",
+      "rigtingwyser.",
+      "binne-truspieël.",
+      "stuurwiel."
+    ],
+    "explain": "9 = Rem"
+  },
+  "heavy-vehicle-027": {
+    "q": "Wanneer jy van rigting wil verander, word die volgende kontroles gebruik:",
+    "options": [
+      "8",
+      "6 en 8",
+      "9",
+      "1 + 3 + 5"
+    ],
+    "explain": "1 = Middelste truspieël; 3 = Kanttruspieëls; 5 = Rigtingwyserskakelaar"
+  },
+  "heavy-vehicle-028": {
+    "q": "Wanneer jy op ’n steil opdraande stop en wil voorkom dat die voertuig agteruit rol, gebruik jy beheer(s) nommer …",
+    "options": [
+      "4",
+      "2",
+      "9",
+      "7"
+    ],
+    "explain": "7 = Handrem"
+  },
+  "heavy-vehicle-029": {
+    "q": "Watter kontroles moet jy gebruik wanneer daar ’n skerp draai in die pad is?",
+    "options": [
+      "5",
+      "Slegs 1, 3, 4, 6, 8, 9 en 10",
+      "1 + 3 + 5",
+      "3"
+    ],
+    "explain": "1 = Middelste truspieël; 3 = Kanttruspieëls; 4 = Stuurwiel; 6 = Rathefboom; 8 = Koppelaar; 9 = Rem; 10 = Versneller"
   }
 }
