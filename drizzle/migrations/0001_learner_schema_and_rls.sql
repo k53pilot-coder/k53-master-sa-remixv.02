@@ -27,9 +27,9 @@ create table if not exists public.test_attempts (
   created_at timestamptz not null default now()
 );
 
-create index if not exists question_attempts_user_created_idx
+create index if not exists question_attempts_user_created_at_idx
   on public.question_attempts (user_id, created_at);
-create index if not exists test_attempts_user_created_idx
+create index if not exists test_attempts_user_created_at_idx
   on public.test_attempts (user_id, created_at);
 
 alter table public.profiles enable row level security;
