@@ -178,5 +178,185 @@
       "Tremroete vorentoe",
       "Oorhoofse kragdrade"
     ]
+  ],
+  "K53-021": [
+    "Wat vereis teken W319 (geel driehoek met ’n tonnelingang) van jou?",
+    [
+      "Skakel hoofligte aan en moenie verbysteek nie",
+      "Stop en blaas die toeter voordat jy ingaan",
+      "Ry teen ’n maksimum van 30 km/h",
+      "Steek stadige vragmotors vinnig verby"
+    ]
+  ],
+  "K53-022": [
+    "Waarvoor waarsku teken W322 (geel driehoek met ’n steil helling)?",
+    [
+      "Steil opdraande vorentoe",
+      "Steil afdraande vorentoe; skakel na ’n laer rat",
+      "Ongelyke padoppervlak",
+      "Hoë bergpas"
+    ]
+  ],
+  "K53-023": [
+    "Wat beteken teken W332 (geel driehoek met ’n padbult)?",
+    [
+      "Spoedhobbel vorentoe",
+      "Gruispad begin",
+      "Gladde padoppervlak",
+      "Brug vorentoe"
+    ]
+  ],
+  "K53-024": [
+    "Waarvoor waarsku teken W333 (geel driehoek met ’n glyende motor)?",
+    [
+      "Los klippe op die pad",
+      "Gladde pad wanneer dit nat is; ry versigtig",
+      "Skerp haarnaalddraai",
+      "Sterk dwarswinde"
+    ]
+  ],
+  "K53-025": [
+    "Wat beteken tydelike teken TW336 (geel driehoek met ’n werker wat grawe)?",
+    [
+      "Padwerke vorentoe",
+      "Landbougebied",
+      "Voetgangers besig met werk",
+      "Steengroef se ingang"
+    ]
+  ],
+  "K53-026": [
+    "Wat vereis ’n aanhoudende ROOI verkeerslig (S1) van jou?",
+    [
+      "Stop agter die stopstreep; ry voort wanneer dit veilig is",
+      "Stop heeltemal agter die stopstreep totdat groen verskyn",
+      "Draai links indien die pad oop is",
+      "Verminder spoed en gee pad"
+    ]
+  ],
+  "K53-027": [
+    "Wat beteken ’n FLITSENDE ROOI verkeerslig?",
+    [
+      "Verkeerslig buite werking",
+      "Behandel die kruising as ’n vierrigting-stop",
+      "Ry versigtig voort sonder om te stop",
+      "Pad gesluit vorentoe"
+    ]
+  ],
+  "K53-028": [
+    "Wat beteken ’n aanhoudende AMBER verkeerslig (S3)?",
+    [
+      "Versnel vinnig deur die kruising",
+      "Stop agter die streep tensy jy te naby is om veilig te stop",
+      "Gee pad aan verkeer van regs",
+      "Draai versigtig regs"
+    ]
+  ],
+  "K53-029": [
+    "Wat beteken ’n FLITSENDE AMBER verkeerslig (S4)?",
+    [
+      "Stop heeltemal",
+      "Ry versigtig voort en gee pad aan voetgangers en kruisende verkeer",
+      "Sein buite werking; stop",
+      "Versnel"
+    ]
+  ],
+  "K53-030": [
+    "Wat beteken ’n GROEN PYL wat links wys langs ’n rooi lig (S5)?",
+    [
+      "Stop vir alle bewegings",
+      "Jy mag links draai; die draai word beskerm en jy het voorrang",
+      "Gee pad aan aankomende verkeer voordat jy draai",
+      "Voetgangers het voorrang"
+    ]
+  ],
+  "K53-031": [
+    "Wat dui oorhoofse baanbeheerseine met ’n GROEN PYL (S16) aan?",
+    [
+      "Die baan is oop vir verkeer",
+      "Die baan is vir busse gereserveer",
+      "Versnel in hierdie baan",
+      "Die baan sluit vorentoe"
+    ]
+  ],
+  "K53-032": [
+    "Wat dui oorhoofse baanbeheerseine met ’n ROOI KRUIS (S17) aan?",
+    [
+      "Hospitaalroete",
+      "Die baan is vir verkeer gesluit; moenie daarin ry nie",
+      "Tolbaan vorentoe",
+      "Noodstopbaan"
+    ]
+  ],
+  "K53-033": [
+    "Wat is die regsbetekenis van ’n verkeersbeampte se handsein (SS1)?",
+    [
+      "Slegs raadgewende leiding",
+      "Dit geniet voorrang bo alle verkeerstekens, seine en padmerke",
+      "Dit geld slegs vir kommersiële vragmotors",
+      "Dit is dieselfde as ’n toegeeteken"
+    ]
+  ],
+  "K53-034": [
+    "Wat verbied ’n soliede wit lyn in die middel van die pad (RM1)?",
+    [
+      "Om die lyn oor te steek of daarop te ry om verby te steek",
+      "Om vinniger as 60 km/h te ry",
+      "Om op die skouer te stop",
+      "Om links te draai"
+    ]
+  ],
+  "K53-035": [
+    "Wat verbied ’n geverfde geel blok by ’n kruising (RM10)?",
+    [
+      "Parkering langer as 10 minute",
+      "Om die blok binne te ry tensy jou uitgang oop is",
+      "Om regs te draai",
+      "Om vinniger as 30 km/h te ry"
+    ]
+  ],
+  "K53-036": [
+    "Aan watter kant van die pad moet jy normaalweg in Suid-Afrika ry?",
+    [
+      "Regterkant",
+      "Linkerkant",
+      "Middelste baan",
+      "Enige kant indien dit oop is"
+    ]
+  ],
+  "K53-037": [
+    "Wat is die standaard minimum volgafstand agter ’n motor onder goeie toestande?",
+    [
+      "1 sekonde",
+      "2 sekondes",
+      "5 sekondes",
+      "10 meter"
+    ]
+  ],
+  "K53-038": [
+    "Wat is die minimum volgafstand vir swaar voertuie of vragmotors?",
+    [
+      "2 sekondes",
+      "3 sekondes",
+      "1 sekonde",
+      "10 sekondes"
+    ]
+  ],
+  "K53-039": [
+    "Wanneer mag jy ’n voertuig aan sy LINKERKANT verbysteek?",
+    [
+      "Wanneer jy vinniger as die verkeer ry",
+      "Wanneer die voertuig voor jou regs draai en dit aangedui het",
+      "Op enige enkelbaanpad",
+      "Wanneer jy ’n soliede lyn oorsteek"
+    ]
+  ],
+  "K53-040": [
+    "Onder watter omstandighede MAG jy NIE ’n voertuig verbysteek NIE?",
+    [
+      "Op ’n reguit, gelyk pad",
+      "By ’n blinde bult, skerp draai of soliede lyn",
+      "In ’n 100 km/h-sone",
+      "Bedags"
+    ]
   ]
 }
