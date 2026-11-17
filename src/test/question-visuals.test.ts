@@ -3,7 +3,9 @@ import { ALL_QUESTIONS, QUESTIONS } from "@/lib/quiz";
 import { questionVisuals, signCodesIn } from "@/lib/question-visuals";
 import { artworkFor } from "@/components/sign-graphic";
 import artwork from "@/data/sign-artwork.json";
-import { isLegacyAssetProxyUrl, signArtworkUrl } from "@/lib/sign-artwork-url";
+import references from "@/data/reference-images.json";
+import questionData from "@/data/questions.json";
+import { filterLegacyAssetProxyUrls, isLegacyAssetProxyUrl, signArtworkUrl } from "@/lib/sign-artwork-url";
 
 describe("question pictures", () => {
   it("every question has at least two options and a valid answer", () => {
@@ -42,6 +44,20 @@ describe("question pictures", () => {
         ),
         q.id,
       ).toBe(false);
+  });
+  it("excludes all retired asset-proxy URLs from the PWA precache", () => {
+    const precacheUrls = [
+      ...artwork.map((entry) => signArtworkUrl(entry.url)),
+      ...references.manual,
+      ...Object.values(references.vehicle).flat(),
+      ...questionData.flatMap((q) => q.images?.map((image) => image.url) ?? []),
+    ];
+    const uniqueUrls = [...new Set(precacheUrls)];
+    const filteredUrls = filterLegacyAssetProxyUrls(uniqueUrls);
+
+    expect(uniqueUrls.filter(isLegacyAssetProxyUrl)).toHaveLength(41);
+    expect(filteredUrls.filter(isLegacyAssetProxyUrl)).toHaveLength(0);
+    expect(filteredUrls).toHaveLength(uniqueUrls.length - 41);
   });
   it("every non-sign picture has a caption and a hosted address", () => {
     for (const q of QUESTIONS)
