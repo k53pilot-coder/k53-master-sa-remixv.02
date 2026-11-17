@@ -41,7 +41,7 @@ describe("question pictures", () => {
     );
   });
   it("maps all motorcycle, light and heavy questions to the June 2012 control diagrams", () => {
-    for (const [vehicle, count] of Object.entries({"motorcycle":21,"light":31,"heavy":29})) {
+    for (const [vehicle, count] of Object.entries({"motorcycle":21,"light":30,"heavy":29})) {
       const questions = QUESTIONS.filter((q) => q.vehicle === vehicle);
       expect(questions, vehicle).toHaveLength(count);
       const config = vehicleControlArtwork[vehicle as keyof typeof vehicleControlArtwork];

@@ -15,6 +15,8 @@
 <path d="M95 250 L42 220 L28 250 L80 292 M1005 250 L1058 220 L1072 250 L1020 292" class="ink"/>
 <rect x="26" y="222" width="54" height="50" rx="10" class="metal"/><rect x="1020" y="222" width="54" height="50" rx="10" class="metal"/>
 <path d="M550 198 L550 228" class="thin"/><rect x="505" y="218" width="90" height="22" rx="10" class="metal"/>
+<!-- windscreen wiper and blade -->
+<path d="M300 328 L370 295 M300 328 L355 328" class="thin"/>
 <!-- broad truck dash -->
 <path d="M70 360 Q550 305 1030 360 L1005 492 Q550 530 95 492Z" fill="#c4d3db" stroke="#233746" stroke-width="11"/>
 <rect x="185" y="375" width="300" height="90" rx="12" fill="#eaf0f3" stroke="#627888" stroke-width="7"/>
@@ -32,7 +34,7 @@
 <rect x="622" y="610" width="56" height="22" rx="7" class="metal"/><rect x="747" y="610" width="56" height="22" rx="7" class="metal"/><rect x="872" y="610" width="56" height="22" rx="7" class="metal"/>
 <!-- numbered controls -->
 <g><circle cx="550" cy="255" r="23" class="accent"/><text x="550" y="255" class="n">1</text></g>
-<g><circle cx="690" cy="355" r="23" class="accent"/><text x="690" y="355" class="n">2</text></g>
+<g><circle cx="350" cy="310" r="23" class="accent"/><text x="350" y="310" class="n">2</text></g>
 <g><circle cx="1050" cy="305" r="23" class="accent"/><text x="1050" y="305" class="n">3</text></g><g><circle cx="50" cy="305" r="23" class="accent"/><text x="50" y="305" class="n">3</text></g>
 <g><circle cx="900" cy="430" r="23" class="accent"/><text x="900" y="430" class="n">4</text></g>
 <g><circle cx="925" cy="362" r="23" class="accent"/><text x="925" y="362" class="n">5</text></g>
