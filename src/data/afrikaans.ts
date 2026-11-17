@@ -950,6 +950,11 @@ const SIGN_WORDS: Record<string, string> = {
   "work": "werk",
   "how": "hoe",
   "far": "ver",
+  "t-junction": "T-aansluiting",
+  "y-junction": "Y-aansluiting",
+  "switch": "skakel",
+  "hairpin": "haarnaald",
+  "subject": "onderhewig",
 };
 
 function replaceSignPhrase(source: string, phrase: string, translated: string): string {
