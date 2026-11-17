@@ -37,7 +37,7 @@ export const questionAttempts = pgTable(
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   },
   (table) => [
-    index("question_attempts_user_created_idx").on(table.userId, table.createdAt),
+    index("question_attempts_user_created_at_idx").on(table.userId, table.createdAt),
     check("question_attempts_question_id_check", sql`char_length(${table.questionId}) <= 100`),
     check("question_attempts_category_check", sql`${table.category} between 0 and 7`),
   ],
@@ -53,7 +53,7 @@ export const testAttempts = pgTable(
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   },
   (table) => [
-    index("test_attempts_user_created_idx").on(table.userId, table.createdAt),
+    index("test_attempts_user_created_at_idx").on(table.userId, table.createdAt),
     check("test_attempts_mode_check", sql`${table.mode} in ('practice', 'mock')`),
   ],
 );
