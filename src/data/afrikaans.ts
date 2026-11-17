@@ -573,6 +573,9 @@ const SIGN_WORDS: Record<string, string> = {
   "one": "een",
   "disabled": "gestremde",
   "no-entry": "geen toegang",
+  "passenger": "passasier",
+  "passengers": "passasiers",
+  "woonerf": "gedeelde straat",
 };
 
 function replaceSignPhrase(source: string, phrase: string, translated: string): string {
