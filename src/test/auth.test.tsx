@@ -12,7 +12,7 @@ describe("Google-only account sign-in", () => {
     mocks.signInWithOAuth.mockResolvedValue({data:{provider:"google",url:null},error:null});
     render(<Auth />);
     fireEvent.click(screen.getByRole("button",{name:"Continue with Google"}));
-    await waitFor(() => expect(mocks.signInWithOAuth).toHaveBeenCalledWith({provider:"google",options:{redirectTo:"http://localhost/auth"}}));
+    await waitFor(() => expect(mocks.signInWithOAuth).toHaveBeenCalledWith({provider:"google",options:{redirectTo:new URL("/auth", window.location.origin).toString()}}));
     expect(screen.queryByLabelText("Email address")).not.toBeInTheDocument();
     expect(screen.queryByLabelText("Password")).not.toBeInTheDocument();
     expect(screen.queryByRole("button",{name:/continue with lovable/i})).not.toBeInTheDocument();

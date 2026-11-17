@@ -142,6 +142,7 @@ const uiMessages: Record<string, string> = {
   "Welcome to your learning space.": "Welkom by jou leerruimte.",
   "Study without an account, or sign in to sync quiz attempts and test results. Lesson completion stays on this device; save your profile to sync your name and vehicle.": "Studeer sonder ’n rekening, of meld aan om vasvrapogings en toetsuitslae te sinkroniseer. Lesvoltooiing bly op hierdie toestel; stoor jou profiel om jou naam en voertuig te sinkroniseer.",
   "Continue with Google": "Gaan voort met Google",
+  "Email address": "E-posadres",
     "Use a Google account to create your learner account or sign in to sync progress. You can study without an account.": "Gebruik ’n Google-rekening om jou leerderrekening te skep of aan te meld om vordering te sinkroniseer. Jy kan sonder ’n rekening studeer.",
     "First-time sign-ins create your learner account automatically.": "Jou leerderrekening word outomaties geskep wanneer jy die eerste keer met Google aanmeld.",
     "Your account's email verification is handled by Google.": "Google hanteer die e-posverifikasie van jou rekening.",
