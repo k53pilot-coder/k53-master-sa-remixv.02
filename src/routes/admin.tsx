@@ -451,7 +451,7 @@ function ContentSection() {
       <div className="rounded-lg border bg-card px-5">
         <SetupRow
           title="Road-sign library"
-          description="389 master entries are currently compiled from static app data."
+          description="401 master entries are currently compiled from static app data."
           status="Bundled with app"
         />
         <SetupRow
