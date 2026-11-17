@@ -1418,5 +1418,205 @@
       "2"
     ],
     "explain": "1 = Middelste truspieël; 4 = Stuurwiel; 6 = Rathefboom; 8 = Koppelaar; 9 = Rem; 10 = Versneller"
+  },
+  "heavy-vehicle-001": {
+    "q": "Beheer nommer 8 word gebruik om …",
+    "options": [
+      "ratte te wissel.",
+      "rathefboom.",
+      "rigtingwyser.",
+      "stuurwiel."
+    ],
+    "explain": "8 = Koppelaar"
+  },
+  "heavy-vehicle-002": {
+    "q": "Beheer nommer 1 is die …",
+    "options": [
+      "ratte te wissel.",
+      "stuurwiel.",
+      "rathefboom.",
+      "binne-truspieël."
+    ],
+    "explain": "1 = Binne-truspieël"
+  },
+  "heavy-vehicle-003": {
+    "q": "Beheer nommer 2 is die …",
+    "options": [
+      "rathefboom.",
+      "binne-truspieël.",
+      "stuurwiel.",
+      "ruitveërs."
+    ],
+    "explain": "2 = Ruitveër"
+  },
+  "heavy-vehicle-004": {
+    "q": "Beheer nommer 4 is die …",
+    "options": [
+      "rathefboom.",
+      "ratte te wissel.",
+      "stuurwiel.",
+      "ruitveërs."
+    ],
+    "explain": "4 = Stuurwiel"
+  },
+  "heavy-vehicle-005": {
+    "q": "Beheer nommer 5 is die …",
+    "options": [
+      "binne-truspieël.",
+      "Al die bogenoemde is korrek",
+      "rigtingwyser.",
+      "ruitveërs."
+    ],
+    "explain": "5 = Rigtingwyserskakelaar"
+  },
+  "heavy-vehicle-006": {
+    "q": "Beheer nommer 6 is die …",
+    "options": [
+      "ruitveërs.",
+      "rathefboom.",
+      "rigtingwyser.",
+      "stuurwiel."
+    ],
+    "explain": "6 = Rathefboom"
+  },
+  "heavy-vehicle-007": {
+    "q": "Die volgende beheer help die bestuurder wanneer ratte gewissel word:",
+    "options": [
+      "7",
+      "8",
+      "2",
+      "4"
+    ],
+    "explain": "8 = Koppelaar"
+  },
+  "heavy-vehicle-008": {
+    "q": "Die volgende beheer word gebruik om die voertuig se rigting te verander:",
+    "options": [
+      "9",
+      "4",
+      "6",
+      "1 + 3 + 5"
+    ],
+    "explain": "4 = Stuurwiel"
+  },
+  "heavy-vehicle-009": {
+    "q": "Die volgende beheer word gebruik om ’n geparkeerde voertuig stil te hou:",
+    "options": [
+      "6",
+      "10",
+      "7",
+      "6 en 8"
+    ],
+    "explain": "7 = Handrem"
+  },
+  "heavy-vehicle-010": {
+    "q": "Die volgende beheer word gebruik om die toepaslike rat vir die voertuig te kies:",
+    "options": [
+      "7",
+      "2",
+      "6",
+      "3"
+    ],
+    "explain": "6 = Rathefboom"
+  },
+  "heavy-vehicle-011": {
+    "q": "Die volgende is ’n voetbeheer:",
+    "options": [
+      "9",
+      "7",
+      "4",
+      "1 + 3 + 5"
+    ],
+    "explain": "9 = Rem"
+  },
+  "heavy-vehicle-012": {
+    "q": "Die volgende is nie ’n handbeheer nie:",
+    "options": [
+      "10",
+      "9",
+      "7",
+      "3"
+    ],
+    "explain": "10 = Versneller"
+  },
+  "heavy-vehicle-013": {
+    "q": "Die volgende word gebruik om aan te dui dat jy van rigting wil verander:",
+    "options": [
+      "2",
+      "6 en 8",
+      "Slegs 1, 3, 4, 6, 8, 9 en 10",
+      "5"
+    ],
+    "explain": "5 = Rigtingwyserskakelaar"
+  },
+  "heavy-vehicle-014": {
+    "q": "Die volgende word gebruik om verkeer dop te hou:",
+    "options": [
+      "3",
+      "7",
+      "6",
+      "8"
+    ],
+    "explain": "3 = Kanttruspieëls"
+  },
+  "heavy-vehicle-015": {
+    "q": "Om jou voertuig te versnel, moet jy nommer … gebruik",
+    "options": [
+      "10",
+      "2",
+      "Slegs 1, 3, 4, 6, 8, 9 en 10",
+      "9"
+    ],
+    "explain": "10 = Versneller"
+  },
+  "heavy-vehicle-016": {
+    "q": "Om ’n voertuig heeltemal tot stilstand te bring, word beheer nommer … gebruik",
+    "options": [
+      "4",
+      "5",
+      "9",
+      "Slegs 1, 3, 4, 6, 8, 9 en 10"
+    ],
+    "explain": "9 = Rem"
+  },
+  "heavy-vehicle-017": {
+    "q": "Om die voertuig se spoed te verminder of dit heeltemal te stop, word die volgende beheer gebruik:",
+    "options": [
+      "6 en 8",
+      "9",
+      "8",
+      "5"
+    ],
+    "explain": "9 = Rem"
+  },
+  "heavy-vehicle-018": {
+    "q": "Om te verseker dat jou geparkeerde voertuig nie beweeg nie, gebruik nommer …",
+    "options": [
+      "7",
+      "9",
+      "1 + 3 + 5",
+      "3"
+    ],
+    "explain": "7 = Handrem"
+  },
+  "heavy-vehicle-019": {
+    "q": "Om die voertuig se spoed te verhoog of te verlaag, word die volgende beheer gebruik:",
+    "options": [
+      "3",
+      "Slegs 1, 3, 4, 6, 8, 9 en 10",
+      "10",
+      "6 en 8"
+    ],
+    "explain": "10 = Versneller"
+  },
+  "heavy-vehicle-020": {
+    "q": "Om aan te dui dat jy gaan draai, moet jy nommer … gebruik",
+    "options": [
+      "6",
+      "5",
+      "Slegs 1, 3, 4, 6, 8, 9 en 10",
+      "10"
+    ],
+    "explain": "5 = Rigtingwyserskakelaar"
   }
 }
