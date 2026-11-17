@@ -22,6 +22,13 @@
       "when": 1794912000001,
       "tag": "0002_revoke_anonymous_learner_access",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1794912000002,
+      "tag": "0003_remove_duplicate_learner_indexes",
+      "breakpoints": true
     }
   ]
 }
