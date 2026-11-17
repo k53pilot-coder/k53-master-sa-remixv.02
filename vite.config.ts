@@ -8,7 +8,6 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 import { VitePWA } from "vite-plugin-pwa";
 import artwork from "./src/data/sign-artwork.json";
 import references from "./src/data/reference-images.json";
-import questions from "./src/data/questions.json";
 import { isCacheableNavigation, offlineNavigationFallback } from "./src/lib/offline-navigation";
 import { filterLegacyAssetProxyUrls, signArtworkUrl } from "./src/lib/sign-artwork-url";
 
@@ -42,7 +41,6 @@ export default defineConfig({
             ...artwork.map((a) => signArtworkUrl(a.url)),
             ...references.manual,
             ...Object.values(references.vehicle).flat(),
-            ...questions.flatMap((q) => q.images?.map((i) => i.url) ?? []),
           ]),
         ]).map((url) => ({ url, revision: null })),
         navigateFallback: null,

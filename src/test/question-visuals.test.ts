@@ -49,10 +49,10 @@ describe("question pictures", () => {
       ...artwork.map((entry) => signArtworkUrl(entry.url)),
       ...references.manual,
       ...Object.values(references.vehicle).flat(),
-      ...questionData.flatMap((q) => q.images?.map((image) => image.url) ?? []),
     ];
     const uniqueUrls = [...new Set(precacheUrls)];
     const filteredUrls = filterLegacyAssetProxyUrls(uniqueUrls);
+    expect(JSON.stringify(questionData)).not.toContain("/__l5e/assets-v1/");
     expect(filteredUrls.filter(isLegacyAssetProxyUrl)).toHaveLength(0);
     expect(filteredUrls).toEqual(uniqueUrls.filter((url) => !isLegacyAssetProxyUrl(url)));
   });
@@ -80,7 +80,7 @@ describe("question pictures", () => {
     }
   });
   it("removes dead legacy image references from all question records", () => {
-    for (const q of questionData) expect(q.images ?? [], q.id).toHaveLength(0);
+    expect(JSON.stringify(questionData)).not.toContain("/__l5e/assets-v1/");
   });
   it("never renders a retired image-proxy URL", () => {
     for (const q of QUESTIONS)
