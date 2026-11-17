@@ -41,8 +41,8 @@ describe("question pictures", () => {
     );
   });
   it("maps all motorcycle, light and heavy questions to the June 2012 control diagrams", () => {
-    for (const [vehicle, count] of Object.entries({"motorcycle":21,"light":30,"heavy":29})) {
-      const questions = QUESTIONS.filter((q) => q.vehicle === vehicle);
+    for (const [vehicle, count] of Object.entries({"motorcycle":21,"light":31,"heavy":29})) {
+      const questions = ALL_QUESTIONS.filter((q) => q.vehicle === vehicle);
       expect(questions, vehicle).toHaveLength(count);
       const config = vehicleControlArtwork[vehicle as keyof typeof vehicleControlArtwork];
       expect(config.controls).toEqual(vehicle === "motorcycle"
@@ -55,9 +55,15 @@ describe("question pictures", () => {
       expect(svg.match(/>3<\/text>/g), `${vehicle} left and right mirror markers`).toHaveLength(2);
       for (const q of questions) {
         const shown = questionVisuals(q);
+        const expected = q.id === "light-vehicle-001" ? vehicleControlArtwork.lightAutomatic : config;
         expect(shown, q.id).toHaveLength(1);
-        expect(shown[0], q.id).toMatchObject({ kind: "image", url: config.url, cap: config.cap });
+        expect(shown[0], q.id).toMatchObject({ kind: "image", url: expected.url, cap: expected.cap });
       }
+    }
+    expect(vehicleControlArtwork.lightAutomatic.controls).not.toContain(8);
+    const automaticSvg = readFileSync(join(process.cwd(), "public", vehicleControlArtwork.lightAutomatic.url), "utf8");
+    expect(automaticSvg).toContain("AUTOMATIC GEARBOX");
+    expect(automaticSvg).not.toContain(">8</text>");
     }
   });
   it("excludes all retired asset-proxy URLs from the PWA precache", () => {

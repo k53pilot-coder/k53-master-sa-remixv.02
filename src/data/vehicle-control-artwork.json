@@ -19,6 +19,17 @@
       5,
       6,
       7
+    ],
+    "controlLabels": [
+      "1 Gear lever",
+      "2 Clutch",
+      "3 Left and right rear-view mirrors",
+      "4 Front brake",
+      "5 Throttle",
+      "6 Indicator light switch",
+      "7 Rear brake (foot-operated)",
+      "8 Handlebars",
+      "9 Fuel tank"
     ]
   },
   "light": {
@@ -42,6 +53,19 @@
       9,
       10,
       11
+    ],
+    "controlLabels": [
+      "1 Centre rear-view mirror",
+      "2 Window wiper",
+      "3 Left and right rear-view mirrors",
+      "4 Steering wheel",
+      "5 Indicator light switch",
+      "6 Gear lever",
+      "7 Hand brake",
+      "8 Clutch",
+      "9 Brake",
+      "10 Accelerator",
+      "11 Horn"
     ]
   },
   "heavy": {
@@ -65,6 +89,58 @@
       13,
       14,
       15
+    ],
+    "controlLabels": [
+      "1 Centre rear-view mirror",
+      "2 Window wiper",
+      "3 Left and right rear-view mirrors",
+      "4 Steering wheel",
+      "5 Indicator light switch",
+      "6 Gear lever",
+      "7 Hand brake",
+      "8 Clutch control",
+      "9 Brake",
+      "10 Accelerator",
+      "11 Horn"
+    ]
+  },
+  "source": {
+    "title": "South African Learner Driver Manual — Section 3: Vehicle Components and Controls",
+    "edition": "Version 1.00, June 2012",
+    "publisher": "Department of Transport, Republic of South Africa",
+    "url": "https://k53learnerstests.co.za/wp-content/uploads/k53/downloads/3_Vehicle_Controls_Manual_v100_Jun_2012.pdf",
+    "copyrightNote": "The source manual states it may not be copied and distributed for financial gain. These are original schematic drawings using its control numbering and descriptions."
+  },
+  "lightAutomatic": {
+    "url": "/assets/vehicle-controls/light-motor-vehicle-automatic-controls.svg",
+    "cap": "Light motor vehicle controls · automatic gearbox · two pedals and no clutch control · numbered according to the South African Department of Transport Learner Driver Manual, Section 3 (June 2012)",
+    "controls": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      9,
+      10,
+      11
+    ],
+    "sourcePages": [
+      10,
+      11
+    ],
+    "controlLabels": [
+      "1 Centre rear-view mirror",
+      "2 Window wiper",
+      "3 Left and right rear-view mirrors",
+      "4 Steering wheel",
+      "5 Indicator light switch",
+      "6 Automatic gear selector",
+      "7 Parking brake",
+      "9 Brake",
+      "10 Accelerator",
+      "11 Horn"
     ]
   }
 }
