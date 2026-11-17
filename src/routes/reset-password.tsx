@@ -35,7 +35,7 @@ function Reset() {
             if (error) throw error;
             setMessage(af ? "Wagwoord opgedateer. Jy kan met jou nuwe wagwoord aanmeld." : "Password updated. You can sign in with your new password.");
           } catch (error) {
-            setMessage(error instanceof Error ? error.message : af ? "Kon nie jou wagwoord opdateer nie." : "Could not update your password.");
+            setMessage(af ? "Kon nie jou wagwoord opdateer nie. Kontroleer die skakel en probeer weer." : error instanceof Error ? error.message : "Could not update your password.");
           } finally {
             setBusy(false);
           }
