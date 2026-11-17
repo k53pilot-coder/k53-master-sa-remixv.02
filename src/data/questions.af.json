@@ -1308,5 +1308,115 @@
       "9"
     ],
     "explain": "7 = Handrem"
+  },
+  "light-vehicle-021": {
+    "q": "Watter beheer gebruik jy om te sien wat agter die voertuig is?",
+    "options": [
+      "Slegs 1, 4, 6, 8, 9 en 10",
+      "2",
+      "1",
+      "3"
+    ],
+    "explain": "1 = Middelste truspieël"
+  },
+  "light-vehicle-022": {
+    "q": "Watter beheer gebruik jy om ’n rat te kies?",
+    "options": [
+      "8",
+      "5",
+      "6",
+      "Slegs 1, 4, 6, 8, 9 en 10"
+    ],
+    "explain": "6 = Rathefboom"
+  },
+  "light-vehicle-023": {
+    "q": "Watter beheer gebruik jy om die voertuig links of regs te stuur?",
+    "options": [
+      "6",
+      "1",
+      "4",
+      "8"
+    ],
+    "explain": "4 = Stuurwiel"
+  },
+  "light-vehicle-024": {
+    "q": "Die volgende beheer word gebruik om te draai …",
+    "options": [
+      "4",
+      "11",
+      "6",
+      "8 en 6"
+    ],
+    "explain": "4 = Stuurwiel"
+  },
+  "light-vehicle-025": {
+    "q": "Watter beheer gebruik jy wanneer jy in die reën bestuur?",
+    "options": [
+      "10",
+      "Slegs 1, 4, 6, 8, 9 en 10",
+      "2",
+      "3"
+    ],
+    "explain": "2 = Ruitveër"
+  },
+  "light-vehicle-026": {
+    "q": "Watter beheer gebruik jy wanneer jy parkeer en die voertuig onbewaak laat?",
+    "options": [
+      "10",
+      "7",
+      "6 en 8",
+      "9"
+    ],
+    "explain": "7 = Handrem"
+  },
+  "light-vehicle-027": {
+    "q": "Watter beheer moet gebruik word om te verseker dat die voertuig stil bly?",
+    "options": [
+      "7",
+      "2",
+      "6",
+      "4"
+    ],
+    "explain": "7 = Handrem"
+  },
+  "light-vehicle-028": {
+    "q": "Watter beheer(s) gebruik jy om die voertuig in ’n noodgeval te stop?",
+    "options": [
+      "5",
+      "6 en 8",
+      "8",
+      "9"
+    ],
+    "explain": "9 = Rem"
+  },
+  "light-vehicle-029": {
+    "q": "Watter beheer(s) gebruik jy om agter en langs die voertuig te sien?",
+    "options": [
+      "2",
+      "3",
+      "6 en 8",
+      "1 en 3"
+    ],
+    "explain": "1 = Middelste truspieël; 3 = Kanttruspieëls"
+  },
+  "light-vehicle-030": {
+    "q": "Watter beheer(s) gebruik jy wanneer jy van een rat na ’n ander wissel?",
+    "options": [
+      "8 en 6",
+      "7",
+      "4",
+      "6 en 8"
+    ],
+    "explain": "8 = Koppelaar; 6 = Rathefboom"
+  },
+  "light-vehicle-031": {
+    "q": "Watter kontroles moet jy gebruik wanneer daar ’n skerp draai in die pad is?",
+    "options": [
+      "1 en 3",
+      "4",
+      "Slegs 1, 4, 6, 8, 9 en 10",
+      "2"
+    ],
+    "explain": "1 = Middelste truspieël; 4 = Stuurwiel; 6 = Rathefboom; 8 = Koppelaar; 9 = Rem; 10 = Versneller"
   }
 }
