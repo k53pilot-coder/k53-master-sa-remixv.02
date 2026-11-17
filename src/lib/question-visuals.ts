@@ -1,4 +1,5 @@
-import { artworkFor } from "@/components/sign-graphic";\nimport { isLegacyAssetProxyUrl } from "@/lib/sign-artwork-url";
+import { artworkFor } from "@/components/sign-graphic";
+import { isLegacyAssetProxyUrl } from "@/lib/sign-artwork-url";
 import { GROUP_INFO, signByCode } from "@/data/signs";
 import type { Question } from "@/lib/quiz";
 
