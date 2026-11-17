@@ -358,5 +358,185 @@
       "In ’n 100 km/h-sone",
       "Bedags"
     ]
+  ],
+  "K53-041": [
+    "Wat is die algemene spoedgrens binne stedelike/beboude gebiede, tensy ’n teken anders aandui?",
+    [
+      "40 km/h",
+      "60 km/h",
+      "80 km/h",
+      "100 km/h"
+    ]
+  ],
+  "K53-042": [
+    "Wat is die algemene spoedgrens op openbare paaie buite stedelike gebiede?",
+    [
+      "80 km/h",
+      "100 km/h",
+      "120 km/h",
+      "140 km/h"
+    ]
+  ],
+  "K53-043": [
+    "Wat is die algemene spoedgrens op snelweë in Suid-Afrika?",
+    [
+      "100 km/h",
+      "120 km/h",
+      "140 km/h",
+      "Onbeperk"
+    ]
+  ],
+  "K53-044": [
+    "Op watter afstand van ’n brandkraan is parkering streng verbode?",
+    [
+      "1,0 m",
+      "1,5 m",
+      "3,0 m",
+      "5,0 m"
+    ]
+  ],
+  "K53-045": [
+    "Op watter afstand van ’n kruising is parkering verbode?",
+    [
+      "2 m",
+      "5 m",
+      "9 m",
+      "15 m"
+    ]
+  ],
+  "K53-046": [
+    "Op watter afstand van ’n gemerkte voetoorgang is stilhou verbode?",
+    [
+      "3 m",
+      "6 m",
+      "9 m",
+      "12 m"
+    ]
+  ],
+  "K53-047": [
+    "Op watter afstand van ’n tonnel of brug is stilhou verbode?",
+    [
+      "2 m",
+      "6 m",
+      "10 m",
+      "15 m"
+    ]
+  ],
+  "K53-048": [
+    "Wat is die maksimum afstand wat jou voertuig se wiele van die randsteen mag wees wanneer jy parkeer?",
+    [
+      "150 mm",
+      "300 mm",
+      "450 mm",
+      "600 mm"
+    ]
+  ],
+  "K53-049": [
+    "Wanneer moet voertuig-hoofligte aangeskakel word?",
+    [
+      "Van sonsondergang tot sonsopkoms of wanneer sigbaarheid minder as 150 m is",
+      "Slegs ná 20:00",
+      "Slegs wanneer dit swaar reën",
+      "Te alle tye"
+    ]
+  ],
+  "K53-050": [
+    "Hoe ver vorentoe moet hoofligte die pad verlig?",
+    [
+      "45 m",
+      "100 m",
+      "150 m",
+      "200 m"
+    ]
+  ],
+  "K53-051": [
+    "Hoe ver vorentoe moet dimligte die pad verlig?",
+    [
+      "20 m",
+      "45 m",
+      "100 m",
+      "150 m"
+    ]
+  ],
+  "K53-052": [
+    "Wanneer jy snags aankomende verkeer nader, op watter afstand moet jy jou ligte dim?",
+    [
+      "50 m",
+      "100 m",
+      "150 m",
+      "300 m"
+    ]
+  ],
+  "K53-053": [
+    "Wat is die maksimum wettige bloedalkoholgrens vir gewone bestuurders van ligte voertuie?",
+    [
+      "0,02 g / 100 ml",
+      "0,05 g / 100 ml",
+      "0,08 g / 100 ml",
+      "Geen alkohol toegelaat"
+    ]
+  ],
+  "K53-054": [
+    "Wat is die wettige bloedalkoholgrens vir professionele bestuurders (vragmotors/busse/taxi’s)?",
+    [
+      "0,02 g / 100 ml",
+      "0,05 g / 100 ml",
+      "0,08 g / 100 ml",
+      "0,10 g / 100 ml"
+    ]
+  ],
+  "K53-055": [
+    "Binne watter tydperk moet ’n padverkeersongeluk by die polisie aangemeld word?",
+    [
+      "12 uur",
+      "24 uur",
+      "48 uur",
+      "7 dae"
+    ]
+  ],
+  "K53-056": [
+    "Wat mag jy NIE ná ’n ongeluk inneem voordat jy dit by die polisie aanmeld nie?",
+    [
+      "Water",
+      "Alkohol of verdowingsmiddels",
+      "Kos",
+      "Pynstillers"
+    ]
+  ],
+  "K53-057": [
+    "Op watter afstand agter ’n stilstaande voertuig moet ’n nooddriehoek geplaas word?",
+    [
+      "15 m",
+      "30 m",
+      "45 m",
+      "60 m"
+    ]
+  ],
+  "K53-058": [
+    "Wat is die maksimum wettige hoogte van ’n gelaaide voertuig vanaf grondvlak?",
+    [
+      "3,8 m",
+      "4,3 m",
+      "4,6 m",
+      "5,0 m"
+    ]
+  ],
+  "K53-059": [
+    "Wat is die maksimum totale breedte van ’n motorvoertuig, insluitend die vrag?",
+    [
+      "2,2 m",
+      "2,5 m",
+      "2,6 m",
+      "3,0 m"
+    ]
+  ],
+  "K53-060": [
+    "Wat is die maksimum toegelate vooroorhang van ’n voertuigvrag?",
+    [
+      "100 mm",
+      "300 mm",
+      "500 mm",
+      "1 000 mm"
+    ]
   ]
 }
