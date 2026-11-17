@@ -253,7 +253,8 @@ type MessageKey = keyof typeof messages.en;
 type LanguageContextValue = {
   language: AppLanguage;
   setLanguage: (language: AppLanguage) => void;
-  t: (key: MessageKey) => string;\n  tr: (value: string) => string;
+  t: (key: MessageKey) => string;
+  tr: (value: string) => string;
 };
 
 const LanguageContext = createContext<LanguageContextValue | null>(null);
@@ -275,7 +276,8 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     () => ({
       language,
       setLanguage: setLanguageState,
-      t: (key) => messages[language][key],\n      tr: (value) => language === "af" ? (uiMessages[value] ?? value) : value,
+      t: (key) => messages[language][key],
+      tr: (value) => (language === "af" ? (uiMessages[value] ?? value) : value),
     }),
     [language],
   );
