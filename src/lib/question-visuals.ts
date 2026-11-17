@@ -38,6 +38,8 @@ export function labelFor(code: string) {
 /** Pictures to show for a question: curated question-to-chart mappings first, then verified text codes.
  *  Retired asset-proxy images and answer-revealing vehicle-control tables are never displayed. */
 export function questionVisuals(q: Question): Visual[] {
+  const vehicle = q.vehicle ?? questionVehicleMap[q.id as keyof typeof questionVehicleMap];
+  if (vehicle === "motorcycle" || vehicle === "light" || vehicle === "heavy") return [{ kind: "vehicle", vehicle }];
   const codes = [...new Set([...(questionSignMap[q.id as keyof typeof questionSignMap] ?? []), ...signCodesIn(q.q)])];
   const visuals: Visual[] = [];
   for (const img of q.images ?? []) {
