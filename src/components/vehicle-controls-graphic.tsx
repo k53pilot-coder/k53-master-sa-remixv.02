@@ -1,5 +1,3 @@
-import type { Question } from "@/lib/quiz";
-
 export type VehicleControlType = "motorcycle" | "light" | "heavy";
 
 function NumberTag({ n, x, y }: { n: number; x: number; y: number }) {

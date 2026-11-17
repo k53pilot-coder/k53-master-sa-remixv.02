@@ -2,13 +2,14 @@ import { artworkFor } from "@/components/sign-graphic";
 import { isLegacyAssetProxyUrl } from "@/lib/sign-artwork-url";
 import questionSignMap from "@/data/question-sign-map.json";
 import questionVehicleMap from "@/data/question-vehicle-map.json";
+import vehicleControlArtwork from "@/data/vehicle-control-artwork.json";
 import { GROUP_INFO, signByCode } from "@/data/signs";
 import type { Question } from "@/lib/quiz";
 
 export type Visual =
   | { kind: "sign"; code: string; label: string }
   | { kind: "image"; url: string; cap: string }
-  | { kind: "vehicle"; vehicle: "motorcycle" | "light" | "heavy" };
+
 
 const CODE_RE = /\(?\b(R|W|GE|IN|TW|TR|RM|RTM|WM|GM|S|GD)\)?\s?(\d+(?:\.\d+)?)\b/g;
 
@@ -34,8 +35,20 @@ export function labelFor(code: string) {
 }
 
 /** Pictures to show for a question: curated question-to-chart mappings first, then verified text codes.
- *  Retired asset-proxy images and answer-revealing vehicle-control tables are never displayed. */
+ *  Retired asset-proxy images are never displayed. Vehicle-control diagrams are number-only. */
 export function questionVisuals(q: Question): Visual[] {
+  const mappedVehicleType = questionVehicleMap[q.id as keyof typeof questionVehicleMap];
+  const vehicleType = q.vehicle === "motorcycle" || q.vehicle === "light" || q.vehicle === "heavy"
+    ? q.vehicle
+    : mappedVehicleType === "motorcycle" || mappedVehicleType === "light" || mappedVehicleType === "heavy"
+      ? mappedVehicleType
+      : undefined;
+  const vehicleArtwork = q.id === "light-vehicle-001"
+    ? vehicleControlArtwork.lightAutomatic
+    : vehicleType
+      ? vehicleControlArtwork[vehicleType]
+      : undefined;
+  if (vehicleArtwork) return [{ kind: "image", url: vehicleArtwork.url, cap: vehicleArtwork.cap }];
   const codes = [...new Set([...(questionSignMap[q.id as keyof typeof questionSignMap] ?? []), ...signCodesIn(q.q)])];
   const visuals: Visual[] = [];
   for (const img of q.images ?? []) {
