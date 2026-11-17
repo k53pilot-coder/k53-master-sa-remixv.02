@@ -1,4 +1,4 @@
-import { artworkFor } from "@/components/sign-graphic";
+import { artworkFor } from "@/components/sign-graphic";\nimport { isLegacyAssetProxyUrl } from "@/lib/sign-artwork-url";
 import { GROUP_INFO, signByCode } from "@/data/signs";
 import type { Question } from "@/lib/quiz";
 
@@ -30,7 +30,7 @@ export function labelFor(code: string) {
 }
 
 /** Pictures to show for a question: official chart artwork first, then supporting pack images.
- *  Vehicle-control component tables are hidden because they list the answer. */
+ *  Vehicle-control component tables and retired asset-proxy images are hidden because they are inaccurate or unavailable. */
 export function questionVisuals(q: Question): Visual[] {
   const codes = signCodesIn(q.q);
   const visuals: Visual[] = [];
@@ -41,7 +41,7 @@ export function questionVisuals(q: Question): Visual[] {
       if (!codes.includes(c)) codes.push(c);
       continue;
     }
-    visuals.push({ kind: "image", url: img.url, cap: img.cap });
+    if (!isLegacyAssetProxyUrl(img.url)) visuals.push({ kind: "image", url: img.url, cap: img.cap });
   }
   // Pack sign pictures are rough placeholders: drop them once official chart artwork is shown.
   if (codes.length) return codes.map((code) => ({ kind: "sign" as const, code, label: labelFor(code) }));
