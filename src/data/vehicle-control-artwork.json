@@ -1,0 +1,70 @@
+{
+  "motorcycle": {
+    "url": "/assets/vehicle-controls/motorcycle-controls.svg",
+    "cap": "Motorcycle controls · numbered according to the South African Department of Transport Learner Driver Manual, Section 3 (June 2012)",
+    "controls": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "sourcePages": [
+      3,
+      4,
+      5,
+      6,
+      7
+    ]
+  },
+  "light": {
+    "url": "/assets/vehicle-controls/light-motor-vehicle-controls.svg",
+    "cap": "Light motor vehicle controls · manual gearbox · numbered according to the South African Department of Transport Learner Driver Manual, Section 3 (June 2012)",
+    "controls": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "sourcePages": [
+      8,
+      9,
+      10,
+      11
+    ]
+  },
+  "heavy": {
+    "url": "/assets/vehicle-controls/heavy-motor-vehicle-controls.svg",
+    "cap": "Heavy motor vehicle controls · manual gearbox · numbered according to the South African Department of Transport Learner Driver Manual, Section 3 (June 2012)",
+    "controls": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "sourcePages": [
+      12,
+      13,
+      14,
+      15
+    ]
+  }
+}
