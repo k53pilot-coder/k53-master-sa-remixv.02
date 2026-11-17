@@ -57,12 +57,11 @@ describe("K53 learning rules", () => {
     expect(retryIds(attempts)).toEqual(["K53-001"]);
     expect(retryIds([...attempts, { question_id: "K53-001", correct: true }])).toEqual([]);
   });
-  it("never registers offline caching in development or preview", () => {
-    expect(refusesOffline("localhost", true, false, false)).toBe(true);
-    expect(refusesOffline("id-preview--example.lovable.app", false, false, false)).toBe(true);
-    expect(refusesOffline("k53.example.com", false, false, false)).toBe(false);
-    expect(refusesOffline("k53.example.com", false, true, false)).toBe(true);
-    expect(refusesOffline("k53.example.com", false, false, true)).toBe(true);
+  it("never registers offline caching in development, embedded, or explicitly disabled sessions", () => {
+    expect(refusesOffline(true, false, false)).toBe(true);
+    expect(refusesOffline(false, false, false)).toBe(false);
+    expect(refusesOffline(false, true, false)).toBe(true);
+    expect(refusesOffline(false, false, true)).toBe(true);
   });
   it("uses an explicit fallback for uncached pages but never caches auth navigations", async () => {
     const navigation = (pathname: string) => ({

@@ -1,100 +1,70 @@
 import { createFileRoute, useNavigate, useRouter } from "@tanstack/react-router";
-import { useState, type FormEvent } from "react";
+import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { ArrowRight, LogOut, UserRound, CloudCheck } from "lucide-react";
+import { CloudCheck, LogOut, UserRound } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
-import { lovable } from "@/integrations/lovable";
 import { useStudy } from "@/components/study-provider";
 import { pageHead } from "@/lib/metadata";
 import { useLanguage } from "@/components/language-provider";
 
 function authErrorMessage(error: unknown): string {
   const detail = error instanceof Error ? error.message.toLowerCase() : "";
-  if (detail.includes("missing supabase environment variable"))
-    return "Sign-in is not configured for this deployment. Connect Supabase and set its URL and publishable key in your hosting environment.";
-  if (detail.includes("invalid login credentials"))
-    return "Email or password is incorrect. Check your details or reset your password.";
-  if (detail.includes("email not confirmed"))
-    return "Confirm your email address before signing in. Check your inbox for the confirmation link.";
-  if (detail.includes("rate limit") || detail.includes("too many requests"))
+  if (detail.includes("missing supabase environment variable")) {
+    return "Sign-in is not configured for this deployment. Contact support.";
+  }
+  if (detail.includes("provider") && (detail.includes("not enabled") || detail.includes("unsupported"))) {
+    return "Google sign-in is not enabled for this project yet. Please contact support.";
+  }
+  if (detail.includes("rate limit") || detail.includes("too many requests")) {
     return "Too many attempts. Wait a little while, then try again.";
-  if (detail.includes("failed to fetch") || detail.includes("network"))
+  }
+  if (detail.includes("failed to fetch") || detail.includes("network")) {
     return "Could not reach the sign-in service. Check your connection and try again.";
-  return "Could not complete this request. Check your details and try again.";
+  }
+  return "Could not complete this request. Check your connection and try again.";
 }
 
 export const Route = createFileRoute("/auth")({
   head: () =>
     pageHead(
       "Your learner account",
-      "Sign in to save your K53 learner profile and study progress across devices.",
+      "Create or access your K53 learner account securely with Google.",
     ),
   component: Auth,
 });
+
 export function Auth() {
   const { user, name, refresh, progress } = useStudy();
   const { tr } = useLanguage();
-  const navigate = useNavigate(),
-    router = useRouter(),
-    queryClient = useQueryClient();
-  const [mode, setMode] = useState<"signin" | "signup" | "forgot">("signin"),
-    [email, setEmail] = useState(""),
-    [password, setPassword] = useState(""),
-    [display, setDisplay] = useState(""),
-    [message, setMessage] = useState(""),
-    [busy, setBusy] = useState(false);
-  async function submit(e: FormEvent) {
-    e.preventDefault();
-    setBusy(true);
-    setMessage("");
-    const normalizedEmail = email.trim().toLowerCase();
-    try {
-      if (mode === "forgot") {
-        const { error } = await supabase.auth.resetPasswordForEmail(normalizedEmail, {
-          redirectTo: `${window.location.origin}/reset-password`,
-        });
-        if (error) throw error;
-        setMessage(tr("Check your email for a password reset link."));
-      } else if (mode === "signup") {
-        const { error } = await supabase.auth.signUp({
-          email: normalizedEmail,
-          password,
-          options: { emailRedirectTo: window.location.origin, data: { display_name: display } },
-        });
-        if (error) throw error;
-        setMessage(tr("Check your email to confirm your account before signing in."));
-      } else {
-        const { error } = await supabase.auth.signInWithPassword({
-          email: normalizedEmail,
-          password,
-        });
-        if (error) throw error;
-        await router.invalidate();
-        await navigate({ to: "/" });
-      }
-    } catch (error) {
-      setMessage(tr(authErrorMessage(error)));
-    } finally {
-      setBusy(false);
-    }
-  }
-  async function social(provider: "google" | "lovable") {
+  const navigate = useNavigate();
+  const router = useRouter();
+  const queryClient = useQueryClient();
+  const [display, setDisplay] = useState("");
+  const [message, setMessage] = useState("");
+  const [busy, setBusy] = useState(false);
+
+  async function signInWithGoogle() {
     setBusy(true);
     setMessage("");
     try {
-      const result = await lovable.auth.signInWithOAuth(provider, {
-        redirect_uri: window.location.origin,
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: new URL("/auth", window.location.origin).toString(),
+        },
       });
-      if (result.error) setMessage(tr(result.error.message));
+      if (error) throw error;
     } catch (error) {
+      console.error("Could not start Google sign-in", error);
       setMessage(tr(authErrorMessage(error)));
     } finally {
       setBusy(false);
     }
   }
-  if (user)
+
+  if (user) {
     return (
       <>
         <div className="page-heading">
@@ -105,10 +75,10 @@ export function Auth() {
           </div>
         </div>
         <div className="auth-panel">
-          <UserRound size={32} />
+          <UserRound size={32} aria-hidden="true" />
           <label>
             {tr("Display name")}
-            <Input defaultValue={name} onChange={(e) => setDisplay(e.target.value)} />
+            <Input defaultValue={name} onChange={(event) => setDisplay(event.target.value)} />
           </label>
           <Button
             disabled={busy}
@@ -134,10 +104,10 @@ export function Auth() {
             {tr("Save profile")}
           </Button>
           <Button variant="outline" onClick={() => void refresh()}>
-            <CloudCheck />
+            <CloudCheck aria-hidden="true" />
             {tr("Sync progress")}
           </Button>
-          <p role="status">{message}</p>
+          <p role="status" aria-live="polite">{message}</p>
           <Button
             variant="ghost"
             disabled={busy}
@@ -158,106 +128,41 @@ export function Auth() {
               }
             }}
           >
-            <LogOut />
+            <LogOut aria-hidden="true" />
             {tr("Sign out")}
           </Button>
         </div>
       </>
     );
+  }
+
   return (
     <>
       <div className="page-heading">
         <div>
           <span className="eyebrow">{tr("TAKE YOUR PROGRESS WITH YOU")}</span>
-          <h1>
-            {mode === "signup"
-              ? "Your journey. Your account."
-              : mode === "forgot"
-                ? "Let’s get you back on the road."
-                : tr("Welcome to your learning space.")}
-          </h1>
+          <h1>{tr("Welcome to your learning space.")}</h1>
           <p>
-            {tr("Study without an account, or sign in to sync quiz attempts and test results. Lesson completion stays on this device; save your profile to sync your name and vehicle.")}
+            {tr("Use a Google account to create your learner account or sign in to sync progress. You can study without an account.")}
           </p>
         </div>
       </div>
       <div className="auth-panel">
-        {mode !== "forgot" ? (
-          <>
-            <Button variant="outline" disabled={busy} onClick={() => void social("google")}>
-              {tr("Continue with Google")}
-            </Button>
-            <Button variant="outline" disabled={busy} onClick={() => void social("lovable")}>
-              {tr("Continue with Lovable")}
-            </Button>
-            <div className="auth-divider">{tr("or with email")}</div>
-          </>
-        ) : null}
-        <form onSubmit={submit}>
-          {mode === "signup" ? (
-            <label>
-              {tr("Display name")}
-              <Input
-                required
-                value={display}
-                onChange={(e) => setDisplay(e.target.value)}
-                autoComplete="nickname"
-              />
-            </label>
-          ) : null}
-          <label>
-            {tr("Email address")}
-            <Input
-              required
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              autoComplete="email"
-            />
-          </label>
-          {mode !== "forgot" ? (
-            <label>
-              {tr("Password")}
-              <Input
-                type="password"
-                required
-                minLength={8}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                autoComplete={mode === "signup" ? "new-password" : "current-password"}
-              />
-            </label>
-          ) : null}
-          <Button type="submit" disabled={busy}>
-            {busy
-              ? tr("Please wait…")
-              : mode === "signup"
-                ? tr("Create account")
-                : mode === "forgot"
-                  ? tr("Send reset link")
-                  : tr("Sign in")}
-            <ArrowRight />
-          </Button>
-        </form>
-        <p role="status">{message}</p>
         <Button
-          variant="link"
-          onClick={() => {
-            setMode(mode === "signin" ? "signup" : "signin");
-            setMessage("");
-          }}
+          className="w-full"
+          variant="outline"
+          disabled={busy}
+          onClick={() => void signInWithGoogle()}
         >
-          {mode === "signin"
-            ? tr("New here? Create an account")
-            : mode === "forgot"
-              ? tr("Back to sign in")
-              : tr("Already have an account? Sign in")}
+          {busy ? tr("Please wait…") : tr("Continue with Google")}
         </Button>
-        {mode === "signin" ? (
-          <Button variant="link" onClick={() => setMode("forgot")}>
-            {tr("Forgot your password?")}
-          </Button>
-        ) : null}
+        <p className="text-sm text-muted-foreground">
+          {tr("First-time sign-ins create your learner account automatically.")}
+        </p>
+        <p className="text-xs text-muted-foreground">
+          {tr("Your account's email verification is handled by Google.")}
+        </p>
+        <p role="status" aria-live="polite">{message}</p>
       </div>
     </>
   );

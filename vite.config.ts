@@ -1,10 +1,9 @@
-// @lovable.dev/vite-tanstack-config already includes the following — do NOT add them manually
-// or the app will break with duplicate plugins:
-//   - TanStack devtools (dev-only, first), tanstackStart, viteReact, tailwindcss, tsConfigPaths,
-//     nitro (build-only using cloudflare as a default target), VITE_* env injection, @ path alias,
-//     React/TanStack dedupe, error logger plugins, and sandbox detection (port/host/strictPort).
-// You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
-import { defineConfig } from "@lovable.dev/vite-tanstack-config";
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import viteReact from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
+import tsconfigPaths from "vite-tsconfig-paths";
+import { nitro } from "nitro/vite";
+import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
 import artwork from "./src/data/sign-artwork.json";
 import references from "./src/data/reference-images.json";
@@ -12,7 +11,19 @@ import { isCacheableNavigation, offlineNavigationFallback } from "./src/lib/offl
 import { filterLegacyAssetProxyUrls, signArtworkUrl } from "./src/lib/sign-artwork-url";
 
 export default defineConfig({
+  resolve: {
+    dedupe: ["react", "react-dom", "@tanstack/react-router", "@tanstack/react-start"],
+  },
   plugins: [
+    tanstackStart({
+      // Keep the custom SSR wrapper used by the application.
+      server: { entry: "server" },
+    }),
+    viteReact(),
+    tailwindcss(),
+    tsconfigPaths(),
+    // Preserve the existing Cloudflare Workers deployment target.
+    nitro({ preset: "cloudflare_module" }),
     VitePWA({
       outDir: ".output/public",
       strategies: "generateSW",
@@ -68,9 +79,4 @@ export default defineConfig({
       },
     }),
   ],
-  tanstackStart: {
-    // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
-    // nitro/vite builds from this
-    server: { entry: "server" },
-  },
 });

@@ -1,37 +1,15 @@
-<!-- LOVABLE:BEGIN -->
-> [!IMPORTANT]
-> This project is connected to [Lovable](https://lovable.dev). Avoid rewriting
-> published git history — force pushing, or rebasing/amending/squashing commits
-> that are already pushed — as it rewrites history on Lovable's side and the
-> user will likely lose their project history.
->
-> Commits you push to the connected branch sync back to Lovable and show up in
-> the editor, so keep the branch in a working state.
+# K53 Master SA repository instructions
 
-## What Lovable manages
-
-Rules outside this block are the project's own. Change the pieces below in
-Lovable, not by hand. With the [Lovable MCP](https://mcp.lovable.dev)
-connected, `send_message` asks Lovable to do it; otherwise ask the user to
-use the editor.
-
-- **Database.** Do not add or edit `supabase/migrations/` or `drizzle/`.
-  Ask Lovable to change the schema.
-- **Generated files.** Do not edit a file whose header says it is automatically
-  generated.
-- **AI gateway.** Keep model calls on Lovable's gateway, and keep
-  `LOVABLE_API_KEY` out of browser code.
-- **Connectors.** Lovable provides native connectors. `list_connectors` shows
-  which are enabled; `add_connector` only returns the dashboard link. When a
-  connector is enabled, calls go through the connector gateway and need
-  `LOVABLE_API_KEY`. When Lovable does not provide one, users can bring their
-  own key and store it in Secrets.
-- **Secrets.** Lovable manages them. Do not put secret values in the repo.
-<!-- LOVABLE:END -->
-
-## Application architecture
 - Keep learning content in browser-safe static modules and quiz scoring in pure functions so study does not require database round-trips.
 - Render road signs from documented source-chart crops; never substitute generic icons for unverified signs.
 - Keep local study records isolated per learner in IndexedDB; synchronize idempotent batches through authenticated server functions and never cache private server responses.
 - Offline support uses generateSW with one preview-safe registrar; navigation is NetworkFirst and OAuth is excluded.
-- Question pictures come from questionVisuals(): official chart artwork for any sign code in the question replaces pack placeholders, and answer-revealing control tables are hidden — pack images are inaccurate.
+- Public account access is Google OAuth only. Do not reintroduce email/password, email OTP, or additional identity providers without an explicit product decision.
+- Supabase owns identity and persistence. Never put service-role keys, SMTP credentials, OAuth client secrets, Supabase access tokens, or other server secrets in source files, `VITE_*` variables, or Git.
+- Configure Google OAuth and Supabase Auth redirect allow-lists in Supabase before promoting authentication changes to production.
+- Authentication emails must use the verified publisher sender `info@aiamplifysa.com` through a configured custom SMTP provider. An email address alone is not sufficient SMTP configuration.
+- Keep the Cloudflare Nitro preset and output path compatible with the production Worker.
+- Do not manually edit the generated TanStack route tree; it is rebuilt from files in `src/routes/`.
+- Do not rewrite published Git history. Do not force-push, rebase, amend, or squash commits already pushed to a shared branch.
+- Preserve the current database schema and migrations unless a separate reviewed database change is explicitly required.
+- Any change to sign-in or admin authorization must include tests proving that non-Google identities cannot access protected admin functions.

@@ -1,24 +1,40 @@
-# K53 Master SA remixV.02
+# K53 Master SA
 
-Build an app that
+Bilingual South African K53 learner preparation application.
 
-This project was built with [Lovable](https://lovable.dev).
+## Stack
 
-## Build with Lovable
+- React 19 and TanStack Start
+- Vite, Tailwind CSS and Nitro
+- Cloudflare Workers for application hosting
+- Supabase Auth and Postgres for accounts and progress synchronization
+- IndexedDB for local/offline learner progress
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/3602a09b-59b3-48c8-addb-6a897343a767).
+## Authentication
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+The application uses Google OAuth only. A first-time Google sign-in creates the learner account in Supabase. Email/password, email OTP, and password-reset authentication are not part of the learner flow.
+
+Before production release, configure the Google provider and production redirect URLs in Supabase. Configure custom SMTP with the publisher's verified sender address when Supabase Auth email notifications are required. See [AUTHENTICATION_SETUP.md](./AUTHENTICATION_SETUP.md).
 
 ## Development
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+Requirements: Node.js and Bun.
 
 ```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
+git clone https://github.com/k53pilot-coder/k53-master-sa-remixv.02.git
+cd k53-master-sa-remixv.02
+bun install --frozen-lockfile
+bun run dev
 ```
+
+## Quality checks
+
+```sh
+bun run typecheck
+bun run test
+bun run lint
+bun run build
+bun run audit:questions
+```
+
+The build creates the Cloudflare Worker output in `.output/`. Production changes are deployed through the repository's configured Cloudflare Workers Build integration after CI validation.

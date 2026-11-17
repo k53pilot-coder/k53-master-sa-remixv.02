@@ -16,7 +16,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getAdminAccess, grantAdminAccess } from "@/lib/admin.functions";
 import { ADMIN_OWNER_EMAIL, getAdminRole } from "@/lib/admin-role";
-import { supabase } from "@/integrations/supabase/client";
 import { pageHead } from "@/lib/metadata";
 import { useStudy } from "@/components/study-provider";
 import { useLanguage } from "@/components/language-provider";
@@ -52,17 +51,10 @@ function AdminPage() {
   const checkAdminAccess = useServerFn(getAdminAccess);
   const [access, setAccess] = useState<AdminAccess>({ status: "checking" });
   const [section, setSection] = useState<SectionId>("overview");
-  const [verificationRevision, setVerificationRevision] = useState(0);
-  const [verifiedUserId, setVerifiedUserId] = useState<string | null>(null);
-  const accessUserId = verifiedUserId ?? userId;
-
-  useEffect(() => {
-    if (verifiedUserId && userId === verifiedUserId) setVerifiedUserId(null);
-  }, [userId, verifiedUserId]);
 
   useEffect(() => {
     if (!ready) return;
-    if (!accessUserId) {
+    if (!userId) {
       setAccess({ status: "unavailable" });
       return;
     }
@@ -70,8 +62,9 @@ function AdminPage() {
     let active = true;
     void checkAdminAccess()
       .then(({ role }) => {
-        if (active)
+        if (active) {
           setAccess(isAdmin(role) ? { status: "ready", role } : { status: "unavailable" });
+        }
       })
       .catch((error: unknown) => {
         console.error("Could not verify admin access", error);
@@ -81,13 +74,7 @@ function AdminPage() {
     return () => {
       active = false;
     };
-  }, [accessUserId, checkAdminAccess, ready, userId, verificationRevision]);
-
-  function onCodeVerified(id: string) {
-    setVerifiedUserId(id);
-    setAccess({ status: "checking" });
-    setVerificationRevision((revision) => revision + 1);
-  }
+  }, [checkAdminAccess, ready, userId]);
 
   if (access.status === "checking") {
     return (
@@ -105,13 +92,19 @@ function AdminPage() {
           <ShieldAlert className="mt-1 shrink-0 text-destructive" aria-hidden="true" />
           <div className="space-y-3">
             <h1 id="admin-access-title" className="text-2xl font-semibold">
-              {tr("Admin portal sign-in")}
+              {tr("Admin access")}
             </h1>
             <p className="max-w-prose text-muted-foreground">
-              {tr("The owner account is")} {ADMIN_OWNER_EMAIL}.{" "}
-              {tr("Other email addresses need an existing account and admin access granted by an administrator. Enter your email to receive a one-time sign-in code.")}
+              {user
+                ? tr("Your Google account does not have administrator access. Ask the owner to grant access to this account.")
+                : tr("Sign in with Google to access administration. Only the owner account and accounts granted an admin role can enter.")}
             </p>
-            <AdminCodeLogin onVerified={onCodeVerified} />
+            {user ? <p className="text-sm text-muted-foreground">{user.email}</p> : null}
+            <Button asChild variant="outline">
+              <Link to={user ? "/" : "/auth"}>
+                {tr(user ? "Return to your learner dashboard" : "Sign in with Google")}
+              </Link>
+            </Button>
           </div>
         </div>
       </section>
@@ -208,7 +201,7 @@ function Overview() {
       <div className="rounded-lg border bg-card px-5">
         <SetupRow
           title="Admin permissions"
-          description="The server requires an OTP-authenticated session and a verified owner email or trusted admin role."
+          description="The server requires a Google-authenticated session and a verified owner email or trusted admin role."
           status="Server-checked"
         />
         <SetupRow
@@ -237,151 +230,21 @@ function AccessSection() {
       <div className="rounded-lg border bg-card px-5">
         <SetupRow
           title="Grant administrator access"
-          description="Only OTP-verified administrators can grant roles. This action needs SUPABASE_SERVICE_ROLE_KEY configured as a server secret; the key is never sent to the browser."
+          description="Only Google-authenticated administrators can grant roles. This action needs SUPABASE_SERVICE_ROLE_KEY configured as a server secret; the key is never sent to the browser."
           status="Server secret required"
         />
         <SetupRow
-          title="Email-code sign-in"
-          description="The primary owner and granted admins must verify access with a one-time email code."
+          title="Google account sign-in"
+          description="The primary owner and granted admins must sign in with their approved Google accounts."
           status="Available"
         />
         <SetupRow
           title="Account requirement"
-          description="Additional administrators need an existing learner account before they can be granted access."
+          description="Additional administrators need an existing Google-backed learner account before they can be granted access."
           status="Existing account"
         />
       </div>
       <GrantAdminForm />
-    </div>
-  );
-}
-
-export function AdminCodeLogin({ onVerified }: { onVerified: (id: string) => void }) {
-  const { user } = useStudy();
-  const { tr } = useLanguage();
-  const [email, setEmail] = useState(user?.email ?? ADMIN_OWNER_EMAIL);
-  const [code, setCode] = useState("");
-  const [sent, setSent] = useState(false);
-  const [busy, setBusy] = useState(false);
-  const [message, setMessage] = useState("");
-
-  async function requestCode(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setBusy(true);
-    setMessage("");
-    const normalizedEmail = email.trim().toLowerCase();
-    try {
-      const { error } = await supabase.auth.signInWithOtp({
-        email: normalizedEmail,
-        options: { shouldCreateUser: false },
-      });
-      if (error) throw error;
-      setEmail(normalizedEmail);
-      setSent(true);
-      setMessage(tr("If this email has admin access, a one-time code has been sent."));
-    } catch (error) {
-      console.error("Could not request an admin sign-in code", error);
-      const missingConfiguration =
-        error instanceof Error && error.message.includes("Missing Supabase environment variable");
-      setMessage(
-        tr(
-          missingConfiguration
-            ? "Supabase Auth is not configured for this deployment. Set the Supabase URL and publishable key in your hosting environment before requesting a code."
-            : "Supabase Auth could not send a code. Check the account, OTP email template and mail delivery settings.",
-        ),
-      );
-    } finally {
-      setBusy(false);
-    }
-  }
-
-  async function verifyCode(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setBusy(true);
-    setMessage("");
-    try {
-      const { data, error } = await supabase.auth.verifyOtp({
-        email: email.trim().toLowerCase(),
-        token: code.trim(),
-        type: "email",
-      });
-      if (error) throw error;
-      if (!data.user) throw new Error("The verified session did not include a user.");
-      setMessage(tr("Code verified. Checking administrator access…"));
-      onVerified(data.user.id);
-    } catch (error) {
-      console.error("Could not verify the admin sign-in code", error);
-      setMessage(tr("That code could not be verified. Check it or request a new code."));
-    } finally {
-      setBusy(false);
-    }
-  }
-
-  return (
-    <div className="w-full max-w-md space-y-3">
-      <form className="space-y-3" onSubmit={sent ? verifyCode : requestCode}>
-        <label className="block space-y-1.5 text-sm font-medium" htmlFor="admin-email">
-          {tr("Email address")}
-          <Input
-            id="admin-email"
-            type="email"
-            autoComplete="email"
-            maxLength={254}
-            required
-            disabled={busy || sent}
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-          />
-        </label>
-        {sent ? (
-          <label className="block space-y-1.5 text-sm font-medium" htmlFor="admin-code">
-            {tr("Six-digit email code")}
-            <Input
-              id="admin-code"
-              type="text"
-              inputMode="numeric"
-              autoComplete="one-time-code"
-              pattern="[0-9]{6}"
-              maxLength={6}
-              required
-              disabled={busy}
-              value={code}
-              onChange={(event) => setCode(event.target.value.replace(/\D/g, "").slice(0, 6))}
-            />
-          </label>
-        ) : null}
-        <Button type="submit" disabled={busy} className="w-full">
-          {busy ? tr("Please wait…") : sent ? tr("Verify code and open admin") : tr("Email me a sign-in code")}
-        </Button>
-      </form>
-      {sent ? (
-        <Button
-          type="button"
-          variant="link"
-          disabled={busy}
-          className="px-0"
-          onClick={() => {
-            setSent(false);
-            setCode("");
-            setMessage("");
-          }}
-        >
-          {tr("Use a different email")}
-        </Button>
-      ) : null}
-      <p className="text-sm text-muted-foreground" role="status" aria-live="polite">
-        {message}
-      </p>
-      <p className="text-xs text-muted-foreground">
-        {tr("Codes use the Supabase Auth email template. If no code arrives, the Magic Link template must include the {{ .Token }} value.")}
-      </p>
-      <p className="text-xs text-muted-foreground">
-        {tr("The email must already have a confirmed learner account.")}{" "}
-        <Link className="underline underline-offset-4" to="/auth">
-          {tr("Create or confirm an account")}
-        </Link>
-        .
-      </p>
     </div>
   );
 }
@@ -402,7 +265,7 @@ function GrantAdminForm() {
       setMessage(
         result.alreadyAdmin
           ? `${result.email} ${tr("already has administrator access.")}`
-          : `${tr("Administrator access granted to")} ${result.email}. ${tr("They can now request an email code.")}`,
+          : `${tr("Administrator access granted to")} ${result.email}. ${tr("They can now sign in with Google to use the admin portal.")}`,
       );
       setEmail("");
     } catch (error) {

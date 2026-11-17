@@ -4,10 +4,10 @@
 - [x] Build practice, retry pile and section-scored mock tests.
 - [x] Add learner profiles, sign-in and batched progress sync.
 - [x] Add a server-guarded admin workspace shell; management actions remain disabled until backend storage and policies are configured.
-- [x] Restrict the admin portal to OTP-verified owner/admin emails and allow admins to grant trusted admin roles.
+- [x] Restrict the admin portal to Google-authenticated owner/admin accounts and allow admins to grant trusted admin roles.
 - [x] Create a standalone Supabase project for K53 Master SA and add learner tables, indexes, profile creation trigger, and owner-scoped RLS policies.
 - [ ] Connect the Cloudflare deployment to that project: set build-time `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY`, plus Worker runtime `SUPABASE_URL` and `SUPABASE_PUBLISHABLE_KEY`. Keep `SUPABASE_SERVICE_ROLE_KEY` server-only; it is required for admin grants, not sign-in.
-- [ ] Configure the Supabase email OTP template to send `{{ .Token }}`, confirm the owner account exists, and allow the deployed app's auth redirect URLs.
+- [ ] Enable Google OAuth in Supabase, configure the Google callback and application redirect allow-list, then verify the owner Google account.
 - [x] Merge guest study progress into the first signed-in account on this device.
 - [x] Add practical/DLTC guides and supplied references.
 - [x] Add guarded installable offline support with a fallback for uncached pages.
@@ -22,7 +22,7 @@
 - [x] Check practice, signs and About at 360–1366 widths (no sideways scrolling).
 - [x] Add About & Legal page linked from the menu and footer.
 - [x] Sign chart audit spreadsheet in Files.
-- [ ] Verify and add missing master signs — source PDFs are Lovable-managed assets, but the prior 58-candidate audit list/report is not in this repository; do not infer codes or artwork.
+- [ ] Verify and add missing master signs — source PDFs and the prior 58-candidate audit list/report are not in this repository; do not infer codes or artwork.
 - [ ] Fill About & Legal publisher contact placeholders (verified support email and CIPC number) — needs publisher-provided details.
 
  
@@ -39,7 +39,7 @@
 - [ ] Apply migrations to the standalone Supabase project after taking a database backup. Inspect `pg_policies` and remove any older permissive policies; PostgreSQL permissive policies combine with OR.
 - [ ] Confirm actual live schema matches the checked-in schema, including constraints, grants, indexes and triggers.
 - [ ] Configure Cloudflare build variables and Worker secrets; never put the service-role key in Git or `VITE_*` variables.
-- [ ] Configure Supabase OTP email template, owner account, production redirect allow-list, and test sign-up, sign-in, recovery and admin OTP end-to-end.
+- [ ] Configure Google OAuth, the production redirect allow-list, and custom SMTP sender `info@aiamplifysa.com` for any Auth notifications; test Google registration, sign-in and admin access end-to-end.
 - [ ] Verify sync using two real accounts and two devices, including offline/reconnect, account switching, duplicate retries and cross-account isolation.
 - [ ] Add a protected admin audit log and an owner-only role revocation workflow; validate operational recovery before enabling either.
 - [ ] Implement and test account/data deletion, including Supabase rows, auth identity, and locally cached data. Confirm retention/legal requirements first.

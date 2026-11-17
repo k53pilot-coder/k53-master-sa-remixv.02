@@ -44,10 +44,10 @@ This summary describes data handling visible in the current app code. It is not 
 
 - **Information We Collect:**
   - _Study progress:_ The app stores quiz attempts, test results, learned categories, and vehicle choice in browser IndexedDB. When you sign in, quiz attempts and test results are synchronized to the app database; lesson completion remains on this device. Display name and vehicle are synchronized only after saving the learner profile.
-  - _Account information:_ Sign-in and account creation are handled through the configured authentication service. The app also offers Google and Lovable sign-in.
-  - _Error reports:_ When the app's error boundary runs, it calls the Lovable error-reporting hook if that hook is available. The fields collected, recipients, and retention period are not established in this repository and should be confirmed by the publisher.
+  - _Account information:_ Account creation and sign-in are available only through Google OAuth, with Supabase managing the application session.
+  - _Error reports:_ When an application error boundary runs, the error is written to the browser or server console for diagnostics. No third-party error-reporting service is configured in this application.
 - **How We Use Information:** Study progress supports the app's learning, account, and synchronization features. No purchase, subscription, or app-store receipt flow is implemented in this codebase; payment-related terms should be added only if such a feature is introduced.
-- **Third-Party Services:** Authenticated progress synchronization uses the app's configured Supabase database. Google and Lovable sign-in are handled by their respective services. If external links (such as NaTIS) are opened, you leave our app and are subject to those websites' policies.
+- **Third-Party Services:** Authenticated progress synchronization uses the app's configured Supabase database. Google provides identity verification and Supabase manages authenticated accounts and progress synchronization. If external links (such as NaTIS) are opened, you leave our app and are subject to those websites' policies.
 - **Your Privacy Requests:** To request access to, correction of, or deletion of information associated with an account, contact the publisher using the verified contact details below. The app does not currently provide an in-app account or data deletion control.
 - **Contact Information:** For privacy inquiries, support, or legal notices, contact **AI Amplify SA (Pty) Ltd** using details supplied by the publisher:
   - **Email:** [Publisher to provide verified support email]

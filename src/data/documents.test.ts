@@ -12,7 +12,7 @@ describe("DLTC reference resources", () => {
     }
   });
 
-  it("does not expose retired Lovable asset-proxy paths", () => {
+  it("does not expose retired asset-proxy paths", () => {
     for (const document of documents) {
       expect(document.url).not.toContain("/__l5e/assets-v1/");
     }
