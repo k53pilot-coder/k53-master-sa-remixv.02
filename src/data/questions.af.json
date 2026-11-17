@@ -1708,5 +1708,176 @@
       "3"
     ],
     "explain": "1 = Middelste truspieël; 3 = Kanttruspieëls; 4 = Stuurwiel; 6 = Rathefboom; 8 = Koppelaar; 9 = Rem; 10 = Versneller"
-  }
+  },
+  "A-005": [
+    "Jy mag nie ’n leerlinglisensie kry indien … (i) Jy reeds ’n lisensie het wat jou toelaat om dieselfde voertuigklas te bestuur (ii) Jy vir ’n bepaalde tydperk onbevoeg verklaar is om ’n bestuurslisensie te kry en daardie tydperk nog geld (iii) Jou lisensie tydelik opgeskort is en die opskortingstydperk nog nie verstryk het nie. KIES DIE KORREKTE KOMBINASIE",
+    [
+      "Slegs (i) is korrek",
+      "Slegs (ii) en (iii) is korrek",
+      "(i), (ii) en (iii) is korrek"
+    ]
+  ],
+  "A-006": [
+    "Wat wys waarskuwingsteken L10 jou?",
+    [
+      "Paaie kruis vorentoe en ander voertuie van die kant af moet by die kruising stop of padgee",
+      "’n Spoorlyn kruis die pad waarop jy ry",
+      "’n Vierrigting-stop is vorentoe waar die paaie kruis"
+    ],
+    "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  ],
+  "A-007": [
+    "’n Voertuig waarvan die remme nie behoorlik werk nie, moet gesleep word …",
+    [
+      "Met ’n tou",
+      "Met ’n sleepstang",
+      "Op ’n sleepwa"
+    ]
+  ],
+  "A-008": [
+    "Teken B6 of 5 wys jou dat …",
+    [
+      "Jy slegs reguit mag ry",
+      "Daar ’n snelweg vorentoe is",
+      "Daar ’n eenrigtingpad vorentoe is"
+    ],
+    "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  ],
+  "A-009": [
+    "’n Veilige volgafstand beteken dat jy, indien die voertuig voor jou skielik stop, kan …",
+    [
+      "Stop sonder om uit te swaai",
+      "Uitswaai en langsaan stop",
+      "Uitswaai en verbygaan"
+    ]
+  ],
+  "A-010": [
+    "Teken E1 …",
+    [
+      "Wys dat daar ’n hospitaal vorentoe is waar jy nie geraas mag maak nie",
+      "Wys dat jy nie mense mag oplaai nie",
+      "Verbied jou om die toeter te gebruik"
+    ],
+    "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  ],
+  "A-011": [
+    "Tensy ’n teken anders aandui, is die algemene spoedgrens in ’n dorp of stad … km/h",
+    [
+      "60",
+      "80",
+      "100"
+    ],
+    "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  ],
+  "A-012": [
+    "Teken P2 wys jou dat …",
+    [
+      "Dit ’n spesiale baan vir fietsryers is",
+      "Geen fietsryers daar toegelaat word nie",
+      "Jy op fietsryers moet let"
+    ],
+    "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  ],
+  "A-013": [
+    "Die verste afstand wat jou dimligte voor jou mag skyn, is … m",
+    [
+      "45",
+      "100",
+      "150"
+    ]
+  ],
+  "A-014": [
+    "Wat wys teken E4 jou? (i) Jy mag nie vorentoe links draai nie (ii) Jy mag nie daar links draai nie (iii) Daar is ’n eenrigtingpad na regs vorentoe. KIES DIE KORREKTE KOMBINASIE",
+    [
+      "Slegs (i) is korrek",
+      "Slegs (ii) en (iii) is korrek",
+      "Slegs (i) en (iii) is korrek"
+    ],
+    "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  ],
+  "A-015": [
+    "Jy mag nie …",
+    [
+      "Passasiers in die voertuig vervoer indien jy slegs ’n leerlinglisensie het",
+      "Jou voertuig onbewaak laat terwyl die enjin loop",
+      "Langer as 100 m agteruit ry"
+    ]
+  ],
+  "A-016": [
+    "Padmerk Z5 waarsku jou dat …",
+    [
+      "Daar vorentoe ’n spoorwegvlak kruising met een spoorlyn is",
+      "Paaie vorentoe kruis",
+      "Die snelweg vorentoe eindig"
+    ],
+    "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  ],
+  "A-017": [
+    "Die laaste handeling wat jy moet uitvoer voordat jy na ’n ander baan beweeg, is om …",
+    [
+      "Jou rigtingwyser aan te skakel",
+      "Die blindekol te kontroleer",
+      "In die truspieël te kyk"
+    ]
+  ],
+  "A-018": [
+    "Teken R1 wys jou dat die pad …",
+    [
+      "Kronkel",
+      "Ongeteer is",
+      "Glipperig is"
+    ],
+    "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  ],
+  "A-019": [
+    "Indien jy van baan wil verwissel, moet jy …",
+    [
+      "Jou rigtingwyser aanskakel en van baan verwissel",
+      "Die nodige sein gee en, nadat jy vir ander verkeer gekyk het, van baan verwissel",
+      "Liggies rem en dan van baan verwissel"
+    ]
+  ],
+  "A-020": [
+    "Wat wys teken A3 jou?",
+    [
+      "Dit is dieselfde as ’n toegeeteken en jy kan sonder om te stop voortgaan",
+      "Maak seker dit is veilig, wag totdat alle verkeer weg is en ry dan voort",
+      "Stop en ry voort wanneer dit veilig is, in die volgorde waarin voertuie by die kruising gestop het"
+    ],
+    "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  ],
+  "A-021": [
+    "Jy mag ’n ander voertuig aan sy linkerkant verbysteek indien dit … (i) Aandui dat dit regs gaan draai (ii) Aan die regterkant van ’n pad met ’n skouer ry waar jy kan verbygaan (iii) In ’n dorp in die regterbaan ry waar twee bane in dieselfde rigting beweeg. KIES DIE KORREKTE KOMBINASIE",
+    [
+      "Slegs (i) en (iii) is korrek",
+      "Al die bogenoemde is korrek",
+      "Slegs (i) is korrek"
+    ]
+  ],
+  "A-022": [
+    "Teken U4 wys jou dat die pad …",
+    [
+      "Vir 12 km kronkel",
+      "Van daar af 12 km lank kronkel",
+      "Vir 12 km glipperig is"
+    ],
+    "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  ],
+  "A-023": [
+    "Jy mag nie stop nie …",
+    [
+      "Oorkant ’n voertuig waar die ryvlak 10 m breed is",
+      "Waar jy ook nie mag parkeer nie",
+      "5 m van ’n brug af"
+    ]
+  ],
+  "A-024": [
+    "Teken E3 wys jou dat …",
+    [
+      "Jy slegs daar mag ry indien jy spesiale toestemming het",
+      "Geen voertuig daar mag ry nie omdat slegs voetgangers daar mag loop",
+      "Dit tweerigtingverkeer vorentoe aandui"
+    ],
+    "Die vereiste teken/sketsboekillustrasie is nie in die brontoets-PDF ingesluit nie."
+  ]
 }
