@@ -15,6 +15,13 @@
       "when": 1794912000000,
       "tag": "0001_learner_schema_and_rls",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1794912000001,
+      "tag": "0002_revoke_anonymous_learner_access",
+      "breakpoints": true
     }
   ]
 }
