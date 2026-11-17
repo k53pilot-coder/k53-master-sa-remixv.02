@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import text from "@/content/about-legal.md?raw";
+import textAfrikaans from "@/content/about-legal.af.md?raw";
+import { useLanguage } from "@/components/language-provider";
 import { MiniMarkdown } from "@/lib/mini-markdown";
 import { pageHead } from "@/lib/metadata";
 export const Route = createFileRoute("/about")({
@@ -13,7 +15,7 @@ export const Route = createFileRoute("/about")({
 function About() {
   return (
     <article className="legal-page">
-      <MiniMarkdown source={text} />
+      <MiniMarkdown source={language === "af" ? textAfrikaans : text} />
     </article>
   );
 }
