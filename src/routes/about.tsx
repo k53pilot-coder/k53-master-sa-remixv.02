@@ -12,7 +12,7 @@ export const Route = createFileRoute("/about")({
     ),
   component: About,
 });
-function About() {
+function About() {\n  const { language } = useLanguage();
   return (
     <article className="legal-page">
       <MiniMarkdown source={language === "af" ? textAfrikaans : text} />
