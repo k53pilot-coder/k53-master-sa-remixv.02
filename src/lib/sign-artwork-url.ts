@@ -1,4 +1,4 @@
-const HOSTED_ARTWORK_URL = /^\/__l5e\/assets-v1\/[^/]+\/(road-sign-sheet-\d+\.webp)$/;
+const HOSTED_ARTWORK_URL = /^\/__l5e\/assets-v1\/[^/]+\/(road-sign-sheet-\d+\.webp)$/;\n\nexport const isLegacyAssetProxyUrl = (url: string) => url.startsWith("/__l5e/assets-v1/");
 
 export function signArtworkUrl(url: string) {
   const match = url.match(HOSTED_ARTWORK_URL);
