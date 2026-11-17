@@ -19,5 +19,30 @@ function Practical() {
  const {language} = useLanguage();
  const af = language === "af";
  const sections = af ? AFRIKAANS_PRACTICAL.sections : checklists;
- return <><div className="page-heading"><div><span className="eyebrow">{af ? AFRIKAANS_PRACTICAL.eyebrow : "FROM THEORY TO THE ROAD"}</span><h1>{af ? AFRIKAANS_PRACTICAL.title : "Practical driving guide"}</h1><p>{af ? AFRIKAANS_PRACTICAL.subtitle : "Good observation. Smooth control. Safe decisions."}</p></div><Car className="heading-icon"/></div><div className="lesson-body">{sections.map(section=><section key={section.name}><div><h2>{section.name}</h2>{section.items.map(item=><label className="checklist-item" key={item}><input type="checkbox" checked={checks.includes(item)} onChange={e=>setChecks(c=>e.target.checked?[...c,item]:c.filter(x=>x!==item))}/><span>{item}</span></label>)}</div></section>)}</div><p>{af ? AFRIKAANS_PRACTICAL.note : "Use your vehicle-specific official manual and a qualified instructor for the full assessment requirements."}</p><Button variant="outline" onClick={()=>setChecks([])}><Check/>{af ? AFRIKAANS_PRACTICAL.reset : "Reset checklist"}</Button></>;
+ return <><div className="page-heading"><div><span className="eyebrow">{af ? AFRIKAANS_PRACTICAL.eyebrow : "FROM THEORY TO THE ROAD"}</span><h1>{af ? AFRIKAANS_PRACTICAL.title : "Practical driving guide"}</h1><p>{af ? AFRIKAANS_PRACTICAL.subtitle : "Good observation. Smooth control. Safe decisions."}</p></div><Car className="heading-icon"/></div><div className="lesson-body">{sections.map((section, sectionIndex) => (
+      <section key={sectionIndex}>
+        <div>
+          <h2>{section.name}</h2>
+          {section.items.map((item, itemIndex) => {
+            const itemId = sectionIndex + "-" + itemIndex;
+            return (
+              <label className="checklist-item" key={itemId}>
+                <input
+                  type="checkbox"
+                  checked={checks.includes(itemId)}
+                  onChange={(event) =>
+                    setChecks((current) =>
+                      event.target.checked
+                        ? [...current, itemId]
+                        : current.filter((checkedId) => checkedId !== itemId),
+                    )
+                  }
+                />
+                <span>{item}</span>
+              </label>
+            );
+          })}
+        </div>
+      </section>
+    ))}</div><p>{af ? AFRIKAANS_PRACTICAL.note : "Use your vehicle-specific official manual and a qualified instructor for the full assessment requirements."}</p><Button variant="outline" onClick={()=>setChecks([])}><Check/>{af ? AFRIKAANS_PRACTICAL.reset : "Reset checklist"}</Button></>;
 }
