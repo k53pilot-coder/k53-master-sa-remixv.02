@@ -1,6 +1,6 @@
 # Authentication setup — K53 Master SA
 
-The learner application intentionally supports Google OAuth only. A first-time Google sign-in automatically creates a Supabase user account. Email/password sign-up, email/password login, email OTP, and password-reset authentication are not exposed by the application.
+The learner application intentionally supports Google OAuth only. A first-time Google sign-in creates a Supabase user account; if an existing account has the same verified email, Supabase can link the Google identity to that existing user. Email/password sign-up, email/password login, email OTP, and password-reset authentication are not exposed by the application.
 
 ## Production configuration audit
 
@@ -22,7 +22,18 @@ Do not deploy the Google-only app changes until Google provider setup is complet
 5. In Supabase Dashboard → Authentication → Providers → Google, enable Google and enter the Google client ID and client secret.
 6. In Supabase Dashboard → Authentication → URL Configuration, set Site URL to `https://k53.aiamplifysa.com` and allow `https://k53.aiamplifysa.com/auth` as the application redirect. Add local development callback separately only if needed.
 7. Re-check `/auth/v1/settings` using the publishable key. `external.google` must be `true`.
-8. After successful Google registration and sign-in tests, disable the Supabase Email provider to enforce Google-only auth at the backend. Keep `disable_signup=false` so first-time Google identities may create accounts.
+8. Do not disable the Supabase Email provider until existing learner and admin accounts have been migrated and checked. Then disable it to enforce Google-only auth at the backend. Keep `disable_signup=false` so first-time Google identities may create accounts.
+
+## Existing account and progress migration
+
+Before the provider is switched off:
+
+1. Check that the current owner account `info@aiamplifysa.com` has a confirmed email address in Supabase Auth.
+2. Sign in with Google using that exact email address. Supabase automatically links identities that have the same verified email, preserving the existing user record and its user ID.
+3. Verify that the existing `profiles`, quiz-attempt, test-attempt and admin-role records still belong to that same user ID.
+4. Repeat the same check for active learners with existing accounts. If an account's email is unverified or the Google address differs, stop and resolve the identity migration before disabling email authentication. Supabase intentionally does not automatically link an unverified email identity.
+
+Do not delete existing Auth users or manually recreate their profiles as a shortcut. User IDs are the foreign-key ownership boundary for existing learner data. See [Supabase Identity Linking](https://supabase.com/docs/guides/auth/auth-identity-linking).
 
 ## Verification email sender
 
