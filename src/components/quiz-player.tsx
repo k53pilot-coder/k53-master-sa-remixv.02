@@ -173,7 +173,9 @@ export function QuizPlayer({
       <span className="eyebrow">{categoryLabel}</span>
       <h1>{q.q}</h1>
       {questionVisuals(q).map((v) =>
-        v.kind === "sign" ? (
+        v.kind === "vehicle" ? (
+          <VehicleControlsManual key={v.vehicle} vehicle={v.vehicle} language={language} />
+        ) : v.kind === "sign" ? (
           <figure className="question-image question-sign" key={v.code}>
             <SignGraphic
               sign={signByCode(v.code) ?? { code: v.code, name: v.code, meaning: "", group: "control", variants: [] }}
