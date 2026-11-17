@@ -22,7 +22,7 @@ describe("question pictures", () => {
     }
   });
   it("R1 question shows the stop sign artwork, not a placeholder", () => {
-    const q = QUESTIONS.find((x) => /\\bR1\\b/.test(x.q) && !/R1\\./.test(x.q))!;
+    const q = QUESTIONS.find((x) => /\bR1\b/.test(x.q) && !/R1\./.test(x.q))!;
     expect(questionVisuals(q).some((v) => v.kind === "sign" && v.code === "R1")).toBe(true);
     expect(artworkFor("R1")).toBeTruthy();
   });
@@ -87,7 +87,7 @@ describe("question pictures", () => {
       for (const visual of questionVisuals(q))
         if (visual.kind === "image") {
           expect(isLegacyAssetProxyUrl(visual.url), q.id).toBe(false);
-          expect(visual.url, q.id).toMatch(/^\\/assets\\//);
+          expect(visual.url, q.id).toMatch(/^\/assets\//);
           expect(visual.cap.length, q.id).toBeGreaterThan(0);
         }
   });

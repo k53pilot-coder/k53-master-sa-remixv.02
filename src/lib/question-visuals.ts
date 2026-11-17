@@ -8,7 +8,7 @@ export type Visual =
   | { kind: "sign"; code: string; label: string }
   | { kind: "image"; url: string; cap: string };
 
-const CODE_RE = /\\(?\\b(R|W|GE|IN|TW|TR|RM|RTM|WM|GM|S|GD)\\)?\\s?(\\d+(?:\\.\\d+)?)\\b/g;
+const CODE_RE = /\(?\b(R|W|GE|IN|TW|TR|RM|RTM|WM|GM|S|GD)\)?\s?(\d+(?:\.\d+)?)\b/g;
 
 /** Official sign codes named in the question text that have verified chart artwork. */
 export function signCodesIn(text: string): string[] {
@@ -20,7 +20,7 @@ export function signCodesIn(text: string): string[] {
   return out;
 }
 
-const packCode = (url: string) => url.match(/k53_sign_([A-Z]+\\d+(?:_\\d+)?)\\.png$/)?.[1]?.replace("_", ".");
+const packCode = (url: string) => url.match(/k53_sign_([A-Z]+\d+(?:_\d+)?)\.png$/)?.[1]?.replace("_", ".");
 
 /** Signs whose number changes per site; the chart shows one example value. */
 const VALUE_VARIES: Record<string, string> = { R201: "chart example shows 100 km/h — the number on the sign is the limit" };
