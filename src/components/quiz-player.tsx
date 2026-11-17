@@ -6,6 +6,7 @@ import { useStudy } from "./study-provider";
 import { scoreMock, shuffle, AFRIKAANS_QUESTIONS, type Question } from "@/lib/quiz";
 import { CATEGORIES } from "@/data/categories";
 import { SignGraphic } from "./sign-graphic";
+import { VehicleControlsGraphic } from "./vehicle-controls-graphic";
 import { questionVisuals } from "@/lib/question-visuals";
 import { signByCode } from "@/data/signs";
 import { useLanguage } from "./language-provider";

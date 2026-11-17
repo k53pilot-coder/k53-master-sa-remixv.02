@@ -1,12 +1,14 @@
 import { artworkFor } from "@/components/sign-graphic";
 import { isLegacyAssetProxyUrl } from "@/lib/sign-artwork-url";
 import questionSignMap from "@/data/question-sign-map.json";
+import questionVehicleMap from "@/data/question-vehicle-map.json";
 import { GROUP_INFO, signByCode } from "@/data/signs";
 import type { Question } from "@/lib/quiz";
 
 export type Visual =
   | { kind: "sign"; code: string; label: string }
-  | { kind: "image"; url: string; cap: string };
+  | { kind: "image"; url: string; cap: string }
+  | { kind: "vehicle"; vehicle: "motorcycle" | "light" | "heavy" };
 
 const CODE_RE = /\(?\b(R|W|GE|IN|TW|TR|RM|RTM|WM|GM|S|GD)\)?\s?(\d+(?:\.\d+)?)\b/g;
 

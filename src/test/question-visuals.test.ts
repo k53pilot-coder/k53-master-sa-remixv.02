@@ -6,6 +6,7 @@ import artwork from "@/data/sign-artwork.json";
 import references from "@/data/reference-images.json";
 import questionData from "@/data/questions.json";
 import questionSignMap from "@/data/question-sign-map.json";
+import questionVehicleMap from "@/data/question-vehicle-map.json";
 import { filterLegacyAssetProxyUrls, isLegacyAssetProxyUrl, signArtworkUrl } from "@/lib/sign-artwork-url";
 
 describe("question pictures", () => {
