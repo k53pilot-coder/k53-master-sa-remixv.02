@@ -24,7 +24,13 @@ export function QuizPlayer({
     ? questions.map((question) => {
         const translated = AFRIKAANS_QUESTIONS[question.id];
         return translated
-          ? { ...question, q: translated.q, options: translated.options, explain: translated.explain ?? question.explain, note: translated.note ?? question.note }
+          ? {
+              ...question,
+              q: translated.q,
+              options: translated.options,
+              ...(translated.explain !== undefined ? { explain: translated.explain } : {}),
+              ...(translated.note !== undefined ? { note: translated.note } : {}),
+            }
           : question;
       })
     : questions;
