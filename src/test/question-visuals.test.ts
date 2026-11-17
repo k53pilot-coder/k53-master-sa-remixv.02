@@ -45,7 +45,7 @@ describe("question pictures", () => {
     for (const [vehicle, count] of Object.entries({"motorcycle":21,"light":31,"heavy":29})) {
       const questions = ALL_QUESTIONS.filter((q) => q.vehicle === vehicle);
       expect(questions, vehicle).toHaveLength(count);
-      const config = vehicleControlArtwork[vehicle as keyof typeof vehicleControlArtwork];
+      const config = vehicle === "motorcycle" ? vehicleControlArtwork.motorcycle : vehicle === "light" ? vehicleControlArtwork.light : vehicleControlArtwork.heavy;
       expect(config.controlLabels).toHaveLength(config.controls.length);
       expect(config.controls).toEqual(vehicle === "motorcycle"
         ? [1, 2, 3, 4, 5, 6, 7, 8, 9]

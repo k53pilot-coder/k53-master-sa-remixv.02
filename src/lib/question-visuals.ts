@@ -37,11 +37,13 @@ export function labelFor(code: string) {
 /** Pictures to show for a question: curated question-to-chart mappings first, then verified text codes.
  *  Retired asset-proxy images are never displayed. Vehicle-control diagrams are number-only. */
 export function questionVisuals(q: Question): Visual[] {
-  const vehicleType = q.vehicle ?? questionVehicleMap[q.id as keyof typeof questionVehicleMap];
+  const vehicleType = q.vehicle === "motorcycle" || q.vehicle === "light" || q.vehicle === "heavy"
+    ? q.vehicle
+    : questionVehicleMap[q.id as keyof typeof questionVehicleMap];
   const vehicleArtwork = q.id === "light-vehicle-001"
     ? vehicleControlArtwork.lightAutomatic
     : vehicleType
-      ? vehicleControlArtwork[vehicleType as keyof typeof vehicleControlArtwork]
+      ? vehicleControlArtwork[vehicleType]
       : undefined;
   if (vehicleArtwork) return [{ kind: "image", url: vehicleArtwork.url, cap: vehicleArtwork.cap }];
   const codes = [...new Set([...(questionSignMap[q.id as keyof typeof questionSignMap] ?? []), ...signCodesIn(q.q)])];
