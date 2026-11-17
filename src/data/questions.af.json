@@ -708,7 +708,7 @@
     "options": [
       "Versneller",
       "Voetrem",
-      "Koppelaarsleutel/pedaal",
+      "Koppelaarpedaal",
       "Handrem"
     ]
   },
@@ -812,7 +812,7 @@
     ]
   },
   "K53-090": {
-    "q": "Word hersnitte bande op die vooras van ’n passasi motor of motorfiets toegelaat?",
+    "q": "Word hersnitte bande op die vooras van ’n passasiersmotor of motorfiets toegelaat?",
     "options": [
       "Ja, altyd toegelaat",
       "Verbode op motorfietse; toegelaat op motors indien dit wettig is",
@@ -2138,7 +2138,7 @@
     ]
   },
   "A-086": {
-    "q": "Teken B2 wys jou dat indien jou voertuig ’n bruto voertuigmasssa (GVM) van … het",
+    "q": "Teken B2 wys jou dat indien jou voertuig ’n bruto voertuigmassa (GVM) van … het",
     "options": [
       "8 t, jy te alle tye daar moet ry",
       "12 t, jy te alle tye daar moet ry",
@@ -2206,27 +2206,27 @@
     ]
   },
   "A-094": {
-    "q": "Wanneer jy ’n voertuig op ’n openbare pad parkeer, moet jy …",
+    "q": "Om ’n rat te kies, moet jy nommers … gebruik",
     "options": [
-      "Dit in die teenoorgestelde rigting van die verkeer laat wys",
-      "Dit in dieselfde rigting as die verkeer laat wys",
-      "Dit enige kant toe laat wys indien dit veilig is"
+      "7 en 9",
+      "5 en 8",
+      "6 en 8"
     ]
   },
   "A-095": {
-    "q": "Wat is die minimum volgafstand wat jy moet handhaaf?",
+    "q": "Om jou voertuig te stop, moet jy nommer … gebruik",
     "options": [
-      "Een sekonde",
-      "Twee sekondes",
-      "Drie sekondes"
+      "9",
+      "8",
+      "7"
     ]
   },
   "A-096": {
-    "q": "Wanneer moet jy jou voertuig se hoofligte aanskakel?",
+    "q": "Om jou voertuig te draai, word nommer … gebruik",
     "options": [
-      "Slegs wanneer dit donker is",
-      "Van sonsondergang tot sonsopkoms en wanneer sigbaarheid beperk is",
-      "Slegs wanneer dit reën"
+      "5",
+      "4",
+      "6"
     ]
   },
   "A-097": {
