@@ -10,7 +10,7 @@ import artwork from "./src/data/sign-artwork.json";
 import references from "./src/data/reference-images.json";
 import questions from "./src/data/questions.json";
 import { isCacheableNavigation, offlineNavigationFallback } from "./src/lib/offline-navigation";
-import { signArtworkUrl } from "./src/lib/sign-artwork-url";
+import { isLegacyAssetProxyUrl, signArtworkUrl } from "./src/lib/sign-artwork-url";
 
 export default defineConfig({
   plugins: [
