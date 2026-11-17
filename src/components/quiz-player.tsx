@@ -8,6 +8,7 @@ import { CATEGORIES } from "@/data/categories";
 import { SignGraphic } from "./sign-graphic";
 import { questionVisuals } from "@/lib/question-visuals";
 import { signByCode } from "@/data/signs";
+import { useLanguage } from "./language-provider";
 export function QuizPlayer({
   questions,
   mock = false,
@@ -18,6 +19,7 @@ export function QuizPlayer({
   onClose: () => void;
 }) {
   const { record } = useStudy();
+  const { language, t } = useLanguage();
   const [index, setIndex] = useState(0),
     [answers, setAnswers] = useState<Record<string, number>>({}),
     [finished, setFinished] = useState(false),
@@ -65,17 +67,17 @@ export function QuizPlayer({
     const correct = questions.filter((q) => answers[q.id] === q.answer).length;
     return (
       <div className="results">
-        <span className="eyebrow">{mock ? "MOCK TEST RESULTS" : "PRACTICE COMPLETE"}</span>
+        <span className="eyebrow">{mock ? t("quiz.mockResults") : t("quiz.practiceComplete")}</span>
         <h1>
           {mock
             ? result.passed
-              ? "You passed this mock test."
-              : "Keep building your confidence."
-            : "Another step forward."}
+              ? t("quiz.passed")
+              : t("quiz.keepGoing")
+            : t("quiz.anotherStep")}
         </h1>
         <p className="result-score">
           {correct}
-          <span> / {questions.length} correct</span>
+          <span> / {questions.length} {t("quiz.correct")}</span>
         </p>
         {mock ? (
           <div className="result-sections">
@@ -86,7 +88,7 @@ export function QuizPlayer({
                   {s.correct}/{s.total}
                 </strong>
                 <p>
-                  {s.passed ? "Passed" : "More practice needed"} · target {s.pass}/{s.count}
+                  {s.passed ? t("quiz.passedShort") : t("quiz.morePractice")} · {t("quiz.target")} {s.pass}/{s.count}
                 </p>
               </div>
             ))}
@@ -95,16 +97,16 @@ export function QuizPlayer({
         <div className="lesson-actions">
           <Button onClick={onClose}>
             <RotateCcw />
-            Practise again
+            {t("quiz.practiseAgain")}
           </Button>
           <Button asChild variant="outline">
             <Link to="/review">
-              Review mistakes
+              {t("quiz.review")}
               <ArrowRight />
             </Link>
           </Button>
         </div>
-        <h2>Your answers</h2>
+        <h2>{t("quiz.answers")}</h2>
         {questions.map((q) => (
           <div className="answer-review" key={q.id}>
             {answers[q.id] === q.answer ? (
@@ -114,7 +116,7 @@ export function QuizPlayer({
             )}
             <div>
               <strong>{q.q}</strong>
-              <p>Correct answer: {q.options[q.answer]}</p>
+              <p>{t("quiz.correctAnswer")} {q.options[q.answer]}</p>
               {q.explain ? <p>{q.explain}</p> : null}
             </div>
           </div>
@@ -122,12 +124,12 @@ export function QuizPlayer({
       </div>
     );
   }
-  if (!q) return <p>No questions available.</p>;
+  if (!q) return <p>{t("quiz.noQuestions")}</p>;
   return (
     <div className="quiz-space">
       <div className="quiz-top">
         <span>
-          {mock ? "MOCK TEST" : "PRACTICE"} · QUESTION {index + 1} OF {questions.length}
+          {mock ? t("quiz.mock") : t("quiz.practice")} · {t("quiz.question")} {index + 1} {t("quiz.of")} {questions.length}
         </span>
         {mock ? (
           <span>
@@ -137,7 +139,7 @@ export function QuizPlayer({
         ) : null}
       </div>
       <progress max={questions.length} value={index + 1} />
-      <span className="eyebrow">{CATEGORIES[q.cat]?.name}</span>
+      <span className="eyebrow">{language === "af" ? t((`quiz.category${q.cat}`) as any) : CATEGORIES[q.cat]?.name}</span>
       <h1>{q.q}</h1>
       {questionVisuals(q).map((v) =>
         v.kind === "sign" ? (
@@ -171,14 +173,14 @@ export function QuizPlayer({
       </div>
       {!mock && selected !== undefined ? (
         <div className={`feedback ${selected === q.answer ? "feedback-correct" : ""}`}>
-          <strong>{selected === q.answer ? "That’s correct." : "Not quite. Keep learning."}</strong>
+          <strong>{selected === q.answer ? t("quiz.correctFeedback") : t("quiz.incorrectFeedback")}</strong>
           <p>{q.explain || `The correct answer is: ${q.options[q.answer]}.`}</p>
           {q.note ? <small>{q.note}</small> : null}
         </div>
       ) : null}
       <div className="quiz-actions">
         <Button variant="ghost" onClick={onClose}>
-          Exit {mock ? "test" : "practice"}
+          {t("quiz.exit")} {mock ? t("quiz.test") : t("quiz.practice").toLowerCase()}
         </Button>
         {index > 0 && mock ? (
           <Button variant="outline" onClick={() => setIndex((i) => i - 1)}>
@@ -189,7 +191,7 @@ export function QuizPlayer({
           disabled={selected === undefined}
           onClick={() => (index === questions.length - 1 ? finish() : setIndex((i) => i + 1))}
         >
-          {index === questions.length - 1 ? "Finish & see results" : "Next question"}
+          {index === questions.length - 1 ? t("quiz.finish") : t("quiz.next")}
           <ArrowRight />
         </Button>
       </div>
