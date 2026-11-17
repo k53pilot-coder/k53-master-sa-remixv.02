@@ -23,7 +23,7 @@ export function VehicleControlsManual({
     language === "af"
       ? "Departement van Vervoer: Voertuigkomponente en -kontroles (Junie 2012)"
       : "Department of Transport: Vehicle Components and Controls (June 2012)";
-  const pageLabel = language === "af" ? "Handleidingbladsy" : "Manual page";
+  const pageLabel = language === "af" ? "PDF-bladsy" : "PDF page";
   const sourceLabel =
     language === "af" ? "Maak die oorspronklike PDF oop" : "Open the original PDF";
 
