@@ -718,5 +718,185 @@
       "Albei voete",
       "Enige voet"
     ]
+  ],
+  "K53-081": [
+    "Watter voet bedien beide die versneller- en voetrempedale?",
+    [
+      "Linkervoet",
+      "Regtervoet",
+      "Albei voete saam",
+      "Geen van die twee nie"
+    ]
+  ],
+  "K53-082": [
+    "Watter kleur lisensieskyf moet op ’n motorvoertuig se voorruit vertoon word?",
+    [
+      "Blou skyf",
+      "Geldige groen/wit lisensieskyf vir 12 maande",
+      "Rooi skyf",
+      "Geel skyf"
+    ]
+  ],
+  "K53-083": [
+    "Waar op die voorruit moet die lisensieskyf aangebring word?",
+    [
+      "Regter boonste hoek",
+      "Linker onderste hoek / onderste linkerkant",
+      "Middel bo",
+      "Agterruit"
+    ]
+  ],
+  "K53-084": [
+    "Hoe lank is ’n leerlinglisensie in Suid-Afrika geldig?",
+    [
+      "6 maande",
+      "12 maande",
+      "24 maande",
+      "5 jaar"
+    ]
+  ],
+  "K53-085": [
+    "Wie moet ’n leerlinglisensiehouer vergesel wanneer hy of sy ’n ligte motorvoertuig bestuur?",
+    [
+      "Enige volwasse passasier",
+      "’n Gelisensieerde bestuurder met ’n geldige lisensie vir dieselfde voertuigklas",
+      "Slegs ’n professionele bestuursinstrukteur",
+      "Geen begeleier nodig nie"
+    ]
+  ],
+  "K53-086": [
+    "Mag leerlingbestuurders in Suid-Afrika op snelweë bestuur?",
+    [
+      "Nee, dit is streng verbode",
+      "Ja, mits hulle deur ’n gelisensieerde bestuurder vergesel word",
+      "Slegs tussen 09:00 en 15:00",
+      "Slegs indien hulle onder 80 km/h ry"
+    ]
+  ],
+  "K53-087": [
+    "Wat is die minimum ouderdom om ’n leerlinglisensie vir ’n ligte motorvoertuig (Kode 2 / EB) te kry?",
+    [
+      "15 jaar",
+      "16 jaar",
+      "17 jaar",
+      "18 jaar"
+    ]
+  ],
+  "K53-088": [
+    "Wat is die minimum ouderdom om ’n leerlinglisensie vir ’n swaar motorvoertuig (Kode 3 / C1/C) te kry?",
+    [
+      "16 jaar",
+      "17 jaar",
+      "18 jaar",
+      "21 jaar"
+    ]
+  ],
+  "K53-089": [
+    "Watter loopvlakdiepte word wetlik oor die volle breedte van ’n motorband vereis?",
+    [
+      "Sigbare patroon / minimum diepte van 1,0 mm",
+      "2,0 mm",
+      "3,0 mm",
+      "5,0 mm"
+    ]
+  ],
+  "K53-090": [
+    "Word hersnitte bande op die vooras van ’n passasi motor of motorfiets toegelaat?",
+    [
+      "Ja, altyd toegelaat",
+      "Verbode op motorfietse; toegelaat op motors indien dit wettig is",
+      "Verbode op alle voertuie",
+      "Verpligtend"
+    ]
+  ],
+  "K53-091": [
+    "Wat is die wetlike vereiste rakende veiligheidsgordels in ’n motorvoertuig?",
+    [
+      "Slegs die bestuurder moet een dra",
+      "Die bestuurder en alle passasiers moet veiligheidsgordels dra waar dit aangebring is",
+      "Opsioneel op stedelike paaie",
+      "Slegs op snelweë verpligtend"
+    ]
+  ],
+  "K53-092": [
+    "Kinders onder watter ouderdom moet in ’n goedgekeurde kinderstoeltjie vasgemaak word?",
+    [
+      "1 jaar",
+      "3 jaar",
+      "7 jaar",
+      "12 jaar"
+    ]
+  ],
+  "K53-093": [
+    "Wat is verbode met betrekking tot selfone terwyl jy bestuur?",
+    [
+      "Om op luidsprekerfoon te praat",
+      "Om ’n selfoon direk in jou hand vas te hou of te gebruik terwyl jy bestuur",
+      "Om Bluetooth-handvry te gebruik",
+      "Om ’n foon in die motor te hê"
+    ]
+  ],
+  "K53-094": [
+    "Wanneer jy ’n ander voertuig met ’n tou of sleepstang sleep, wat is die maksimum sleepafstand?",
+    [
+      "2,0 m",
+      "3,5 m",
+      "5,0 m",
+      "10,0 m"
+    ]
+  ],
+  "K53-095": [
+    "Wat is die maksimum toegelate spoed wanneer ’n voertuig met ’n nie-starre sleeptou gesleep word?",
+    [
+      "15 km/h",
+      "30 km/h",
+      "60 km/h",
+      "80 km/h"
+    ]
+  ],
+  "K53-096": [
+    "Van watter afstand moet jou voertuig se toeter onder helder toestande hoorbaar wees?",
+    [
+      "30 m",
+      "90 m",
+      "150 m",
+      "300 m"
+    ]
+  ],
+  "K53-097": [
+    "Watter kleur lig moet voertuig-agterligte en remligte uitstraal?",
+    [
+      "Wit lig",
+      "Amber lig",
+      "Rooi lig",
+      "Geel lig"
+    ]
+  ],
+  "K53-098": [
+    "Watter kleur lig moet voertuig-agteruitryligte uitstraal?",
+    [
+      "Rooi lig",
+      "Amber lig",
+      "Wit lig",
+      "Groen lig"
+    ]
+  ],
+  "K53-099": [
+    "Wat dui ’n soliede geel lyn aan wat aan die linkerkant van die randsteen/padkant geverf is?",
+    [
+      "Verbysteekgebied",
+      "Parkering toegelaat",
+      "Geen stilhou te eniger tyd nie",
+      "Bushaltegebied"
+    ]
+  ],
+  "K53-100": [
+    "Wat is die hoofdoel van die K53-verdedigende bestuurstelsel?",
+    [
+      "Om die bestuurstoets vinnig te slaag",
+      "Om verdedigend te bestuur deur gevare vroeg te identifiseer en botsings te vermy",
+      "Om veilig teen hoë snelhede te ry",
+      "Om brandstof te bespaar"
+    ]
   ]
 }
