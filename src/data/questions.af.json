@@ -1108,5 +1108,205 @@
       "5"
     ],
     "explain": "1 = Rathefboom"
+  },
+  "light-vehicle-001": {
+    "q": "Watter beheer kom nie in ’n outomatiese voertuig voor?",
+    "options": [
+      "2",
+      "6 en 8",
+      "8",
+      "7"
+    ],
+    "explain": "8 = Koppelaar"
+  },
+  "light-vehicle-002": {
+    "q": "Watter beheer gebruik jy om te sien wat aan die regter agterkant van jou voertuig is?",
+    "options": [
+      "6 en 8",
+      "3",
+      "11",
+      "8 en 6"
+    ],
+    "explain": "3 = Kanttruspieëls"
+  },
+  "light-vehicle-003": {
+    "q": "Die volgende beheer word gebruik om jou voertuig te versnel …",
+    "options": [
+      "9",
+      "10",
+      "1 en 3",
+      "Slegs 1, 4, 6, 8, 9 en 10"
+    ],
+    "explain": "10 = Versneller"
+  },
+  "light-vehicle-004": {
+    "q": "Watter beheer verseker dat jou geparkeerde voertuig nie beweeg nie?",
+    "options": [
+      "8",
+      "7",
+      "3",
+      "1"
+    ],
+    "explain": "7 = Handrem"
+  },
+  "light-vehicle-005": {
+    "q": "Om ’n rat te wissel, moet jy beheer(s) … gebruik",
+    "options": [
+      "6 en 8",
+      "9",
+      "7",
+      "4"
+    ],
+    "explain": "6 = Rathefboom; 8 = Koppelaar"
+  },
+  "light-vehicle-006": {
+    "q": "Om jou voertuig te stop, moet jy nommer … gebruik",
+    "options": [
+      "9",
+      "6",
+      "8",
+      "8 en 6"
+    ],
+    "explain": "9 = Rem"
+  },
+  "light-vehicle-007": {
+    "q": "Wanneer jy rem, is die afstand wat dit ’n bestuurder neem om ’n motorvoertuig te stop … (i) langer op ’n nat pad as op ’n droë pad. (ii) langer wanneer die voertuig vinniger ry. (iii) langer wanneer die voertuig gelaai is. KIES DIE KORREKTE KOMBINASIE",
+    "options": [
+      "8 en 6",
+      "Al die stellings is korrek",
+      "4",
+      "5"
+    ],
+    "explain": "Die stopafstand neem toe op nat paaie, teen hoër snelhede en met ’n swaarder vrag."
+  },
+  "light-vehicle-008": {
+    "q": "Watter beheer help die bestuurder om ’n rat in of uit te skakel?",
+    "options": [
+      "2",
+      "8",
+      "1",
+      "10"
+    ],
+    "explain": "8 = Koppelaar"
+  },
+  "light-vehicle-009": {
+    "q": "Met watter beheer kan die voertuig se spoed verhoog word?",
+    "options": [
+      "Slegs 1, 4, 6, 8, 9 en 10",
+      "1 en 3",
+      "10",
+      "11"
+    ],
+    "explain": "10 = Versneller"
+  },
+  "light-vehicle-010": {
+    "q": "Watter beheer gebruik jy voordat jy rem om stadiger te ry of te stop?",
+    "options": [
+      "Slegs 1, 4, 6, 8, 9 en 10",
+      "11",
+      "6",
+      "1"
+    ],
+    "explain": "1 = Middelste truspieël"
+  },
+  "light-vehicle-011": {
+    "q": "Watter beheer gebruik jy voordat jy die voertuig se rigting verander?",
+    "options": [
+      "Slegs 1, 4, 6, 8, 9 en 10",
+      "8 en 6",
+      "5",
+      "8"
+    ],
+    "explain": "5 = Rigtingwyserskakelaar"
+  },
+  "light-vehicle-012": {
+    "q": "Watter beheer gebruik jy voordat jy die voertuig se spoed verander?",
+    "options": [
+      "1",
+      "7",
+      "5",
+      "8 en 6"
+    ],
+    "explain": "1 = Middelste truspieël"
+  },
+  "light-vehicle-013": {
+    "q": "Watter beheer waarsku ander padgebruikers dat jy links of regs wil stuur of draai?",
+    "options": [
+      "1 en 3",
+      "8 en 6",
+      "3",
+      "5"
+    ],
+    "explain": "5 = Rigtingwyserskakelaar"
+  },
+  "light-vehicle-014": {
+    "q": "Watter beheer word gebruik om ander padgebruikers te waarsku en ’n botsing te help voorkom?",
+    "options": [
+      "8",
+      "1 en 3",
+      "11",
+      "4"
+    ],
+    "explain": "11 = Toeter"
+  },
+  "light-vehicle-015": {
+    "q": "Watter beheer gebruik jy om te voorkom dat die voertuig gaan staan net voordat dit heeltemal tot stilstand kom?",
+    "options": [
+      "2",
+      "10",
+      "8",
+      "3"
+    ],
+    "explain": "8 = Koppelaar"
+  },
+  "light-vehicle-016": {
+    "q": "Watter beheer word gebruik om die voertuig heeltemal tot stilstand te bring?",
+    "options": [
+      "9",
+      "8 en 6",
+      "Slegs 1, 4, 6, 8, 9 en 10",
+      "7"
+    ],
+    "explain": "9 = Rem"
+  },
+  "light-vehicle-017": {
+    "q": "Watter beheer word gebruik om die voertuig se rigting te verander?",
+    "options": [
+      "1",
+      "4",
+      "8",
+      "10"
+    ],
+    "explain": "4 = Stuurwiel"
+  },
+  "light-vehicle-018": {
+    "q": "Watter beheer word gebruik om die voorruit skoon te maak?",
+    "options": [
+      "6",
+      "11",
+      "3",
+      "2"
+    ],
+    "explain": "2 = Ruitveër"
+  },
+  "light-vehicle-019": {
+    "q": "Watter beheer word gebruik om spoed te verminder of te stop?",
+    "options": [
+      "2",
+      "3",
+      "9",
+      "6 en 8"
+    ],
+    "explain": "9 = Rem"
+  },
+  "light-vehicle-020": {
+    "q": "Watter beheer hou die voertuig stil nadat jy geparkeer het?",
+    "options": [
+      "11",
+      "2",
+      "7",
+      "9"
+    ],
+    "explain": "7 = Handrem"
   }
 }
