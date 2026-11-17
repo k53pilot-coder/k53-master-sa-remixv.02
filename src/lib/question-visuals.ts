@@ -5,6 +5,8 @@ import questionVehicleMap from "@/data/question-vehicle-map.json";
 import { GROUP_INFO, signByCode } from "@/data/signs";
 import type { Question } from "@/lib/quiz";
 
+export type VehicleControlType = "motorcycle" | "light" | "heavy";
+
 export type Visual =
   | { kind: "sign"; code: string; label: string }
   | { kind: "image"; url: string; cap: string }

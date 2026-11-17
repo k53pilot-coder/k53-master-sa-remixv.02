@@ -38,12 +38,20 @@ describe("question pictures", () => {
       ]),
     );
   });
-  it("never shows the vehicle-control component table that lists the answer", () => {
-    for (const q of QUESTIONS.filter((x) => x.vehicle))
+  it("uses only original pages from the June 2012 vehicle controls manual", () => {
+    const vehicleQuestions = QUESTIONS.filter((q) => q.vehicle);
+    expect(vehicleQuestions).toHaveLength(81);
+    for (const q of vehicleQuestions) {
       expect(
-        questionVisuals(q).some((v) => v.kind === "image" && /numbered vehicle controls/i.test(v.cap)),
+        questionVisuals(q).some((visual) => visual.kind === "vehicle" && visual.vehicle === q.vehicle),
         q.id,
-      ).toBe(false);
+      ).toBe(true);
+    }
+    expect(questionVehicleMap).toEqual({
+      "K53-078": "light",
+      "K53-080": "light",
+      "K53-081": "light",
+    });
   });
   it("excludes all retired asset-proxy URLs from the PWA precache", () => {
     const precacheUrls = [
