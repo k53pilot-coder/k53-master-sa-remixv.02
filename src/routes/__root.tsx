@@ -14,6 +14,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { StudyProvider } from "@/components/study-provider";
 import { AppShell } from "@/components/app-shell";
+import { LanguageProvider } from "@/components/language-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { setupOffline } from "@/lib/offline";
 
@@ -138,11 +139,13 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <LanguageProvider>
       <StudyProvider>
         <AppShell>
           <Outlet />
         </AppShell>
       </StudyProvider>
+      </LanguageProvider>
       <Toaster />
     </QueryClientProvider>
   );
