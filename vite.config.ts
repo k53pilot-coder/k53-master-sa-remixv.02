@@ -76,7 +76,7 @@ export default defineConfig({
           },
           {
             urlPattern: ({ url, sameOrigin }) =>
-              sameOrigin && /^\\/assets\\/.*-[\\w-]+\\.(js|css|jpg|png|webp)$/.test(url.pathname),
+              sameOrigin && /^\/assets\/.*-[\w-]+\.(js|css|jpg|png|webp)$/.test(url.pathname),
             handler: "CacheFirst",
             options: {
               cacheName: "k53-assets",
