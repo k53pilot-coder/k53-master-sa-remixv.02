@@ -9,6 +9,13 @@ import { useStudy } from "@/components/study-provider";
 import { pageHead } from "@/lib/metadata";
 import { useLanguage } from "@/components/language-provider";
 
+export function getOAuthRedirectTo(isProduction: boolean, hostname: string, origin: string): string {
+  if (isProduction && hostname === "k53.aiamplifysa.com") {
+    return "https://k53.aiamplifysa.com/auth";
+  }
+  return new URL("/auth", origin).toString();
+}
+
 function authErrorMessage(error: unknown): string {
   const detail = error instanceof Error ? error.message.toLowerCase() : "";
   if (detail.includes("missing supabase environment variable")) {
@@ -49,11 +56,11 @@ export function Auth() {
     setBusy(true);
     setMessage("");
     try {
-      // Production OAuth must always return to the canonical live K53 site.
-      // Local development keeps returning to the local development origin.
-      const redirectTo = import.meta.env.PROD
-        ? "https://k53.aiamplifysa.com/auth"
-        : new URL("/auth", window.location.origin).toString();
+      const redirectTo = getOAuthRedirectTo(
+        import.meta.env.PROD,
+        window.location.hostname,
+        window.location.origin,
+      );
 
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
