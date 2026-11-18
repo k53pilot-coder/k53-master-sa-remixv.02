@@ -1,39 +1,14 @@
 import { registerSW } from "virtual:pwa-register";
-export function refusesOffline(host: string, dev: boolean, framed: boolean, off: boolean) {
-  const h = host.toLowerCase();
-  const platform = /(?:lovable\.app|gpt-eng\.com|gptengineer\.run)$/.test(h);
-  const label = h.split(".")[0] ?? "";
-  return (
-    dev ||
-    framed ||
-    off ||
-    (platform && /^(?:id-preview|preview)(?:-[a-z0-9]+)?--.+$/.test(label)) ||
-    (platform && /^project--.+-dev$/.test(label)) ||
-    ["lovableproject.com", "lovableproject-dev.com", "beta.lovable.dev"].some(
-      (d) => h === d || h.endsWith("." + d),
-    )
-  );
+export function refusesOffline(dev: boolean, framed: boolean, off: boolean) {
+  return dev || framed || off;
 }
 export async function setupOffline() {
   if (!("serviceWorker" in navigator)) return;
-  const refused = refusesOffline(
-    window.location.hostname,
-    !import.meta.env.PROD,
-    window.self !== window.top,
-    new URLSearchParams(window.location.search).get("sw") === "off",
-  );
+  const refused=refusesOffline(!import.meta.env.PROD,window.self!==window.top,new URLSearchParams(window.location.search).get("sw")==="off");
   if (refused) {
-    const registrations = await navigator.serviceWorker.getRegistrations();
-    await Promise.all(
-      registrations
-        .filter((r) =>
-          [r.active, r.waiting, r.installing].some(
-            (w) => w && new URL(w.scriptURL).pathname === "/sw.js",
-          ),
-        )
-        .map((r) => r.unregister()),
-    );
+    const registrations=await navigator.serviceWorker.getRegistrations();
+    await Promise.all(registrations.filter((r)=>[r.active,r.waiting,r.installing].some((w)=>w&&new URL(w.scriptURL).pathname==="/sw.js")).map((r)=>r.unregister()));
     return;
   }
-  registerSW({ immediate: true });
+  registerSW({immediate:true});
 }

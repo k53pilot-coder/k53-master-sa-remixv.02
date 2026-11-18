@@ -1,37 +1,26 @@
 import { describe, expect, it } from "vitest";
 import { ADMIN_OWNER_EMAIL, getAdminRole, mayRequestAdminAccess } from "@/lib/admin-role";
-
 describe("admin role resolution", () => {
-  it("recognizes the verified bootstrap email only after an OTP sign-in", () => {
-    expect(
-      getAdminRole({
-        email: ADMIN_OWNER_EMAIL.toUpperCase(),
-        amr: [{ method: "otp" }],
-      }),
-    ).toBe("owner");
-    expect(getAdminRole({ email: ADMIN_OWNER_EMAIL, amr: [{ method: "password" }] })).toBeNull();
+  it("recognizes the owner only through a Google identity", () => {
+    expect(getAdminRole({email:ADMIN_OWNER_EMAIL.toUpperCase(),app_metadata:{provider:"google",providers:["google"]}})).toBe("owner");
+    expect(getAdminRole({email:ADMIN_OWNER_EMAIL,app_metadata:{provider:"email"}})).toBeNull();
   });
-
-  it("recognizes granted roles only after an OTP sign-in", () => {
-    expect(getAdminRole({ app_metadata: { roles: ["admin"] }, amr: [{ method: "otp" }] })).toBe(
-      "admin",
-    );
-    expect(
-      getAdminRole({ app_metadata: { roles: ["admin"] }, amr: [{ method: "password" }] }),
-    ).toBe(null);
+  it("recognizes granted roles only for Google-backed accounts", () => {
+    expect(getAdminRole({app_metadata:{provider:"google",roles:["admin"]}})).toBe("admin");
+    expect(getAdminRole({app_metadata:{provider:"email",roles:["admin"]}})).toBeNull();
   });
-
-  it("does not trust user-editable metadata or non-OTP sessions", () => {
-    expect(getAdminRole({ user_metadata: { role: "owner" }, amr: [{ method: "otp" }] })).toBeNull();
-    expect(
-      getAdminRole({ app_metadata: { role: "support" }, amr: [{ method: "otp" }] }),
-    ).toBeNull();
+  it("accepts a linked Google identity in trusted app metadata", () => {
+    expect(getAdminRole({app_metadata:{provider:"email",providers:["email","google"],role:"admin"}})).toBe("admin");
+  });
+  it("does not trust user-editable metadata or non-Google identities", () => {
+    expect(getAdminRole({email:ADMIN_OWNER_EMAIL,user_metadata:{role:"owner"}})).toBeNull();
+    expect(getAdminRole({app_metadata:{provider:"email",role:"support"}})).toBeNull();
     expect(getAdminRole(null)).toBeNull();
   });
-
-  it("shows a navigation entry only for the owner email or a trusted role", () => {
-    expect(mayRequestAdminAccess({ email: ADMIN_OWNER_EMAIL })).toBe(true);
-    expect(mayRequestAdminAccess({ user_metadata: { role: "admin" } })).toBe(false);
-    expect(mayRequestAdminAccess({ app_metadata: { role: "admin" } })).toBe(true);
+  it("shows admin navigation only to Google owners or trusted Google roles", () => {
+    expect(mayRequestAdminAccess({email:ADMIN_OWNER_EMAIL,app_metadata:{provider:"google"}})).toBe(true);
+    expect(mayRequestAdminAccess({user_metadata:{role:"admin"}})).toBe(false);
+    expect(mayRequestAdminAccess({app_metadata:{provider:"google",role:"admin"}})).toBe(true);
+    expect(mayRequestAdminAccess({app_metadata:{provider:"email",role:"admin"}})).toBe(false);
   });
 });
