@@ -49,19 +49,16 @@ export function Auth() {
     setBusy(true);
     setMessage("");
     try {
-      // Keep OAuth callbacks on the deployed preview if a production build is
-      // accidentally opened through localhost. Otherwise use the current host,
-      // so each deployed environment returns to itself.
-      const isLocalHost = ["localhost", "127.0.0.1", "::1"].includes(window.location.hostname);
-      const redirectOrigin =
-        import.meta.env.PROD && isLocalHost
-          ? "https://auth-google-only-remove-lovable-k53-master-sa-remixv-02.aiamplifysa.workers.dev"
-          : window.location.origin;
+      // Production OAuth must always return to the canonical live K53 site.
+      // Local development keeps returning to the local development origin.
+      const redirectTo = import.meta.env.PROD
+        ? "https://k53.aiamplifysa.com/auth"
+        : new URL("/auth", window.location.origin).toString();
 
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: new URL("/auth", redirectOrigin).toString(),
+          redirectTo,
         },
       });
       if (error) throw error;
