@@ -28,10 +28,10 @@ Do not deploy the Google-only app changes until Google provider setup is complet
 
 Before the provider is switched off:
 
-1. Check that the current owner account `info@aiamplifysa.com` has a confirmed email address in Supabase Auth.
-2. Sign in with Google using that exact email address. Supabase automatically links identities that have the same verified email, preserving the existing user record and its user ID.
-3. Verify that the existing `profiles`, quiz-attempt, test-attempt and admin-role records still belong to that same user ID.
-4. Repeat the same check for active learners with existing accounts. If an account's email is unverified or the Google address differs, stop and resolve the identity migration before disabling email authentication. Supabase intentionally does not automatically link an unverified email identity.
+1. The primary owner signs in with the verified Google account `aiamplifysa@gmail.com`. The forwarding address `info@aiamplifysa.com` is not the owner identity and must not be used for Google sign-in unless it is independently configured as a Google Account.
+2. The app grants owner status only to the Google-authenticated identity whose email is `aiamplifysa@gmail.com`.
+3. If an older Supabase user exists under `info@aiamplifysa.com`, do not assume Google will link it to `aiamplifysa@gmail.com`: Supabase identity linking requires matching verified email addresses. Check the user IDs and existing profile/quiz/test data before merging or migrating anything.
+4. Verify that the existing `profiles`, quiz-attempt, test-attempt and admin-role records still belong to the intended owner user ID. Repeat the same check for active learners before disabling email authentication.
 
 Do not delete existing Auth users or manually recreate their profiles as a shortcut. User IDs are the foreign-key ownership boundary for existing learner data. See [Supabase Identity Linking](https://supabase.com/docs/guides/auth/auth-identity-linking).
 
