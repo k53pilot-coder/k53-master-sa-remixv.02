@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { Auth } from "@/routes/auth";
+import { Auth, getOAuthRedirectTo } from "@/routes/auth";
 const mocks = vi.hoisted(() => ({ signInWithOAuth: vi.fn() }));
 vi.mock("@tanstack/react-router", () => ({ createFileRoute: () => (options: unknown) => options, useNavigate: vi.fn(), useRouter: vi.fn() }));
 vi.mock("@tanstack/react-query", () => ({ useQueryClient: () => ({ cancelQueries: vi.fn(), clear: vi.fn() }) }));
@@ -18,15 +18,14 @@ describe("Google-only account sign-in", () => {
     expect(screen.queryByRole("button",{name:/continue with lovable/i})).not.toBeInTheDocument();
     expect(screen.queryByRole("button",{name:"Create account"})).not.toBeInTheDocument();
   });
-  it("always sends production Google OAuth back to the live K53 website", async () => {
-    vi.stubEnv("PROD", true);
-    mocks.signInWithOAuth.mockResolvedValue({data:{provider:"google",url:null},error:null});
-    render(<Auth />);
-    fireEvent.click(screen.getByRole("button",{name:"Continue with Google"}));
-    await waitFor(() => expect(mocks.signInWithOAuth).toHaveBeenCalledWith({
-      provider:"google",
-      options:{redirectTo:"https://k53.aiamplifysa.com/auth"},
-    }));
+  it("always sends the production K53 domain back to its canonical auth route", () => {
+    expect(getOAuthRedirectTo(true,"k53.aiamplifysa.com","https://k53.aiamplifysa.com")).toBe("https://k53.aiamplifysa.com/auth");
+  });
+  it("preserves the hostname for production preview deployments", () => {
+    expect(getOAuthRedirectTo(true,"preview.example.workers.dev","https://preview.example.workers.dev")).toBe("https://preview.example.workers.dev/auth");
+  });
+  it("keeps localhost for local development", () => {
+    expect(getOAuthRedirectTo(false,"localhost","http://localhost:3000")).toBe("http://localhost:3000/auth");
   });
   it("shows OAuth failures and re-enables Google sign-in", async () => {
     mocks.signInWithOAuth.mockRejectedValue(new Error("network unavailable"));
