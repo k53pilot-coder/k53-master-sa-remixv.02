@@ -9,6 +9,13 @@ import { useStudy } from "@/components/study-provider";
 import { pageHead } from "@/lib/metadata";
 import { useLanguage } from "@/components/language-provider";
 
+export function getOAuthRedirectTo(isProduction: boolean, hostname: string, origin: string): string {
+  if (isProduction && hostname === "k53.aiamplifysa.com") {
+    return "https://k53.aiamplifysa.com/auth";
+  }
+  return new URL("/auth", origin).toString();
+}
+
 function authErrorMessage(error: unknown): string {
   const detail = error instanceof Error ? error.message.toLowerCase() : "";
   if (detail.includes("missing supabase environment variable")) {
@@ -49,19 +56,16 @@ export function Auth() {
     setBusy(true);
     setMessage("");
     try {
-      // Keep OAuth callbacks on the deployed preview if a production build is
-      // accidentally opened through localhost. Otherwise use the current host,
-      // so each deployed environment returns to itself.
-      const isLocalHost = ["localhost", "127.0.0.1", "::1"].includes(window.location.hostname);
-      const redirectOrigin =
-        import.meta.env.PROD && isLocalHost
-          ? "https://auth-google-only-remove-lovable-k53-master-sa-remixv-02.aiamplifysa.workers.dev"
-          : window.location.origin;
+      const redirectTo = getOAuthRedirectTo(
+        import.meta.env.PROD,
+        window.location.hostname,
+        window.location.origin,
+      );
 
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: new URL("/auth", redirectOrigin).toString(),
+          redirectTo,
         },
       });
       if (error) throw error;
