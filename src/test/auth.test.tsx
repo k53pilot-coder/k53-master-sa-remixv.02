@@ -8,7 +8,7 @@ vi.mock("@/components/study-provider", () => ({ useStudy: () => ({ user:null,nam
 vi.mock("@/integrations/supabase/client", () => ({ supabase:{auth:{signInWithOAuth:mocks.signInWithOAuth}} }));
 describe("Google-only account sign-in", () => {
   afterEach(() => { vi.unstubAllEnvs(); vi.clearAllMocks(); });
-  it("starts native Supabase Google OAuth and redirects to the existing auth route", async () => {
+  it("starts native Supabase Google OAuth", async () => {
     mocks.signInWithOAuth.mockResolvedValue({data:{provider:"google",url:null},error:null});
     render(<Auth />);
     fireEvent.click(screen.getByRole("button",{name:"Continue with Google"}));
@@ -18,11 +18,17 @@ describe("Google-only account sign-in", () => {
     expect(screen.queryByRole("button",{name:/continue with lovable/i})).not.toBeInTheDocument();
     expect(screen.queryByRole("button",{name:"Create account"})).not.toBeInTheDocument();
   });
-  it("always sends the production K53 domain back to its canonical auth route", () => {
+  it("always sends production builds on the main domain to the canonical K53 auth route", () => {
     expect(getOAuthRedirectTo(true,"k53.aiamplifysa.com","https://k53.aiamplifysa.com")).toBe("https://k53.aiamplifysa.com/auth");
   });
-  it("preserves the hostname for production preview deployments", () => {
-    expect(getOAuthRedirectTo(true,"preview.example.workers.dev","https://preview.example.workers.dev")).toBe("https://preview.example.workers.dev/auth");
+  it("does not send a production build opened on localhost back to localhost", () => {
+    expect(getOAuthRedirectTo(true,"localhost","http://localhost:3000")).toBe("https://k53.aiamplifysa.com/auth");
+  });
+  it("does not send a production build opened on an unrelated hostname back there", () => {
+    expect(getOAuthRedirectTo(true,"localhost","http://localhost:3000")).toBe("https://k53.aiamplifysa.com/auth");
+  });
+  it("preserves the hostname for Cloudflare preview deployments", () => {
+    expect(getOAuthRedirectTo(true,"branch-k53-master-sa-remixv-02.aiamplifysa.workers.dev","https://branch-k53-master-sa-remixv-02.aiamplifysa.workers.dev")).toBe("https://branch-k53-master-sa-remixv-02.aiamplifysa.workers.dev/auth");
   });
   it("keeps localhost for local development", () => {
     expect(getOAuthRedirectTo(false,"localhost","http://localhost:3000")).toBe("http://localhost:3000/auth");

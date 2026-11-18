@@ -9,11 +9,21 @@ import { useStudy } from "@/components/study-provider";
 import { pageHead } from "@/lib/metadata";
 import { useLanguage } from "@/components/language-provider";
 
+const PRODUCTION_AUTH_URL = "https://k53.aiamplifysa.com/auth";
+const CLOUDFLARE_PREVIEW_HOST_SUFFIX = "-k53-master-sa-remixv-02.aiamplifysa.workers.dev";
+
 export function getOAuthRedirectTo(isProduction: boolean, hostname: string, origin: string): string {
-  if (isProduction && hostname === "k53.aiamplifysa.com") {
-    return "https://k53.aiamplifysa.com/auth";
+  if (!isProduction) {
+    return new URL("/auth", origin).toString();
   }
-  return new URL("/auth", origin).toString();
+
+  // Preserve branch previews for testing, but never let a production build
+  // fall back to localhost or the generic workers.dev hostname.
+  if (hostname.endsWith(CLOUDFLARE_PREVIEW_HOST_SUFFIX)) {
+    return new URL("/auth", origin).toString();
+  }
+
+  return PRODUCTION_AUTH_URL;
 }
 
 function authErrorMessage(error: unknown): string {
