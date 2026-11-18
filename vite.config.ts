@@ -22,8 +22,16 @@ export default defineConfig({
     viteReact(),
     tailwindcss(),
     tsconfigPaths(),
-    // Preserve the existing Cloudflare Workers deployment target.
-    nitro({ preset: "cloudflare_module" }),
+    // Preserve the production Worker identity and allow Cloudflare preview builds.
+    nitro({
+      preset: "cloudflare_module",
+      cloudflare: {
+        wrangler: {
+          name: "k53-master-sa-remixv-02",
+          previews: {},
+        },
+      },
+    }),
     VitePWA({
       outDir: ".output/public",
       strategies: "generateSW",
@@ -68,7 +76,7 @@ export default defineConfig({
           },
           {
             urlPattern: ({ url, sameOrigin }) =>
-              sameOrigin && /^\/assets\/.*-[\w-]+\.(js|css|jpg|png|webp)$/.test(url.pathname),
+              sameOrigin && /^\\/assets\\/.*-[\\w-]+\\.(js|css|jpg|png|webp)$/.test(url.pathname),
             handler: "CacheFirst",
             options: {
               cacheName: "k53-assets",
