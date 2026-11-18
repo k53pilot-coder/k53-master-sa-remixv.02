@@ -49,10 +49,19 @@ export function Auth() {
     setBusy(true);
     setMessage("");
     try {
+      // Keep OAuth callbacks on the deployed preview if a production build is
+      // accidentally opened through localhost. Otherwise use the current host,
+      // so each deployed environment returns to itself.
+      const isLocalHost = ["localhost", "127.0.0.1", "::1"].includes(window.location.hostname);
+      const redirectOrigin =
+        import.meta.env.PROD && isLocalHost
+          ? "https://auth-google-only-remove-lovable-k53-master-sa-remixv-02.aiamplifysa.workers.dev"
+          : window.location.origin;
+
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: new URL("/auth", window.location.origin).toString(),
+          redirectTo: new URL("/auth", redirectOrigin).toString(),
         },
       });
       if (error) throw error;
