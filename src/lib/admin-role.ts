@@ -1,5 +1,5 @@
 export type AdminRole = "owner" | "admin";
-export const ADMIN_OWNER_EMAIL = "info@aiamplifysa.com";
+export const ADMIN_OWNER_EMAIL = "aiamplifysa@gmail.com";
 type Claims = { email?: unknown; app_metadata?: { provider?: unknown; providers?: unknown; role?: unknown; roles?: unknown } };
 function hasGoogleIdentity(claims: Claims): boolean {
   const metadata = claims.app_metadata;
