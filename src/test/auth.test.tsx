@@ -7,7 +7,7 @@ vi.mock("@tanstack/react-query", () => ({ useQueryClient: () => ({ cancelQueries
 vi.mock("@/components/study-provider", () => ({ useStudy: () => ({ user:null,name:"Learner",progress:{vehicle:"light"},refresh:vi.fn() }) }));
 vi.mock("@/integrations/supabase/client", () => ({ supabase:{auth:{signInWithOAuth:mocks.signInWithOAuth}} }));
 describe("Google-only account sign-in", () => {
-  afterEach(() => vi.clearAllMocks());
+  afterEach(() => { vi.unstubAllEnvs(); vi.clearAllMocks(); });
   it("starts native Supabase Google OAuth and redirects to the existing auth route", async () => {
     mocks.signInWithOAuth.mockResolvedValue({data:{provider:"google",url:null},error:null});
     render(<Auth />);
@@ -17,6 +17,16 @@ describe("Google-only account sign-in", () => {
     expect(screen.queryByLabelText("Password")).not.toBeInTheDocument();
     expect(screen.queryByRole("button",{name:/continue with lovable/i})).not.toBeInTheDocument();
     expect(screen.queryByRole("button",{name:"Create account"})).not.toBeInTheDocument();
+  });
+  it("always sends production Google OAuth back to the live K53 website", async () => {
+    vi.stubEnv("PROD", true);
+    mocks.signInWithOAuth.mockResolvedValue({data:{provider:"google",url:null},error:null});
+    render(<Auth />);
+    fireEvent.click(screen.getByRole("button",{name:"Continue with Google"}));
+    await waitFor(() => expect(mocks.signInWithOAuth).toHaveBeenCalledWith({
+      provider:"google",
+      options:{redirectTo:"https://k53.aiamplifysa.com/auth"},
+    }));
   });
   it("shows OAuth failures and re-enables Google sign-in", async () => {
     mocks.signInWithOAuth.mockRejectedValue(new Error("network unavailable"));
