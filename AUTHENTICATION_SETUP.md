@@ -20,7 +20,7 @@ Do not deploy the Google-only app changes until Google provider setup is complet
 3. Add authorized JavaScript origin `https://k53.aiamplifysa.com`.
 4. Add this exact authorized redirect URI: `https://qfolceulguweezxjvvjt.supabase.co/auth/v1/callback`.
 5. In Supabase Dashboard → Authentication → Providers → Google, enable Google and enter the Google client ID and client secret.
-6. In Supabase Dashboard → Authentication → URL Configuration, set Site URL to `https://k53.aiamplifysa.com` and allow `https://k53.aiamplifysa.com/auth` as the application redirect. Add local development callback separately only if needed.
+6. In Supabase Dashboard → Authentication → URL Configuration, set Site URL to `https://k53.aiamplifysa.com` and allow both `https://k53.aiamplifysa.com/auth` and the current preview callback `https://auth-google-only-remove-lovable-k53-master-sa-remixv-02.aiamplifysa.workers.dev/auth`. If Cloudflare assigns a new preview hostname, add that exact `/auth` URL too. Add local development callback separately only if needed.
 7. Re-check `/auth/v1/settings` using the publishable key. `external.google` must be `true`.
 8. Do not disable the Supabase Email provider until existing learner and admin accounts have been migrated and checked. Then disable it to enforce Google-only auth at the backend. Keep `disable_signup=false` so first-time Google identities may create accounts.
 
