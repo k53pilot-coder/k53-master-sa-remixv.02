@@ -30,15 +30,35 @@ export function AppShell({ children }: { children: ReactNode }) {
       setLearnerStatus("signed-out");
       return;
     }
+
     let current = true;
-    void checkLearnerAccess().then((result) => {
-      if (current) setLearnerStatus(result.status);
-    }).catch((error: unknown) => {
-      console.error("Could not verify learner access", error);
-      if (current) setLearnerStatus("error");
-    });
-    return () => { current = false; };
-  }, [checkLearnerAccess, path, publicRoute, ready, user?.id]);
+    const verifyAccess = async () => {
+      try {
+        const result = await checkLearnerAccess();
+        if (current) setLearnerStatus(result.status);
+      } catch (error: unknown) {
+        console.error("Could not verify learner access", error);
+        // Fail closed during service outages: an existing page is not left
+        // visible on the strength of a stale successful access check.
+        if (current) setLearnerStatus("error");
+      }
+    };
+
+    void verifyAccess();
+    const interval = window.setInterval(() => {
+      if (document.visibilityState === "visible") void verifyAccess();
+    }, 30_000);
+    const onVisibilityChange = () => {
+      if (document.visibilityState === "visible") void verifyAccess();
+    };
+    document.addEventListener("visibilitychange", onVisibilityChange);
+
+    return () => {
+      current = false;
+      window.clearInterval(interval);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+    };
+  }, [checkLearnerAccess, publicRoute, ready, user?.id]);
   const nav = [
     { to: "/", key: "nav.learning" as const, icon: LayoutDashboard },
     { to: "/learn", key: "nav.categories" as const, icon: BookOpen },
