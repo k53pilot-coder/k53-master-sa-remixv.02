@@ -15,9 +15,40 @@ export const requireAdmin = createMiddleware({ type: "function" })
     return next({ context: { adminRole: role } });
   });
 
-export const getAdminAccess = createServerFn({ method: "GET" })
-  .middleware([requireAdmin])
-  .handler(({ context }) => ({ role: context.adminRole }));
+const adminAccessSchema = z
+  .object({
+    accessToken: z.string().min(1).max(8192),
+  })
+  .strict();
+
+// Server functions do not automatically inherit the Supabase browser client's
+// local-storage session as an Authorization header. Accept the current access
+// token explicitly, then verify its signature and claims with Supabase here.
+export const getAdminAccess = createServerFn({ method: "POST" })
+  .validator((input: unknown) => adminAccessSchema.parse(input))
+  .handler(async ({ data }) => {
+    const supabaseUrl = process.env["SUPABASE_URL"];
+    const publishableKey = process.env["SUPABASE_PUBLISHABLE_KEY"];
+    if (!supabaseUrl || !publishableKey) {
+      throw new Error("Admin access verification is not configured.");
+    }
+
+    const { createClient } = await import("@supabase/supabase-js");
+    const verifier = createClient(supabaseUrl, publishableKey, {
+      auth: {
+        storage: undefined,
+        persistSession: false,
+        autoRefreshToken: false,
+      },
+    });
+    const { data: verified, error } = await verifier.auth.getClaims(data.accessToken);
+    if (error || !verified?.claims) {
+      throw new Error("Your session could not be verified. Sign in again.");
+    }
+
+    const role = getAdminRole(verified.claims);
+    return { role };
+  });
 
 const grantAdminAccessSchema = z
   .object({
