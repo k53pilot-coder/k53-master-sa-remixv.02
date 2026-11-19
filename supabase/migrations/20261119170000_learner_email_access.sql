@@ -235,22 +235,24 @@ begin
     raise exception 'Invalid email address' using errcode = '22023';
   end if;
 
-  select id, status into v_id, v_status
-    from public.learner_access
-    where email = v_email
-    for update;
+  insert into public.learner_access(email, status, created_by, updated_by)
+  values (v_email, 'active', p_actor, p_actor)
+  on conflict (email) do nothing
+  returning id into v_id;
 
-  if found then
-    return query select v_id,
-      case when v_status = 'active' then 'already_active' else 'disabled_exists' end;
+  if v_id is not null then
+    return query select v_id, 'created'::text;
     return;
   end if;
 
-  insert into public.learner_access(email, status, created_by, updated_by)
-  values (v_email, 'active', p_actor, p_actor)
-  returning id into v_id;
+  -- A concurrent request may have inserted the email first. Read the
+  -- committed record and return its current status instead of failing.
+  select id, status into v_id, v_status
+    from public.learner_access
+    where email = v_email;
 
-  return query select v_id, 'created'::text;
+  return query select v_id,
+    case when v_status = 'active' then 'already_active' else 'disabled_exists' end;
 end;
 $function$;
 
