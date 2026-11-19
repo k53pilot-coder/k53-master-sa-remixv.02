@@ -57,7 +57,7 @@ test.describe("K53 Master SA built Worker browser smoke tests", () => {
     }
   });
 
-  test("Google sign-in CTA starts the configured canonical OAuth flow", async ({ page }) => {
+  test("Google sign-in CTA starts the configured OAuth flow", async ({ page }) => {
     const pageErrors = [];
     page.on("pageerror", (error) => pageErrors.push(error.message));
 
@@ -78,9 +78,7 @@ test.describe("K53 Master SA built Worker browser smoke tests", () => {
     const authorizeURL = new URL(authorizeRequest.url());
 
     expect(authorizeURL.searchParams.get("provider")).toBe("google");
-    expect(authorizeURL.searchParams.get("redirect_to")).toBe(
-      "https://k53.aiamplifysa.com/auth",
-    );
+    expect(authorizeURL.searchParams.get("redirect_to")).toBe(`${baseURL}/auth`);
     expect(pageErrors, "uncaught browser runtime errors").toEqual([]);
   });
 
