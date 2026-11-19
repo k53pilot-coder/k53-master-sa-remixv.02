@@ -44,15 +44,22 @@ async function main() {
   const strangerEmail = email("stranger");
   const ownerUser = await createUser(ownerEmail);
   const learnerUser = await createUser(learnerEmail);
+  const passwordOnlyEmail = email("password-only");
+  await createUser(passwordOnlyEmail);
   await createUser(attackerEmail, { role: "owner", roles: ["admin", "owner"] });
   const adminUser = await createUser(adminEmail);
   const strangerUser = await createUser(strangerEmail);
+  value(await call(`/auth/v1/admin/users/${learnerUser.id}`, {
+    key: service, method: "PUT",
+    body: { app_metadata: { provider: "google", providers: ["google"] } },
+  }), "set learner Google identity metadata");
   value(await call(`/auth/v1/admin/users/${adminUser.id}`, {
     key: service, method: "PUT",
     body: { app_metadata: { provider: "google", providers: ["google"], roles: ["admin"] } },
   }), "set trusted admin app_metadata");
   const owner = await signIn(ownerEmail);
   const learner = await signIn(learnerEmail);
+  const passwordOnly = await signIn(passwordOnlyEmail);
   const attacker = await signIn(attackerEmail);
   const admin = await signIn(adminEmail);
   const stranger = await signIn(strangerEmail);
@@ -60,6 +67,12 @@ async function main() {
   const added = value(await rpc(owner.access_token, "admin_add_learner_access", { p_email: learnerEmail }), "owner add learner");
   assert(added[0]?.result_status === "created", "owner did not create allowlist record");
   const accessId = added[0].record_id;
+  const passwordOnlyAdded = value(await rpc(owner.access_token, "admin_add_learner_access", { p_email: passwordOnlyEmail }), "owner add password-only test identity");
+  assert(passwordOnlyAdded[0]?.result_status === "created", "owner did not create password-only test allowlist record");
+  const passwordOnlyClaim = value(await rpc(passwordOnly.access_token, "claim_learner_access"), "password-only identity claim");
+  assert(passwordOnlyClaim[0]?.access_status === "google_required", "verified password-only identity was not rejected for missing Google identity");
+  const passwordOnlyAccess = value(await rest(passwordOnly.access_token, "learner_access?select=user_id"), "password-only identity access row");
+  assert(passwordOnlyAccess.length === 0, "password-only identity was linked to learner access");
 
   const adminAdded = value(await rpc(admin.access_token, "admin_add_learner_access", { p_email: email("admin-added") }), "Google admin add learner");
   assert(adminAdded[0]?.result_status === "created", "trusted Google admin could not add learner");
