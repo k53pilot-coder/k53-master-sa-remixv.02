@@ -69,3 +69,30 @@ jobs:
         env:
           PGPASSWORD: postgres
         run: psql -h 127.0.0.1 -U postgres -d postgres -v ON_ERROR_STOP=1 -f supabase/tests/learner-access-regression.sql
+
+  learner-access-supabase-integration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Supabase CLI
+        uses: supabase/setup-cli@v1
+        with:
+          version: latest
+      - name: Start disposable local Supabase Auth and Data API
+        run: supabase start -x realtime,storage-api,imgproxy,studio,edge-runtime,logflare,vector,supavisor,postgres-meta
+      - name: Export local Supabase connection details
+        run: supabase status -o env >> "$GITHUB_ENV"
+      - name: Install PostgreSQL client
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes postgresql-client
+      - name: Create the existing K53 learner base schema
+        run: psql "$DB_URL" -v ON_ERROR_STOP=1 -f supabase/tests/learner-access-local-setup.sql
+      - name: Apply learner email access migration to real local Supabase
+        run: psql "$DB_URL" -v ON_ERROR_STOP=1 -f supabase/migrations/20261119170000_learner_email_access.sql
+      - name: Test GoTrue-issued JWTs, admin RPCs and RLS through Data API
+        run: node scripts/learner-access-supabase-integration.mjs
+      - name: Stop disposable Supabase stack
+        if: always()
+        run: supabase stop --no-backup
