@@ -18,7 +18,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   const { user, ready, loadError, cloudError, storageError, online, syncState, retry, name } = useStudy();
   const { language, setLanguage, t, tr } = useLanguage();
   const checkLearnerAccess = useServerFn(getLearnerAccessStatus);
-  const [learnerStatus, setLearnerStatus] = useState<"checking" | "active" | "pending" | "disabled" | "unverified" | "signed-out" | "error">("checking");
+  const [learnerStatus, setLearnerStatus] = useState<"checking" | "active" | "pending" | "disabled" | "unverified" | "google_required" | "signed-out" | "error">("checking");
   const publicRoute = path === "/about" || path === "/auth" || path === "/admin" || path.startsWith("/reset-password");
   useEffect(() => {
     if (publicRoute) return;
@@ -134,6 +134,8 @@ export function AppShell({ children }: { children: ReactNode }) {
                   ? tr("Your learner access is currently disabled. Contact the administrator.")
                   : learnerStatus === "unverified"
                     ? tr("Verify your Google email address before accessing learning features.")
+                    : learnerStatus === "google_required"
+                      ? tr("Sign in with Google to access learning features.")
                     : learnerStatus === "pending"
                       ? tr("This email has not been authorised yet. Contact the administrator.")
                       : learnerStatus === "error"
