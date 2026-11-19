@@ -3,6 +3,7 @@ import type { User } from "@supabase/supabase-js";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { ADMIN_OWNER_EMAIL, getAdminRole } from "@/lib/admin-role";
+import { verifyAdminAccess } from "@/lib/admin-verification";
 
 export const requireAdmin = createMiddleware({ type: "function" })
   .middleware([requireSupabaseAuth])
@@ -58,31 +59,22 @@ export const getAdminAccess = createServerFn({ method: "POST" })
       throw new Error("Admin access verification is not configured.");
     }
 
-    const { createClient } = await import("@supabase/supabase-js");
-    const verifier = createClient(supabaseUrl, publishableKey, {
-      global: { fetch: createSupabaseFetch(publishableKey) },
-      auth: {
-        storage: undefined,
-        persistSession: false,
-        autoRefreshToken: false,
-      },
-    });
-
-    // getUser(token) performs a request to Supabase Auth. Unlike locally
-    // decoding claims, this confirms the token against the project's Auth API
-    // and returns the canonical user record (including the verified email).
-    const { data: verified, error } = await verifier.auth.getUser(data.accessToken);
-    if (error || !verified?.user) {
-      console.error("Supabase rejected the admin access token", {
-        status: error?.status,
-        code: error?.code,
-        message: error?.message,
+    try {
+      const result = await verifyAdminAccess({
+        supabaseUrl,
+        publishableKey,
+        accessToken: data.accessToken,
+        fetcher: createSupabaseFetch(publishableKey),
       });
-      throw new Error("Your session could not be verified. Sign out and sign in again.");
+      return { role: result.role };
+    } catch (error: unknown) {
+      const status =
+        error && typeof error === "object" && "status" in error &&
+        typeof error.status === "number" ? error.status : undefined;
+      const message = error instanceof Error ? error.message : "Unknown verification error";
+      console.error("Admin session verification failed", { status, message });
+      throw error;
     }
-
-    const role = getAdminRole(verified.user);
-    return { role };
   });
 
 const grantAdminAccessSchema = z
