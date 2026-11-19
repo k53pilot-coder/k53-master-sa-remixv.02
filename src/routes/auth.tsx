@@ -67,7 +67,7 @@ export function Auth() {
   const [message, setMessage] = useState("");
   const [busy, setBusy] = useState(false);
   const checkAccess = useServerFn(getLearnerAccessStatus);
-  const [accessStatus, setAccessStatus] = useState<"checking" | "active" | "pending" | "disabled" | "unverified" | "error">("checking");
+  const [accessStatus, setAccessStatus] = useState<"checking" | "active" | "pending" | "disabled" | "unverified" | "google_required" | "error">("checking");
   useEffect(() => {
     if (!user) {
       setAccessStatus("checking");
@@ -125,6 +125,7 @@ export function Auth() {
               : accessStatus === "disabled" ? tr("Your learner access is disabled. Contact the administrator.")
                 : accessStatus === "pending" ? tr("Your email has not been authorised for learning yet. Contact the administrator.")
                   : accessStatus === "unverified" ? tr("Verify your Google email address before learning access can be activated.")
+                    : accessStatus === "google_required" ? tr("Sign in with Google to activate your learner access.")
                     : accessStatus === "error" ? tr("Learner access could not be checked. Try again when online.")
                       : tr("Checking learner access…")}
           </p>
