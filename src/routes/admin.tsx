@@ -223,6 +223,7 @@ function Overview() {
 }
 
 function AccessSection() {
+  const { tr } = useLanguage();
   return (
     <div className="space-y-5">
       <div className="rounded-lg border bg-card px-5">
