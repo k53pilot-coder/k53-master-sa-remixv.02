@@ -1,4 +1,6 @@
 import { Link, useLocation } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import {
   BookOpen, LayoutDashboard, Signpost, ClipboardCheck, Car, MapPin,
   ChevronRight, ArrowUpRight, WifiOff, CloudCheck, RotateCcw,
@@ -9,11 +11,34 @@ import { useStudy } from "./study-provider";
 import { useLanguage } from "./language-provider";
 import type { ReactNode } from "react";
 import { mayRequestAdminAccess } from "@/lib/admin-role";
+import { getLearnerAccessStatus } from "@/lib/learner-access.functions";
 
 export function AppShell({ children }: { children: ReactNode }) {
   const path = useLocation().pathname;
   const { user, ready, loadError, cloudError, storageError, online, syncState, retry, name } = useStudy();
   const { language, setLanguage, t, tr } = useLanguage();
+  const checkLearnerAccess = useServerFn(getLearnerAccessStatus);
+  const [learnerStatus, setLearnerStatus] = useState<"checking" | "active" | "pending" | "disabled" | "unverified" | "signed-out" | "error">("checking");
+  const publicRoute = path === "/about" || path === "/auth" || path === "/admin" || path.startsWith("/reset-password");
+  useEffect(() => {
+    if (publicRoute) return;
+    if (!ready) {
+      setLearnerStatus("checking");
+      return;
+    }
+    if (!user) {
+      setLearnerStatus("signed-out");
+      return;
+    }
+    let current = true;
+    void checkLearnerAccess().then((result) => {
+      if (current) setLearnerStatus(result.status);
+    }).catch((error: unknown) => {
+      console.error("Could not verify learner access", error);
+      if (current) setLearnerStatus("error");
+    });
+    return () => { current = false; };
+  }, [checkLearnerAccess, path, publicRoute, ready, user?.id]);
   const nav = [
     { to: "/", key: "nav.learning" as const, icon: LayoutDashboard },
     { to: "/learn", key: "nav.categories" as const, icon: BookOpen },
@@ -35,7 +60,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         <Link to="/" className="brand"><span className="brand-mark"><Signpost size={25} /></span><span>K53<span className="brand-master">MASTER SA</span></span></Link>
         <div className="sidebar-label">{t("nav.space")}</div>
         <nav className="main-nav">
-          {nav.map((n) => <Button asChild variant="ghost" key={n.to} className={`nav-link ${path === n.to ? "nav-active" : ""}`}>
+          {(learnerStatus === "active" ? nav : []).map((n) => <Button asChild variant="ghost" key={n.to} className={`nav-link ${path === n.to ? "nav-active" : ""}`}>
             <Link to={n.to} aria-label={t(n.key)} title={t(n.key)}>
               <n.icon size={19} /><span>{t(n.key)}</span>
               {n.to === "/review" && retry.length > 0 ? <span className="nav-count">{retry.length}</span> : null}
@@ -44,7 +69,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         </nav>
         <div className="sidebar-label resources-label">{t("nav.road")}</div>
         <nav className="main-nav">
-          {extra.map((n) => <Button asChild variant="ghost" key={n.to} className={`nav-link ${path === n.to ? "nav-active" : ""}`}>
+          {extra.filter((n) => n.to === "/about" || learnerStatus === "active").map((n) => <Button asChild variant="ghost" key={n.to} className={`nav-link ${path === n.to ? "nav-active" : ""}`}>
             <Link to={n.to} aria-label={t(n.key)} title={t(n.key)}><n.icon /><span>{t(n.key)}</span></Link>
           </Button>)}
           {mayRequestAdminAccess({ email: user?.email, app_metadata: user?.app_metadata }) ? (
@@ -80,7 +105,26 @@ export function AppShell({ children }: { children: ReactNode }) {
           </div>
         </header>
         <main className="content" aria-busy={!ready && !loadError}>
-          {ready ? <>{storageError ? <p className="cloud-warning" role="alert">{tr(storageError)}</p> : null}{cloudError ? <p className="cloud-warning" role="status">{tr(cloudError)}</p> : null}{children}</> :
+          {ready ? <>{storageError ? <p className="cloud-warning" role="alert">{tr(storageError)}</p> : null}{cloudError ? <p className="cloud-warning" role="status">{tr(cloudError)}</p> : null}{!publicRoute && learnerStatus !== "active" ? (
+            <section className="mx-auto max-w-2xl rounded-lg border bg-card p-6" role={learnerStatus === "checking" ? "status" : "alert"}>
+              <h1 className="text-2xl font-semibold">{learnerStatus === "checking" ? tr("Checking learner access") : tr("Learning access required")}</h1>
+              <p className="mt-2 text-muted-foreground">{learnerStatus === "signed-out"
+                ? tr("Sign in with your pre-authorised Google email address to access K53 learning features.")
+                : learnerStatus === "disabled"
+                  ? tr("Your learner access is currently disabled. Contact the administrator.")
+                  : learnerStatus === "unverified"
+                    ? tr("Verify your Google email address before accessing learning features.")
+                    : learnerStatus === "pending"
+                      ? tr("This email has not been authorised yet. Contact the administrator.")
+                      : learnerStatus === "error"
+                        ? tr("Learner access could not be verified. Check your connection and try again.")
+                        : tr("Please wait while access is checked.")}</p>
+              <div className="mt-4 flex gap-2">
+                {!user ? <Button asChild><Link to="/auth">{tr("Sign in with Google")}</Link></Button> : null}
+                {learnerStatus === "error" ? <Button variant="outline" onClick={() => window.location.reload()}>{tr("Try again")}</Button> : null}
+              </div>
+            </section>
+          ) : publicRoute || learnerStatus === "active" ? children : null}</> :
             <section className="study-loading" role={loadError ? "alert" : "status"}>
               <div className="daily-icon">{loadError ? <RotateCcw /> : <BookOpen />}</div>
               <h1>{tr(loadError ? "Your progress is unavailable" : "Opening your study space")}</h1>
