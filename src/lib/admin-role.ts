@@ -1,10 +1,23 @@
 export type AdminRole = "owner" | "admin";
 export const ADMIN_OWNER_EMAIL = "aiamplifysa@gmail.com";
-type Claims = { email?: unknown; app_metadata?: { provider?: unknown; providers?: unknown; role?: unknown; roles?: unknown } };
+type Claims = { email?: unknown; identities?: unknown; app_metadata?: { provider?: unknown; providers?: unknown; role?: unknown; roles?: unknown } };
 function hasGoogleIdentity(claims: Claims): boolean {
   const metadata = claims.app_metadata;
-  return !!metadata && typeof metadata === "object" &&
-    (metadata.provider === "google" || (Array.isArray(metadata.providers) && metadata.providers.includes("google")));
+  const providerMetadata =
+    !!metadata &&
+    typeof metadata === "object" &&
+    (metadata.provider === "google" ||
+      (Array.isArray(metadata.providers) && metadata.providers.includes("google")));
+  const linkedIdentity =
+    Array.isArray(claims.identities) &&
+    claims.identities.some(
+      (identity) =>
+        !!identity &&
+        typeof identity === "object" &&
+        "provider" in identity &&
+        identity.provider === "google",
+    );
+  return providerMetadata || linkedIdentity;
 }
 export function getAdminRole(claims: unknown): AdminRole | null {
   if (!claims || typeof claims !== "object") return null;

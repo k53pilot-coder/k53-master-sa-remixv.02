@@ -5,6 +5,7 @@ describe("admin role resolution", () => {
     expect(getAdminRole({email:ADMIN_OWNER_EMAIL.toUpperCase(),app_metadata:{provider:"google",providers:["google"]}})).toBe("owner");
     expect(getAdminRole({email:ADMIN_OWNER_EMAIL,app_metadata:{provider:"email"}})).toBeNull();
     expect(getAdminRole({email:ADMIN_OWNER_EMAIL,app_metadata:{provider:"email",providers:["email","google"]}})).toBe("owner");
+    expect(getAdminRole({email:ADMIN_OWNER_EMAIL,app_metadata:{provider:"email"},identities:[{provider:"google"}]})).toBe("owner");
   });
   it("recognizes granted roles only for Google-backed accounts", () => {
     expect(getAdminRole({app_metadata:{provider:"google",roles:["admin"]}})).toBe("admin");
