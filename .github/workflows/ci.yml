@@ -35,6 +35,7 @@ jobs:
         run: npm run build
       - name: Audit question bank structure
         run: npm run audit:questions
+
   learner-access-database:
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -79,9 +80,19 @@ jobs:
         uses: supabase/setup-cli@v1
         with:
           version: latest
+      - name: Build isolated local migration workspace
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/k53-supabase/supabase/migrations
+          cp supabase/config.toml /tmp/k53-supabase/supabase/config.toml
+          cp supabase/tests/learner-access-local-setup.sql /tmp/k53-supabase/supabase/migrations/20261119165900_k53_test_base_schema.sql
+          cp supabase/migrations/20261119170000_learner_email_access.sql /tmp/k53-supabase/supabase/migrations/
       - name: Start disposable local Supabase Auth and Data API
+        working-directory: /tmp/k53-supabase
         run: supabase start -x realtime,storage-api,imgproxy,studio,edge-runtime,logflare,vector,supavisor,postgres-meta
       - name: Export local Supabase connection details
+        working-directory: /tmp/k53-supabase
         shell: bash
         run: |
           set -a
@@ -93,16 +104,9 @@ jobs:
             echo "ANON_KEY=$ANON_KEY"
             echo "SERVICE_ROLE_KEY=$SERVICE_ROLE_KEY"
           } >> "$GITHUB_ENV"
-      - name: Install PostgreSQL client
-        run: |
-          sudo apt-get update
-          sudo apt-get install --yes postgresql-client
-      - name: Create the existing K53 learner base schema
-        run: psql "$DB_URL" -v ON_ERROR_STOP=1 -f supabase/tests/learner-access-local-setup.sql
-      - name: Apply learner email access migration to real local Supabase
-        run: psql "$DB_URL" -v ON_ERROR_STOP=1 -f supabase/migrations/20261119170000_learner_email_access.sql
       - name: Test GoTrue-issued JWTs, admin RPCs and RLS through Data API
         run: node scripts/learner-access-supabase-integration.mjs
       - name: Stop disposable Supabase stack
         if: always()
+        working-directory: /tmp/k53-supabase
         run: supabase stop --no-backup
