@@ -1,5 +1,4 @@
 import { createMiddleware, createServerFn } from "@tanstack/react-start";
-import { getRequest } from "@tanstack/react-start/server";
 import type { User } from "@supabase/supabase-js";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
@@ -8,16 +7,9 @@ import { ADMIN_OWNER_EMAIL, getAdminRole } from "@/lib/admin-role";
 export const requireAdmin = createMiddleware({ type: "function" })
   .middleware([requireSupabaseAuth])
   .server(async ({ context, next }) => {
-    // JWT claims can contain stale app_metadata after a provider is linked.
-    // Fetch the current Auth user so linked Google identities are recognised.
-    const request = getRequest();
-    const authorization = request?.headers.get("authorization");
-    const token = authorization?.startsWith("Bearer ")
-      ? authorization.slice("Bearer ".length).trim()
-      : "";
-    if (!token) throw new Error("Unauthorized: Missing access token");
-
-    const { data, error } = await context.supabase.auth.getUser(token);
+    // Reuse the token already validated by requireSupabaseAuth.
+    // Do not re-read request headers in a nested server middleware.
+    const { data, error } = await context.supabase.auth.getUser(context.accessToken);
     if (error || !data.user) {
       throw new Error("Unauthorized: Could not verify signed-in user");
     }
