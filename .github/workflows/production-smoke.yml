@@ -1,4 +1,4 @@
-name: Production browser smoke
+name: Built Worker browser smoke
 
 on:
   pull_request:
@@ -14,9 +14,10 @@ concurrency:
 
 jobs:
   browser-smoke:
-    # Playwright 1.58.x does not support Chromium dependency installation on Ubuntu 26.04.
+    # Run against the actual production build locally so Cloudflare bot protection
+    # remains enabled and GitHub-hosted runners do not trigger the challenge page.
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -24,14 +25,31 @@ jobs:
           node-version: 22
       - name: Install application dependencies
         run: npm install --no-audit --no-fund
+      - name: Build the production Worker
+        run: npm run build
       - name: Install Playwright test runner
         run: npm install --no-save --package-lock=false @playwright/test@1.58.2
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
-      - name: Test the live production application
+      - name: Start the built Cloudflare Worker
+        run: |
+          npx wrangler dev --config .output/server/wrangler.json --ip 127.0.0.1 --port 4173 --local > /tmp/k53-worker.log 2>&1 &
+          echo $! > /tmp/k53-worker.pid
+          for attempt in $(seq 1 60); do
+            if curl --fail --silent http://127.0.0.1:4173/ > /dev/null; then
+              exit 0
+            fi
+            sleep 2
+          done
+          cat /tmp/k53-worker.log
+          exit 1
+        env:
+          SUPABASE_URL: https://qfolceulguweezxjvvjt.supabase.co
+          SUPABASE_PUBLISHABLE_KEY: sb_publishable_vY4q2CdQ6VyBX52KSMZ93Q_2H-K6dkq
+      - name: Test the built application in Chromium
         run: npx playwright test e2e/production-smoke.spec.mjs --reporter=line
         env:
-          K53_PRODUCTION_URL: https://k53.aiamplifysa.com
+          K53_BASE_URL: http://127.0.0.1:4173
       - name: Upload Playwright results on failure
         if: failure()
         uses: actions/upload-artifact@v4
