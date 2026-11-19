@@ -243,7 +243,9 @@ function AccessSection() {
           status="Existing account"
         />
       </div>
-      <GrantAdminForm />
+      <p className="max-w-xl rounded-lg border bg-muted/30 p-4 text-sm text-muted-foreground">
+        {tr("Additional administrator grants are disabled until the Supabase service-role key is configured as a Cloudflare Worker secret. The primary owner account remains available through the verified owner allowlist.")}
+      </p>
     </div>
   );
 }
