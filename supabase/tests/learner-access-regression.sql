@@ -17,7 +17,8 @@ reset role;
 -- Active learner can read and write only their own profile and progress.
 set role authenticated;
 select set_config('request.jwt.claim.sub','22222222-2222-4222-8222-222222222222',false);
-do $$
+select set_config('request.jwt.claims','{"sub":"22222222-2222-4222-8222-222222222222","email":"learner@example.com","app_metadata":{"provider":"google","providers":["google"]}}',false);
+do $
 begin
   if (select count(*) from public.learner_access) <> 1 then
     raise exception 'learner should see exactly their own access record';
@@ -184,6 +185,7 @@ end $$;
 -- A second UUID cannot claim an already-linked email.
 set role authenticated;
 select set_config('request.jwt.claim.sub','33333333-3333-4333-8333-333333333333',false);
+select set_config('request.jwt.claims','{"sub":"33333333-3333-4333-8333-333333333333","email":"other@example.com","app_metadata":{"provider":"google","providers":["google"]}}',false);
 select * from public.claim_learner_access();
 -- Ordinary learner cannot invoke administrator RPCs, even though EXECUTE is granted.
 do $
