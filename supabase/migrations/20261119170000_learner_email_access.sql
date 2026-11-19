@@ -255,8 +255,8 @@ as $function$
         or case
           when pg_catalog.jsonb_typeof(auth.jwt() -> 'identities') = 'array' then exists (
             select 1
-            from pg_catalog.jsonb_array_elements(auth.jwt() -> 'identities') as identity_row
-            where identity_row ->> 'provider' = 'google'
+            from pg_catalog.jsonb_array_elements(auth.jwt() -> 'identities') as identity_rows(item)
+            where item ->> 'provider' = 'google'
           )
           else false
         end
