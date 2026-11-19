@@ -126,7 +126,6 @@ export type Database = {
     Functions: {
       admin_add_learner_access: {
         Args: {
-          p_actor: string
           p_email: string
         }
         Returns: {
@@ -149,7 +148,6 @@ export type Database = {
       }
       admin_set_learner_access_status: {
         Args: {
-          p_actor: string
           p_id: string
           p_status: string
         }
