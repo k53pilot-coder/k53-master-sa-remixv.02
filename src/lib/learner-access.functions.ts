@@ -3,8 +3,10 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { requireAdmin } from "@/lib/admin.functions";
-import { supabaseAdmin } from "@/integrations/supabase/client.server";
-const admin = supabaseAdmin as unknown as SupabaseClient;
+async function getAdminClient() {
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  return supabaseAdmin as unknown as SupabaseClient;
+}
 
 export const getLearnerAccessStatus = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
@@ -17,6 +19,7 @@ export const getLearnerAccessStatus = createServerFn({ method: "GET" })
     if (!email || !data.user.email_confirmed_at) {
       return { status: "unverified" as const };
     }
+    const admin = await getAdminClient();
     const { data: claim, error: claimError } = await admin.rpc(
       "claim_learner_access",
       { p_user_id: data.user.id, p_email: email },
@@ -36,6 +39,7 @@ export const addLearnerAccess = createServerFn({ method: "POST" })
   .middleware([requireAdmin])
   .validator((input: unknown) => addSchema.parse(input))
   .handler(async ({ data, context }) => {
+    const admin = await getAdminClient();
     const { data: result, error } = await admin.rpc("admin_add_learner_access", {
       p_email: data.email.trim().toLowerCase(),
       p_actor: context.userId,
@@ -52,6 +56,7 @@ export const listLearnerAccess = createServerFn({ method: "GET" })
   .middleware([requireAdmin])
   .validator((input: unknown) => listSchema.parse(input))
   .handler(async ({ data }) => {
+    const admin = await getAdminClient();
     const { data: rows, error } = await admin.rpc("admin_list_learner_access", {
       p_search: data.search.toLowerCase(),
     });
@@ -70,6 +75,7 @@ export const setLearnerAccessStatus = createServerFn({ method: "POST" })
   .middleware([requireAdmin])
   .validator((input: unknown) => statusSchema.parse(input))
   .handler(async ({ data, context }) => {
+    const admin = await getAdminClient();
     const { data: changed, error } = await admin.rpc("admin_set_learner_access_status", {
       p_id: data.id,
       p_status: data.status,
