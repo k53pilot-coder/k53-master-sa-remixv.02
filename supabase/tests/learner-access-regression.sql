@@ -189,7 +189,7 @@ select set_config('request.jwt.claim.sub','33333333-3333-4333-8333-333333333333'
 select set_config('request.jwt.claims','{"sub":"33333333-3333-4333-8333-333333333333","email":"other@example.com","app_metadata":{"provider":"google","providers":["google"]}}',false);
 select * from public.claim_learner_access();
 -- Ordinary learner cannot invoke administrator RPCs, even though EXECUTE is granted.
-do $
+do $$
 begin
   begin
     perform * from public.admin_list_learner_access('');
@@ -197,7 +197,7 @@ begin
   exception when insufficient_privilege then
     null;
   end;
-end $;
+end $$;
 reset role;
 
 -- Restore leaves the immutable user binding intact. A different UUID still
