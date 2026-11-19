@@ -117,6 +117,15 @@ export function Auth() {
         </div>
         <div className="auth-panel">
           <UserRound size={32} aria-hidden="true" />
+          <p role="status" aria-live="polite" className="text-sm text-muted-foreground">
+            {accessStatus === "active" ? tr("Your learner access is active.")
+              : accessStatus === "disabled" ? tr("Your learner access is disabled. Contact the administrator.")
+                : accessStatus === "pending" ? tr("Your email has not been authorised for learning yet. Contact the administrator.")
+                  : accessStatus === "unverified" ? tr("Verify your Google email address before learning access can be activated.")
+                    : accessStatus === "error" ? tr("Learner access could not be checked. Try again when online.")
+                      : tr("Checking learner access…")}
+          </p>
+          {accessStatus === "active" ? <>
           <label>
             {tr("Display name")}
             <Input defaultValue={name} onChange={(event) => setDisplay(event.target.value)} />
@@ -144,10 +153,11 @@ export function Auth() {
           >
             {tr("Save profile")}
           </Button>
-          <Button variant="outline" disabled={accessStatus !== "active"} onClick={() => void refresh()}>
+          <Button variant="outline" onClick={() => void refresh()}>
             <CloudCheck aria-hidden="true" />
             {tr("Sync progress")}
           </Button>
+          </> : null}
           <p role="status" aria-live="polite">{message}</p>
           <Button
             variant="ghost"
