@@ -11,7 +11,7 @@ reset role;
 -- access only their own profile/progress.
 set role authenticated;
 select set_config('request.jwt.claim.sub','22222222-2222-4222-8222-222222222222',false);
-do $$
+do $$$
 begin
   if (select count(*) from public.learner_access) <> 1 then
     raise exception 'learner should see exactly their own access record';
@@ -26,7 +26,7 @@ reset role;
 -- A different account cannot see the first learner's access or profile.
 set role authenticated;
 select set_config('request.jwt.claim.sub','33333333-3333-4333-8333-333333333333',false);
-do $$
+do $$$
 begin
   if (select count(*) from public.learner_access) <> 0 then
     raise exception 'other account can see learner access record';
@@ -49,7 +49,7 @@ reset role;
 
 set role authenticated;
 select set_config('request.jwt.claim.sub','22222222-2222-4222-8222-222222222222',false);
-do $$
+do $$$
 begin
   if (select count(*) from public.profiles) <> 0 then
     raise exception 'disabled learner can still read profile';
@@ -67,7 +67,7 @@ reset role;
 -- Authenticated users may inspect their own link but cannot mutate the allowlist.
 set role authenticated;
 select set_config('request.jwt.claim.sub','22222222-2222-4222-8222-222222222222',false);
-do $
+do $$
 begin
   begin
     insert into public.learner_access(email) values ('attacker@example.com');
@@ -75,12 +75,12 @@ begin
   exception when insufficient_privilege then
     null;
   end;
-end $;
+end $$;
 reset role;
 
 -- Anonymous visitors have no direct access to learner authorisations.
 set role anon;
-do $
+do $$
 begin
   begin
     perform count(*) from public.learner_access;
@@ -88,7 +88,7 @@ begin
   exception when insufficient_privilege then
     null;
   end;
-end $;
+end $$;
 reset role;
 
 -- A second UUID cannot claim an already-linked email.
