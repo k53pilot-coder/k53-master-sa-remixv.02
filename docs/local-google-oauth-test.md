@@ -4,28 +4,65 @@ This procedure uses the Supabase CLI local stack and a dedicated Google OAuth we
 
 ## 1. Create a separate Google OAuth client
 
-In Google Cloud Console, create an OAuth 2.0 **Web application** client dedicated to local testing. Do not reuse the production client if you can avoid it.
+In Google Cloud Console, create a separate OAuth 2.0 **Web application** client for local testing. Do not reuse the production client.
 
-Add this exact authorised redirect URI:
+Configure the Google Auth Platform consent screen for testing. Add these accounts to its test-user list:
+- The existing K53 owner account, `aiamplifysa@gmail.com`, so the local `/admin` page can pre-authorise test learners.
+- A separate Google account for an approved learner.
+- A separate Google account for an unapproved learner.
+
+Create the Web application OAuth client with this **Authorised JavaScript origin**:
+
+```text
+http://127.0.0.1:4173
+```
+
+Add this exact **Authorised redirect URI**:
 
 ```text
 http://127.0.0.1:54321/auth/v1/callback
 ```
 
-The Google client ID and secret are used only by the local Supabase Auth service. The Google callback is the Supabase callback above, not the app's `/auth` route.
+The Google redirect URI is the local Supabase Auth callback, not the app's `/auth` route. No production hostname or production Supabase callback is needed for this test.
 
-## 2. Configure local Supabase Auth
+## 2. Configure local-only credentials
 
-In the repository root, create or edit the local-only `.env` file (never commit it) and set:
+In the repository root, create or edit the git-ignored local `.env` file and set:
 
 ```dotenv
 SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_ID=your-local-google-client-id
 SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_SECRET=your-local-google-client-secret
 ```
 
-Add the following local settings to `supabase/config.toml`. Keep the client ID and secret as environment references; do not paste credentials into TOML:
+Do not send these values in chat or commit them. The repository's `.gitignore` excludes `.env` and `.env.*`.
 
-```toml
+Do not edit the tracked `supabase/config.toml`. The next step adds Google provider settings only to the temporary local workspace.
+
+## 3. Start an isolated local Supabase stack
+
+Use the same disposable migration workspace approach as CI so the K53 base schema is applied before the learner-access migration:
+
+```bash
+mkdir -p /tmp/k53-supabase/supabase/migrations
+cp supabase/config.toml /tmp/k53-supabase/supabase/config.toml
+cp supabase/tests/learner-access-local-setup.sql /tmp/k53-supabase/supabase/migrations/20261119165900_k53_test_base_schema.sql
+cp supabase/migrations/20261119170000_learner_email_access.sql /tmp/k53-supabase/supabase/migrations/
+cp .env /tmp/k53-supabase/.env
+
+# Give this disposable local stack a project ID distinct from production.
+python3 - <<'PY'
+from pathlib import Path
+config = Path("/tmp/k53-supabase/supabase/config.toml")
+contents = config.read_text()
+contents = contents.replace(
+    'project_id = "qfolceulguweezxjvvjt"',
+    'project_id = "k53-local-oauth-test"',
+)
+config.write_text(contents)
+PY
+
+cat >> /tmp/k53-supabase/supabase/config.toml <<'TOML'
+
 [auth]
 site_url = "http://127.0.0.1:4173"
 additional_redirect_urls = ["http://127.0.0.1:4173/**"]
@@ -35,30 +72,18 @@ enabled = true
 client_id = "env(SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_ID)"
 secret = "env(SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_SECRET)"
 skip_nonce_check = false
-```
+TOML
 
-These settings are local development configuration. Do not link the local CLI to the hosted production project or run `supabase db push`.
-
-## 3. Start the local stack and apply the feature schema
-
-Use the same isolated migration workspace approach as CI so the existing K53 base schema is applied before the learner-access migration:
-
-```bash
-mkdir -p /tmp/k53-supabase/supabase/migrations
-cp supabase/config.toml /tmp/k53-supabase/supabase/config.toml
-cp supabase/tests/learner-access-local-setup.sql /tmp/k53-supabase/supabase/migrations/20261119165900_k53_test_base_schema.sql
-cp supabase/migrations/20261119170000_learner_email_access.sql /tmp/k53-supabase/supabase/migrations/
-cp .env /tmp/k53-supabase/.env
 cd /tmp/k53-supabase
 supabase start
 supabase status
 ```
 
-The `.env` copy is local to the temporary directory. Keep it private. The local Auth callback is `http://127.0.0.1:54321/auth/v1/callback`.
+The temporary workspace has its own local project ID and copied local credentials. Do not run `supabase link`. Start and test only this local stack; no command in this procedure targets the hosted project. The local Google callback is `http://127.0.0.1:54321/auth/v1/callback`.
 
 ## 4. Build and run the Worker against local Supabase
 
-In the application repository, use the local API URL and anon key printed by `supabase status -o env`. Example:
+In the application repository, use the local API URL and anon key from `supabase status -o env`:
 
 ```bash
 cd /path/to/k53-master-sa-remixv.02
@@ -73,37 +98,39 @@ npm run build
 npx wrangler dev --config .output/server/wrangler.json --ip 127.0.0.1 --port 4173 --local
 ```
 
-Open `http://127.0.0.1:4173/auth`. The auth route deliberately uses the local origin for localhost even in a production-mode build. The local Supabase redirect allow-list must include that same origin.
+Open `http://127.0.0.1:4173/auth`. The auth route deliberately uses the local origin for localhost even in a production-mode build. The local Supabase redirect allow-list includes that same origin.
 
-## 5. Verify the real provider round trip
+## 5. Verify the real Google provider round trip
 
-Use a dedicated Google test account. In the local Supabase stack, verify:
+Use the owner Google account and the two separate learner test accounts added to the Google consent screen. Against the local stack only:
 
-1. `/auth/v1/settings` reports Google enabled.
-2. The app's Continue with Google button redirects to Google's actual consent/sign-in page.
-3. Google returns to the local Supabase callback, then back to `http://127.0.0.1:4173/auth`.
-4. Supabase creates/authenticates the user with a verified Google email.
-5. Pre-authorise that exact email in the local database using the owner/admin test identity, then repeat sign-in and verify the atomic learner claim binds to the local Auth UUID.
-6. Confirm an unapproved email remains pending and cannot access learning; confirm the approved email can access learning.
-7. Confirm sign-out and a subsequent sign-in retain the same UUID binding.
+1. Confirm `http://127.0.0.1:54321/auth/v1/settings` reports Google enabled.
+2. Open `http://127.0.0.1:4173/auth`, sign in with the owner account, and confirm Google returns through the local Supabase callback to the app.
+3. Open the local `/admin` page and pre-authorise the approved learner's exact Google email address.
+4. Sign out, then sign in with the approved learner account. Confirm the account page reports active access and the learner can open learning features.
+5. Sign out, then sign in with the unapproved learner account. Confirm the account remains pending and learning features are blocked.
+6. In local Supabase Studio or the local database, verify the approved email's `learner_access.user_id` matches that learner's local `auth.users.id`. Sign out and sign in again; confirm the UUID binding is unchanged.
+7. Confirm the owner account can still access local `/admin` and manage the test learner authorisations.
 
-The existing GoTrue/PostgREST CI integration already covers the database/RLS side with password-grant test users. This browser procedure is specifically for the external Google provider and redirect/callback round trip.
+The owner account is needed because the database's existing owner-admin check is tied to `aiamplifysa@gmail.com`. This authentication creates a user/session only in the disposable local Auth database; it does not sign into or modify production. The existing GoTrue/PostgREST CI integration covers database/RLS behavior with test JWTs; this browser test covers the actual external Google consent and callback.
 
-## 6. Shut down
+## 6. Shut down and clean up
 
-Stop the Worker with Ctrl+C, then:
+Stop the Worker with Ctrl+C, then stop and remove the disposable local Supabase stack:
 
 ```bash
 cd /tmp/k53-supabase
 supabase stop --no-backup
+rm -rf /tmp/k53-supabase
 ```
 
-Remove the temporary stack directory and local `.env` when finished. Never add credentials, auth tokens, or generated local secrets to Git.
+Remove the two Google OAuth variables from the repository-root `.env` after testing. Delete that file only if it was created solely for this test; preserve any pre-existing local environment settings. Never add credentials, auth tokens, or generated local secrets to Git.
 
 ## Release boundary
 
-This is a local-only verification procedure. Do not point it at the production Supabase URL, register production credentials in the local test setup, apply the migration to production, merge PR #19, or deploy the Worker as part of this test.
+This procedure is local-only. Do not point the application at the production Supabase URL, add production credentials to the local setup, apply the migration to production, merge PR #19, or deploy the Worker as part of this test. PR #19 remains draft and unmerged pending explicit approval.
 
 References:
-- [Supabase local CLI configuration](https://supabase.com/docs/guides/local-development/cli/config)
+- [Supabase local CLI configuration and environment variables](https://supabase.com/docs/guides/local-development/cli/config)
 - [Supabase Google OAuth setup](https://supabase.com/docs/guides/auth/social-login/auth-google)
+- [Supabase CLI v3 migration and local-by-default behavior](https://supabase.com/docs/guides/local-development/cli/migrating-to-v3)
