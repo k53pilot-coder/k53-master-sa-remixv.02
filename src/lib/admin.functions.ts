@@ -7,14 +7,9 @@ import { ADMIN_OWNER_EMAIL, getAdminRole } from "@/lib/admin-role";
 export const requireAdmin = createMiddleware({ type: "function" })
   .middleware([requireSupabaseAuth])
   .server(async ({ context, next }) => {
-    // Reuse the token already validated by requireSupabaseAuth.
-    // Do not re-read request headers in a nested server middleware.
-    const { data, error } = await context.supabase.auth.getUser(context.accessToken);
-    if (error || !data.user) {
-      throw new Error("Unauthorized: Could not verify signed-in user");
-    }
-
-    const role = getAdminRole(data.user);
+    // requireSupabaseAuth has already verified this JWT with Supabase.
+    // Use its trusted claims directly; another Auth API request is unnecessary.
+    const role = getAdminRole(context.claims);
     if (!role) throw new Error("Forbidden: Admin access is required");
 
     return next({ context: { adminRole: role } });
