@@ -23,14 +23,21 @@ async function openReadyPage(page, path = "/") {
 }
 
 test.describe("K53 Master SA built Worker browser smoke tests", () => {
-  test("public navigation routes hydrate and render", async ({ page }) => {
+  test("public About and authentication routes remain available", async ({ page }) => {
     const pageErrors = [];
     page.on("pageerror", (error) => pageErrors.push(error.message));
 
-    await openReadyPage(page, "/");
+    await openReadyPage(page, "/about");
     await expect(page.locator("main h1").first()).toBeVisible();
 
+    await openReadyPage(page, "/auth");
+    await expect(page.getByRole("button", { name: "Continue with Google" })).toBeVisible();
+    expect(pageErrors, "uncaught browser runtime errors").toEqual([]);
+  });
+
+  test("unauthorised visitors cannot use any learning route or see learning navigation", async ({ page }) => {
     const routes = [
+      "/",
       "/learn",
       "/signs",
       "/practice",
@@ -38,19 +45,16 @@ test.describe("K53 Master SA built Worker browser smoke tests", () => {
       "/review",
       "/practical",
       "/dltc",
-      "/about",
     ];
 
     for (const route of routes) {
-      const link = page.locator(`.main-nav a[href="${route}"]`).first();
-      await expect(link, `navigation link ${route}`).toBeVisible();
-      await link.click();
-      await expect(page).toHaveURL(new RegExp(`${route.replace("/", "\\/")}(?:[?#].*)?$`));
-      await expect(page.locator("main h1").first(), `page heading for ${route}`).toBeVisible();
-      await expect(page.locator("main .study-loading")).toHaveCount(0);
+      await openReadyPage(page, route);
+      await expect(page.getByRole("heading", { name: "Learning access required" }), route).toBeVisible();
+      await expect(page.getByRole("link", { name: "Sign in with Google" })).toHaveAttribute("href", "/auth");
+      for (const protectedPath of ["/learn", "/signs", "/practice", "/mock-test", "/review", "/practical", "/dltc"]) {
+        await expect(page.locator(`.main-nav a[href="${protectedPath}"]`)).toHaveCount(0);
+      }
     }
-
-    expect(pageErrors, "uncaught browser runtime errors").toEqual([]);
   });
 
   test("Google sign-in CTA starts the configured canonical OAuth flow", async ({ page }) => {
@@ -95,52 +99,11 @@ test.describe("K53 Master SA built Worker browser smoke tests", () => {
     );
   });
 
-  test("road-sign flashcard controls and search respond", async ({ page }) => {
-    await openReadyPage(page, "/signs");
-
-    const search = page.getByRole("textbox", { name: "Search road signs" });
-    await expect(search).toBeVisible();
-    await search.fill("STOP");
-    await expect(page.getByRole("heading", { name: "Road signs library" })).toBeVisible();
-
-    const flashcards = page.getByRole("button", { name: "Flashcards" });
-    await expect(flashcards).toBeEnabled();
-    await flashcards.click();
-    await expect(page.getByRole("button", { name: "Reveal meaning" })).toBeVisible();
-    await page.getByRole("button", { name: "Reveal meaning" }).click();
-    await expect(page.locator(".flashcard h2")).toBeVisible();
-    const next = page.getByRole("button", { name: "Next flashcard" });
-    await expect(next).toBeEnabled();
-    await next.click();
-    await expect(page.getByRole("button", { name: "Reveal meaning" })).toBeVisible();
-  });
-
-  test("practice CTA starts a quiz and answer controls respond", async ({ page }) => {
-    await openReadyPage(page, "/practice");
-
-    const start = page.getByRole("button", { name: "Start practice" });
-    await expect(start).toBeVisible();
-    await expect(start).toBeEnabled();
-    await start.click();
-
-    await expect(page.locator(".quiz-space h1")).toBeVisible();
-    const answer = page.locator(".answer-options button").first();
-    await expect(answer).toBeEnabled();
-    await answer.click();
-    await expect(page.locator(".feedback")).toBeVisible();
-    await expect(page.getByRole("button", { name: /Next/ })).toBeEnabled();
-
-    await page.getByRole("button", { name: /Exit practice/ }).click();
-    await expect(page.getByRole("button", { name: "Start practice" })).toBeVisible();
-  });
-
-  test("language switch changes the sign-library interface", async ({ page }) => {
-    await openReadyPage(page, "/signs");
+  test("public language selector updates the authentication interface", async ({ page }) => {
+    await openReadyPage(page, "/auth");
     await page.getByRole("combobox", { name: "Language" }).selectOption("af");
-    await expect(
-      page.getByRole("heading", { name: "Padtekenbiblioteek" }),
-    ).toBeVisible();
+    await expect(page.getByRole("button", { name: "Gaan voort met Google" })).toBeVisible();
     await page.getByRole("combobox", { name: "Taal" }).selectOption("en");
-    await expect(page.getByRole("heading", { name: "Road signs library" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Continue with Google" })).toBeVisible();
   });
 });
