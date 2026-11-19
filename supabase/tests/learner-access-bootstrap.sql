@@ -7,7 +7,8 @@ create schema auth;
 create table auth.users (
   id uuid primary key,
   email text,
-  email_confirmed_at timestamptz
+  email_confirmed_at timestamptz,
+  raw_app_meta_data jsonb not null default '{}'::jsonb
 );
 
 create or replace function auth.uid()
@@ -16,6 +17,15 @@ language sql stable
 as $$
   select nullif(current_setting('request.jwt.claim.sub', true), '')::uuid;
 $$;
+
+create or replace function auth.jwt()
+returns jsonb
+language sql stable
+as $
+  select coalesce(nullif(current_setting('request.jwt.claims', true), ''), '{}')::jsonb;
+$;
+
+grant execute on function auth.jwt() to anon, authenticated, service_role;
 
 create table public.profiles (
   id uuid primary key references auth.users(id),
@@ -57,6 +67,6 @@ grant select, insert, update, delete, truncate on public.profiles, public.questi
 grant all on all tables in schema public to service_role;
 
 insert into auth.users(id,email,email_confirmed_at) values
- ('11111111-1111-4111-8111-111111111111','owner@example.com',now()),
+ ('11111111-1111-4111-8111-111111111111','aiamplifysa@gmail.com',now()),
  ('22222222-2222-4222-8222-222222222222','learner@example.com',now()),
  ('33333333-3333-4333-8333-333333333333','other@example.com',now());
