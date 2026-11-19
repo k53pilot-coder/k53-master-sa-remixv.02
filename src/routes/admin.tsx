@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import {
   Activity,
@@ -431,7 +431,7 @@ function LearnerAccessSection() {
     return () => { active = false; };
   }, [list, tr]);
 
-  async function addEmail(event: React.FormEvent<HTMLFormElement>) {
+  async function addEmail(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setBusy(true);
     setMessage("");
