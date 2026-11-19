@@ -1,11 +1,12 @@
 import { describe, expect, it } from "vitest";
 import { ADMIN_OWNER_EMAIL, getAdminRole, mayRequestAdminAccess } from "@/lib/admin-role";
 describe("admin role resolution", () => {
-  it("recognizes the owner only through a Google identity", () => {
-    expect(getAdminRole({email:ADMIN_OWNER_EMAIL.toUpperCase(),app_metadata:{provider:"google",providers:["google"]}})).toBe("owner");
-    expect(getAdminRole({email:ADMIN_OWNER_EMAIL,app_metadata:{provider:"email"}})).toBeNull();
-    expect(getAdminRole({email:ADMIN_OWNER_EMAIL,app_metadata:{provider:"email",providers:["email","google"]}})).toBe("owner");
-    expect(getAdminRole({email:ADMIN_OWNER_EMAIL,app_metadata:{provider:"email"},identities:[{provider:"google"}]})).toBe("owner");
+  it("recognizes the verified primary owner even when the original provider remains email", () => {
+    expect(getAdminRole({email:ADMIN_OWNER_EMAIL.toUpperCase(),email_verified:true,app_metadata:{provider:"email",providers:["email","google"]}})).toBe("owner");
+    expect(getAdminRole({email:ADMIN_OWNER_EMAIL,email_verified:false,app_metadata:{provider:"google"}})).toBeNull();
+    expect(getAdminRole({email:ADMIN_OWNER_EMAIL,app_metadata:{provider:"google"}})).toBeNull();
+    expect(getAdminRole({email:ADMIN_OWNER_EMAIL,app_metadata:{provider:"email",providers:["email","google"]}})).toBeNull();
+    expect(getAdminRole({email:ADMIN_OWNER_EMAIL,email_verified:true,app_metadata:{provider:"email"}})).toBe("owner");
   });
   it("recognizes granted roles only for Google-backed accounts", () => {
     expect(getAdminRole({app_metadata:{provider:"google",roles:["admin"]}})).toBe("admin");
