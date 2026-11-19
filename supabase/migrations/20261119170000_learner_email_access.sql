@@ -40,9 +40,9 @@ create policy learner_access_select_own
   to authenticated
   using ((select auth.uid()) = user_id);
 
--- First-time linking is atomic and can only be requested by trusted server code
--- using the service-role key. The email and UUID are supplied only after the
--- server has verified the Supabase Auth user with getUser(accessToken).
+-- First-time linking is atomic and can only be requested by an authenticated
+-- Supabase session. The server middleware verifies the signed bearer JWT, and
+-- this function resolves the email and UUID from auth.uid()/auth.users only.
 create or replace function public.claim_learner_access()
 returns table (access_status text)
 language plpgsql
