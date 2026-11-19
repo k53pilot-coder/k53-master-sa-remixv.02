@@ -206,7 +206,7 @@ set role authenticated;
 select set_config('request.jwt.claim.sub','11111111-1111-4111-8111-111111111111',false);
 select set_config('request.jwt.claims','{"sub":"11111111-1111-4111-8111-111111111111","email":"aiamplifysa@gmail.com","app_metadata":{"provider":"google","providers":["google"],"roles":["owner"]}}',false);
 select public.admin_set_learner_access_status(
-  (select id from public.learner_access where email='learner@example.com'),
+  (select id from public.admin_list_learner_access('learner@example.com')),
   'active'
 );
 reset role;
