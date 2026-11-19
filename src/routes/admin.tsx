@@ -216,7 +216,7 @@ function Overview() {
         />
       </div>
       <div className="rounded-lg border border-amber-300 bg-amber-50 p-4 text-sm text-amber-950">
-        {tr("Admin grants are active. Content publishing, feature settings, legal versions and analytics remain unavailable until their server-backed storage and policies are configured.")}
+        {tr("Owner access is enabled. Additional administrator grants require the Supabase service-role secret; content publishing, feature settings, legal versions and analytics also need their server-backed storage and policies.")}
       </div>
     </>
   );
