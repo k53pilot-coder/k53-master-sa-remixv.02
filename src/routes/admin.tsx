@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import {
   Activity,
@@ -13,8 +13,7 @@ import {
   Users,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { getAdminAccess, grantAdminAccess } from "@/lib/admin.functions";
+import { getAdminAccess } from "@/lib/admin.functions";
 import { pageHead } from "@/lib/metadata";
 import { useStudy } from "@/components/study-provider";
 import { useLanguage } from "@/components/language-provider";
@@ -247,64 +246,6 @@ function AccessSection() {
         {tr("Additional administrator grants are disabled until the Supabase service-role key is configured as a Cloudflare Worker secret. The primary owner account remains available through the verified owner allowlist.")}
       </p>
     </div>
-  );
-}
-
-function GrantAdminForm() {
-  const { tr } = useLanguage();
-  const grantAccess = useServerFn(grantAdminAccess);
-  const [email, setEmail] = useState("");
-  const [busy, setBusy] = useState(false);
-  const [message, setMessage] = useState("");
-
-  async function submit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setBusy(true);
-    setMessage("");
-    try {
-      const result = await grantAccess({ data: { email: email.trim().toLowerCase() } });
-      setMessage(
-        result.alreadyAdmin
-          ? `${result.email} ${tr("already has administrator access.")}`
-          : `${tr("Administrator access granted to")} ${result.email}. ${tr("They can now sign in with Google to use the admin portal.")}`,
-      );
-      setEmail("");
-    } catch (error) {
-      console.error("Could not grant administrator access", error);
-      setMessage(tr("Could not grant access. Confirm the email belongs to an existing account and try again."));
-    } finally {
-      setBusy(false);
-    }
-  }
-
-  return (
-    <form className="max-w-xl space-y-3 rounded-lg border bg-card p-5" onSubmit={submit}>
-      <div>
-        <h3 className="font-semibold">{tr("Grant admin access")}</h3>
-        <p className="mt-1 text-sm text-muted-foreground">
-          {tr("Add an existing learner account. The grant is enforced on the server and cannot be changed by the account owner.")}
-        </p>
-      </div>
-      <label className="block space-y-1.5 text-sm font-medium" htmlFor="grant-admin-email">
-        {tr("Account email")}
-        <Input
-          id="grant-admin-email"
-          type="email"
-          autoComplete="email"
-          maxLength={254}
-          required
-          disabled={busy}
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-        />
-      </label>
-      <Button type="submit" disabled={busy}>
-        {busy ? tr("Granting access…") : tr("Grant administrator access")}
-      </Button>
-      <p className="text-sm text-muted-foreground" role="status" aria-live="polite">
-        {message}
-      </p>
-    </form>
   );
 }
 
