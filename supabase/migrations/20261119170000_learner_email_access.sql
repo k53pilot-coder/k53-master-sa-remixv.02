@@ -246,6 +246,7 @@ as $function$
       from auth.users u
       where u.id = auth.uid()
         and pg_catalog.lower(pg_catalog.btrim(u.email)) = 'aiamplifysa@gmail.com'
+        and u.email_confirmed_at is not null
     ) then true
     else
       (
@@ -254,8 +255,8 @@ as $function$
         or case
           when pg_catalog.jsonb_typeof(auth.jwt() -> 'identities') = 'array' then exists (
             select 1
-            from pg_catalog.jsonb_array_elements(auth.jwt() -> 'identities') identity
-            where identity ->> 'provider' = 'google'
+            from pg_catalog.jsonb_array_elements(auth.jwt() -> 'identities') as identity_row
+            where identity_row ->> 'provider' = 'google'
           )
           else false
         end
@@ -289,7 +290,7 @@ begin
   end if;
 
   if v_email = '' or pg_catalog.length(v_email) > 254
-     or v_email !~ '^[A-Za-z0-9.!#$%&''*+/=?^_`{|}~-]+@[A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)+$' then
+     or v_email !~ '^[A-Za-z0-9.!#$%&''*+/=?^_`{|}~-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)+$' then
     raise exception 'Invalid email address' using errcode = '22023';
   end if;
 
