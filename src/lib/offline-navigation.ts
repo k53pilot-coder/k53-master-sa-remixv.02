@@ -6,7 +6,7 @@ type NavigationMatch = {
 // These routes require a live request and must never be replaced by a cached
 // or synthetic offline page. In particular, /admin must reach the server so
 // its current Supabase session can be verified.
-const LIVE_ONLY_NAVIGATION = /^\/(?:~oauth|auth|admin|reset-password)(?:\/|$)/;
+const LIVE_ONLY_NAVIGATION = /^(?:\/|\/(?:learn|signs|practice|mock-test|review|practical|dltc|auth|admin|reset-password)(?:\/|$)|\/~oauth(?:\/|$))/;
 
 export function isCacheableNavigation({ request, url }: NavigationMatch) {
   return request.mode === "navigate" && !LIVE_ONLY_NAVIGATION.test(url.pathname);
