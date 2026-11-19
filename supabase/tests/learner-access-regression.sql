@@ -58,7 +58,7 @@ set role authenticated;
 select set_config('request.jwt.claim.sub','33333333-3333-4333-8333-333333333333',false);
 select set_config('request.jwt.claims','{"sub":"33333333-3333-4333-8333-333333333333","email":"other@example.com","app_metadata":{"provider":"google","providers":["google"]},"user_metadata":{"role":"owner","roles":["admin","owner"]}}',false);
 
-do $
+do $$
 begin
   begin
     perform * from public.admin_list_learner_access('');
@@ -66,7 +66,7 @@ begin
   exception when insufficient_privilege then
     null;
   end;
-end $;
+end $$;
 do $$
 begin
   if (select count(*) from public.learner_access) <> 0 then
@@ -239,10 +239,10 @@ set role authenticated;
 select set_config('request.jwt.claim.sub','44444444-4444-4444-8444-444444444444',false);
 select set_config('request.jwt.claims','{"sub":"44444444-4444-4444-8444-444444444444","email":"admin@example.com","app_metadata":{"provider":"google","providers":["google"],"roles":["admin"]}}',false);
 select * from public.admin_add_learner_access('admin-managed@example.com');
-do $
+do $$
 begin
   if (select count(*) from public.admin_list_learner_access('admin-managed@example.com')) <> 1 then
     raise exception 'Google admin could not list learner authorisation';
   end if;
-end $;
+end $$;
 reset role;
