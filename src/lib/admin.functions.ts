@@ -23,30 +23,65 @@ const adminAccessSchema = z
 
 // Server functions do not automatically inherit the Supabase browser client's
 // local-storage session as an Authorization header. Accept the current access
-// token explicitly, then verify its signature and claims with Supabase here.
+// token explicitly, then ask Supabase Auth to validate it and return the user.
+function createSupabaseFetch(publishableKey: string): typeof fetch {
+  return (input, init) => {
+    const headers = new Headers(
+      typeof Request !== "undefined" && input instanceof Request ? input.headers : undefined,
+    );
+    if (init?.headers) {
+      new Headers(init.headers).forEach((value, key) => headers.set(key, value));
+    }
+
+    // Supabase publishable keys are opaque API keys, not JWT bearer tokens.
+    if (
+      publishableKey.startsWith("sb_publishable_") &&
+      headers.get("Authorization") === `Bearer ${publishableKey}`
+    ) {
+      headers.delete("Authorization");
+    }
+    headers.set("apikey", publishableKey);
+    return fetch(input, { ...init, headers });
+  };
+}
+
 export const getAdminAccess = createServerFn({ method: "POST" })
   .validator((input: unknown) => adminAccessSchema.parse(input))
   .handler(async ({ data }) => {
     const supabaseUrl = process.env["SUPABASE_URL"];
     const publishableKey = process.env["SUPABASE_PUBLISHABLE_KEY"];
     if (!supabaseUrl || !publishableKey) {
+      console.error("Admin verification is missing its Supabase server configuration", {
+        hasUrl: Boolean(supabaseUrl),
+        hasPublishableKey: Boolean(publishableKey),
+      });
       throw new Error("Admin access verification is not configured.");
     }
 
     const { createClient } = await import("@supabase/supabase-js");
     const verifier = createClient(supabaseUrl, publishableKey, {
+      global: { fetch: createSupabaseFetch(publishableKey) },
       auth: {
         storage: undefined,
         persistSession: false,
         autoRefreshToken: false,
       },
     });
-    const { data: verified, error } = await verifier.auth.getClaims(data.accessToken);
-    if (error || !verified?.claims) {
-      throw new Error("Your session could not be verified. Sign in again.");
+
+    // getUser(token) performs a request to Supabase Auth. Unlike locally
+    // decoding claims, this confirms the token against the project's Auth API
+    // and returns the canonical user record (including the verified email).
+    const { data: verified, error } = await verifier.auth.getUser(data.accessToken);
+    if (error || !verified?.user) {
+      console.error("Supabase rejected the admin access token", {
+        status: error?.status,
+        code: error?.code,
+        message: error?.message,
+      });
+      throw new Error("Your session could not be verified. Sign out and sign in again.");
     }
 
-    const role = getAdminRole(verified.claims);
+    const role = getAdminRole(verified.user);
     return { role };
   });
 
