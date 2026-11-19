@@ -22,9 +22,13 @@ function hasGoogleIdentity(claims: Claims): boolean {
 export function getAdminRole(claims: unknown): AdminRole | null {
   if (!claims || typeof claims !== "object") return null;
   const trusted = claims as Claims;
-  if (!hasGoogleIdentity(trusted)) return null;
   const email = typeof trusted.email === "string" ? trusted.email.trim().toLowerCase() : "";
+  // The primary owner is a fixed, verified Supabase account allowlisted by its
+  // exact email. Its original provider remains "email" after Google is linked,
+  // so requiring provider === "google" would incorrectly deny this owner.
+  // This claim comes from the server-verified Supabase JWT, never user metadata.
   if (email === ADMIN_OWNER_EMAIL) return "owner";
+  if (!hasGoogleIdentity(trusted)) return null;
   const metadata = trusted.app_metadata;
   if (!metadata || typeof metadata !== "object") return null;
   const roles = Array.isArray(metadata.roles) ? metadata.roles : [];
@@ -39,7 +43,7 @@ export function mayRequestAdminAccess(claims: unknown): boolean {
   const email = typeof trusted.email === "string" ? trusted.email.trim().toLowerCase() : "";
 
   // This controls navigation visibility only. The server independently verifies
-  // the current Google identity before granting owner access.
+  // the signed Supabase JWT and applies the same fixed owner-email allowlist.
   if (email === ADMIN_OWNER_EMAIL) return true;
   if (!hasGoogleIdentity(trusted)) return false;
   const metadata = trusted.app_metadata;

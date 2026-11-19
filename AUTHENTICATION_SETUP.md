@@ -29,7 +29,7 @@ Do not deploy the Google-only app changes until Google provider setup is complet
 Before the provider is switched off:
 
 1. The primary owner signs in with the verified Google account `aiamplifysa@gmail.com`. The forwarding address `info@aiamplifysa.com` is not the owner identity and must not be used for Google sign-in unless it is independently configured as a Google Account.
-2. The app grants owner status only to the Google-authenticated identity whose email is `aiamplifysa@gmail.com`.
+2. The app grants owner status only to the Supabase-authenticated JWT whose exact email claim is `aiamplifysa@gmail.com`. The existing owner record is email-verified and has a linked Google identity. Other administrator accounts must have a Google identity and a trusted `app_metadata` admin role.
 3. If an older Supabase user exists under `info@aiamplifysa.com`, do not assume Google will link it to `aiamplifysa@gmail.com`: Supabase identity linking requires matching verified email addresses. Check the user IDs and existing profile/quiz/test data before merging or migrating anything.
 4. Verify that the existing `profiles`, quiz-attempt, test-attempt and admin-role records still belong to the intended owner user ID. Repeat the same check for active learners before disabling email authentication.
 
