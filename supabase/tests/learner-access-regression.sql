@@ -4,7 +4,7 @@
 -- A verified fixed owner can manage learner authorisations using its JWT.
 set role authenticated;
 select set_config('request.jwt.claim.sub','11111111-1111-4111-8111-111111111111',false);
-select set_config('request.jwt.claims','{"sub":"11111111-1111-4111-8111-111111111111","email":"aiamplifysa@gmail.com","app_metadata":{"provider":"google","providers":["google"],"roles":["owner"]}}',false);
+select set_config('request.jwt.claims','{"sub":"11111111-1111-4111-8111-111111111111","email":"aiamplifysa@gmail.com","app_metadata":{"provider":"email","providers":["email"]}}',false);
 select * from public.admin_add_learner_access(' Learner@Example.com ');
 reset role;
 
@@ -48,7 +48,7 @@ reset role;
 -- A different account cannot see any of the first learner's private records.
 set role authenticated;
 select set_config('request.jwt.claim.sub','33333333-3333-4333-8333-333333333333',false);
-select set_config('request.jwt.claims','{"sub":"33333333-3333-4333-8333-333333333333","email":"other@example.com","app_metadata":{"provider":"google","providers":["google"]}}',false);
+select set_config('request.jwt.claims','{"sub":"33333333-3333-4333-8333-333333333333","email":"other@example.com","app_metadata":{"provider":"google","providers":["google"]},"user_metadata":{"role":"owner","roles":["admin","owner"]}}',false);
 do $$
 begin
   if (select count(*) from public.learner_access) <> 0 then
@@ -213,4 +213,18 @@ reset role;
 set role authenticated;
 select set_config('request.jwt.claim.sub','22222222-2222-4222-8222-222222222222',false);
 select * from public.claim_learner_access();
+reset role;
+
+-- A separately assigned Google admin can manage learner access using trusted
+-- app_metadata. An ordinary user's user_metadata role claims do not grant it.
+set role authenticated;
+select set_config('request.jwt.claim.sub','44444444-4444-4444-8444-444444444444',false);
+select set_config('request.jwt.claims','{"sub":"44444444-4444-4444-8444-444444444444","email":"admin@example.com","app_metadata":{"provider":"google","providers":["google"],"roles":["admin"]}}',false);
+select * from public.admin_add_learner_access('admin-managed@example.com');
+do $
+begin
+  if (select count(*) from public.admin_list_learner_access('admin-managed@example.com')) <> 1 then
+    raise exception 'Google admin could not list learner authorisation';
+  end if;
+end $;
 reset role;
