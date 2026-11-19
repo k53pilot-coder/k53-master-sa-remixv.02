@@ -1,6 +1,6 @@
 export type AdminRole = "owner" | "admin";
 export const ADMIN_OWNER_EMAIL = "aiamplifysa@gmail.com";
-type Claims = { email?: unknown; identities?: unknown; app_metadata?: { provider?: unknown; providers?: unknown; role?: unknown; roles?: unknown } };
+type Claims = { email?: unknown; email_verified?: unknown; identities?: unknown; app_metadata?: { provider?: unknown; providers?: unknown; role?: unknown; roles?: unknown } };
 function hasGoogleIdentity(claims: Claims): boolean {
   const metadata = claims.app_metadata;
   const providerMetadata =
@@ -22,9 +22,13 @@ function hasGoogleIdentity(claims: Claims): boolean {
 export function getAdminRole(claims: unknown): AdminRole | null {
   if (!claims || typeof claims !== "object") return null;
   const trusted = claims as Claims;
-  if (!hasGoogleIdentity(trusted)) return null;
   const email = typeof trusted.email === "string" ? trusted.email.trim().toLowerCase() : "";
-  if (email === ADMIN_OWNER_EMAIL) return "owner";
+  // The primary owner account was originally created with email auth and later
+  // linked to Google. Supabase keeps app_metadata.provider as "email" for that
+  // account even after Google OAuth succeeds. The exact allowlisted address plus
+  // Supabase-verified email claim is the stable owner proof in the signed JWT.
+  if (email === ADMIN_OWNER_EMAIL && trusted.email_verified === true) return "owner";
+  if (!hasGoogleIdentity(trusted)) return null;
   const metadata = trusted.app_metadata;
   if (!metadata || typeof metadata !== "object") return null;
   const roles = Array.isArray(metadata.roles) ? metadata.roles : [];
