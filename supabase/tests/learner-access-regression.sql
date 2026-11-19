@@ -1,13 +1,16 @@
 -- Run after learner_email_access migration in disposable CI Postgres.
 \set ON_ERROR_STOP on
 
--- Authorise and link a verified learner.
-set role service_role;
-select * from public.admin_add_learner_access(' Learner@Example.com ', '11111111-1111-4111-8111-111111111111');
+-- A verified fixed owner can manage learner authorisations using its JWT.
+set role authenticated;
+select set_config('request.jwt.claim.sub','11111111-1111-4111-8111-111111111111',false);
+select set_config('request.jwt.claims','{"sub":"11111111-1111-4111-8111-111111111111","email":"aiamplifysa@gmail.com","app_metadata":{"provider":"google","providers":["google"],"roles":["owner"]}}',false);
+select * from public.admin_add_learner_access(' Learner@Example.com ');
 reset role;
 
 set role authenticated;
 select set_config('request.jwt.claim.sub','22222222-2222-4222-8222-222222222222',false);
+select set_config('request.jwt.claims','{"sub":"22222222-2222-4222-8222-222222222222","email":"learner@example.com","app_metadata":{"provider":"google","providers":["google"]}}',false);
 select * from public.claim_learner_access();
 reset role;
 
@@ -44,6 +47,7 @@ reset role;
 -- A different account cannot see any of the first learner's private records.
 set role authenticated;
 select set_config('request.jwt.claim.sub','33333333-3333-4333-8333-333333333333',false);
+select set_config('request.jwt.claims','{"sub":"33333333-3333-4333-8333-333333333333","email":"other@example.com","app_metadata":{"provider":"google","providers":["google"]}}',false);
 do $$
 begin
   if (select count(*) from public.learner_access) <> 0 then
@@ -62,11 +66,12 @@ end $$;
 reset role;
 
 -- Disable the linked learner; profile and progress reads/writes must stop.
-set role service_role;
+set role authenticated;
+select set_config('request.jwt.claim.sub','11111111-1111-4111-8111-111111111111',false);
+select set_config('request.jwt.claims','{"sub":"11111111-1111-4111-8111-111111111111","email":"aiamplifysa@gmail.com","app_metadata":{"provider":"google","providers":["google"],"roles":["owner"]}}',false);
 select public.admin_set_learner_access_status(
   (select id from public.learner_access where email='learner@example.com'),
-  'disabled',
-  '11111111-1111-4111-8111-111111111111'
+  'disabled'
 );
 reset role;
 
@@ -161,13 +166,15 @@ begin
      or has_table_privilege('anon','public.test_attempts','TRUNCATE') then
     raise exception 'anon role retains DELETE or TRUNCATE privilege';
   end if;
-  if has_function_privilege('anon','public.admin_add_learner_access(text,uuid)','EXECUTE')
-     or has_function_privilege('authenticated','public.admin_add_learner_access(text,uuid)','EXECUTE')
+  if has_function_privilege('anon','public.admin_add_learner_access(text)','EXECUTE')
      or has_function_privilege('anon','public.admin_list_learner_access(text)','EXECUTE')
-     or has_function_privilege('authenticated','public.admin_list_learner_access(text)','EXECUTE')
-     or has_function_privilege('anon','public.admin_set_learner_access_status(uuid,text,uuid)','EXECUTE')
-     or has_function_privilege('authenticated','public.admin_set_learner_access_status(uuid,text,uuid)','EXECUTE') then
-    raise exception 'client role can execute privileged learner admin RPC';
+     or has_function_privilege('anon','public.admin_set_learner_access_status(uuid,text)','EXECUTE') then
+    raise exception 'anonymous role can execute learner admin RPC';
+  end if;
+  if not has_function_privilege('authenticated','public.admin_add_learner_access(text)','EXECUTE')
+     or not has_function_privilege('authenticated','public.admin_list_learner_access(text)','EXECUTE')
+     or not has_function_privilege('authenticated','public.admin_set_learner_access_status(uuid,text)','EXECUTE') then
+    raise exception 'authenticated role lacks expected learner admin RPC execute grants';
   end if;
   if not has_function_privilege('authenticated','public.claim_learner_access()','EXECUTE') then
     raise exception 'authenticated role cannot execute its learner-access claim RPC';
@@ -178,15 +185,26 @@ end $$;
 set role authenticated;
 select set_config('request.jwt.claim.sub','33333333-3333-4333-8333-333333333333',false);
 select * from public.claim_learner_access();
+-- Ordinary learner cannot invoke administrator RPCs, even though EXECUTE is granted.
+do $
+begin
+  begin
+    perform * from public.admin_list_learner_access('');
+    raise exception 'ordinary learner unexpectedly listed learner authorisations';
+  exception when insufficient_privilege then
+    null;
+  end;
+end $;
 reset role;
 
 -- Restore leaves the immutable user binding intact. A different UUID still
 -- cannot take the now-active email authorisation.
-set role service_role;
+set role authenticated;
+select set_config('request.jwt.claim.sub','11111111-1111-4111-8111-111111111111',false);
+select set_config('request.jwt.claims','{"sub":"11111111-1111-4111-8111-111111111111","email":"aiamplifysa@gmail.com","app_metadata":{"provider":"google","providers":["google"],"roles":["owner"]}}',false);
 select public.admin_set_learner_access_status(
   (select id from public.learner_access where email='learner@example.com'),
-  'active',
-  '11111111-1111-4111-8111-111111111111'
+  'active'
 );
 reset role;
 set role authenticated;
