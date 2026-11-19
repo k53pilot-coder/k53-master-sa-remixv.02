@@ -9,12 +9,9 @@ describe("offline navigation handling", () => {
     },
   );
 
-  it.each(["/about"])(
-    "keeps public informational route %s eligible for offline caching",
-    (pathname) => {
-      expect(isCacheableNavigation({ request: { mode: "navigate" }, url: { pathname } })).toBe(true);
-    },
-  );
+  it("keeps public informational routes eligible for offline caching", () => {
+    expect(isCacheableNavigation({ request: { mode: "navigate" }, url: { pathname: "/about" } })).toBe(true);
+  });
 
   it("does not treat asset or data requests as navigation requests", () => {
     expect(isCacheableNavigation({ request: { mode: "cors" }, url: { pathname: "/practice" } })).toBe(false);
