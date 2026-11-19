@@ -11,18 +11,8 @@ async function getAdminClient() {
 export const getLearnerAccessStatus = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    const { data, error } = await context.supabase.auth.getUser(context.accessToken);
-    if (error || !data.user || data.user.id !== context.userId) {
-      throw new Error("Unauthorized: could not verify learner identity");
-    }
-    const email = data.user.email?.trim().toLowerCase();
-    if (!email || !data.user.email_confirmed_at) {
-      return { status: "unverified" as const };
-    }
-    const admin = await getAdminClient();
-    const { data: claim, error: claimError } = await admin.rpc(
+    const { data: claim, error: claimError } = await context.supabase.rpc(
       "claim_learner_access",
-      { p_user_id: data.user.id, p_email: email },
     );
     if (claimError) {
       console.error("Could not resolve learner access status", claimError);
@@ -30,9 +20,11 @@ export const getLearnerAccessStatus = createServerFn({ method: "GET" })
     }
     const status = claim?.[0]?.access_status ?? "pending";
     return {
-      status: status === "active" || status === "disabled" ? status : "pending",
+      status: status === "active" || status === "disabled" || status === "unverified"
+        ? status
+        : "pending",
     };
-  });
+  });;
 
 const addSchema = z.object({ email: z.string().trim().email().max(254) }).strict();
 export const addLearnerAccess = createServerFn({ method: "POST" })
