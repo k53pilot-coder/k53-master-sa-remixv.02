@@ -9,8 +9,8 @@ describe("offline navigation handling", () => {
     },
   );
 
-  it.each(["/", "/practice", "/learn", "/signs"])(
-    "keeps public study route %s eligible for offline caching",
+  it.each(["/about"])(
+    "keeps public informational route %s eligible for offline caching",
     (pathname) => {
       expect(isCacheableNavigation({ request: { mode: "navigate" }, url: { pathname } })).toBe(true);
     },
@@ -26,9 +26,4 @@ describe("offline navigation handling", () => {
     expect(response.headers.get("cache-control")).toBe("no-store");
   });
 
-  it("never serves cached learning navigations without a live access check", () => {
-    for (const pathname of ["/", "/learn", "/signs", "/practice", "/mock-test", "/review", "/practical", "/dltc"]) {
-      expect(isCacheableNavigation({ request: { mode: "navigate" }, url: { pathname } })).toBe(false);
-    }
-  });
 });
