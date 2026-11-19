@@ -226,12 +226,53 @@ grant select, insert on table public.question_attempts to authenticated;
 grant select, insert on table public.test_attempts to authenticated;
 
 
--- Administrative operations are deliberately RPC-only. They are callable by
--- service_role from server functions, never by anon/authenticated clients.
-create or replace function public.admin_add_learner_access(
-  p_email text,
-  p_actor uuid
-)
+-- Administrative functions use the caller's signed Supabase JWT. The private
+-- helper mirrors src/lib/admin-role.ts: fixed owner email, or Google identity
+-- plus an admin/owner role in trusted app_metadata. User metadata is never used.
+create schema if not exists private;
+revoke all on schema private from public, anon, authenticated;
+
+create or replace function private.is_current_user_k53_admin()
+returns boolean
+language sql
+stable
+security definer
+set search_path = ''
+as $function$
+  select case
+    when auth.uid() is null then false
+    when exists (
+      select 1
+      from auth.users u
+      where u.id = auth.uid()
+        and pg_catalog.lower(pg_catalog.btrim(u.email)) = 'aiamplifysa@gmail.com'
+    ) then true
+    else
+      (
+        coalesce(auth.jwt() -> 'app_metadata' ->> 'provider', '') = 'google'
+        or coalesce(auth.jwt() -> 'app_metadata' -> 'providers', '[]'::jsonb) ? 'google'
+        or case
+          when pg_catalog.jsonb_typeof(auth.jwt() -> 'identities') = 'array' then exists (
+            select 1
+            from pg_catalog.jsonb_array_elements(auth.jwt() -> 'identities') identity
+            where identity ->> 'provider' = 'google'
+          )
+          else false
+        end
+      )
+      and
+      (
+        coalesce(auth.jwt() -> 'app_metadata' ->> 'role', '') in ('admin', 'owner')
+        or coalesce(auth.jwt() -> 'app_metadata' -> 'roles', '[]'::jsonb) ?| array['admin', 'owner']
+      )
+  end;
+$function$;
+
+revoke all on function private.is_current_user_k53_admin() from public, anon, authenticated;
+
+-- Administrative operations are RPC-only. They verify authorization inside
+-- the database as well as through the server's requireAdmin middleware.
+create or replace function public.admin_add_learner_access(p_email text)
 returns table (record_id uuid, result_status text)
 language plpgsql
 security definer
@@ -241,14 +282,19 @@ declare
   v_email text := pg_catalog.lower(pg_catalog.btrim(p_email));
   v_id uuid;
   v_status text;
+  v_actor uuid := auth.uid();
 begin
+  if not private.is_current_user_k53_admin() then
+    raise exception 'Forbidden: Admin access is required' using errcode = '42501';
+  end if;
+
   if v_email = '' or pg_catalog.length(v_email) > 254
-     or v_email !~ '^[A-Za-z0-9.!#$%&''*+/=?^_`{|}~-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)+$' then
+     or v_email !~ '^[A-Za-z0-9.!#$%&''*+/=?^_`{|}~-]+@[A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)+$' then
     raise exception 'Invalid email address' using errcode = '22023';
   end if;
 
   insert into public.learner_access(email, status, created_by, updated_by)
-  values (v_email, 'active', p_actor, p_actor)
+  values (v_email, 'active', v_actor, v_actor)
   on conflict (email) do nothing
   returning id into v_id;
 
@@ -257,8 +303,6 @@ begin
     return;
   end if;
 
-  -- A concurrent request may have inserted the email first. Read the
-  -- committed record and return its current status instead of failing.
   select id, status into v_id, v_status
     from public.learner_access
     where email = v_email;
@@ -277,24 +321,29 @@ returns table (
   created_at timestamptz,
   updated_at timestamptz
 )
-language sql
+language plpgsql
 security definer
 set search_path = ''
-stable
 as $function$
-  select la.id, la.email, la.user_id, la.status, la.created_at, la.updated_at
-  from public.learner_access la
-  where p_search is null
-     or p_search = ''
-     or la.email like '%' || pg_catalog.lower(pg_catalog.btrim(p_search)) || '%'
-  order by la.created_at desc
-  limit 500;
+begin
+  if not private.is_current_user_k53_admin() then
+    raise exception 'Forbidden: Admin access is required' using errcode = '42501';
+  end if;
+
+  return query
+    select la.id, la.email, la.user_id, la.status, la.created_at, la.updated_at
+    from public.learner_access la
+    where p_search is null
+       or p_search = ''
+       or la.email like '%' || pg_catalog.lower(pg_catalog.btrim(p_search)) || '%'
+    order by la.created_at desc
+    limit 500;
+end;
 $function$;
 
 create or replace function public.admin_set_learner_access_status(
   p_id uuid,
-  p_status text,
-  p_actor uuid
+  p_status text
 )
 returns boolean
 language plpgsql
@@ -302,13 +351,17 @@ security definer
 set search_path = ''
 as $function$
 begin
+  if not private.is_current_user_k53_admin() then
+    raise exception 'Forbidden: Admin access is required' using errcode = '42501';
+  end if;
+
   if p_status not in ('active', 'disabled') then
     raise exception 'Invalid learner access status' using errcode = '22023';
   end if;
 
   update public.learner_access
      set status = p_status,
-         updated_by = p_actor,
+         updated_by = auth.uid(),
          updated_at = pg_catalog.now()
    where id = p_id;
 
@@ -316,9 +369,9 @@ begin
 end;
 $function$;
 
-revoke all on function public.admin_add_learner_access(text, uuid) from public, anon, authenticated;
+revoke all on function public.admin_add_learner_access(text) from public, anon, authenticated;
 revoke all on function public.admin_list_learner_access(text) from public, anon, authenticated;
-revoke all on function public.admin_set_learner_access_status(uuid, text, uuid) from public, anon, authenticated;
-grant execute on function public.admin_add_learner_access(text, uuid) to service_role;
-grant execute on function public.admin_list_learner_access(text) to service_role;
-grant execute on function public.admin_set_learner_access_status(uuid, text, uuid) to service_role;
+revoke all on function public.admin_set_learner_access_status(uuid, text) from public, anon, authenticated;
+grant execute on function public.admin_add_learner_access(text) to authenticated;
+grant execute on function public.admin_list_learner_access(text) to authenticated;
+grant execute on function public.admin_set_learner_access_status(uuid, text) to authenticated;
