@@ -14,7 +14,8 @@ concurrency:
 
 jobs:
   browser-smoke:
-    runs-on: ubuntu-latest
+    # Playwright 1.58.x does not support Chromium dependency installation on Ubuntu 26.04.
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
