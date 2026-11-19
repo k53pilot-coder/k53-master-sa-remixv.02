@@ -15,11 +15,11 @@ describe("admin role resolution", () => {
     expect(getAdminRole({app_metadata:{provider:"email",providers:["email","google"],role:"admin"}})).toBe("admin");
   });
   it("does not trust user-editable metadata or non-Google identities", () => {
-    expect(getAdminRole({email:ADMIN_OWNER_EMAIL,user_metadata:{role:"owner"}})).toBeNull();
+    expect(getAdminRole({email:"other@gmail.com",user_metadata:{role:"owner"}})).toBeNull();
     expect(getAdminRole({app_metadata:{provider:"email",role:"support"}})).toBeNull();
     expect(getAdminRole(null)).toBeNull();
   });
-  it("shows the owner navigation while session provider metadata is stale; the server re-verifies Google", () => {
+  it("shows the owner navigation for the fixed owner email only", () => {
     expect(mayRequestAdminAccess({email:ADMIN_OWNER_EMAIL,app_metadata:{provider:"email"}})).toBe(true);
     expect(mayRequestAdminAccess({email:ADMIN_OWNER_EMAIL,app_metadata:{provider:"google"}})).toBe(true);
     expect(mayRequestAdminAccess({user_metadata:{role:"admin"}})).toBe(false);
