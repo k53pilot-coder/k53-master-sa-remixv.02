@@ -8,6 +8,14 @@ select set_config('request.jwt.claims','{"sub":"11111111-1111-4111-8111-11111111
 select * from public.admin_add_learner_access(' Learner@Example.com ');
 reset role;
 
+-- A separately assigned Google administrator can manage learner access.
+set role authenticated;
+select set_config('request.jwt.claim.sub','44444444-4444-4444-8444-444444444444',false);
+select set_config('request.jwt.claims','{"sub":"44444444-4444-4444-8444-444444444444","email":"admin@example.com","app_metadata":{"provider":"google","providers":["google"],"roles":["admin"]}}',false);
+select * from public.admin_add_learner_access('admin-managed@example.com');
+select * from public.admin_list_learner_access('admin-managed@example.com');
+reset role;
+
 set role authenticated;
 select set_config('request.jwt.claim.sub','22222222-2222-4222-8222-222222222222',false);
 select set_config('request.jwt.claims','{"sub":"22222222-2222-4222-8222-222222222222","email":"learner@example.com","app_metadata":{"provider":"google","providers":["google"]}}',false);
@@ -49,6 +57,16 @@ reset role;
 set role authenticated;
 select set_config('request.jwt.claim.sub','33333333-3333-4333-8333-333333333333',false);
 select set_config('request.jwt.claims','{"sub":"33333333-3333-4333-8333-333333333333","email":"other@example.com","app_metadata":{"provider":"google","providers":["google"]},"user_metadata":{"role":"owner","roles":["admin","owner"]}}',false);
+
+do $
+begin
+  begin
+    perform * from public.admin_list_learner_access('');
+    raise exception 'user_metadata role spoof unexpectedly granted admin access';
+  exception when insufficient_privilege then
+    null;
+  end;
+end $;
 do $$
 begin
   if (select count(*) from public.learner_access) <> 0 then
