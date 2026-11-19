@@ -72,9 +72,9 @@ function AdminPage() {
 
         // Always take the latest persisted session, not the user snapshot captured
         // by StudyProvider. A tab can remain open while the access token rotates.
-        let { data, error } = await supabase.auth.getSession();
-        if (error) throw error;
-        let session = data.session;
+        const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+        if (sessionError) throw sessionError;
+        let session = sessionData.session;
         if (!session) {
           if (active) setAccess({ status: "unavailable" });
           return;
