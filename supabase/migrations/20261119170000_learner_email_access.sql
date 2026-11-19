@@ -53,6 +53,7 @@ declare
   v_user_id uuid := auth.uid();
   v_email text;
   v_email_confirmed_at timestamptz;
+  v_app_metadata jsonb;
   v_access public.learner_access%rowtype;
 begin
   if v_user_id is null then
@@ -61,13 +62,25 @@ begin
 
   -- Resolve identity from the Supabase Auth catalogue, not from client input
   -- or user-editable metadata. A verified email is mandatory.
-  select u.email, u.email_confirmed_at
-    into v_email, v_email_confirmed_at
+  select u.email, u.email_confirmed_at, u.raw_app_meta_data
+    into v_email, v_email_confirmed_at, v_app_metadata
     from auth.users u
     where u.id = v_user_id;
 
   if not found or v_email is null or v_email_confirmed_at is null then
     return query select 'unverified'::text;
+    return;
+  end if;
+
+  -- A verified email/password identity alone is not sufficient. Require a
+  -- Google identity recorded by GoTrue in trusted app_metadata. A linked
+  -- account remains eligible when Google appears in its providers array.
+  if not coalesce(
+    (v_app_metadata ->> 'provider') = 'google'
+    or (v_app_metadata -> 'providers') ? 'google',
+    false
+  ) then
+    return query select 'google_required'::text;
     return;
   end if;
 
