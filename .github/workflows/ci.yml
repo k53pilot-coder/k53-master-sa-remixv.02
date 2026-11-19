@@ -82,7 +82,17 @@ jobs:
       - name: Start disposable local Supabase Auth and Data API
         run: supabase start -x realtime,storage-api,imgproxy,studio,edge-runtime,logflare,vector,supavisor,postgres-meta
       - name: Export local Supabase connection details
-        run: supabase status -o env >> "$GITHUB_ENV"
+        shell: bash
+        run: |
+          set -a
+          eval "$(supabase status -o env)"
+          set +a
+          {
+            echo "API_URL=$API_URL"
+            echo "DB_URL=$DB_URL"
+            echo "ANON_KEY=$ANON_KEY"
+            echo "SERVICE_ROLE_KEY=$SERVICE_ROLE_KEY"
+          } >> "$GITHUB_ENV"
       - name: Install PostgreSQL client
         run: |
           sudo apt-get update
