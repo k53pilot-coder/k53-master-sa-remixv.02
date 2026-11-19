@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-const baseURL = process.env.K53_PRODUCTION_URL ?? "https://k53.aiamplifysa.com";
+const baseURL = process.env.K53_BASE_URL ?? "http://127.0.0.1:4173";
 
 async function openReadyPage(page, path = "/") {
   const response = await page.goto(new URL(path, baseURL).toString(), { waitUntil: "domcontentloaded" });
@@ -8,12 +8,12 @@ async function openReadyPage(page, path = "/") {
   try {
     await expect(content).toBeVisible({ timeout: 30_000 });
   } catch (error) {
-    console.error("Production page did not render the app shell:", JSON.stringify({
+    console.error("Built Worker page did not render the app shell:", JSON.stringify({
       path,
       status: response?.status(),
       finalUrl: page.url(),
-      title: await page.title(),
-      body: (await page.locator("body").innerText().catch(() => "")).slice(0, 1200),
+      title: await page.title().catch(() => "<page closed>"),
+      body: (await page.locator("body").innerText().catch(() => "<page unavailable>")).slice(0, 1200),
     }));
     throw error;
   }
@@ -22,7 +22,7 @@ async function openReadyPage(page, path = "/") {
   await expect(content.locator(".cloud-warning")).toHaveCount(0);
 }
 
-test.describe("K53 Master SA production browser smoke tests", () => {
+test.describe("K53 Master SA built Worker browser smoke tests", () => {
   test("public navigation routes hydrate and render", async ({ page }) => {
     const pageErrors = [];
     page.on("pageerror", (error) => pageErrors.push(error.message));
@@ -53,7 +53,7 @@ test.describe("K53 Master SA production browser smoke tests", () => {
     expect(pageErrors, "uncaught browser runtime errors").toEqual([]);
   });
 
-  test("Google sign-in CTA starts the configured production OAuth flow", async ({ page }) => {
+  test("Google sign-in CTA starts the configured canonical OAuth flow", async ({ page }) => {
     const pageErrors = [];
     page.on("pageerror", (error) => pageErrors.push(error.message));
 
