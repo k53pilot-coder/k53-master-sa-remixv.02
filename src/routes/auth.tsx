@@ -1,5 +1,6 @@
 import { createFileRoute, useNavigate, useRouter } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import { useQueryClient } from "@tanstack/react-query";
 import { CloudCheck, LogOut, UserRound } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -8,6 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useStudy } from "@/components/study-provider";
 import { pageHead } from "@/lib/metadata";
 import { useLanguage } from "@/components/language-provider";
+import { getLearnerAccessStatus } from "@/lib/learner-access.functions";
 
 const PRODUCTION_AUTH_URL = "https://k53.aiamplifysa.com/auth";
 const CLOUDFLARE_PREVIEW_HOST_SUFFIX = "-k53-master-sa-remixv-02.aiamplifysa.workers.dev";
@@ -61,6 +63,22 @@ export function Auth() {
   const [display, setDisplay] = useState("");
   const [message, setMessage] = useState("");
   const [busy, setBusy] = useState(false);
+  const checkAccess = useServerFn(getLearnerAccessStatus);
+  const [accessStatus, setAccessStatus] = useState<"checking" | "active" | "pending" | "disabled" | "unverified" | "error">("checking");
+  useEffect(() => {
+    if (!user) {
+      setAccessStatus("checking");
+      return;
+    }
+    let current = true;
+    void checkAccess().then((result) => {
+      if (current) setAccessStatus(result.status);
+    }).catch((error: unknown) => {
+      console.error("Could not verify learner access on account page", error);
+      if (current) setAccessStatus("error");
+    });
+    return () => { current = false; };
+  }, [checkAccess, user?.id]);
 
   async function signInWithGoogle() {
     setBusy(true);
@@ -126,7 +144,7 @@ export function Auth() {
           >
             {tr("Save profile")}
           </Button>
-          <Button variant="outline" onClick={() => void refresh()}>
+          <Button variant="outline" disabled={accessStatus !== "active"} onClick={() => void refresh()}>
             <CloudCheck aria-hidden="true" />
             {tr("Sync progress")}
           </Button>
@@ -166,7 +184,7 @@ export function Auth() {
           <span className="eyebrow">{tr("TAKE YOUR PROGRESS WITH YOU")}</span>
           <h1>{tr("Welcome to your learning space.")}</h1>
           <p>
-            {tr("Use a Google account to create your learner account or sign in to sync progress. You can study without an account.")}
+            {tr("Sign in with the Google email address that an administrator has pre-authorised. All learning features require an active learner authorisation.")}
           </p>
         </div>
       </div>
@@ -180,7 +198,7 @@ export function Auth() {
           {busy ? tr("Please wait…") : tr("Continue with Google")}
         </Button>
         <p className="text-sm text-muted-foreground">
-          {tr("First-time sign-ins create your learner account automatically.")}
+          {tr("Your account is created automatically on first Google sign-in. Learning access activates when your verified email matches an active authorisation.")}
         </p>
         <p className="text-xs text-muted-foreground">
           {tr("Your account's email verification is handled by Google.")}
