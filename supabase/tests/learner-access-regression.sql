@@ -18,7 +18,7 @@ reset role;
 set role authenticated;
 select set_config('request.jwt.claim.sub','22222222-2222-4222-8222-222222222222',false);
 select set_config('request.jwt.claims','{"sub":"22222222-2222-4222-8222-222222222222","email":"learner@example.com","app_metadata":{"provider":"google","providers":["google"]}}',false);
-do $
+do $$
 begin
   if (select count(*) from public.learner_access) <> 1 then
     raise exception 'learner should see exactly their own access record';
@@ -79,7 +79,7 @@ reset role;
 set role authenticated;
 select set_config('request.jwt.claim.sub','22222222-2222-4222-8222-222222222222',false);
 select set_config('request.jwt.claims','{"sub":"22222222-2222-4222-8222-222222222222","email":"learner@example.com","app_metadata":{"provider":"google","providers":["google"]}}',false);
-do $
+do $$
 begin
   if (select count(*) from public.profiles) <> 0 then
     raise exception 'disabled learner can still read profile';
