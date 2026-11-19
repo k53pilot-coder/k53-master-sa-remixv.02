@@ -25,4 +25,10 @@ describe("offline navigation handling", () => {
     expect(response.status).toBe(503);
     expect(response.headers.get("cache-control")).toBe("no-store");
   });
+
+  it("never serves cached learning navigations without a live access check", () => {
+    for (const pathname of ["/", "/learn", "/signs", "/practice", "/mock-test", "/review", "/practical", "/dltc"]) {
+      expect(isCacheableNavigation({ request: { mode: "navigate" }, url: { pathname } })).toBe(false);
+    }
+  });
 });
