@@ -12,21 +12,8 @@ export type LearnerAccessStatus = "active" | "pending" | "disabled";
 export const requireLearnerAccess = createMiddleware({ type: "function" })
   .middleware([requireSupabaseAuth])
   .server(async ({ context, next }) => {
-    const { data, error } = await context.supabase.auth.getUser(context.accessToken);
-    if (error || !data.user || data.user.id !== context.userId) {
-      throw new Error("Unauthorized: could not verify learner identity");
-    }
-
-    const email = data.user.email?.trim().toLowerCase();
-    if (!email || !data.user.email_confirmed_at) {
-      throw new Error("Forbidden: a verified email address is required");
-    }
-
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const admin = supabaseAdmin as unknown as SupabaseClient;
-    const { data: claim, error: claimError } = await admin.rpc(
+    const { data: claim, error: claimError } = await context.supabase.rpc(
       "claim_learner_access",
-      { p_user_id: data.user.id, p_email: email },
     );
 
     if (claimError) {
