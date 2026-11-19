@@ -14,7 +14,7 @@ export const getLearnerAccessStatus = createServerFn({ method: "GET" })
     }
     const status = claim?.[0]?.access_status ?? "pending";
     return {
-      status: status === "active" || status === "disabled" || status === "unverified"
+      status: status === "active" || status === "disabled" || status === "unverified" || status === "google_required"
         ? status
         : "pending",
     };
