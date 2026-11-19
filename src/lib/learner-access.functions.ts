@@ -24,7 +24,7 @@ export const getLearnerAccessStatus = createServerFn({ method: "GET" })
         ? status
         : "pending",
     };
-  });;
+  });
 
 const addSchema = z.object({ email: z.string().trim().email().max(254) }).strict();
 export const addLearnerAccess = createServerFn({ method: "POST" })
