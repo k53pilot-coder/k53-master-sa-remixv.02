@@ -1,6 +1,8 @@
 import { createMiddleware } from "@tanstack/react-start";
+import type { SupabaseClient } from "@supabase/supabase-js";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
+const admin = supabaseAdmin as unknown as SupabaseClient;
 
 export type LearnerAccessStatus = "active" | "pending" | "disabled";
 
@@ -22,7 +24,7 @@ export const requireLearnerAccess = createMiddleware({ type: "function" })
       throw new Error("Forbidden: a verified email address is required");
     }
 
-    const { data: claim, error: claimError } = await supabaseAdmin.rpc(
+    const { data: claim, error: claimError } = await admin.rpc(
       "claim_learner_access",
       { p_user_id: data.user.id, p_email: email },
     );
