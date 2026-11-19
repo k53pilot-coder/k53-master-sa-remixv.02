@@ -4,9 +4,7 @@ import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { requireAdmin } from "@/lib/admin.functions";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
-import type { Database } from "@/integrations/supabase/types";
-
-const admin = supabaseAdmin as unknown as SupabaseClient<Database>;
+const admin = supabaseAdmin as unknown as SupabaseClient;
 
 export const getLearnerAccessStatus = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
