@@ -19,54 +19,28 @@ export const requireAdmin = createMiddleware({ type: "function" })
 const adminAccessSchema = z
   .object({
     accessToken: z.string().min(1).max(8192),
+    // This is the public Supabase publishable key already used by the browser.
+    // It is not an authorization credential; the user JWT remains the sole proof of identity.
+    publishableKey: z.string().startsWith("sb_publishable_").max(256),
   })
   .strict();
 
-// Server functions do not automatically inherit the Supabase browser client's
-// local-storage session as an Authorization header. Accept the current access
-// token explicitly, then ask Supabase Auth to validate it and return the user.
-function createSupabaseFetch(publishableKey: string): typeof fetch {
-  return (input, init) => {
-    const headers = new Headers(
-      typeof Request !== "undefined" && input instanceof Request ? input.headers : undefined,
-    );
-    if (init?.headers) {
-      new Headers(init.headers).forEach((value, key) => headers.set(key, value));
-    }
+const K53_SUPABASE_URL = "https://qfolceulguweezxjvvjt.supabase.co";
 
-    // Supabase publishable keys are opaque API keys, not JWT bearer tokens.
-    if (
-      publishableKey.startsWith("sb_publishable_") &&
-      headers.get("Authorization") === `Bearer ${publishableKey}`
-    ) {
-      headers.delete("Authorization");
-    }
-    headers.set("apikey", publishableKey);
-    return fetch(input, { ...init, headers });
-  };
-}
-
+// Use the same public project key as the browser client and pin verification to
+// this application's canonical Supabase project. This avoids a split-brain
+// configuration where the browser signs in to one project while the Worker
+// verifies the same JWT against a different SUPABASE_URL or publishable key.
 export const getAdminAccess = createServerFn({ method: "POST" })
   .validator((input: unknown) => adminAccessSchema.parse(input))
   .handler(async ({ data }) => {
-    const supabaseUrl = process.env["SUPABASE_URL"];
-    const publishableKey = process.env["SUPABASE_PUBLISHABLE_KEY"];
-    if (!supabaseUrl || !publishableKey) {
-      console.error("Admin verification is missing its Supabase server configuration", {
-        hasUrl: Boolean(supabaseUrl),
-        hasPublishableKey: Boolean(publishableKey),
-      });
-      throw new Error("Admin access verification is not configured.");
-    }
-
     try {
       const result = await verifyAdminAccess({
-        supabaseUrl,
-        publishableKey,
+        supabaseUrl: K53_SUPABASE_URL,
+        publishableKey: data.publishableKey,
         accessToken: data.accessToken,
-        fetcher: createSupabaseFetch(publishableKey),
       });
-      return { role: result.role };
+      return { role: result.role, userId: result.userId };
     } catch (error: unknown) {
       const status =
         error && typeof error === "object" && "status" in error &&

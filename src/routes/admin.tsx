@@ -65,17 +65,45 @@ function AdminPage() {
     let active = true;
     void (async () => {
       try {
-        const { data, error } = await supabase.auth.getSession();
-        if (error) throw error;
-        const accessToken = data.session?.access_token;
-        if (!accessToken) {
+        const publishableKey = import.meta.env["VITE_SUPABASE_PUBLISHABLE_KEY"];
+        if (!publishableKey?.startsWith("sb_publishable_")) {
+          throw new Error("The browser Supabase publishable key is missing from this deployment.");
+        }
+
+        // Always take the latest persisted session, not the user snapshot captured
+        // by StudyProvider. A tab can remain open while the access token rotates.
+        const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+        if (sessionError) throw sessionError;
+        let session = sessionData.session;
+        if (!session) {
           if (active) setAccess({ status: "unavailable" });
           return;
         }
 
-        const { role } = await checkAdminAccess({ data: { accessToken } });
+        const verify = (accessToken: string) =>
+          checkAdminAccess({ data: { accessToken, publishableKey } });
+        let verified;
+        try {
+          verified = await verify(session.access_token);
+        } catch (firstError) {
+          const status =
+            firstError && typeof firstError === "object" && "status" in firstError &&
+            typeof firstError.status === "number" ? firstError.status : undefined;
+          // Refresh only on authentication rejection. Do not retry network,
+          // configuration, or authorization failures.
+          if (status !== 401 && status !== 403) throw firstError;
+          const refreshed = await supabase.auth.refreshSession();
+          if (refreshed.error) throw refreshed.error;
+          session = refreshed.data.session;
+          if (!session) throw firstError;
+          verified = await verify(session.access_token);
+        }
+
+        if (verified.userId !== userId) {
+          throw new Error("The verified session does not match the signed-in learner account. Refresh the page and sign in again.");
+        }
         if (active) {
-          setAccess(isAdmin(role) ? { status: "ready", role } : { status: "denied" });
+          setAccess(isAdmin(verified.role) ? { status: "ready", role: verified.role } : { status: "denied" });
         }
       } catch (error: unknown) {
         console.error("Could not verify admin access", error);
