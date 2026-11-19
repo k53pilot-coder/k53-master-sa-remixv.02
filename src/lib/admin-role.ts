@@ -43,7 +43,7 @@ export function mayRequestAdminAccess(claims: unknown): boolean {
   const email = typeof trusted.email === "string" ? trusted.email.trim().toLowerCase() : "";
 
   // This controls navigation visibility only. The server independently verifies
-  // the current Google identity before granting owner access.
+  // the signed Supabase JWT and applies the same fixed owner-email allowlist.
   if (email === ADMIN_OWNER_EMAIL) return true;
   if (!hasGoogleIdentity(trusted)) return false;
   const metadata = trusted.app_metadata;
