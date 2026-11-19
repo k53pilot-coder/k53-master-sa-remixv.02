@@ -20,7 +20,11 @@ import { useLanguage } from "@/components/language-provider";
 import { supabase } from "@/integrations/supabase/client";
 
 type AdminAccess =
-  { status: "checking" } | { status: "ready"; role: "owner" | "admin" } | { status: "unavailable" };
+  | { status: "checking" }
+  | { status: "ready"; role: "owner" | "admin" }
+  | { status: "denied" }
+  | { status: "error"; message: string }
+  | { status: "unavailable" };
 
 const sections = [
   { id: "overview", label: "Overview", icon: Activity },
@@ -71,11 +75,14 @@ function AdminPage() {
 
         const { role } = await checkAdminAccess({ data: { accessToken } });
         if (active) {
-          setAccess(isAdmin(role) ? { status: "ready", role } : { status: "unavailable" });
+          setAccess(isAdmin(role) ? { status: "ready", role } : { status: "denied" });
         }
       } catch (error: unknown) {
         console.error("Could not verify admin access", error);
-        if (active) setAccess({ status: "unavailable" });
+        if (active) {
+          const message = error instanceof Error ? error.message : "Unknown admin verification error.";
+          setAccess({ status: "error", message });
+        }
       }
     })();
 
@@ -103,9 +110,13 @@ function AdminPage() {
               {tr("Admin access")}
             </h1>
             <p className="max-w-prose text-muted-foreground">
-              {user
-                ? tr("Your Google account does not have administrator access. Ask the owner to grant access to this account.")
-                : tr("Sign in with Google to access administration. Only the owner account and accounts granted an admin role can enter.")}
+              {access.status === "error"
+                ? tr("Admin verification failed: ") + access.message
+                : access.status === "denied"
+                  ? tr("This signed-in account is verified but is not on the administrator allowlist.")
+                  : user
+                    ? tr("Your session is not available. Sign in again to access administration.")
+                    : tr("Sign in with Google to access administration. Only the owner account and accounts granted an admin role can enter.")}
             </p>
             {user ? <p className="text-sm text-muted-foreground">{user.email}</p> : null}
             <Button asChild variant="outline">
