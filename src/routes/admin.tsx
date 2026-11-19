@@ -17,6 +17,7 @@ import { getAdminAccess } from "@/lib/admin.functions";
 import { pageHead } from "@/lib/metadata";
 import { useStudy } from "@/components/study-provider";
 import { useLanguage } from "@/components/language-provider";
+import { supabase } from "@/integrations/supabase/client";
 
 type AdminAccess =
   { status: "checking" } | { status: "ready"; role: "owner" | "admin" } | { status: "unavailable" };
@@ -58,16 +59,25 @@ function AdminPage() {
     }
 
     let active = true;
-    void checkAdminAccess()
-      .then(({ role }) => {
+    void (async () => {
+      try {
+        const { data, error } = await supabase.auth.getSession();
+        if (error) throw error;
+        const accessToken = data.session?.access_token;
+        if (!accessToken) {
+          if (active) setAccess({ status: "unavailable" });
+          return;
+        }
+
+        const { role } = await checkAdminAccess({ data: { accessToken } });
         if (active) {
           setAccess(isAdmin(role) ? { status: "ready", role } : { status: "unavailable" });
         }
-      })
-      .catch((error: unknown) => {
+      } catch (error: unknown) {
         console.error("Could not verify admin access", error);
         if (active) setAccess({ status: "unavailable" });
-      });
+      }
+    })();
 
     return () => {
       active = false;
