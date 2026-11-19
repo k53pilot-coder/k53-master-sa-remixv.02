@@ -43,6 +43,7 @@ Table privileges and RLS:
 - Add a restrictive active-learner condition to each existing learner-data table's RLS so it is ANDed with existing permissive owner policies. The current learner tables are profiles, question_attempts, and test_attempts. Verify policy composition in the development database before release.
 - Revoke the known unnecessary DELETE and TRUNCATE privileges on the learner tables without removing required SELECT, INSERT, or profile UPDATE functionality. RLS does not protect against TRUNCATE.
 - Explicitly revoke unintended table grants on the new table. Investigate default ACL ownership and role semantics before changing any schema-wide default privileges; do not apply a blanket default-privilege change.
+- Important current-platform requirement: Supabase's October 30, 2026 rollout stopped automatically exposing newly created public tables through the Data API. The migration must explicitly grant the exact roles/privileges needed. For the proposed pattern, give authenticated users SELECT only (so RLS can show their own linked status row and the learner-data policies can test active status), give service_role only the SELECT/INSERT/UPDATE privileges used by server-side administration, and give anon no access. Explicitly grant function execution only to service_role for a service-only claim RPC; revoke default PUBLIC/anon/authenticated execution. Verify PostgREST permissions on the development branch before app tests. Do not copy broad legacy default ACLs onto the new table.
 
 ### Server functions
 
@@ -77,6 +78,7 @@ For this feature:
 - Keep existing local data untouched during the access migration; any guest-progress import must be a separate, explicit user-consented action.
 - A browser already offline cannot learn that an administrator has disabled an account. V1 should verify access on an online app entry and on every protected server operation; an already-open authorised session may continue using cached content locally until it reconnects. The next online check/sync must enforce disabled status. This limitation must be stated in release notes.
 - The question bank is currently included in the client application bundle. UI and API gating controls normal app use but does not make bundled static question content confidential or prevent extraction. If content secrecy is a requirement, protected server-side content delivery is a separate phase.
+- The PWA currently caches same-origin navigations through a NetworkFirst runtime cache, excluding only OAuth/auth/admin/reset-password routes. Protected learning navigations must be reviewed explicitly. The V1 decision must be documented: either require an online access check before entering learning routes (which means no offline learning while disconnected), or accept that a previously authorised signed-in device can continue from cached content until it reconnects. A disabled account cannot be revoked instantly on a disconnected device. Regardless of this choice, every online server operation and cloud-data read/write must re-check active status.
 
 ## Build and release sequence
 
