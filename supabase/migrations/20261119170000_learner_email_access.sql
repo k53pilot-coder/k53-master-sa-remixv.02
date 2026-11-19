@@ -43,29 +43,42 @@ create policy learner_access_select_own
 -- First-time linking is atomic and can only be requested by trusted server code
 -- using the service-role key. The email and UUID are supplied only after the
 -- server has verified the Supabase Auth user with getUser(accessToken).
-create or replace function public.claim_learner_access(
-  p_user_id uuid,
-  p_email text
-)
+create or replace function public.claim_learner_access()
 returns table (access_status text)
 language plpgsql
 security definer
 set search_path = ''
 as $function$
 declare
+  v_user_id uuid := auth.uid();
+  v_email text;
+  v_email_confirmed_at timestamptz;
   v_access public.learner_access%rowtype;
 begin
-  if p_user_id is null or p_email is null or pg_catalog.btrim(p_email) = '' then
-    return query select 'pending'::text;
+  if v_user_id is null then
+    raise exception 'Authentication required' using errcode = '42501';
+  end if;
+
+  -- Resolve identity from the Supabase Auth catalogue, not from client input
+  -- or user-editable metadata. A verified email is mandatory.
+  select u.email, u.email_confirmed_at
+    into v_email, v_email_confirmed_at
+    from auth.users u
+    where u.id = v_user_id;
+
+  if not found or v_email is null or v_email_confirmed_at is null then
+    return query select 'unverified'::text;
     return;
   end if;
 
-  -- An existing UUID binding takes precedence over email. A later email
-  -- change must not silently transfer or discard the original authorisation.
+  v_email := pg_catalog.lower(pg_catalog.btrim(v_email));
+
+  -- An existing UUID binding takes precedence over email. An email change
+  -- must not silently transfer or discard the original authorisation.
   select *
     into v_access
     from public.learner_access
-    where user_id = p_user_id
+    where user_id = v_user_id
     for update;
 
   if found then
@@ -77,7 +90,7 @@ begin
   select *
     into v_access
     from public.learner_access
-    where email = pg_catalog.lower(pg_catalog.btrim(p_email))
+    where email = v_email
     for update;
 
   if not found or v_access.status <> 'active' or v_access.user_id is not null then
@@ -88,7 +101,7 @@ begin
 
   begin
     update public.learner_access
-       set user_id = p_user_id,
+       set user_id = v_user_id,
            updated_at = pg_catalog.now()
      where id = v_access.id
        and user_id is null
@@ -103,15 +116,14 @@ begin
     return;
   exception
     when unique_violation then
-      -- Another email record is already linked to this Auth account.
       return query select 'pending'::text;
       return;
   end;
 end;
 $function$;
 
-revoke all on function public.claim_learner_access(uuid, text) from public, anon, authenticated;
-grant execute on function public.claim_learner_access(uuid, text) to service_role;
+revoke all on function public.claim_learner_access() from public, anon;
+grant execute on function public.claim_learner_access() to authenticated, service_role;
 
 -- RLS policies are permissive by default and combine with OR. Replace the
 -- existing owner policies with owner AND active-authorisation predicates so
