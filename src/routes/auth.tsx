@@ -13,14 +13,17 @@ import { getLearnerAccessStatus } from "@/lib/learner-access.functions";
 
 const PRODUCTION_AUTH_URL = "https://k53.aiamplifysa.com/auth";
 const CLOUDFLARE_PREVIEW_HOST_SUFFIX = "-k53-master-sa-remixv-02.aiamplifysa.workers.dev";
+const LOCAL_HOSTS = new Set(["localhost", "127.0.0.1", "[::1]"]);
 
 export function getOAuthRedirectTo(isProduction: boolean, hostname: string, origin: string): string {
-  if (!isProduction) {
+  // A production-mode build served locally must still complete OAuth against
+  // the local Supabase stack. This does not change the production hostname.
+  if (!isProduction || LOCAL_HOSTS.has(hostname)) {
     return new URL("/auth", origin).toString();
   }
 
   // Preserve branch previews for testing, but never let a production build
-  // fall back to localhost or the generic workers.dev hostname.
+  // fall back to the generic workers.dev hostname.
   if (hostname.endsWith(CLOUDFLARE_PREVIEW_HOST_SUFFIX)) {
     return new URL("/auth", origin).toString();
   }
