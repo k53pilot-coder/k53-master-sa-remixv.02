@@ -59,7 +59,7 @@ describe("verifyAdminAccess", () => {
       publishableKey: "sb_publishable_example",
       accessToken: "expired-token",
       fetcher,
-    })).rejects.toMatchObject<Partial<AdminVerificationError>>({
+    })).rejects.toMatchObject({
       name: "AdminVerificationError",
       status: 401,
     });
