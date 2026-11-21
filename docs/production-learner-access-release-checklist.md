@@ -12,7 +12,7 @@ This checklist is deliberately separate from the feature implementation. It does
 - Production `postgres` has `BYPASSRLS`, usage on `auth`, and SELECT on all current Auth tables and the app's learner tables. This makes it the appropriate account to attempt a complete logical export.
 - `storage.objects` and PostgreSQL large objects currently contain 0 rows.
 - The existing Auth user trigger calls `public.create_learner_profile()`, a SECURITY DEFINER function owned by postgres with an empty search_path. The feature migration does not replace or modify that trigger.
-- Cloudflare's Worker Build integration watches GitHub `main`, has automatic builds enabled, and deploys with `bun run build` followed by `npx wrangler deploy`. Merging this PR to `main` therefore triggers production deployment.
+- Cloudflare's Worker Build integration watches GitHub `main`, has automatic builds enabled, and uses the root `packageManager` pin (`bun@1.4.5`), and deploys with `bun run build` followed by `npx wrangler deploy`. Merging this PR to `main` therefore triggers production deployment.
 
 ## Gate 1 — complete production database backup
 
