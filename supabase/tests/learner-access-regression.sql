@@ -244,7 +244,6 @@ begin
      or has_table_privilege('authenticated','public.profiles','MAINTAIN')
      or has_table_privilege('authenticated','public.profiles','REFERENCES')
      or has_table_privilege('authenticated','public.profiles','TRIGGER')
-     or has_table_privilege('authenticated','public.profiles','MAINTAIN')
      or has_table_privilege('authenticated','public.question_attempts','DELETE')
      or has_table_privilege('authenticated','public.question_attempts','TRUNCATE')
      or has_table_privilege('authenticated','public.question_attempts','REFERENCES')
@@ -269,12 +268,18 @@ begin
   if has_table_privilege('anon','public.profiles','DELETE')
      or has_table_privilege('anon','public.profiles','TRUNCATE')
      or has_table_privilege('anon','public.profiles','MAINTAIN')
+     or has_table_privilege('anon','public.profiles','REFERENCES')
+     or has_table_privilege('anon','public.profiles','TRIGGER')
      or has_table_privilege('anon','public.question_attempts','DELETE')
      or has_table_privilege('anon','public.question_attempts','TRUNCATE')
      or has_table_privilege('anon','public.question_attempts','MAINTAIN')
+     or has_table_privilege('anon','public.question_attempts','REFERENCES')
+     or has_table_privilege('anon','public.question_attempts','TRIGGER')
      or has_table_privilege('anon','public.test_attempts','DELETE')
      or has_table_privilege('anon','public.test_attempts','TRUNCATE')
-     or has_table_privilege('anon','public.test_attempts','MAINTAIN') then
+     or has_table_privilege('anon','public.test_attempts','MAINTAIN')
+     or has_table_privilege('anon','public.test_attempts','REFERENCES')
+     or has_table_privilege('anon','public.test_attempts','TRIGGER') then
     raise exception 'anon role retains DELETE or TRUNCATE privilege';
   end if;
   if has_function_privilege('anon','public.admin_add_learner_access(text)','EXECUTE')
