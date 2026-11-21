@@ -42,12 +42,12 @@ end $assert$;
 -- grant schema usage or helper execution to client roles.
 do $schema_guard$
 begin
-  if has_schema_privilege('anon','k53_private','USAGE')
-     or has_schema_privilege('authenticated','k53_private','USAGE') then
-    raise exception 'client roles unexpectedly have access to k53_private';
+  if has_schema_privilege('anon','k53_learner_access_private','USAGE')
+     or has_schema_privilege('authenticated','k53_learner_access_private','USAGE') then
+    raise exception 'client roles unexpectedly have access to k53_learner_access_private';
   end if;
-  if has_function_privilege('anon','k53_private.is_current_user_k53_admin()','EXECUTE')
-     or has_function_privilege('authenticated','k53_private.is_current_user_k53_admin()','EXECUTE') then
+  if has_function_privilege('anon','k53_learner_access_private.is_current_user_k53_admin()','EXECUTE')
+     or has_function_privilege('authenticated','k53_learner_access_private.is_current_user_k53_admin()','EXECUTE') then
     raise exception 'client roles can directly execute the private admin helper';
   end if;
 end
