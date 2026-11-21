@@ -123,8 +123,10 @@ Run unit/type/lint/build/question-bank audit and Playwright browser checks. Add 
 ### 5. Pull request and production
 - Open a PR from feature/learner-email-access into main; review migration, generated types, RLS grants/policies, server-only imports, and route coverage.
 - Require green CI, built-Worker browser smoke, and database integration results before merge.
-- A production deployment workflow does not currently exist. Add one as a separate protected release step using a GitHub production environment, deployment-only Cloudflare API token, and explicit approval. Do not place the Supabase service-role value in workflow output.
-- Back up and inspect production schema/privileges before applying the reviewed migration. Apply once, verify access behaviour, then deploy the matching Worker release.
+- Cloudflare has an existing Git-connected Worker Build configuration for `k53-master-sa-remixv-02`: it watches GitHub `main`, has `auto_build_enabled: true`, runs `bun run build`, then `npx wrangler deploy`. A merge to `main` therefore triggers a production Worker build/deployment automatically. PR branches also receive Cloudflare Preview builds. Do not merge until the production database migration has been applied and verified.
+- Release order is mandatory: (1) take and verify a manual database backup, (2) apply the reviewed Supabase migration, (3) verify grants, RLS policies, RPCs, existing user/admin behaviour, and approved learner records, (4) merge the PR to `main` to trigger the Cloudflare production build/deploy, (5) verify the deployed Worker and production sign-in/access flows. If any pre-merge database step fails, do not merge.
+- The Supabase organisation is currently on the Free plan, which does not include downloadable scheduled database backups. Before migration, use the Supabase CLI `db dump` against the production connection string to export roles, schema, and data to separate files and verify that all files are non-empty and stored securely. The database dump excludes Storage objects; assess those separately if Storage is in use.
+- The repository has no GitHub production deploy workflow; production deployment is handled by the Cloudflare Git integration. Do not create a second deployment path or add a service-role key to GitHub Actions.
 - Run production smoke checks using test accounts representing approved, pending, disabled, and admin-only states. Do not use or alter real learner accounts for test fixtures.
 - Keep rollback steps ready: revert Worker code first if application behaviour regresses; database rollback must preserve learner records and audit history rather than dropping the authorisation table.
 
@@ -134,5 +136,5 @@ Run unit/type/lint/build/question-bank audit and Playwright browser checks. Add 
 - Supabase project: qfolceulguweezxjvvjt (eu-west-1), currently healthy. The Worker uses the publishable key and authenticated RPCs; do not add a service-role key to the Worker for this feature.
 - Supabase development branch creation was quoted at USD 0.01344/hour. It has not been created because cost approval is outstanding.
 - Cloudflare Worker: k53-master-sa-remixv-02. Its current secret names include SUPABASE_URL and SUPABASE_PUBLISHABLE_KEY; SUPABASE_SERVICE_ROLE_KEY is absent.
-- Repository CI currently runs typecheck, unit tests, lint, build, and question-bank audit. A production browser smoke workflow exists. There is no production deploy workflow in the repository.
+- Repository CI runs typecheck, unit tests, lint, build, question-bank audit, disposable PostgreSQL migration regression, and local Supabase Auth/Data API integration. A built-Worker browser smoke workflow exists. The production Worker is auto-built/deployed by Cloudflare's Git integration on pushes to `main`.
 - Production admin-owner access fix is already merged and must remain untouched.
