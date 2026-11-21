@@ -33,7 +33,7 @@ jobs:
         run: bunx --package @playwright/test@1.58.2 playwright install chromium
       - name: Start the built Cloudflare Worker
         run: |
-          bunx wrangler dev --config .output/server/wrangler.json --ip 127.0.0.1 --port 4173 --local > /tmp/k53-worker.log 2>&1 &
+          npx wrangler dev --config .output/server/wrangler.json --ip 127.0.0.1 --port 4173 --local > /tmp/k53-worker.log 2>&1 &
           echo $! > /tmp/k53-worker.pid
           for attempt in $(seq 1 60); do
             if curl --fail --silent --max-time 5 http://127.0.0.1:4173/about > /dev/null; then
