@@ -36,7 +36,7 @@ jobs:
           bunx wrangler dev --config .output/server/wrangler.json --ip 127.0.0.1 --port 4173 --local > /tmp/k53-worker.log 2>&1 &
           echo $! > /tmp/k53-worker.pid
           for attempt in $(seq 1 60); do
-            if curl --fail --silent --max-time 5 http://127.0.0.1:4173/ > /dev/null; then
+            if curl --fail --silent --max-time 5 http://127.0.0.1:4173/about > /dev/null; then
               exit 0
             fi
             sleep 2
