@@ -70,4 +70,5 @@ insert into auth.users(id,email,email_confirmed_at,raw_app_meta_data) values
  ('11111111-1111-4111-8111-111111111111','aiamplifysa@gmail.com',now(),'{"provider":"email","providers":["email"]}'),
  ('22222222-2222-4222-8222-222222222222','learner@example.com',now(),'{"provider":"google","providers":["google"]}'),
  ('33333333-3333-4333-8333-333333333333','other@example.com',now(),'{"provider":"google","providers":["google"]}'),
- ('44444444-4444-4444-8444-444444444444','admin@example.com',now(),'{"provider":"google","providers":["google"]}');
+ ('44444444-4444-4444-8444-444444444444','admin@example.com',now(),'{"provider":"google","providers":["google"]}'),
+ ('55555555-5555-4555-8555-555555555555','unverified@example.com',null,'{"provider":"google","providers":["google"]}');
