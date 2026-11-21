@@ -51,12 +51,13 @@ Before the migration, explicitly decide whether to grandfather both existing non
 The order is mandatory:
 
 1. Verify the full backup and account authorisation decision.
-2. Apply `supabase/migrations/20261119170000_learner_email_access.sql` to production exactly once, using a reviewed production connection.
-3. Verify the new table, all four RPCs, RLS policies, table/function/schema grants, and the existing profile trigger.
-4. Add only the explicitly approved existing learner email records and verify their links/statuses. Do not link the owner account unless separately approved as a learner.
-5. Re-check existing user/profile counts and confirm no existing records were modified or deleted.
-6. Only then merge PR #19. Cloudflare automatically builds/deploys the Worker from `main`; there is no separate manual deploy gate in this account's current configuration.
-7. Verify public routes, admin-only access, approved learners, unapproved learners, disabled learners, and restored learners against production using designated test accounts. Do not use or alter real learner accounts as test fixtures.
+2. **Do not use `supabase db push --remote` for this release yet.** Production migration history contains five applied versions (`20261115134248`, `20261115134504`, `20261117090406`, `20261117090432`, `20261117090509`) whose migration files are absent from this repository; the repository currently contains only the learner-access migration. A normal CLI push can fail on this remote/local history mismatch. Do not create placeholder migrations or run `migration repair` blindly.
+3. After explicit approval, apply the reviewed SQL once through the Supabase migration application tool, which records the migration in remote history. Capture the version it returns and make the committed migration filename match that version in a follow-up branch commit. Alternatively, reconcile the existing baseline/history as a separate, reviewed task before using `db push`.
+4. Verify the new table, all four RPCs, RLS policies, table/function/schema grants, and the existing profile trigger.
+5. Add only the explicitly approved existing learner email records and verify their links/statuses. Do not link the owner account unless separately approved as a learner.
+6. Re-check existing user/profile counts and confirm no existing records were modified or deleted.
+7. Only then merge PR #19. Cloudflare automatically builds/deploys the Worker from `main`; there is no separate manual deploy gate in this account's current configuration.
+8. Verify public routes, admin-only access, approved learners, unapproved learners, disabled learners, and restored learners against production using designated test accounts. Do not use or alter real learner accounts as test fixtures.
 
 If any pre-deployment step fails, do not merge. A Worker rollback must not drop the allowlist or erase its account bindings. Database rollback must preserve learner records and audit history.
 
