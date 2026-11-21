@@ -253,6 +253,17 @@ begin
   end if;
 end $$;
 
+-- Restore the original record so the takeover attempt is tested against
+-- an active authorisation, not rejected merely because it is disabled.
+set role authenticated;
+select set_config('request.jwt.claim.sub','11111111-1111-4111-8111-111111111111',false);
+select set_config('request.jwt.claims','{"sub":"11111111-1111-4111-8111-111111111111","email":"aiamplifysa@gmail.com","app_metadata":{"provider":"email","providers":["email"]}}',false);
+select public.admin_set_learner_access_status(
+  (select id from public.admin_list_learner_access('learner@example.com')),
+  'active'
+);
+reset role;
+
 -- A second UUID cannot take over an email already bound to another UUID.
 -- Simulate the original learner changing their Auth email, then assign the
 -- original allowlisted email to a different verified Google identity.
