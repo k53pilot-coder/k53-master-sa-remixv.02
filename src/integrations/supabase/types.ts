@@ -14,6 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
+      learner_access: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          email: string
+          id: string
+          status: string
+          updated_at: string
+          updated_by: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          email: string
+          id?: string
+          status?: string
+          updated_at?: string
+          updated_by?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          email?: string
+          id?: string
+          status?: string
+          updated_at?: string
+          updated_by?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string
@@ -91,7 +124,41 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      admin_add_learner_access: {
+        Args: {
+          p_email: string
+        }
+        Returns: {
+          record_id: string
+          result_status: string
+        }[]
+      }
+      admin_list_learner_access: {
+        Args: {
+          p_search?: string
+        }
+        Returns: {
+          created_at: string
+          email: string
+          id: string
+          status: string
+          updated_at: string
+          user_id: string | null
+        }[]
+      }
+      admin_set_learner_access_status: {
+        Args: {
+          p_id: string
+          p_status: string
+        }
+        Returns: boolean
+      }
+      claim_learner_access: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          access_status: string
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never

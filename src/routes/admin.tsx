@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import {
   Activity,
@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getAdminAccess } from "@/lib/admin.functions";
+import { addLearnerAccess, listLearnerAccess, setLearnerAccessStatus } from "@/lib/learner-access.functions";
 import { pageHead } from "@/lib/metadata";
 import { useStudy } from "@/components/study-provider";
 import { useLanguage } from "@/components/language-provider";
@@ -29,6 +30,7 @@ type AdminAccess =
 const sections = [
   { id: "overview", label: "Overview", icon: Activity },
   { id: "access", label: "Access", icon: Users },
+  { id: "learner-access", label: "Learner access", icon: Users },
   { id: "content", label: "Content & resources", icon: BookOpen },
   { id: "settings", label: "Feature settings", icon: Settings2 },
   { id: "legal", label: "Legal documents", icon: FileText },
@@ -200,6 +202,7 @@ function AdminPage() {
           </div>
           {section === "overview" ? <Overview /> : null}
           {section === "access" ? <AccessSection /> : null}
+          {section === "learner-access" ? <LearnerAccessSection /> : null}
           {section === "content" ? <ContentSection /> : null}
           {section === "settings" ? <SettingsSection /> : null}
           {section === "legal" ? <LegalSection /> : null}
@@ -388,6 +391,121 @@ function SupportSection() {
         title="Admin audit trail"
         description="A durable, append-only record of permission, publishing and settings changes needs a protected database table."
       />
+    </div>
+  );
+}
+
+
+type LearnerAccessRow = {
+  id: string;
+  email: string;
+  user_id: string | null;
+  status: "active" | "disabled";
+  created_at: string;
+};
+
+function LearnerAccessSection() {
+  const { tr } = useLanguage();
+  const add = useServerFn(addLearnerAccess);
+  const list = useServerFn(listLearnerAccess);
+  const setStatus = useServerFn(setLearnerAccessStatus);
+  const [email, setEmail] = useState("");
+  const [search, setSearch] = useState("");
+  const [rows, setRows] = useState<LearnerAccessRow[]>([]);
+  const [message, setMessage] = useState("");
+  const [busy, setBusy] = useState(false);
+
+  async function reload(term = search) {
+    const result = await list({ data: { search: term } });
+    setRows(result as LearnerAccessRow[]);
+  }
+
+  useEffect(() => {
+    let active = true;
+    void list({ data: { search: "" } }).then((result) => {
+      if (active) setRows(result as LearnerAccessRow[]);
+    }).catch((error: unknown) => {
+      console.error("Could not load learner authorisations", error);
+      if (active) setMessage(tr("Could not load learner authorisations."));
+    });
+    return () => { active = false; };
+  }, [list, tr]);
+
+  async function addEmail(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setBusy(true);
+    setMessage("");
+    try {
+      const result = await add({ data: { email } });
+      const status = result?.result_status;
+      setMessage(status === "created"
+        ? tr("Email authorised.")
+        : status === "already_active"
+          ? tr("This email is already authorised.")
+          : tr("This email is disabled. Use Restore to reactivate it."));
+      setEmail("");
+      await reload();
+    } catch (error) {
+      console.error("Could not add learner authorisation", error);
+      setMessage(tr("Could not add this email. Check the address and try again."));
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function changeStatus(row: LearnerAccessRow, status: "active" | "disabled") {
+    if (status === "disabled" && !window.confirm(tr("Disable learning access for this email?"))) return;
+    setBusy(true);
+    setMessage("");
+    try {
+      await setStatus({ data: { id: row.id, status } });
+      setMessage(status === "disabled" ? tr("Learner access disabled.") : tr("Learner access restored."));
+      await reload();
+    } catch (error) {
+      console.error("Could not change learner access", error);
+      setMessage(tr("Could not update learner access."));
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <div className="space-y-5">
+      <form onSubmit={(event) => void addEmail(event)} className="flex flex-wrap gap-2 rounded-lg border bg-card p-4">
+        <label className="min-w-[220px] flex-1">
+          <span className="mb-1 block text-sm font-medium">{tr("Learner email")}</span>
+          <input type="email" required maxLength={254} value={email} onChange={(event) => setEmail(event.target.value)} className="w-full rounded-md border bg-background px-3 py-2" placeholder="learner@example.com" />
+        </label>
+        <Button type="submit" disabled={busy || !email.trim()} className="self-end">{tr("Authorise email")}</Button>
+      </form>
+      <div className="flex flex-wrap gap-2">
+        <input aria-label={tr("Search learner emails")} value={search} onChange={(event) => setSearch(event.target.value)} className="min-w-[220px] flex-1 rounded-md border bg-background px-3 py-2" placeholder={tr("Search email")} />
+        <Button type="button" variant="outline" disabled={busy} onClick={() => void reload()}>{tr("Search")}</Button>
+      </div>
+      <p role="status" aria-live="polite" className="text-sm text-muted-foreground">{message}</p>
+      <div className="overflow-x-auto rounded-lg border">
+        <table className="w-full text-left text-sm">
+          <thead className="bg-muted/50">
+            <tr><th className="p-3">{tr("Email")}</th><th className="p-3">{tr("Registration")}</th><th className="p-3">{tr("Access")}</th><th className="p-3">{tr("Action")}</th></tr>
+          </thead>
+          <tbody>
+            {rows.map((row) => (
+              <tr key={row.id} className="border-t">
+                <td className="p-3">{row.email}</td>
+                <td className="p-3">{row.user_id ? tr("Linked") : tr("Awaiting first sign-in")}</td>
+                <td className="p-3">{row.status === "active" ? tr("Active") : tr("Disabled")}</td>
+                <td className="p-3">
+                  <Button type="button" size="sm" variant="outline" disabled={busy} onClick={() => void changeStatus(row, row.status === "active" ? "disabled" : "active")}>
+                    {tr(row.status === "active" ? "Disable" : "Restore")}
+                  </Button>
+                </td>
+              </tr>
+            ))}
+            {rows.length === 0 ? <tr><td className="p-4 text-muted-foreground" colSpan={4}>{tr("No learner authorisations found.")}</td></tr> : null}
+          </tbody>
+        </table>
+      </div>
+      <p className="text-xs text-muted-foreground">{tr("Disabling access preserves the authorisation record and its account link. There is no permanent delete action.")}</p>
     </div>
   );
 }

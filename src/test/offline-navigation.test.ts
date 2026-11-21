@@ -9,12 +9,9 @@ describe("offline navigation handling", () => {
     },
   );
 
-  it.each(["/", "/practice", "/learn", "/signs"])(
-    "keeps public study route %s eligible for offline caching",
-    (pathname) => {
-      expect(isCacheableNavigation({ request: { mode: "navigate" }, url: { pathname } })).toBe(true);
-    },
-  );
+  it("keeps public informational routes eligible for offline caching", () => {
+    expect(isCacheableNavigation({ request: { mode: "navigate" }, url: { pathname: "/about" } })).toBe(true);
+  });
 
   it("does not treat asset or data requests as navigation requests", () => {
     expect(isCacheableNavigation({ request: { mode: "cors" }, url: { pathname: "/practice" } })).toBe(false);
@@ -25,4 +22,5 @@ describe("offline navigation handling", () => {
     expect(response.status).toBe(503);
     expect(response.headers.get("cache-control")).toBe("no-store");
   });
+
 });

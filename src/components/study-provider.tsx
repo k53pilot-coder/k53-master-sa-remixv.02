@@ -27,21 +27,6 @@ interface Progress {
 const initial: Progress = { attempts: [], tests: [], learned: [], vehicle: "light" };
 const isVehicle = (value: string | null | undefined): value is Vehicle =>
   value === "light" || value === "heavy" || value === "motorcycle";
-function mergeProgress(account: Progress | undefined, guest: Progress): Progress {
-  const existing = account ?? initial;
-  return {
-    attempts: Array.from(
-      new Map(
-        [...guest.attempts, ...existing.attempts].map((attempt) => [attempt.id, attempt]),
-      ).values(),
-    ),
-    tests: Array.from(
-      new Map([...guest.tests, ...existing.tests].map((test) => [test.id, test])).values(),
-    ),
-    learned: [...new Set([...guest.learned, ...existing.learned])],
-    vehicle: account?.vehicle ?? guest.vehicle,
-  };
-}
 const Context = createContext<{
   progress: Progress;
   user: User | null;
@@ -192,19 +177,9 @@ export function StudyProvider({ children }: { children: ReactNode }) {
         const d = await db();
         let saved: Progress | undefined;
         if (next) {
-          const tx = d.transaction("progress", "readwrite");
-          const [accountProgress, guestProgress] = await Promise.all([
-            tx.store.get(storageKey),
-            tx.store.get("guest"),
-          ]);
-          if (guestProgress) {
-            saved = mergeProgress(accountProgress, guestProgress);
-            await tx.store.put(saved, storageKey);
-            await tx.store.delete("guest");
-          } else {
-            saved = accountProgress;
-          }
-          await tx.done;
+          // Guest/device progress is deliberately not merged into an account.
+          // A learner must explicitly choose to import it in a separate flow.
+          saved = await d.get("progress", storageKey);
         } else {
           saved = await d.get("progress", storageKey);
         }

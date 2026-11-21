@@ -1,8 +1,8 @@
 import { createServerFn } from "@tanstack/react-start";
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireLearnerAccess } from "@/integrations/supabase/learner-access-middleware";
 import { syncProgressSchema } from "@/lib/progress.schemas";
 export const syncProgress = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireLearnerAccess])
   .validator((input: unknown) => syncProgressSchema.parse(input))
   .handler(async ({ data, context }) => {
     if (data.attempts.length) {
@@ -22,7 +22,7 @@ export const syncProgress = createServerFn({ method: "POST" })
     return { saved: true };
   });
 export const loadProgress = createServerFn({ method: "GET" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireLearnerAccess])
   .handler(async ({ context }) => {
     const [{ data: attempts, error: a }, { data: tests, error: t }, { data: profile }] =
       await Promise.all([

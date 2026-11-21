@@ -68,7 +68,9 @@ describe("K53 learning rules", () => {
       request: { mode: "navigate" },
       url: { pathname },
     });
-    expect(isCacheableNavigation(navigation("/practice"))).toBe(true);
+    expect(isCacheableNavigation(navigation("/practice"))).toBe(false);
+    expect(isCacheableNavigation(navigation("/"))).toBe(false);
+    expect(isCacheableNavigation(navigation("/about"))).toBe(true);
     expect(isCacheableNavigation(navigation("/auth"))).toBe(false);
     expect(isCacheableNavigation(navigation("/~oauth/callback"))).toBe(false);
     expect(isCacheableNavigation(navigation("/reset-password"))).toBe(false);
