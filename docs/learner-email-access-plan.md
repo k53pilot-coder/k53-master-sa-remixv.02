@@ -20,7 +20,7 @@ Status: design recorded on feature/learner-email-access. No learner-access code,
 - Continue using Supabase Google OAuth and the existing requireSupabaseAuth identity middleware.
 - For a learner access check, resolve the current Auth user server-side with the bearer token (for example, Supabase auth.getUser(token)) and require a non-empty, verified email_confirmed_at. Do not treat user_metadata, a form field, or a locally cached user object as proof of email ownership.
 - Normalise the verified email once on the server (trim and lowercase; enforce a maximum length and valid email format).
-- Perform the first-link operation through one transactional database function called only by the server's service-role client. It must lock the matching allowlist row, require status active, and permit only user_id IS NULL OR user_id = current Auth user UUID. A unique constraint on non-null user_id prevents one account from claiming multiple authorisations. If the row is already linked to a different UUID, fail closed.
+- Perform the first-link operation through the authenticated `public.claim_learner_access()` RPC. The function derives the caller UUID with `auth.uid()`, reads the verified email and trusted Google provider metadata from `auth.users`, and performs the link atomically. It must lock the matching allowlist row and permit only an unlinked row. A unique constraint on non-null user_id prevents one account from claiming multiple authorisations. If the email is already linked to a different UUID, fail closed.
 - Once linked, enforce access by immutable Supabase user UUID, not by repeatedly matching email. This preserves the account binding if the user's email later changes.
 - Do not silently reassign a consumed link. V1 recovery for a lost/deleted account is an administrator-controlled operational procedure, not a public self-service action.
 
@@ -38,8 +38,8 @@ Introduce a dedicated public.learner_access table with, at minimum:
 The exact foreign-key deletion behaviour for the linked user UUID must be selected deliberately during migration review. It must not silently make a consumed email authorisation claimable by a different Auth account after account deletion.
 
 Table privileges and RLS:
-- Revoke direct table writes and broad visibility from anon and authenticated; allow an authenticated learner to read only their own linked status row if the browser requires it. Prefer keeping the admin list/write path server-only.
-- Admin CRUD-like operations (add/list/search/disable/restore) run only in server functions behind existing requireAdmin, using the server-only Supabase service-role client. Never import that client into browser code.
+- Revoke direct table writes and broad visibility from anon and authenticated; allow authenticated users SELECT only, with RLS restricting visibility to their own linked status row. Keep admin list/write operations behind admin-only RPCs.
+- Admin add/list/search/disable/restore operations run in server functions behind existing `requireAdmin` and call SECURITY DEFINER RPCs that independently verify the signed caller's trusted admin identity. Do not expose direct table mutation privileges to browser clients.
 - Add a restrictive active-learner condition to each existing learner-data table's RLS so it is ANDed with existing permissive owner policies. The current learner tables are profiles, question_attempts, and test_attempts. Verify policy composition in the development database before release.
 - Revoke the known unnecessary DELETE and TRUNCATE privileges on the learner tables without removing required SELECT, INSERT, or profile UPDATE functionality. RLS does not protect against TRUNCATE.
 - Explicitly revoke unintended table grants on the new table. Investigate default ACL ownership and role semantics before changing any schema-wide default privileges; do not apply a blanket default-privilege change.
@@ -48,10 +48,10 @@ Table privileges and RLS:
 ### Server functions
 
 Create a learner access module separate from admin-role policy. It should provide:
-- A read/check operation for the current signed-in user, including first-link attempt and a safe result such as active, pending, or disabled.
+- A read/check operation for the current signed-in user, including the authenticated atomic claim RPC and a safe result such as active, pending, disabled, unverified, or Google-required.
 - An active learner middleware layered on authenticated identity, for learning data server functions.
 - Admin-only add, list/search, disable, and restore operations with strict Zod validation, server-side normalisation, audit actor fields, and explicit duplicate handling.
-- A transactional claim RPC or equivalent atomic database operation. Do not implement first linking as an unprotected read followed by a separate update.
+- An authenticated transactional claim RPC that derives identity only from `auth.uid()` and `auth.users`. Do not implement first linking as an unprotected read followed by a separate update.
 - Safe errors that do not disclose whether another user's email is authorised or linked to a different UUID.
 
 Keep requireAdmin, getAdminRole, the owner email, and existing administrator role grants unchanged. Learner access must not be implemented by changing admin role claims.
@@ -76,9 +76,9 @@ For this feature:
 - Do not allow a pending or disabled user to sync or load cloud progress.
 - Preserve existing account-owned progress for already-registered learners once their access is authorised.
 - Keep existing local data untouched during the access migration; any guest-progress import must be a separate, explicit user-consented action.
-- A browser already offline cannot learn that an administrator has disabled an account. V1 should verify access on an online app entry and on every protected server operation; an already-open authorised session may continue using cached content locally until it reconnects. The next online check/sync must enforce disabled status. This limitation must be stated in release notes.
+- Learning routes are excluded from offline navigation caching and require an online access check. Offline study content is therefore unavailable while disconnected in V1; locally stored progress remains on the device and can sync after reconnection and successful authorisation. This limitation must be stated in release notes.
 - The question bank is currently included in the client application bundle. UI and API gating controls normal app use but does not make bundled static question content confidential or prevent extraction. If content secrecy is a requirement, protected server-side content delivery is a separate phase.
-- The PWA currently caches same-origin navigations through a NetworkFirst runtime cache, excluding only OAuth/auth/admin/reset-password routes. Protected learning navigations must be reviewed explicitly. The V1 decision must be documented: either require an online access check before entering learning routes (which means no offline learning while disconnected), or accept that a previously authorised signed-in device can continue from cached content until it reconnects. A disabled account cannot be revoked instantly on a disconnected device. Regardless of this choice, every online server operation and cloud-data read/write must re-check active status.
+- The PWA must not serve cached learning navigations without a current online access check. In V1, protected learning routes are live-only; offline learning is unavailable while disconnected, but local progress remains stored on-device. Every protected server operation and cloud-data read/write re-checks active status.
 
 ## Build and release sequence
 
