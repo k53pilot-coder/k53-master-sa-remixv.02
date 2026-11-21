@@ -303,9 +303,9 @@ revoke all on table public.profiles,
   public.question_attempts, public.test_attempts
   from anon;
 
--- Authenticated learners may read and write only through the active-access
--- RLS policies above. They must not delete or truncate progress tables.
-revoke delete, truncate on table public.profiles,
+-- Authenticated learners receive only the operations used by the application.
+-- Remove any legacy REFERENCES/TRIGGER grants as well as DELETE/TRUNCATE.
+revoke all on table public.profiles,
   public.question_attempts, public.test_attempts
   from authenticated;
 
