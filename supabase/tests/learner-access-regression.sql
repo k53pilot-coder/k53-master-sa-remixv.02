@@ -38,6 +38,21 @@ begin
   end if;
 end $assert$;
 
+-- The migration owns a dedicated, non-exposed helper schema and does not
+-- grant schema usage or helper execution to client roles.
+do $schema_guard$
+begin
+  if has_schema_privilege('anon','k53_private','USAGE')
+     or has_schema_privilege('authenticated','k53_private','USAGE') then
+    raise exception 'client roles unexpectedly have access to k53_private';
+  end if;
+  if has_function_privilege('anon','k53_private.is_current_user_k53_admin()','EXECUTE')
+     or has_function_privilege('authenticated','k53_private.is_current_user_k53_admin()','EXECUTE') then
+    raise exception 'client roles can directly execute the private admin helper';
+  end if;
+end
+$schema_guard$;
+
 -- A verified fixed owner can manage learner authorisations using its JWT.
 set role authenticated;
 select set_config('request.jwt.claim.sub','11111111-1111-4111-8111-111111111111',false);
