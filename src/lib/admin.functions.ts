@@ -9,9 +9,14 @@ import { getAdminVerificationSupabaseUrl } from "@/lib/admin-verification-url";
 export const requireAdmin = createMiddleware({ type: "function" })
   .middleware([requireSupabaseAuth])
   .server(async ({ context, next }) => {
-    // requireSupabaseAuth has already verified this JWT with Supabase.
-    // Use its trusted claims directly; another Auth API request is unnecessary.
-    const role = getAdminRole(context.claims);
+    // JWT validation establishes the subject; fetch the authoritative Auth user
+    // because email confirmation is not guaranteed to be present in JWT claims.
+    const { data, error } = await context.supabase.auth.getUser(context.accessToken);
+    if (error || !data.user || data.user.id !== context.userId) {
+      throw new Error("Forbidden: Admin access is required");
+    }
+
+    const role = getAdminRole(data.user);
     if (!role) throw new Error("Forbidden: Admin access is required");
 
     return next({ context: { adminRole: role } });
