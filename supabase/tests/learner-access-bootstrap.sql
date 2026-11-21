@@ -53,13 +53,13 @@ alter table public.profiles enable row level security;
 alter table public.question_attempts enable row level security;
 alter table public.test_attempts enable row level security;
 
-create policy select_own on public.profiles for select to authenticated using (id = auth.uid());
-create policy insert_own on public.profiles for insert to authenticated with check (id = auth.uid());
-create policy update_own on public.profiles for update to authenticated using (id = auth.uid()) with check (id = auth.uid());
-create policy select_own on public.question_attempts for select to authenticated using (user_id = auth.uid());
-create policy insert_own on public.question_attempts for insert to authenticated with check (user_id = auth.uid());
-create policy select_own on public.test_attempts for select to authenticated using (user_id = auth.uid());
-create policy insert_own on public.test_attempts for insert to authenticated with check (user_id = auth.uid());
+create policy profiles_select_own on public.profiles for select to authenticated using (id = auth.uid());
+create policy profiles_insert_own on public.profiles for insert to authenticated with check (id = auth.uid());
+create policy profiles_update_own on public.profiles for update to authenticated using (id = auth.uid()) with check (id = auth.uid());
+create policy question_attempts_select_own on public.question_attempts for select to authenticated using (user_id = auth.uid());
+create policy question_attempts_insert_own on public.question_attempts for insert to authenticated with check (user_id = auth.uid());
+create policy test_attempts_select_own on public.test_attempts for select to authenticated using (user_id = auth.uid());
+create policy test_attempts_insert_own on public.test_attempts for insert to authenticated with check (user_id = auth.uid());
 
 grant usage on schema public, auth to anon, authenticated, service_role;
 grant execute on function auth.uid() to anon, authenticated, service_role;
