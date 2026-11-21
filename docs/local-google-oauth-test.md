@@ -60,6 +60,7 @@ contents = contents.replace(
 )
 config.write_text(contents)
 PY
+```
 
 Edit the existing `[auth]` section in `/tmp/k53-supabase/supabase/config.toml`; do not add a second `[auth]` header. Set these values in that existing section:
 
@@ -80,6 +81,9 @@ skip_nonce_check = false
 
 Keep any other existing `[auth]` settings unchanged.
 
+Start the disposable local stack:
+
+```bash
 cd /tmp/k53-supabase
 supabase start
 supabase status
