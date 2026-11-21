@@ -258,9 +258,44 @@ begin
 end $$;
 reset role;
 
+-- Assert the complete table privilege matrix, including privileges not
+-- covered by RLS. Anonymous users get no table grants; authenticated users
+-- get SELECT only on the allowlist and no UPDATE on append-only progress.
+do $exact_grants$
+begin
+  if has_table_privilege('anon','public.learner_access','SELECT')
+     or has_table_privilege('anon','public.learner_access','INSERT')
+     or has_table_privilege('anon','public.learner_access','UPDATE')
+     or has_table_privilege('anon','public.profiles','SELECT')
+     or has_table_privilege('anon','public.profiles','INSERT')
+     or has_table_privilege('anon','public.profiles','UPDATE')
+     or has_table_privilege('anon','public.question_attempts','SELECT')
+     or has_table_privilege('anon','public.question_attempts','INSERT')
+     or has_table_privilege('anon','public.question_attempts','UPDATE')
+     or has_table_privilege('anon','public.test_attempts','SELECT')
+     or has_table_privilege('anon','public.test_attempts','INSERT')
+     or has_table_privilege('anon','public.test_attempts','UPDATE') then
+    raise exception 'anon retains a learner table privilege';
+  end if;
+  if has_table_privilege('authenticated','public.learner_access','INSERT')
+     or has_table_privilege('authenticated','public.learner_access','UPDATE')
+     or has_table_privilege('authenticated','public.learner_access','DELETE')
+     or has_table_privilege('authenticated','public.learner_access','TRUNCATE')
+     or has_table_privilege('authenticated','public.learner_access','REFERENCES')
+     or has_table_privilege('authenticated','public.learner_access','TRIGGER')
+     or has_table_privilege('authenticated','public.learner_access','MAINTAIN') then
+    raise exception 'authenticated has learner_access mutation or excess privileges';
+  end if;
+  if has_table_privilege('authenticated','public.question_attempts','UPDATE')
+     or has_table_privilege('authenticated','public.test_attempts','UPDATE') then
+    raise exception 'authenticated has unnecessary UPDATE on append-only progress tables';
+  end if;
+end
+$exact_grants$;
+
 -- Anonymous visitors have no direct access to learner authorisations.
 set role anon;
-do $$
+do $
 begin
   begin
     perform count(*) from public.learner_access;
