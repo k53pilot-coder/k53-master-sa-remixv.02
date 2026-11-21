@@ -317,10 +317,10 @@ grant select, insert on table public.test_attempts to authenticated;
 -- Administrative functions use the caller's signed Supabase JWT. The private
 -- helper mirrors src/lib/admin-role.ts: fixed owner email, or Google identity
 -- plus an admin/owner role in trusted app_metadata. User metadata is never used.
-create schema if not exists private;
-revoke all on schema private from public, anon, authenticated;
+create schema if not exists k53_private;
+revoke all on schema k53_private from public, anon, authenticated;
 
-create or replace function private.is_current_user_k53_admin()
+create or replace function k53_private.is_current_user_k53_admin()
 returns boolean
 language sql
 stable
@@ -357,7 +357,7 @@ as $function$
   end;
 $function$;
 
-revoke all on function private.is_current_user_k53_admin() from public, anon, authenticated;
+revoke all on function k53_private.is_current_user_k53_admin() from public, anon, authenticated;
 
 -- Administrative operations are RPC-only. They verify authorization inside
 -- the database as well as through the server's requireAdmin middleware.
@@ -373,7 +373,7 @@ declare
   v_status text;
   v_actor uuid := auth.uid();
 begin
-  if not private.is_current_user_k53_admin() then
+  if not k53_private.is_current_user_k53_admin() then
     raise exception 'Forbidden: Admin access is required' using errcode = '42501';
   end if;
 
@@ -415,7 +415,7 @@ security definer
 set search_path = ''
 as $function$
 begin
-  if not private.is_current_user_k53_admin() then
+  if not k53_private.is_current_user_k53_admin() then
     raise exception 'Forbidden: Admin access is required' using errcode = '42501';
   end if;
 
@@ -440,7 +440,7 @@ security definer
 set search_path = ''
 as $function$
 begin
-  if not private.is_current_user_k53_admin() then
+  if not k53_private.is_current_user_k53_admin() then
     raise exception 'Forbidden: Admin access is required' using errcode = '42501';
   end if;
 
