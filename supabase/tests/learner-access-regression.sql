@@ -238,11 +238,36 @@ begin
   end if;
 end $$;
 
--- A second UUID cannot claim an already-linked email.
+-- A second UUID cannot take over an email already bound to another UUID.
+-- Simulate the original learner changing their Auth email, then assign the
+-- original allowlisted email to a different verified Google identity.
+update auth.users
+   set email = 'learner-renamed@example.com'
+ where id = '22222222-2222-4222-8222-222222222222';
+update auth.users
+   set email = 'learner@example.com'
+ where id = '33333333-3333-4333-8333-333333333333';
+
 set role authenticated;
 select set_config('request.jwt.claim.sub','33333333-3333-4333-8333-333333333333',false);
-select set_config('request.jwt.claims','{"sub":"33333333-3333-4333-8333-333333333333","email":"other@example.com","app_metadata":{"provider":"google","providers":["google"]}}',false);
-select * from public.claim_learner_access();
+select set_config('request.jwt.claims','{"sub":"33333333-3333-4333-8333-333333333333","email":"learner@example.com","app_metadata":{"provider":"google","providers":["google"]}}',false);
+do $assert_takeover$
+declare
+  claim_status text;
+  bound_user_id uuid;
+begin
+  select access_status into claim_status from public.claim_learner_access();
+  if claim_status <> 'pending' then
+    raise exception 'second UUID takeover should be pending, got %', claim_status;
+  end if;
+  select user_id into bound_user_id
+    from public.learner_access
+   where email = 'learner@example.com';
+  if bound_user_id <> '22222222-2222-4222-8222-222222222222'::uuid then
+    raise exception 'second UUID changed the original learner binding';
+  end if;
+end
+$assert_takeover$;
 -- Ordinary learner cannot invoke administrator RPCs, even though EXECUTE is granted.
 do $$
 begin
