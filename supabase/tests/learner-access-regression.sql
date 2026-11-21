@@ -224,11 +224,26 @@ do $$
 begin
   if has_table_privilege('authenticated','public.profiles','DELETE')
      or has_table_privilege('authenticated','public.profiles','TRUNCATE')
+     or has_table_privilege('authenticated','public.profiles','REFERENCES')
+     or has_table_privilege('authenticated','public.profiles','TRIGGER')
      or has_table_privilege('authenticated','public.question_attempts','DELETE')
      or has_table_privilege('authenticated','public.question_attempts','TRUNCATE')
+     or has_table_privilege('authenticated','public.question_attempts','REFERENCES')
+     or has_table_privilege('authenticated','public.question_attempts','TRIGGER')
      or has_table_privilege('authenticated','public.test_attempts','DELETE')
-     or has_table_privilege('authenticated','public.test_attempts','TRUNCATE') then
-    raise exception 'authenticated role retains DELETE or TRUNCATE privilege';
+     or has_table_privilege('authenticated','public.test_attempts','TRUNCATE')
+     or has_table_privilege('authenticated','public.test_attempts','REFERENCES')
+     or has_table_privilege('authenticated','public.test_attempts','TRIGGER') then
+    raise exception 'authenticated role retains privileges beyond the learner application requirements';
+  end if;
+  if not has_table_privilege('authenticated','public.profiles','SELECT')
+     or not has_table_privilege('authenticated','public.profiles','INSERT')
+     or not has_table_privilege('authenticated','public.profiles','UPDATE')
+     or not has_table_privilege('authenticated','public.question_attempts','SELECT')
+     or not has_table_privilege('authenticated','public.question_attempts','INSERT')
+     or not has_table_privilege('authenticated','public.test_attempts','SELECT')
+     or not has_table_privilege('authenticated','public.test_attempts','INSERT') then
+    raise exception 'authenticated role is missing a required learner application privilege';
   end if;
   if has_table_privilege('anon','public.profiles','DELETE')
      or has_table_privilege('anon','public.profiles','TRUNCATE')
