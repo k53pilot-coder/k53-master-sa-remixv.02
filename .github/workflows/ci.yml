@@ -79,7 +79,7 @@ jobs:
       - name: Set up Supabase CLI
         uses: supabase/setup-cli@v1
         with:
-          version: latest
+          version: 3.2.0
       - name: Build isolated local migration workspace
         shell: bash
         run: |
@@ -90,7 +90,7 @@ jobs:
           cp supabase/migrations/20261119170000_learner_email_access.sql /tmp/k53-supabase/supabase/migrations/
       - name: Start disposable local Supabase Auth and Data API
         working-directory: /tmp/k53-supabase
-        run: supabase start -x realtime,storage-api,imgproxy,studio,edge-runtime,logflare,vector,supavisor,postgres-meta,inbucket
+        run: supabase start -x realtime,storage-api,imgproxy,studio,edge-runtime,logflare,vector,supavisor,postgres-meta,mailpit
       - name: Export local Supabase connection details
         working-directory: /tmp/k53-supabase
         shell: bash
