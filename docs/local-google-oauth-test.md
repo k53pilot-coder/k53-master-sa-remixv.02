@@ -61,18 +61,24 @@ contents = contents.replace(
 config.write_text(contents)
 PY
 
-cat >> /tmp/k53-supabase/supabase/config.toml <<'TOML'
+Edit the existing `[auth]` section in `/tmp/k53-supabase/supabase/config.toml`; do not add a second `[auth]` header. Set these values in that existing section:
 
-[auth]
+```toml
 site_url = "http://127.0.0.1:4173"
 additional_redirect_urls = ["http://127.0.0.1:4173/**"]
+```
 
+Then add the Google provider section once:
+
+```toml
 [auth.external.google]
 enabled = true
 client_id = "env(SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_ID)"
 secret = "env(SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_SECRET)"
 skip_nonce_check = false
-TOML
+```
+
+Keep any other existing `[auth]` settings unchanged.
 
 cd /tmp/k53-supabase
 supabase start
