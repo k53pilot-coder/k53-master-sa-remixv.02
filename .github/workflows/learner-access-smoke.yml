@@ -35,13 +35,14 @@ jobs:
         run: |
           npx wrangler dev --config .output/server/wrangler.json --ip 127.0.0.1 --port 4173 --local > /tmp/k53-worker.log 2>&1 &
           echo $! > /tmp/k53-worker.pid
-          for attempt in $(seq 1 60); do
-            if curl --fail --silent --max-time 5 http://127.0.0.1:4173/ > /dev/null; then
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent --connect-timeout 1 --max-time 3 http://127.0.0.1:4173/ > /dev/null; then
               exit 0
             fi
             sleep 2
           done
           cat /tmp/k53-worker.log
+          ps -p "$(cat /tmp/k53-worker.pid)" -o pid=,stat=,args= || true
           exit 1
         env:
           SUPABASE_URL: https://qfolceulguweezxjvvjt.supabase.co
