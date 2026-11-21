@@ -85,7 +85,6 @@ For this feature:
 ### 0. Environment gates
 - Keep all work on feature/learner-email-access; no direct pushes to main.
 - Create an isolated Supabase development branch only after explicit approval of its quoted recurring cost.
-- Add SUPABASE_SERVICE_ROLE_KEY as a Cloudflare Worker secret using the Cloudflare dashboard's secret UI. Never send it through chat, commit it to Git, or expose it in GitHub logs.
 - Keep production database and Worker untouched until migration, integration tests, and smoke tests pass.
 
 ### 1. Database migration
@@ -94,7 +93,7 @@ For this feature:
 - Verify owner/admin tables and role metadata remain unchanged.
 
 ### 2. Server enforcement
-- Implement verified-email lookup and atomic one-time linking.
+- Use the authenticated atomic claim RPC for verified-email lookup and one-time linking.
 - Implement active-learner middleware.
 - Protect syncProgress, loadProgress, and all other learner data functions; audit every server function and storage endpoint used by learning routes.
 - Add admin-only learner authorisation functions without modifying existing admin-role functions.
@@ -132,7 +131,7 @@ Run unit/type/lint/build/question-bank audit and Playwright browser checks. Add 
 ## Current verified environment facts
 
 - GitHub feature branch: feature/learner-email-access, based on production main commit a4c5bc45d4e1ab4709a2861591c958b08fbe9bef.
-- Supabase project: qfolceulguweezxjvvjt (eu-west-1), currently healthy.
+- Supabase project: qfolceulguweezxjvvjt (eu-west-1), currently healthy. The Worker uses the publishable key and authenticated RPCs; do not add a service-role key to the Worker for this feature.
 - Supabase development branch creation was quoted at USD 0.01344/hour. It has not been created because cost approval is outstanding.
 - Cloudflare Worker: k53-master-sa-remixv-02. Its current secret names include SUPABASE_URL and SUPABASE_PUBLISHABLE_KEY; SUPABASE_SERVICE_ROLE_KEY is absent.
 - Repository CI currently runs typecheck, unit tests, lint, build, and question-bank audit. A production browser smoke workflow exists. There is no production deploy workflow in the repository.
