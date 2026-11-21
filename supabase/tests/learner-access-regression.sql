@@ -3,7 +3,7 @@
 
 -- Confirm the migration replaced the actual production policy names and
 -- installed restrictive guards on all learner-owned tables.
-do $
+do $assert$
 declare
   old_policy_count integer;
   guard_count integer;
@@ -36,7 +36,7 @@ begin
   if guard_count <> 3 then
     raise exception 'expected three restrictive learner-access guards, found %', guard_count;
   end if;
-end $;
+end $assert$;
 
 -- A verified fixed owner can manage learner authorisations using its JWT.
 set role authenticated;
