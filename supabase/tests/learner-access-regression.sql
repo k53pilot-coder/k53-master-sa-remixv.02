@@ -295,7 +295,7 @@ $exact_grants$;
 
 -- Anonymous visitors have no direct access to learner authorisations.
 set role anon;
-do $
+do $anon_access$
 begin
   begin
     perform count(*) from public.learner_access;
@@ -303,7 +303,7 @@ begin
   exception when insufficient_privilege then
     null;
   end;
-end $$;
+end $anon_access$;
 reset role;
 
 -- RLS does not protect TRUNCATE. Check that broad legacy table privileges were
