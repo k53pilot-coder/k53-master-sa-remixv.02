@@ -1,6 +1,6 @@
 # Learner email authorisation — implementation plan
 
-Status: design recorded on feature/learner-email-access. No learner-access code, database migration, Worker configuration, or production deployment has been changed.
+Status: implemented on feature/learner-email-access and verified against a disposable local Supabase stack. No production migration, Worker configuration, or deployment has been changed.
 
 ## Product rules
 
@@ -43,7 +43,7 @@ Table privileges and RLS:
 - Add a restrictive active-learner condition to each existing learner-data table's RLS so it is ANDed with existing permissive owner policies. The current learner tables are profiles, question_attempts, and test_attempts. Verify policy composition in the development database before release.
 - Revoke the known unnecessary DELETE and TRUNCATE privileges on the learner tables without removing required SELECT, INSERT, or profile UPDATE functionality. RLS does not protect against TRUNCATE.
 - Explicitly revoke unintended table grants on the new table. Investigate default ACL ownership and role semantics before changing any schema-wide default privileges; do not apply a blanket default-privilege change.
-- Important current-platform requirement: Supabase's October 30, 2026 rollout stopped automatically exposing newly created public tables through the Data API. The migration must explicitly grant the exact roles/privileges needed. For the proposed pattern, give authenticated users SELECT only (so RLS can show their own linked status row and the learner-data policies can test active status), give service_role only the SELECT/INSERT/UPDATE privileges used by server-side administration, and give anon no access. Explicitly grant function execution only to service_role for a service-only claim RPC; revoke default PUBLIC/anon/authenticated execution. Verify PostgREST permissions on the development branch before app tests. Do not copy broad legacy default ACLs onto the new table.
+- Important current-platform requirement: Supabase's October 30, 2026 rollout stopped automatically exposing newly created public tables through the Data API. The migration must explicitly grant the exact roles/privileges needed. For the proposed pattern, give authenticated users SELECT only (so RLS can show their own linked status row and the learner-data policies can test active status), give service_role only the SELECT/INSERT/UPDATE privileges required for trusted backend maintenance, and give anon no access. The current application calls the claim and admin RPCs with the authenticated user's JWT: grant claim execution to authenticated and admin RPC execution to authenticated, with each admin RPC enforcing trusted admin identity inside the database. Revoke default PUBLIC/anon execution. Verify PostgREST permissions on the disposable local stack before release. Do not copy broad legacy default ACLs onto the new table.
 
 ### Server functions
 
