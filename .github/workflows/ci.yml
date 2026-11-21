@@ -80,6 +80,8 @@ jobs:
         uses: supabase/setup-cli@v1
         with:
           version: 3.2.0
+      - name: Verify Supabase CLI version
+        run: supabase --version
       - name: Build isolated local migration workspace
         shell: bash
         run: |
@@ -108,5 +110,8 @@ jobs:
         run: node scripts/learner-access-supabase-integration.mjs
       - name: Stop disposable Supabase stack
         if: always()
-        working-directory: /tmp/k53-supabase
-        run: supabase stop --no-backup
+        run: |
+          if [ -d /tmp/k53-supabase ]; then
+            cd /tmp/k53-supabase
+            supabase stop --no-backup || true
+          fi
