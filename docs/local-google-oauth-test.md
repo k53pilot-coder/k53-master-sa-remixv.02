@@ -93,10 +93,11 @@ The temporary workspace has its own local project ID and copied local credential
 
 ## 4. Build and run the Worker against local Supabase
 
-In the application repository, use the local API URL and anon key from `supabase status -o env`:
+In the application repository, install the locked dependencies and use the local API URL and anon key from `supabase status -o env`:
 
 ```bash
 cd /path/to/k53-master-sa-remixv.02
+bun install --frozen-lockfile
 set -a
 eval "$(cd /tmp/k53-supabase && supabase status -o env)"
 set +a
@@ -104,8 +105,8 @@ export VITE_SUPABASE_URL="$API_URL"
 export VITE_SUPABASE_PUBLISHABLE_KEY="$ANON_KEY"
 export SUPABASE_URL="$API_URL"
 export SUPABASE_PUBLISHABLE_KEY="$ANON_KEY"
-npm run build
-npx wrangler dev --config .output/server/wrangler.json --ip 127.0.0.1 --port 4173 --local
+bun run build
+bunx wrangler dev --config .output/server/wrangler.json --ip 127.0.0.1 --port 4173 --local
 ```
 
 Open `http://127.0.0.1:4173/auth`. The auth route deliberately uses the local origin for localhost even in a production-mode build. The local Supabase redirect allow-list includes that same origin.
