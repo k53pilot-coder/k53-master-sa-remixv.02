@@ -92,7 +92,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           {extra.filter((n) => n.to === "/about" || learnerStatus === "active").map((n) => <Button asChild variant="ghost" key={n.to} className={`nav-link ${path === n.to ? "nav-active" : ""}`}>
             <Link to={n.to} aria-label={t(n.key)} title={t(n.key)}><n.icon /><span>{t(n.key)}</span></Link>
           </Button>)}
-          {mayRequestAdminAccess({ email: user?.email, app_metadata: user?.app_metadata }) ? (
+          {mayRequestAdminAccess({ email: user?.email, email_confirmed_at: user?.email_confirmed_at, app_metadata: user?.app_metadata }) ? (
             <Button asChild variant="ghost" className={`nav-link ${path === "/admin" ? "nav-active" : ""}`}>
               <Link to="/admin" aria-label={t("nav.admin")} title={t("nav.admin")}><Settings2 /><span>{t("nav.admin")}</span></Link>
             </Button>
