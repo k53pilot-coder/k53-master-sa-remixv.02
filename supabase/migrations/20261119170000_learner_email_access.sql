@@ -138,9 +138,9 @@ $function$;
 revoke all on function public.claim_learner_access() from public, anon;
 grant execute on function public.claim_learner_access() to authenticated, service_role;
 
--- RLS policies are permissive by default and combine with OR. Replace the
--- existing owner policies with owner AND active-authorisation predicates so
--- adding another permissive policy cannot accidentally reopen access.
+-- RLS permissive policies combine with OR. Replace the known legacy policies
+-- and add restrictive guards: the guards combine with AND, so another
+-- permissive policy cannot bypass ownership or active authorisation.
 drop policy if exists profiles_select_own on public.profiles;
 drop policy if exists profiles_insert_own on public.profiles;
 drop policy if exists profiles_update_own on public.profiles;
@@ -228,6 +228,65 @@ create policy select_own
 
 create policy insert_own
   on public.test_attempts for insert to authenticated
+  with check (
+    user_id = (select auth.uid())
+    and exists (
+      select 1 from public.learner_access la
+      where la.user_id = (select auth.uid()) and la.status = 'active'
+    )
+  );
+
+-- Restrictive guards enforce ownership and active authorisation even if
+-- another permissive policy is added to one of these tables in the future.
+drop policy if exists profiles_learner_access_guard on public.profiles;
+create policy profiles_learner_access_guard
+  on public.profiles as restrictive
+  for all to authenticated
+  using (
+    id = (select auth.uid())
+    and exists (
+      select 1 from public.learner_access la
+      where la.user_id = (select auth.uid()) and la.status = 'active'
+    )
+  )
+  with check (
+    id = (select auth.uid())
+    and exists (
+      select 1 from public.learner_access la
+      where la.user_id = (select auth.uid()) and la.status = 'active'
+    )
+  );
+
+drop policy if exists question_attempts_learner_access_guard on public.question_attempts;
+create policy question_attempts_learner_access_guard
+  on public.question_attempts as restrictive
+  for all to authenticated
+  using (
+    user_id = (select auth.uid())
+    and exists (
+      select 1 from public.learner_access la
+      where la.user_id = (select auth.uid()) and la.status = 'active'
+    )
+  )
+  with check (
+    user_id = (select auth.uid())
+    and exists (
+      select 1 from public.learner_access la
+      where la.user_id = (select auth.uid()) and la.status = 'active'
+    )
+  );
+
+drop policy if exists test_attempts_learner_access_guard on public.test_attempts;
+create policy test_attempts_learner_access_guard
+  on public.test_attempts as restrictive
+  for all to authenticated
+  using (
+    user_id = (select auth.uid())
+    and exists (
+      select 1 from public.learner_access la
+      where la.user_id = (select auth.uid()) and la.status = 'active'
+    )
+  )
   with check (
     user_id = (select auth.uid())
     and exists (
