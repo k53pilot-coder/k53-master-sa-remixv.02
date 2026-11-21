@@ -28,12 +28,12 @@ jobs:
       - name: Build the production Worker
         run: bun run build
       - name: Install Playwright test runner
-        run: npm install --no-save --package-lock=false @playwright/test@1.58.2
+        run: bunx --package @playwright/test@1.58.2 playwright --version
       - name: Install Chromium
-        run: npx playwright install chromium
+        run: bunx --package @playwright/test@1.58.2 playwright install chromium
       - name: Start the built Cloudflare Worker
         run: |
-          npx wrangler dev --config .output/server/wrangler.json --ip 127.0.0.1 --port 4173 --local > /tmp/k53-worker.log 2>&1 &
+          bunx wrangler dev --config .output/server/wrangler.json --ip 127.0.0.1 --port 4173 --local > /tmp/k53-worker.log 2>&1 &
           echo $! > /tmp/k53-worker.pid
           for attempt in $(seq 1 60); do
             if curl --fail --silent --max-time 5 http://127.0.0.1:4173/ > /dev/null; then
@@ -47,7 +47,7 @@ jobs:
           SUPABASE_URL: https://qfolceulguweezxjvvjt.supabase.co
           SUPABASE_PUBLISHABLE_KEY: sb_publishable_vY4q2CdQ6VyBX52KSMZ93Q_2H-K6dkq
       - name: Test the built application in Chromium
-        run: npx playwright test e2e/production-smoke.spec.mjs --reporter=line
+        run: bunx --package @playwright/test@1.58.2 playwright test e2e/production-smoke.spec.mjs --reporter=line
         env:
           K53_BASE_URL: http://127.0.0.1:4173
       - name: Upload Playwright results on failure
