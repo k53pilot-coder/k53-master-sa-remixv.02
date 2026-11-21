@@ -141,6 +141,10 @@ grant execute on function public.claim_learner_access() to authenticated, servic
 -- RLS policies are permissive by default and combine with OR. Replace the
 -- existing owner policies with owner AND active-authorisation predicates so
 -- adding another permissive policy cannot accidentally reopen access.
+drop policy if exists profiles_select_own on public.profiles;
+drop policy if exists profiles_insert_own on public.profiles;
+drop policy if exists profiles_update_own on public.profiles;
+-- Also remove the shorter names used by earlier disposable test schemas.
 drop policy if exists select_own on public.profiles;
 drop policy if exists insert_own on public.profiles;
 drop policy if exists update_own on public.profiles;
@@ -182,6 +186,8 @@ create policy update_own
     )
   );
 
+drop policy if exists question_attempts_select_own on public.question_attempts;
+drop policy if exists question_attempts_insert_own on public.question_attempts;
 drop policy if exists select_own on public.question_attempts;
 drop policy if exists insert_own on public.question_attempts;
 
@@ -205,6 +211,8 @@ create policy insert_own
     )
   );
 
+drop policy if exists test_attempts_select_own on public.test_attempts;
+drop policy if exists test_attempts_insert_own on public.test_attempts;
 drop policy if exists select_own on public.test_attempts;
 drop policy if exists insert_own on public.test_attempts;
 
@@ -230,9 +238,17 @@ create policy insert_own
 
 -- RLS does not protect TRUNCATE. Remove the excess table privileges observed
 -- in the existing production grants while preserving legitimate operations.
+-- Remove all direct table privileges from anonymous visitors. RLS is
+-- still enabled, but privilege revocation provides an additional boundary.
+revoke all on table public.profiles,
+  public.question_attempts, public.test_attempts
+  from anon;
+
+-- Authenticated learners may read and write only through the active-access
+-- RLS policies above. They must not delete or truncate progress tables.
 revoke delete, truncate on table public.profiles,
   public.question_attempts, public.test_attempts
-  from anon, authenticated;
+  from authenticated;
 
 grant select, insert, update on table public.profiles to authenticated;
 grant select, insert on table public.question_attempts to authenticated;
