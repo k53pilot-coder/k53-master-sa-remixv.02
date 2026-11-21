@@ -40,6 +40,23 @@ end $assert$;
 
 -- The migration owns a dedicated, non-exposed helper schema and does not
 -- grant schema usage or helper execution to client roles.
+do $service_role_grants$
+begin
+  if has_table_privilege('service_role','public.learner_access','DELETE')
+     or has_table_privilege('service_role','public.learner_access','TRUNCATE')
+     or has_table_privilege('service_role','public.learner_access','REFERENCES')
+     or has_table_privilege('service_role','public.learner_access','TRIGGER')
+     or has_table_privilege('service_role','public.learner_access','MAINTAIN') then
+    raise exception 'service_role retains privileges beyond learner-access maintenance requirements';
+  end if;
+  if not has_table_privilege('service_role','public.learner_access','SELECT')
+     or not has_table_privilege('service_role','public.learner_access','INSERT')
+     or not has_table_privilege('service_role','public.learner_access','UPDATE') then
+    raise exception 'service_role is missing required learner-access maintenance privileges';
+  end if;
+end
+$service_role_grants$;
+
 do $schema_guard$
 begin
   if has_schema_privilege('anon','k53_learner_access_private','USAGE')
