@@ -1,6 +1,43 @@
 -- Run after learner_email_access migration in disposable CI Postgres.
 \set ON_ERROR_STOP on
 
+-- Confirm the migration replaced the actual production policy names and
+-- installed restrictive guards on all learner-owned tables.
+do $
+declare
+  old_policy_count integer;
+  guard_count integer;
+begin
+  select count(*) into old_policy_count
+  from pg_catalog.pg_policies
+  where schemaname = 'public'
+    and tablename in ('profiles','question_attempts','test_attempts')
+    and policyname in (
+      'profiles_select_own','profiles_insert_own','profiles_update_own',
+      'question_attempts_select_own','question_attempts_insert_own',
+      'test_attempts_select_own','test_attempts_insert_own'
+    );
+
+  if old_policy_count <> 0 then
+    raise exception 'legacy production RLS policies remain after migration';
+  end if;
+
+  select count(*) into guard_count
+  from pg_catalog.pg_policies
+  where schemaname = 'public'
+    and tablename in ('profiles','question_attempts','test_attempts')
+    and policyname in (
+      'profiles_learner_access_guard',
+      'question_attempts_learner_access_guard',
+      'test_attempts_learner_access_guard'
+    )
+    and permissive = 'RESTRICTIVE';
+
+  if guard_count <> 3 then
+    raise exception 'expected three restrictive learner-access guards, found %', guard_count;
+  end if;
+end $;
+
 -- A verified fixed owner can manage learner authorisations using its JWT.
 set role authenticated;
 select set_config('request.jwt.claim.sub','11111111-1111-4111-8111-111111111111',false);
