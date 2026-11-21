@@ -38,7 +38,7 @@ pg_restore --file=/dev/null k53-production-before-learner-access.dump
 
 5. Confirm the archive listing contains table definitions/data for `auth.users`, `public.profiles`, `public.question_attempts`, and `public.test_attempts`. Confirm the dump command exited successfully and the file is non-empty. Keep the archive encrypted and outside the repository. Never upload the archive here; it contains personal and authentication data.
 
-If `pg_dump` reports permission errors or the archive does not contain the required Auth/app tables, stop. Do not accept a partial backup. Resolve the backup method first. The current read-only permission checks indicate that the production `postgres` role has BYPASSRLS and SELECT on the Auth tables, but the actual export still must be run and verified locally.
+If `pg_dump` reports permission errors or the archive does not contain the required Auth identity and app tables, stop. Do not accept a partial backup. Resolve the backup method first. The current read-only permission checks indicate that the production `postgres` role has BYPASSRLS and SELECT on the Auth tables, but the actual export still must be run and verified locally.
 
 ## Gate 2 — existing account access decision
 
