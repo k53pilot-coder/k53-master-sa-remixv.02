@@ -85,6 +85,42 @@ select * from public.admin_add_learner_access('admin-managed@example.com');
 select * from public.admin_list_learner_access('admin-managed@example.com');
 reset role;
 
+-- The owner is an administrator, not automatically a learner. Even with a
+-- linked Google identity, the owner needs a separate learner allowlist row.
+update auth.users
+   set raw_app_meta_data = '{"provider":"email","providers":["email","google"]}'
+ where id = '11111111-1111-4111-8111-111111111111';
+set role authenticated;
+select set_config('request.jwt.claim.sub','11111111-1111-4111-8111-111111111111',false);
+select set_config('request.jwt.claims','{"sub":"11111111-1111-4111-8111-111111111111","email":"aiamplifysa@gmail.com","app_metadata":{"provider":"email","providers":["email","google"]}}',false);
+do $owner_not_learner$
+declare
+  claim_status text;
+begin
+  select access_status into claim_status from public.claim_learner_access();
+  if claim_status <> 'pending' then
+    raise exception 'admin owner must not receive learner access automatically, got %', claim_status;
+  end if;
+end
+$owner_not_learner$;
+reset role;
+
+-- A Google-linked account with an unverified email must fail closed.
+set role authenticated;
+select set_config('request.jwt.claim.sub','55555555-5555-4555-8555-555555555555',false);
+select set_config('request.jwt.claims','{"sub":"55555555-5555-4555-8555-555555555555","email":"unverified@example.com","app_metadata":{"provider":"google","providers":["google"]}}',false);
+do $unverified_email$
+declare
+  claim_status text;
+begin
+  select access_status into claim_status from public.claim_learner_access();
+  if claim_status <> 'unverified' then
+    raise exception 'unverified email should not claim learner access, got %', claim_status;
+  end if;
+end
+$unverified_email$;
+reset role;
+
 set role authenticated;
 select set_config('request.jwt.claim.sub','22222222-2222-4222-8222-222222222222',false);
 select set_config('request.jwt.claims','{"sub":"22222222-2222-4222-8222-222222222222","email":"learner@example.com","app_metadata":{"provider":"google","providers":["google"]}}',false);
