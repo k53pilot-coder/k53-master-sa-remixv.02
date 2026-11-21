@@ -29,7 +29,7 @@ create index if not exists learner_access_status_created_at_idx
 
 alter table public.learner_access enable row level security;
 
-revoke all on table public.learner_access from anon, authenticated;
+revoke all on table public.learner_access from anon, authenticated, service_role;
 grant select on table public.learner_access to authenticated;
 grant select, insert, update on table public.learner_access to service_role;
 
