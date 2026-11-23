@@ -34,6 +34,24 @@ describe("verifyAdminAccess", () => {
     expect(result).toEqual({ role: "owner", userId: "owner-user-id" });
   });
 
+  it("does not grant owner access when the owner email is unconfirmed", async () => {
+    const fetcher = vi.fn<typeof fetch>().mockResolvedValue(
+      new Response(JSON.stringify({
+        id: "owner-user-id",
+        email: ADMIN_OWNER_EMAIL,
+        email_confirmed_at: null,
+        app_metadata: { provider: "email", providers: ["email", "google"] },
+      }), { status: 200 }),
+    );
+
+    await expect(verifyAdminAccess({
+      supabaseUrl: "https://project.supabase.co",
+      publishableKey: "sb_publishable_example",
+      accessToken: "signed-user-access-token",
+      fetcher,
+    })).resolves.toEqual({ role: null, userId: "owner-user-id" });
+  });
+
   it("does not grant owner access to another account", async () => {
     const fetcher = vi.fn<typeof fetch>().mockResolvedValue(
       new Response(JSON.stringify({

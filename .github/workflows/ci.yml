@@ -20,18 +20,98 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: oven-sh/setup-bun@v2
         with:
-          node-version: 22
-      - name: Install dependencies
-        run: npm install --no-audit --no-fund
+          bun-version: 1.4.5
+      - name: Install locked dependencies
+        run: bun install --frozen-lockfile
       - name: Type check
-        run: npm run typecheck
+        run: bun run typecheck
       - name: Unit tests
-        run: npm test
+        run: bun run test
       - name: Lint
-        run: npm run lint
+        run: bun run lint
       - name: Build
-        run: npm run build
+        run: bun run build
       - name: Audit question bank structure
-        run: npm run audit:questions
+        run: bun run audit:questions
+
+  learner-access-database:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:17.11
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install PostgreSQL client
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes postgresql-client
+      - name: Create disposable Supabase-like schema
+        env:
+          PGPASSWORD: postgres
+        run: psql -h 127.0.0.1 -U postgres -d postgres -v ON_ERROR_STOP=1 -f supabase/tests/learner-access-bootstrap.sql
+      - name: Apply learner access migration
+        env:
+          PGPASSWORD: postgres
+        run: psql -h 127.0.0.1 -U postgres -d postgres -v ON_ERROR_STOP=1 -f supabase/migrations/20261123083317_learner_email_access.sql
+      - name: Verify learner RLS and account binding
+        env:
+          PGPASSWORD: postgres
+        run: psql -h 127.0.0.1 -U postgres -d postgres -v ON_ERROR_STOP=1 -f supabase/tests/learner-access-regression.sql
+
+  learner-access-supabase-integration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Supabase CLI
+        uses: supabase/setup-cli@v1
+        with:
+          version: 3.2.0
+      - name: Verify Supabase CLI version
+        run: supabase --version
+      - name: Build isolated local migration workspace
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/k53-supabase/supabase/migrations
+          cp supabase/config.toml /tmp/k53-supabase/supabase/config.toml
+          cp supabase/tests/learner-access-local-setup.sql /tmp/k53-supabase/supabase/migrations/20261119165900_k53_test_base_schema.sql
+          cp supabase/migrations/20261123083317_learner_email_access.sql /tmp/k53-supabase/supabase/migrations/
+      - name: Start disposable local Supabase Auth and Data API
+        working-directory: /tmp/k53-supabase
+        run: supabase start -x realtime,storage-api,imgproxy,studio,edge-runtime,logflare,vector,supavisor,postgres-meta,mailpit
+      - name: Export local Supabase connection details
+        working-directory: /tmp/k53-supabase
+        shell: bash
+        run: |
+          set -a
+          eval "$(supabase status -o env)"
+          set +a
+          {
+            echo "API_URL=$API_URL"
+            echo "DB_URL=$DB_URL"
+            echo "ANON_KEY=$ANON_KEY"
+            echo "SERVICE_ROLE_KEY=$SERVICE_ROLE_KEY"
+          } >> "$GITHUB_ENV"
+      - name: Test GoTrue-issued JWTs, admin RPCs and RLS through Data API
+        run: node scripts/learner-access-supabase-integration.mjs
+      - name: Stop disposable Supabase stack
+        if: always()
+        run: |
+          if [ -d /tmp/k53-supabase ]; then
+            cd /tmp/k53-supabase
+            supabase stop --no-backup || true
+          fi

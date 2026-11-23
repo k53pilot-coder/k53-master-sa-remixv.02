@@ -201,7 +201,7 @@ describe("StudyProvider account isolation", () => {
     consoleError.mockRestore();
   });
 
-  it("moves guest progress into the signed-in account and preserves its vehicle preference", async () => {
+  it("preserves guest progress separately when a user signs in", async () => {
     const guestProgress = {
       attempts: [
         {
@@ -268,15 +268,12 @@ describe("StudyProvider account isolation", () => {
     );
 
     await waitFor(() => expect(screen.getByText("account-a")).toBeTruthy());
-    await waitFor(() => expect(entries.has("guest")).toBe(false));
-    expect(entries.get("user:account-a")).toMatchObject({
-      attempts: expect.arrayContaining([
-        expect.objectContaining({ question_id: "guest-question" }),
-        expect.objectContaining({ question_id: "account-question" }),
-      ]),
-      learned: [0, 2, 1],
+    await waitFor(() => expect(entries.get("user:account-a")).toMatchObject({
+      attempts: [expect.objectContaining({ question_id: "account-question" })],
+      learned: [1],
       vehicle: "motorcycle",
-    });
+    }));
+    expect(entries.get("guest")).toEqual(guestProgress);
   });
 
   it("restores a saved vehicle preference from the account profile", async () => {

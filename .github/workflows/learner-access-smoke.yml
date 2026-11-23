@@ -20,34 +20,31 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: oven-sh/setup-bun@v2
         with:
-          node-version: 22
-      - name: Install application dependencies
-        run: npm install --no-audit --no-fund
+          bun-version: 1.4.5
+      - name: Install locked application dependencies
+        run: bun install --frozen-lockfile
       - name: Build the production Worker
-        run: npm run build
+        run: bun run build
       - name: Install Playwright test runner
-        run: npm install --no-save --package-lock=false @playwright/test@1.58.2
+        run: bun add --no-save --ignore-scripts @playwright/test@1.58.2
       - name: Install Chromium
-        run: npx playwright install chromium
+        run: bunx playwright install chromium
       - name: Start the built Cloudflare Worker
         run: |
-          npx wrangler dev --config .output/server/wrangler.json --ip 127.0.0.1 --port 4173 --local > /tmp/k53-worker.log 2>&1 &
+          npx --yes wrangler@4.166.0 dev --config .output/server/wrangler.json --ip 127.0.0.1 --port 4173 --local > /tmp/k53-worker.log 2>&1 &
           echo $! > /tmp/k53-worker.pid
-          for attempt in $(seq 1 60); do
-            if curl --fail --silent http://127.0.0.1:4173/ > /dev/null; then
-              exit 0
-            fi
-            sleep 2
-          done
-          cat /tmp/k53-worker.log
-          exit 1
+          sleep 10
+          if ! kill -0 "$(cat /tmp/k53-worker.pid)" 2>/dev/null; then
+            cat /tmp/k53-worker.log
+            exit 1
+          fi
         env:
           SUPABASE_URL: https://qfolceulguweezxjvvjt.supabase.co
           SUPABASE_PUBLISHABLE_KEY: sb_publishable_vY4q2CdQ6VyBX52KSMZ93Q_2H-K6dkq
       - name: Test the built application in Chromium
-        run: npx playwright test e2e/production-smoke.spec.mjs --reporter=line
+        run: bunx playwright test e2e/production-smoke.spec.mjs --reporter=line
         env:
           K53_BASE_URL: http://127.0.0.1:4173
       - name: Upload Playwright results on failure

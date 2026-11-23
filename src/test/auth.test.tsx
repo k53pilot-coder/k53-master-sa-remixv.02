@@ -21,11 +21,11 @@ describe("Google-only account sign-in", () => {
   it("always sends production builds on the main domain to the canonical K53 auth route", () => {
     expect(getOAuthRedirectTo(true,"k53.aiamplifysa.com","https://k53.aiamplifysa.com")).toBe("https://k53.aiamplifysa.com/auth");
   });
-  it("does not send a production build opened on localhost back to localhost", () => {
-    expect(getOAuthRedirectTo(true,"localhost","http://localhost:3000")).toBe("https://k53.aiamplifysa.com/auth");
+  it("keeps a production build opened on localhost on the local callback for isolated testing", () => {
+    expect(getOAuthRedirectTo(true,"localhost","http://localhost:3000")).toBe("http://localhost:3000/auth");
   });
   it("does not send a production build opened on an unrelated hostname back there", () => {
-    expect(getOAuthRedirectTo(true,"localhost","http://localhost:3000")).toBe("https://k53.aiamplifysa.com/auth");
+    expect(getOAuthRedirectTo(true,"preview.example.com","https://preview.example.com")).toBe("https://k53.aiamplifysa.com/auth");
   });
   it("preserves the hostname for Cloudflare preview deployments", () => {
     expect(getOAuthRedirectTo(true,"branch-k53-master-sa-remixv-02.aiamplifysa.workers.dev","https://branch-k53-master-sa-remixv-02.aiamplifysa.workers.dev")).toBe("https://branch-k53-master-sa-remixv-02.aiamplifysa.workers.dev/auth");

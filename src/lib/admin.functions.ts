@@ -4,13 +4,19 @@ import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { ADMIN_OWNER_EMAIL, getAdminRole } from "@/lib/admin-role";
 import { verifyAdminAccess } from "@/lib/admin-verification";
+import { getAdminVerificationSupabaseUrl } from "@/lib/admin-verification-url";
 
 export const requireAdmin = createMiddleware({ type: "function" })
   .middleware([requireSupabaseAuth])
   .server(async ({ context, next }) => {
-    // requireSupabaseAuth has already verified this JWT with Supabase.
-    // Use its trusted claims directly; another Auth API request is unnecessary.
-    const role = getAdminRole(context.claims);
+    // JWT validation establishes the subject; fetch the authoritative Auth user
+    // because email confirmation is not guaranteed to be present in JWT claims.
+    const { data, error } = await context.supabase.auth.getUser(context.accessToken);
+    if (error || !data.user || data.user.id !== context.userId) {
+      throw new Error("Forbidden: Admin access is required");
+    }
+
+    const role = getAdminRole(data.user);
     if (!role) throw new Error("Forbidden: Admin access is required");
 
     return next({ context: { adminRole: role } });
@@ -25,18 +31,14 @@ const adminAccessSchema = z
   })
   .strict();
 
-const K53_SUPABASE_URL = "https://qfolceulguweezxjvvjt.supabase.co";
-
-// Use the same public project key as the browser client and pin verification to
-// this application's canonical Supabase project. This avoids a split-brain
-// configuration where the browser signs in to one project while the Worker
-// verifies the same JWT against a different SUPABASE_URL or publishable key.
+// Production verification remains pinned to K53's canonical project. The only
+// allowed override is the exact loopback URL used by the disposable local test.
 export const getAdminAccess = createServerFn({ method: "POST" })
   .validator((input: unknown) => adminAccessSchema.parse(input))
   .handler(async ({ data }) => {
     try {
       const result = await verifyAdminAccess({
-        supabaseUrl: K53_SUPABASE_URL,
+        supabaseUrl: getAdminVerificationSupabaseUrl(process.env["SUPABASE_URL"]),
         publishableKey: data.publishableKey,
         accessToken: data.accessToken,
       });
@@ -45,7 +47,7 @@ export const getAdminAccess = createServerFn({ method: "POST" })
       const status =
         error && typeof error === "object" && "status" in error &&
         typeof error.status === "number" ? error.status : undefined;
-      const message = error instanceof Error ? error.message : "Unknown verification error";
+      const message = error instanceof Error ? error.message : "Unknown admin verification error";
       console.error("Admin session verification failed", { status, message });
       throw error;
     }
