@@ -35,11 +35,22 @@ jobs:
         run: |
           npx --yes wrangler@4.166.0 dev --config .output/server/wrangler.json --ip 127.0.0.1 --port 4173 --local > /tmp/k53-worker.log 2>&1 &
           echo $! > /tmp/k53-worker.pid
-          sleep 10
-          if ! kill -0 "$(cat /tmp/k53-worker.pid)" 2>/dev/null; then
-            cat /tmp/k53-worker.log
-            exit 1
-          fi
+          worker_pid="$(cat /tmp/k53-worker.pid)"
+          for attempt in $(seq 1 30); do
+            if curl --silent --show-error --fail --max-time 2 http://127.0.0.1:4173/auth >/dev/null; then
+              echo "Built Worker is accepting HTTP requests."
+              exit 0
+            fi
+            if ! kill -0 "$worker_pid" 2>/dev/null; then
+              echo "Built Worker process exited before becoming ready."
+              cat /tmp/k53-worker.log
+              exit 1
+            fi
+            sleep 2
+          done
+          echo "Built Worker did not become ready within 60 seconds."
+          cat /tmp/k53-worker.log
+          exit 1
         env:
           SUPABASE_URL: https://qfolceulguweezxjvvjt.supabase.co
           SUPABASE_PUBLISHABLE_KEY: sb_publishable_vY4q2CdQ6VyBX52KSMZ93Q_2H-K6dkq
