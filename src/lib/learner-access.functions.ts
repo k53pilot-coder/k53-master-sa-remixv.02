@@ -29,8 +29,18 @@ export const addLearnerAccess = createServerFn({ method: "POST" })
       p_email: data.email.trim().toLowerCase(),
     });
     if (error) {
-      console.error("Could not authorise learner email", error);
-      throw new Error("Could not add learner authorisation");
+      // Keep the database's actual failure code and message available to the
+      // owner-facing admin form. The generic UI message previously hid whether
+      // this was an authorization, schema-cache, validation, or database error.
+      console.error("Could not authorise learner email", {
+        code: error.code,
+        message: error.message,
+        details: error.details,
+        hint: error.hint,
+      });
+      throw new Error(
+        `Could not authorise learner email [${error.code || "unknown"}]: ${error.message}`,
+      );
     }
     return result?.[0] ?? null;
   });
