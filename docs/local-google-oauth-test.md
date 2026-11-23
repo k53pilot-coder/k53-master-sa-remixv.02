@@ -46,7 +46,7 @@ Use the same disposable migration workspace approach as CI so the K53 base schem
 mkdir -p /tmp/k53-supabase/supabase/migrations
 cp supabase/config.toml /tmp/k53-supabase/supabase/config.toml
 cp supabase/tests/learner-access-local-setup.sql /tmp/k53-supabase/supabase/migrations/20261119165900_k53_test_base_schema.sql
-cp supabase/migrations/20261119170000_learner_email_access.sql /tmp/k53-supabase/supabase/migrations/
+cp supabase/migrations/20261123083317_learner_email_access.sql /tmp/k53-supabase/supabase/migrations/
 cp .env /tmp/k53-supabase/.env
 
 # Give this disposable local stack a project ID distinct from production.
