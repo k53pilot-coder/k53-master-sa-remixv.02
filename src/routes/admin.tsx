@@ -440,7 +440,8 @@ function LearnerAccessSection() {
       result = await add({ data: { email } });
     } catch (error) {
       console.error("Could not add learner authorisation", error);
-      setMessage(tr("Could not authorise this email. Check the address and try again."));
+      const detail = error instanceof Error ? error.message : "Unknown server error";
+      setMessage(detail);
       setBusy(false);
       return;
     }
