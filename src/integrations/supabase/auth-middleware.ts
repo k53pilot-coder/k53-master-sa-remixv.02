@@ -2,6 +2,7 @@
 import { createMiddleware } from '@tanstack/react-start'
 import { getRequest } from '@tanstack/react-start/server'
 import { createClient } from '@supabase/supabase-js'
+import { supabase } from './client'
 import type { Database } from './types'
 
 
@@ -31,8 +32,29 @@ function createSupabaseFetch(supabaseKey: string): typeof fetch {
   };
 }
 
-export const requireSupabaseAuth = createMiddleware({ type: 'function' }).server(
-  async ({ next }) => {
+export const requireSupabaseAuth = createMiddleware({ type: 'function' })
+  .client(async ({ next }) => {
+    // TanStack server-function requests do not inherit the Supabase session
+    // from local storage automatically. Attach the current JWT explicitly.
+    // The server still validates the JWT with Supabase Auth before trusting it.
+    const { data, error } = await supabase.auth.getSession();
+    if (error) {
+      console.error('[Supabase] Could not read the current session', error);
+      throw new Error('Unauthorized: Could not read the current session');
+    }
+
+    const accessToken = data.session?.access_token;
+    if (!accessToken) {
+      throw new Error('Unauthorized: Sign in again');
+    }
+
+    return next({
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  })
+  .server(async ({ next }) => {
     
     const SUPABASE_URL = process.env['SUPABASE_URL'];
     const SUPABASE_PUBLISHABLE_KEY = process.env['SUPABASE_PUBLISHABLE_KEY'];
