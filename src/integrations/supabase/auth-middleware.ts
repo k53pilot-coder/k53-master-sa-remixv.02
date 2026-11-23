@@ -113,20 +113,29 @@ export const requireSupabaseAuth = createMiddleware({ type: 'function' })
       }
     );
 
-    const { data, error } = await supabase.auth.getClaims(token);
-    if (error || !data?.claims) {
-      throw new Error('Unauthorized: Invalid token');
+    // Validate the access token against Supabase Auth itself. The admin
+    // verification endpoint already uses /auth/v1/user successfully; unlike
+    // getClaims(), getUser() does not depend on local JWKS verification of
+    // this project's JWT signing configuration.
+    const { data, error } = await supabase.auth.getUser(token);
+    if (error || !data?.user) {
+      console.error('[Supabase] Access token rejected by Auth', {
+        status: error?.status,
+        code: error?.code,
+        message: error?.message,
+      });
+      throw new Error('Unauthorized: Supabase Auth rejected the session. Sign in again.');
     }
 
-    if (!data.claims.sub) {
+    if (!data.user.id) {
       throw new Error('Unauthorized: No user ID found in token');
     }
 
     return next({
       context: {
         supabase,
-        userId: data.claims.sub,
-        claims: data.claims,
+        userId: data.user.id,
+        claims: data.user,
         accessToken: token,
       },
     });
