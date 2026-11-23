@@ -65,7 +65,7 @@ jobs:
       - name: Apply learner access migration
         env:
           PGPASSWORD: postgres
-        run: psql -h 127.0.0.1 -U postgres -d postgres -v ON_ERROR_STOP=1 -f supabase/migrations/20261119170000_learner_email_access.sql
+        run: psql -h 127.0.0.1 -U postgres -d postgres -v ON_ERROR_STOP=1 -f supabase/migrations/20261123083317_learner_email_access.sql
       - name: Verify learner RLS and account binding
         env:
           PGPASSWORD: postgres
@@ -89,7 +89,7 @@ jobs:
           mkdir -p /tmp/k53-supabase/supabase/migrations
           cp supabase/config.toml /tmp/k53-supabase/supabase/config.toml
           cp supabase/tests/learner-access-local-setup.sql /tmp/k53-supabase/supabase/migrations/20261119165900_k53_test_base_schema.sql
-          cp supabase/migrations/20261119170000_learner_email_access.sql /tmp/k53-supabase/supabase/migrations/
+          cp supabase/migrations/20261123083317_learner_email_access.sql /tmp/k53-supabase/supabase/migrations/
       - name: Start disposable local Supabase Auth and Data API
         working-directory: /tmp/k53-supabase
         run: supabase start -x realtime,storage-api,imgproxy,studio,edge-runtime,logflare,vector,supavisor,postgres-meta,mailpit
