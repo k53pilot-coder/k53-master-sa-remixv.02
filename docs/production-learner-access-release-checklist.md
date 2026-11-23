@@ -1,14 +1,14 @@
-# K53 production learner-access release gate
+# K53 production learner-access release record
 
-This checklist prepares the owner-controlled learner approval workflow. It does not apply the migration, change Supabase Auth settings, merge the PR, or deploy the Worker.
+Updated 2026-11-23 after production migration and release verification. The production backup requirement was explicitly waived by the owner; no backup was created. The release is being prepared for publication.
 
-## Production facts checked read-only on 2026-11-21
+## Production state verified on 2026-11-23
 
 - Supabase project: `qfolceulguweezxjvvjt`, PostgreSQL 17.11, Free plan.
 - Existing production data: 3 Auth users, 3 profiles, 0 question attempts, 0 test attempts.
 - All 3 current Auth users are confirmed and Google-linked: 1 owner account and 2 non-owner accounts.
-- `learner_access` and its four RPCs do not exist yet.
-- Existing learner tables have RLS enabled and owner-scoped policies. Their authenticated table grants include privileges not required by the app; the feature migration narrows these.
+- Production migration `20261123083317_learner_email_access` has been applied successfully. `public.learner_access` and all four RPCs exist. The allowlist contains zero rows.
+- Existing learner tables have RLS enabled. The migration replaced the known permissive owner policies with owner-scoped policies and added restrictive active-learner guards. It reduced authenticated grants to profiles SELECT/INSERT/UPDATE, question_attempts SELECT/INSERT, test_attempts SELECT/INSERT, and learner_access SELECT only; anon has no direct grants on these tables.
 - Production `postgres` has `BYPASSRLS`, usage on `auth`, and SELECT on all current Auth tables and the app's learner tables.
 - `storage.objects` and PostgreSQL large objects currently contain 0 rows.
 - The existing Auth user trigger calls `public.create_learner_profile()`; the feature migration does not replace or modify that trigger.
@@ -23,52 +23,32 @@ This checklist prepares the owner-controlled learner approval workflow. It does 
 - The owner account is administrative by default and is not automatically a learner. Do not add it to learner access unless the owner separately chooses to do so.
 - No initial learner email list or pre-deployment seed is required. The allowlist starts empty; the owner approves learners after the migration is installed and the application is deployed.
 
-## Gate 1 — complete production database backup
+## Backup decision
 
-The Supabase Free plan does not include automatic daily backups. Do not use `supabase db dump` as the sole rollback backup: the CLI deliberately excludes managed schemas such as `auth` and `storage`.
+The owner explicitly waived the backup requirement on 2026-11-23. No production backup was created or verified. Supabase Free has no downloadable managed daily backup, and the attempted direct connection from the owner's IPv4-only network could not reach the database's IPv6 direct endpoint. This release therefore proceeds with reduced recovery protection.
 
-1. In Supabase Dashboard, open project **Connect** and copy the **Session pooler** connection string. Use the `postgres.<project-ref>` database user and remove the password from the URL so the CLI can prompt for it. Do not paste the password into chat, Git, or a command saved in shell history.
-2. Install/use PostgreSQL client tools version 17.11 or later.
-3. From a private local directory with adequate free disk space, run:
+## Production migration — completed
 
-```sh
-pg_dump --version
-pg_dump --format=custom --password --file=k53-production-before-learner-access.dump --dbname='postgresql://postgres.qfolceulguweezxjvvjt@<SESSION-POOLER-HOST>:5432/postgres'
-```
+- The reviewed migration was applied once through the Supabase migration tool; no `db push` was used.
+- Returned production migration version: `20261123083317`.
+- The committed migration file and its CI/local-test references have been renamed to `supabase/migrations/20261123083317_learner_email_access.sql` to match production.
+- The five pre-existing migration versions remain unchanged.
+- Post-migration row counts: `auth.users` 3, `auth.identities` 4, `public.profiles` 3, `public.question_attempts` 0, `public.test_attempts` 0, `public.learner_access` 0.
+- The existing `auth.users` trigger `create_learner_profile` is preserved.
+- Production contains `claim_learner_access`, `admin_add_learner_access`, `admin_list_learner_access`, and `admin_set_learner_access_status`.
+- RLS policies, table grants, private schema access and helper function access were checked. The allowlist remains empty.
+- Transactional smoke checks: owner JWT may call admin listing and receives learner status `pending`; ordinary Google account is denied admin RPC access and receives learner status `pending`. These test transactions were rolled back.
+- The security advisor additionally reports four SECURITY DEFINER RPC warnings. These functions require authenticated execution for the app; their bodies check identity/status, and the ordinary-account denial was tested. Leaked-password protection remains a separate Auth warning.
 
-Replace only `<SESSION-POOLER-HOST>` with the host shown in the Dashboard connection string. The command prompts for the database password.
+## Publication sequence
 
-4. Verify the archive can be listed and fully read without restoring it:
+1. Confirm CI and built-Worker browser smoke succeed on the exact updated PR head after the migration filename alignment.
+2. Mark PR #19 ready for review and merge it to `main`. Cloudflare's automatic Worker build/deploy from `main` will publish the app.
+3. Verify production owner admin access and denied-by-default learner access.
+4. The owner approves learner emails individually through the admin interface. The allowlist starts empty; existing Google-linked non-owner accounts are not grandfathered.
+5. Verify approved, unapproved, disabled and restored learner scenarios.
 
-```sh
-pg_restore --list k53-production-before-learner-access.dump
-pg_restore --file=/dev/null k53-production-before-learner-access.dump
-```
-
-5. Confirm the archive listing contains table definitions/data for `auth.users`, `auth.identities`, `public.profiles`, `public.question_attempts`, and `public.test_attempts`. Confirm the dump command exited successfully and the file is non-empty. Keep the archive encrypted and outside the repository. Never upload the archive; it contains personal and authentication data.
-
-If export permissions fail or required Auth/app tables are absent, stop. Do not accept a partial backup.
-
-## Gate 2 — apply migration
-
-1. Verify the complete backup.
-2. **Do not use `supabase db push --remote` for this release yet.** Production migration history contains five applied versions (`20261115134248`, `20261115134504`, `20261117090406`, `20261117090432`, `20261117090509`) whose migration files are absent from this repository. A normal CLI push can fail on this remote/local history mismatch. Do not create placeholder migrations or run `migration repair` blindly.
-3. Only after explicit production approval, apply the reviewed learner-access SQL once through the Supabase migration application tool. Capture the version it returns and make the committed migration filename match that version in a follow-up branch commit. Alternatively, reconcile the existing baseline/history as a separate reviewed task before using `db push`.
-4. Verify the new table, all four RPCs, RLS policies, table/function/schema grants, and the existing profile trigger.
-5. Confirm the allowlist is empty and no existing Auth/profile records were modified or deleted.
-
-## Gate 3 — publish and owner approval
-
-1. Confirm the migration and verification passed.
-2. Run the final branch CI and built-Worker browser smoke tests against the exact PR head.
-3. Merge PR #19 only after explicit approval. Cloudflare automatically builds/deploys the Worker from `main`; merging triggers production deployment.
-4. Verify the owner can sign in and reach the admin interface, while an unapproved Google account cannot access learning.
-5. Have the owner add the intended learner email addresses through the admin interface. Verify each approved learner can access learning.
-6. Verify an unapproved account remains denied, a disabled learner is denied (including an existing session), and restoring access works after refresh.
-7. Do not use or alter real learner accounts as test fixtures. Use designated test accounts.
-8. Confirm existing profile and attempt row counts remain intact.
-
-If any pre-deployment step fails, do not merge. A Worker rollback must not drop the allowlist or erase its account bindings. Database rollback must preserve learner records and audit history.
+Do not use `supabase db push --remote` until the five historical migrations absent from the original repo have been reconciled.
 
 ## Separate Supabase Auth hardening
 
