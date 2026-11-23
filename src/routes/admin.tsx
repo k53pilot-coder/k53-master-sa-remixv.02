@@ -435,19 +435,31 @@ function LearnerAccessSection() {
     event.preventDefault();
     setBusy(true);
     setMessage("");
+    let result: Awaited<ReturnType<typeof add>>;
     try {
-      const result = await add({ data: { email } });
-      const status = result?.result_status;
-      setMessage(status === "created"
-        ? tr("Email authorised.")
-        : status === "already_active"
-          ? tr("This email is already authorised.")
-          : tr("This email is disabled. Use Restore to reactivate it."));
-      setEmail("");
-      await reload();
+      result = await add({ data: { email } });
     } catch (error) {
       console.error("Could not add learner authorisation", error);
-      setMessage(tr("Could not add this email. Check the address and try again."));
+      setMessage(tr("Could not authorise this email. Check the address and try again."));
+      setBusy(false);
+      return;
+    }
+
+    const status = result?.result_status;
+    setMessage(status === "created"
+      ? tr("Email authorised.")
+      : status === "already_active"
+        ? tr("This email is already authorised.")
+        : status === "disabled_exists"
+          ? tr("This email is disabled. Use Restore to reactivate it.")
+          : tr("The authorisation request returned an unexpected result."));
+    setEmail("");
+
+    try {
+      await reload();
+    } catch (error) {
+      console.error("Email authorisation succeeded, but learner list refresh failed", error);
+      setMessage(tr("Email authorisation was saved, but the list could not refresh. Use Search to reload it."));
     } finally {
       setBusy(false);
     }
