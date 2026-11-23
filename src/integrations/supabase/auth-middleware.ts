@@ -4,9 +4,6 @@ import { createClient } from '@supabase/supabase-js'
 import { supabase } from './client'
 import type { Database } from './types'
 
-
-
-
 function isNewSupabaseApiKey(value: string): boolean {
   return value.startsWith('sb_publishable_') || value.startsWith('sb_secret_');
 }
@@ -33,28 +30,63 @@ function createSupabaseFetch(supabaseKey: string): typeof fetch {
 
 export const requireSupabaseAuth = createMiddleware({ type: 'function' })
   .client(async ({ next }) => {
-    // TanStack server-function requests do not inherit the Supabase session
-    // from local storage automatically. Attach the current JWT explicitly.
-    // The server still validates the JWT with Supabase Auth before trusting it.
-    const { data, error } = await supabase.auth.getSession();
-    if (error) {
-      console.error('[Supabase] Could not read the current session', error);
-      throw new Error('Unauthorized: Could not read the current session');
+    // Read the persisted browser session, verify it with Auth, and refresh it
+    // once when the access token has expired or has been revoked. Forward only
+    // the verified (or freshly refreshed and verified) access token.
+    const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+    if (sessionError || !sessionData.session) {
+      console.error('[Supabase] Could not read the current session', {
+        message: sessionError?.message,
+        code: sessionError?.code,
+      });
+      throw new Error('Unauthorized: No valid session. Sign in again.');
     }
 
-    const accessToken = data.session?.access_token;
-    if (!accessToken) {
-      throw new Error('Unauthorized: Sign in again');
+    let session = sessionData.session;
+    let { data: userData, error: userError } = await supabase.auth.getUser(session.access_token);
+
+    if (userError || !userData.user) {
+      console.warn('[Supabase] Current access token was rejected; attempting session refresh', {
+        status: userError?.status,
+        code: userError?.code,
+        message: userError?.message,
+      });
+
+      const { data: refreshed, error: refreshError } = await supabase.auth.refreshSession({
+        refresh_token: session.refresh_token,
+      });
+
+      if (refreshError || !refreshed.session) {
+        console.error('[Supabase] Session refresh failed', {
+          status: refreshError?.status,
+          code: refreshError?.code,
+          message: refreshError?.message,
+        });
+        throw new Error('Unauthorized: Session expired. Sign out and sign in again.');
+      }
+
+      session = refreshed.session;
+      const verified = await supabase.auth.getUser(session.access_token);
+      userData = verified.data;
+      userError = verified.error;
+
+      if (userError || !userData.user) {
+        console.error('[Supabase] Refreshed access token was rejected', {
+          status: userError?.status,
+          code: userError?.code,
+          message: userError?.message,
+        });
+        throw new Error('Unauthorized: Refreshed session was rejected. Sign in again.');
+      }
     }
 
     return next({
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${session.access_token}`,
       },
     });
   })
   .server(async ({ next, request }) => {
-    
     const SUPABASE_URL = process.env['SUPABASE_URL'];
     const SUPABASE_PUBLISHABLE_KEY = process.env['SUPABASE_PUBLISHABLE_KEY'];
 
@@ -67,60 +99,35 @@ export const requireSupabaseAuth = createMiddleware({ type: 'function' })
       console.error(`[Supabase] ${message}`);
       throw new Error(message);
     }
-    
+
     const authHeader = request.headers.get('authorization');
+    if (!authHeader) throw new Error('Unauthorized: No authorization header provided');
+    if (!authHeader.startsWith('Bearer ')) throw new Error('Unauthorized: Only Bearer tokens are supported');
 
-    if (!authHeader) {
-      throw new Error('Unauthorized: No authorization header provided');
-    }
+    const token = authHeader.slice('Bearer '.length).trim();
+    if (!token) throw new Error('Unauthorized: No token provided');
+    if (token.split('.').length !== 3) throw new Error('Unauthorized: Invalid token');
 
-    if (!authHeader.startsWith('Bearer ')) {
-      throw new Error('Unauthorized: Only Bearer tokens are supported');
-    }
+    const supabase = createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
+      global: {
+        fetch: createSupabaseFetch(SUPABASE_PUBLISHABLE_KEY),
+        headers: { Authorization: `Bearer ${token}` },
+      },
+      auth: {
+        storage: undefined,
+        persistSession: false,
+        autoRefreshToken: false,
+      },
+    });
 
-    const token = authHeader.replace('Bearer ', '');
-    if (!token) {
-      throw new Error('Unauthorized: No token provided');
-    }
-
-    if (token.split('.').length !== 3) {
-      throw new Error('Unauthorized: Invalid token');
-    }
-
-    const supabase = createClient<Database>(
-      SUPABASE_URL!,
-      SUPABASE_PUBLISHABLE_KEY!,
-      {
-        global: {
-          fetch: createSupabaseFetch(SUPABASE_PUBLISHABLE_KEY!),
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-        auth: {
-          storage: undefined,
-          persistSession: false,
-          autoRefreshToken: false,
-        },
-      }
-    );
-
-    // Validate the access token against Supabase Auth itself. The admin
-    // verification endpoint already uses /auth/v1/user successfully; unlike
-    // getClaims(), getUser() does not depend on local JWKS verification of
-    // this project's JWT signing configuration.
     const { data, error } = await supabase.auth.getUser(token);
-    if (error || !data?.user) {
+    if (error || !data?.user?.id) {
       console.error('[Supabase] Access token rejected by Auth', {
         status: error?.status,
         code: error?.code,
         message: error?.message,
       });
       throw new Error('Unauthorized: Supabase Auth rejected the session. Sign in again.');
-    }
-
-    if (!data.user.id) {
-      throw new Error('Unauthorized: No user ID found in token');
     }
 
     return next({
@@ -131,5 +138,4 @@ export const requireSupabaseAuth = createMiddleware({ type: 'function' })
         accessToken: token,
       },
     });
-  },
-);
+  });
